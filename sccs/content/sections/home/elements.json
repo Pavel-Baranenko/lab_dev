@@ -1,0 +1,54 @@
+{
+	"portrait": [
+		{
+			"id": "background",
+			"tagName": "DIV",
+			"classes": "background",
+			"style": {
+				"style": {
+					"position": "absolute",
+					"width": "100svw",
+					"height": "100svh",
+					"background-color": "#91b2f2"
+				},
+				"text": ""
+			}
+		}
+	],
+	"paysage": [
+		{
+			"id": "background",
+			"tagName": "DIV",
+			"attributes": [],
+			"classes": "background",
+			"style": {
+				"style": {
+					"position": "absolute",
+					"width": "100svw",
+					"height": "100svh",
+					"background-color": "rgb(145, 178, 242)"
+				},
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab_form_8275",
+			"tagName": "FORM",
+			"attributes": [],
+			"style": {
+				"style": {
+					"z-index": "1",
+					"position": "fixed",
+					"width": "11svw",
+					"height": "11svh",
+					"top": "11svh",
+					"background-color": "rgb(128, 128, 128)",
+					"left": "11svw"
+				},
+				"text": "",
+				"textArray": []
+			}
+		}
+	]
+}

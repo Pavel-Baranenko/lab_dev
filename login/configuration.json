@@ -1,0 +1,30 @@
+{
+	"sftp": {
+		"host": null,
+		"username": null,
+		"password": null,
+		"remoteDir": null,
+		"excludedFolders": null,
+		"exclude": null,
+		"port": null
+	},
+	"scripts": [],
+	"medias": [],
+	"authorizedAccess": [],
+	"collaborators": [
+		{
+			"collaborator_email": "alterseiver@gmail.com",
+			"rights": {
+				"preset": "administrator",
+				"custom": []
+			}
+		},
+		{
+			"collaborator_email": "alexander1image@gmail.com",
+			"rights": {
+				"preset": "administrator",
+				"custom": []
+			}
+		}
+	]
+}
