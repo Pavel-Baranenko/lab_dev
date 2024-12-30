@@ -848,7 +848,7 @@ function shortcutsSettings(u, parent) {
 
   const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
-  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, null, (e) => {
+  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, (e) => {
     activeOption = e
     socket.emit('userShortcuts', lab_local_storage_object('global'), callback => {
       applyShortcuts(callback.data)
@@ -942,20 +942,24 @@ function shortcutsSettings(u, parent) {
       default:
         break;
     }
+    const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
 
     const userLSG = lab_local_storage_object('global')
-    userLSG.bindedTo = lab_functionalities_select.selectedIndex
+    userLSG.bindedTo = findAssociatedIndex.fn
     userLSG.binding = keyInput.value
     userLSG.fn_name = activeOption
     socket.emit('bindShortcut', userLSG)
   })
 
   save.addEventListener('click', () => {
+    const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
+    console.log(findAssociatedIndex);
+
     const userLSG = lab_local_storage_object('global')
     if (keyInput.value) {
-      userLSG.bindedTo = lab_functionalities_select.selectedIndex
+      userLSG.bindedTo = findAssociatedIndex.fn
       userLSG.binding = keyInput.value
-      userLSG.fn_name = getKeyFromValue(functionalitiesList[activeOption])
+      userLSG.fn_name = activeOption
       socket.emit('bindShortcut', userLSG)
     } else {
       alertUser(u.lngData.input_cannot_be_empty)
@@ -1264,7 +1268,7 @@ function dash_parameters(u) {
       const voice = lab_design_system_d("span", "voice-command", line, u.lngData.vocal_command, null)
 
       if (checkMicrophoneStatus()) {
-        const voiceBtn = lab_design_system_d("button", "voice-activate", voice, u.lngData.activate, null, ["buttons", "action"])
+        const voiceBtn = lab_design_system_d("button", "voice-activate", line, u.lngData.activate, null, ["buttons", "action"])
         voiceBtn.addEventListener('click', () => {
           lab_vocal_control('on', u.lng)
           lab_local_storage_object_update('global', { speech: 'enabled' })
@@ -1272,7 +1276,7 @@ function dash_parameters(u) {
         })
       }
       else {
-        const voiceBtn = lab_design_system_d("button", "voice-activate", voice, u.lngData.disable, null, ["buttons", "grey"])
+        const voiceBtn = lab_design_system_d("button", "voice-activate", line, u.lngData.disable, null, ["buttons", "grey"])
         voiceBtn.addEventListener('click', () => {
           lab_vocal_control('off')
           lab_local_storage_object_update('global', { speech: 'disabled' })

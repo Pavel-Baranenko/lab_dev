@@ -8,7 +8,7 @@ function select(label, list, parent, value, func) {
   arrow.src = "https://laboranth.tech/D/R/IMG/arrow_drop_down.svg"
 
   Object.keys(list).forEach(e => {
-    const item = lab_design_system("div", `select-item-${e}-${value}`, listing, list[e], "select-item")
+    const item = lab_design_system("div", `select-item-${e}-${value}`, listing, list[e], null, ["select", "item"])
     item.addEventListener("click", () => {
       topSpan.innerHTML = list[e]
       func(e)
@@ -89,117 +89,121 @@ function shortcutsSettings(u, parent) {
 
   let activeOption = functionalitiesList.dash
 
-  const line = lab_design_system("div", "alt-label-line", parent, null, null, ["parameters", "line"])
+  const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
-  const shortcuts = select("shortcuts", functionalitiesList, line, activeOption, null, (e) => {
+  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, (e) => {
     activeOption = e
-    socket.emit("userShortcuts", lab_local_storage_object("global"), callback => {
+    socket.emit('userShortcuts', lab_local_storage_object('global'), callback => {
       applyShortcuts(callback.data)
     })
   })
 
-  const altLabel = lab_design_system("div", "alt-label", line, "CTRL | CMD +", null)
+  const altLabel = lab_design_system_d("div", "alt-label", line, "CTRL | CMD +", null)
 
-  const keyInput = input("", "", line)
+  const keyInput = input('', '', line)
 
-  keyInput.setAttribute("readonly", true)
+  keyInput.setAttribute('readonly', true)
 
-  keyInput.addEventListener("keydown", e => {
+  keyInput.addEventListener('keydown', e => {
     e.preventDefault()
     keyInput.value = e.key
   })
-  const buttons = lab_design_system("div", "alt-buttons-line", parent, null, null, ["parameters", "line"])
+  const buttons = lab_design_system_d("div", "alt-buttons-line", parent, null, null, ["parameters", "line"])
 
-  const save = lab_design_system("button", "save", buttons, u.lngData.save, null, ["buttons", "action"])
-  const reinitialize = lab_design_system("button", "reinitialize", buttons, u.lngData.reinitialize, null, ["buttons", "action"])
+  const save = lab_design_system_d("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
+  const reinitialize = lab_design_system_d("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'action'])
 
-  reinitialize.addEventListener("click", () => {
+  reinitialize.addEventListener('click', () => {
     switch (functionalitiesList[activeOption]) {
       case u.lngData.dash:
-        keyInput.value = "h"
+        keyInput.value = 'h'
         break;
       case u.lngData.save:
-        keyInput.value = "s"
+        keyInput.value = 's'
         break;
       case u.lngData.text_editor:
-        keyInput.value = "t"
+        keyInput.value = 't'
         break;
       case u.lngData.menu:
-        keyInput.value = "m"
+        keyInput.value = 'm'
         break;
       case u.lngData.manual:
-        keyInput.value = "i"
+        keyInput.value = 'i'
         break;
       case u.lngData.designer_mode:
-        keyInput.value = "d"
+        keyInput.value = 'd'
         break;
       case u.lngData.copy:
-        keyInput.value = "c"
+        keyInput.value = 'c'
         break;
       case u.lngData.paste:
-        keyInput.value = "v"
+        keyInput.value = 'v'
         break;
       case u.lngData.translate:
-        keyInput.value = "q"
+        keyInput.value = 'q'
         break;
       case u.lngData.rotate:
-        keyInput.value = "a"
+        keyInput.value = 'a'
         break;
       case u.lngData.foreground:
-        keyInput.value = "w"
+        keyInput.value = 'w'
         break;
       case u.lngData.background:
-        keyInput.value = "x"
+        keyInput.value = 'x'
         break;
       case u.lngData.merge:
-        keyInput.value = "y"
+        keyInput.value = 'y'
         break;
       case u.lngData.up:
-        keyInput.value = "+"
+        keyInput.value = '+'
         break;
       case u.lngData.down:
-        keyInput.value = "-"
+        keyInput.value = '-'
         break;
       case u.lngData.marker:
-        keyInput.value = "r"
+        keyInput.value = 'r'
         break;
       case u.lngData.peeling_mask:
-        keyInput.value = "u"
+        keyInput.value = 'u'
         break;
       case u.lngData.square:
-        keyInput.value = "k"
+        keyInput.value = 'k'
         break;
       case u.lngData.circle:
-        keyInput.value = "j"
+        keyInput.value = 'j'
         break;
       case u.lngData.triangle:
-        keyInput.value = "b"
+        keyInput.value = 'b'
         break;
       case u.lngData.free_form:
-        keyInput.value = "l"
+        keyInput.value = 'l'
         break;
       case u.lngData.feather:
-        keyInput.value = "f"
+        keyInput.value = 'f'
         break;
 
       default:
         break;
     }
+    const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
 
-    const userLSG = lab_local_storage_object("global")
-    userLSG.bindedTo = lab_functionalities_select.selectedIndex
+    const userLSG = lab_local_storage_object('global')
+    userLSG.bindedTo = findAssociatedIndex.fn
     userLSG.binding = keyInput.value
     userLSG.fn_name = activeOption
-    socket.emit("bindShortcut", userLSG)
+    socket.emit('bindShortcut', userLSG)
   })
 
-  save.addEventListener("click", () => {
-    const userLSG = lab_local_storage_object("global")
+  save.addEventListener('click', () => {
+    const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
+    console.log(findAssociatedIndex);
+
+    const userLSG = lab_local_storage_object('global')
     if (keyInput.value) {
-      userLSG.bindedTo = lab_functionalities_select.selectedIndex
+      userLSG.bindedTo = findAssociatedIndex.fn
       userLSG.binding = keyInput.value
-      userLSG.fn_name = getKeyFromValue(functionalitiesList[activeOption])
-      socket.emit("bindShortcut", userLSG)
+      userLSG.fn_name = activeOption
+      socket.emit('bindShortcut', userLSG)
     } else {
       alertUser(u.lngData.input_cannot_be_empty)
     }
@@ -208,70 +212,70 @@ function shortcutsSettings(u, parent) {
   function defaults() {
     switch (functionalitiesList[activeOption]) {
       case u.lngData.dash:
-        keyInput.setAttribute("placeholder", "h")
+        keyInput.setAttribute('placeholder', 'h')
         break;
       case u.lngData.save:
-        keyInput.setAttribute("placeholder", "s")
+        keyInput.setAttribute('placeholder', 's')
         break;
       case u.lngData.text_editor:
-        keyInput.setAttribute("placeholder", "t")
+        keyInput.setAttribute('placeholder', 't')
         break;
       case u.lngData.menu:
-        keyInput.setAttribute("placeholder", "m")
+        keyInput.setAttribute('placeholder', 'm')
         break;
       case u.lngData.manual:
-        keyInput.setAttribute("placeholder", "i")
+        keyInput.setAttribute('placeholder', 'i')
         break;
       case u.lngData.designer_mode:
-        keyInput.setAttribute("placeholder", "d")
+        keyInput.setAttribute('placeholder', 'd')
         break;
       case u.lngData.copy:
-        keyInput.setAttribute("placeholder", "c")
+        keyInput.setAttribute('placeholder', 'c')
         break;
       case u.lngData.paste:
-        keyInput.setAttribute("placeholder", "v")
+        keyInput.setAttribute('placeholder', 'v')
         break;
       case u.lngData.translate:
-        keyInput.setAttribute("placeholder", "q")
+        keyInput.setAttribute('placeholder', 'q')
         break;
       case u.lngData.rotate:
-        keyInput.setAttribute("placeholder", "a")
+        keyInput.setAttribute('placeholder', 'a')
         break;
       case u.lngData.first_plan:
-        keyInput.setAttribute("placeholder", "w")
+        keyInput.setAttribute('placeholder', 'w')
         break;
       case u.lngData.second_plan:
-        keyInput.setAttribute("placeholder", "x")
+        keyInput.setAttribute('placeholder', 'x')
         break;
       case u.lngData.merge:
-        keyInput.setAttribute("placeholder", "y")
+        keyInput.setAttribute('placeholder', 'y')
         break;
       case u.lngData.up:
-        keyInput.setAttribute("placeholder", "+")
+        keyInput.setAttribute('placeholder', '+')
         break;
       case u.lngData.down:
-        keyInput.setAttribute("placeholder", "-")
+        keyInput.setAttribute('placeholder', '-')
         break;
       case u.lngData.marker:
-        keyInput.setAttribute("placeholder", "r")
+        keyInput.setAttribute('placeholder', 'r')
         break;
       case u.lngData.peeling_mask:
-        keyInput.setAttribute("placeholder", "u")
+        keyInput.setAttribute('placeholder', 'u')
         break;
       case u.lngData.square:
-        keyInput.setAttribute("placeholder", "k")
+        keyInput.setAttribute('placeholder', 'k')
         break;
       case u.lngData.circle:
-        keyInput.setAttribute("placeholder", "j")
+        keyInput.setAttribute('placeholder', 'j')
         break;
       case u.lngData.triangle:
-        keyInput.setAttribute("placeholder", "b")
+        keyInput.setAttribute('placeholder', 'b')
         break;
       case u.lngData.free_form:
-        keyInput.setAttribute("placeholder", "l")
+        keyInput.setAttribute('placeholder', 'l')
         break;
       case u.lngData.feather:
-        keyInput.setAttribute("placeholder", "f")
+        keyInput.setAttribute('placeholder', 'f')
         break;
 
       default:
@@ -285,7 +289,7 @@ function shortcutsSettings(u, parent) {
       u.configs = configs
     }
 
-    if (lab_obj_has_key(u.configs, "shortcuts")) {
+    if (lab_obj_has_key(u.configs, 'shortcuts')) {
       const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
       if (findAssociatedIndex) {
         keyInput.value = findAssociatedIndex.binding
@@ -500,7 +504,6 @@ function dash_parameters(u) {
 
       const line = lab_design_system("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
       line.style.width = "100%"
-      line.style.alignItems = "center"
 
       const voice = lab_design_system("span", "voice-command", line, u.lngData.vocal_command, null)
 
