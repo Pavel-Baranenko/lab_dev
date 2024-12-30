@@ -91,7 +91,7 @@ function shortcutsSettings(u, parent) {
 
   const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
-  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, (e) => {
+  const shortcuts = select(functionalitiesList.dash, functionalitiesList, line, activeOption, (e) => {
     activeOption = e
     socket.emit('userShortcuts', lab_local_storage_object('global'), callback => {
       applyShortcuts(callback.data)
@@ -113,78 +113,34 @@ function shortcutsSettings(u, parent) {
   const save = lab_design_system_d("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
   const reinitialize = lab_design_system_d("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'action'])
 
-  reinitialize.addEventListener('click', () => {
-    switch (functionalitiesList[activeOption]) {
-      case u.lngData.dash:
-        keyInput.value = 'h'
-        break;
-      case u.lngData.save:
-        keyInput.value = 's'
-        break;
-      case u.lngData.text_editor:
-        keyInput.value = 't'
-        break;
-      case u.lngData.menu:
-        keyInput.value = 'm'
-        break;
-      case u.lngData.manual:
-        keyInput.value = 'i'
-        break;
-      case u.lngData.designer_mode:
-        keyInput.value = 'd'
-        break;
-      case u.lngData.copy:
-        keyInput.value = 'c'
-        break;
-      case u.lngData.paste:
-        keyInput.value = 'v'
-        break;
-      case u.lngData.translate:
-        keyInput.value = 'q'
-        break;
-      case u.lngData.rotate:
-        keyInput.value = 'a'
-        break;
-      case u.lngData.foreground:
-        keyInput.value = 'w'
-        break;
-      case u.lngData.background:
-        keyInput.value = 'x'
-        break;
-      case u.lngData.merge:
-        keyInput.value = 'y'
-        break;
-      case u.lngData.up:
-        keyInput.value = '+'
-        break;
-      case u.lngData.down:
-        keyInput.value = '-'
-        break;
-      case u.lngData.marker:
-        keyInput.value = 'r'
-        break;
-      case u.lngData.peeling_mask:
-        keyInput.value = 'u'
-        break;
-      case u.lngData.square:
-        keyInput.value = 'k'
-        break;
-      case u.lngData.circle:
-        keyInput.value = 'j'
-        break;
-      case u.lngData.triangle:
-        keyInput.value = 'b'
-        break;
-      case u.lngData.free_form:
-        keyInput.value = 'l'
-        break;
-      case u.lngData.feather:
-        keyInput.value = 'f'
-        break;
+  const defaultOpt = {
+    dash: 'h',
+    save: 's',
+    text_editor: 't',
+    menu: 'm',
+    manual: 'i',
+    designer_mode: 'd',
+    copy: 'c',
+    paste: 'v',
+    translate: 'q',
+    rotate: 'a',
+    foreground: 'w',
+    background: 'x',
+    merge: 'y',
+    up: '+',
+    down: '-',
+    marker: 'r',
+    peeling_mask: 'u',
+    square: 'k',
+    circle: 'j',
+    triangle: 'b',
+    free_form: 'l',
+    feather: 'f',
+  }
 
-      default:
-        break;
-    }
+  reinitialize.addEventListener('click', () => {
+    keyInput.value = defaultOpt[activeOption]
+
     const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
 
     const userLSG = lab_local_storage_object('global')

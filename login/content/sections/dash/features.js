@@ -848,7 +848,7 @@ function shortcutsSettings(u, parent) {
 
   const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
-  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, (e) => {
+  const shortcuts = select(functionalitiesList.dash, functionalitiesList, line, activeOption, (e) => {
     activeOption = e
     socket.emit('userShortcuts', lab_local_storage_object('global'), callback => {
       applyShortcuts(callback.data)
@@ -870,78 +870,34 @@ function shortcutsSettings(u, parent) {
   const save = lab_design_system_d("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
   const reinitialize = lab_design_system_d("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'action'])
 
-  reinitialize.addEventListener('click', () => {
-    switch (functionalitiesList[activeOption]) {
-      case u.lngData.dash:
-        keyInput.value = 'h'
-        break;
-      case u.lngData.save:
-        keyInput.value = 's'
-        break;
-      case u.lngData.text_editor:
-        keyInput.value = 't'
-        break;
-      case u.lngData.menu:
-        keyInput.value = 'm'
-        break;
-      case u.lngData.manual:
-        keyInput.value = 'i'
-        break;
-      case u.lngData.designer_mode:
-        keyInput.value = 'd'
-        break;
-      case u.lngData.copy:
-        keyInput.value = 'c'
-        break;
-      case u.lngData.paste:
-        keyInput.value = 'v'
-        break;
-      case u.lngData.translate:
-        keyInput.value = 'q'
-        break;
-      case u.lngData.rotate:
-        keyInput.value = 'a'
-        break;
-      case u.lngData.foreground:
-        keyInput.value = 'w'
-        break;
-      case u.lngData.background:
-        keyInput.value = 'x'
-        break;
-      case u.lngData.merge:
-        keyInput.value = 'y'
-        break;
-      case u.lngData.up:
-        keyInput.value = '+'
-        break;
-      case u.lngData.down:
-        keyInput.value = '-'
-        break;
-      case u.lngData.marker:
-        keyInput.value = 'r'
-        break;
-      case u.lngData.peeling_mask:
-        keyInput.value = 'u'
-        break;
-      case u.lngData.square:
-        keyInput.value = 'k'
-        break;
-      case u.lngData.circle:
-        keyInput.value = 'j'
-        break;
-      case u.lngData.triangle:
-        keyInput.value = 'b'
-        break;
-      case u.lngData.free_form:
-        keyInput.value = 'l'
-        break;
-      case u.lngData.feather:
-        keyInput.value = 'f'
-        break;
+  const defaultOpt = {
+    dash: 'h',
+    save: 's',
+    text_editor: 't',
+    menu: 'm',
+    manual: 'i',
+    designer_mode: 'd',
+    copy: 'c',
+    paste: 'v',
+    translate: 'q',
+    rotate: 'a',
+    foreground: 'w',
+    background: 'x',
+    merge: 'y',
+    up: '+',
+    down: '-',
+    marker: 'r',
+    peeling_mask: 'u',
+    square: 'k',
+    circle: 'j',
+    triangle: 'b',
+    free_form: 'l',
+    feather: 'f',
+  }
 
-      default:
-        break;
-    }
+  reinitialize.addEventListener('click', () => {
+    keyInput.value = defaultOpt[activeOption]
+
     const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
 
     const userLSG = lab_local_storage_object('global')
@@ -967,77 +923,8 @@ function shortcutsSettings(u, parent) {
   })
 
   function defaults() {
-    switch (functionalitiesList[activeOption]) {
-      case u.lngData.dash:
-        keyInput.setAttribute('placeholder', 'h')
-        break;
-      case u.lngData.save:
-        keyInput.setAttribute('placeholder', 's')
-        break;
-      case u.lngData.text_editor:
-        keyInput.setAttribute('placeholder', 't')
-        break;
-      case u.lngData.menu:
-        keyInput.setAttribute('placeholder', 'm')
-        break;
-      case u.lngData.manual:
-        keyInput.setAttribute('placeholder', 'i')
-        break;
-      case u.lngData.designer_mode:
-        keyInput.setAttribute('placeholder', 'd')
-        break;
-      case u.lngData.copy:
-        keyInput.setAttribute('placeholder', 'c')
-        break;
-      case u.lngData.paste:
-        keyInput.setAttribute('placeholder', 'v')
-        break;
-      case u.lngData.translate:
-        keyInput.setAttribute('placeholder', 'q')
-        break;
-      case u.lngData.rotate:
-        keyInput.setAttribute('placeholder', 'a')
-        break;
-      case u.lngData.first_plan:
-        keyInput.setAttribute('placeholder', 'w')
-        break;
-      case u.lngData.second_plan:
-        keyInput.setAttribute('placeholder', 'x')
-        break;
-      case u.lngData.merge:
-        keyInput.setAttribute('placeholder', 'y')
-        break;
-      case u.lngData.up:
-        keyInput.setAttribute('placeholder', '+')
-        break;
-      case u.lngData.down:
-        keyInput.setAttribute('placeholder', '-')
-        break;
-      case u.lngData.marker:
-        keyInput.setAttribute('placeholder', 'r')
-        break;
-      case u.lngData.peeling_mask:
-        keyInput.setAttribute('placeholder', 'u')
-        break;
-      case u.lngData.square:
-        keyInput.setAttribute('placeholder', 'k')
-        break;
-      case u.lngData.circle:
-        keyInput.setAttribute('placeholder', 'j')
-        break;
-      case u.lngData.triangle:
-        keyInput.setAttribute('placeholder', 'b')
-        break;
-      case u.lngData.free_form:
-        keyInput.setAttribute('placeholder', 'l')
-        break;
-      case u.lngData.feather:
-        keyInput.setAttribute('placeholder', 'f')
-        break;
+    keyInput.setAttribute('placeholder', defaultOpt[activeOption])
 
-      default:
-        break;
-    }
   }
 
   function applyShortcuts(configs) {
@@ -1112,13 +999,13 @@ function dash_parameters(u) {
         const userLSG = lab_local_storage_object("global")
 
         if (passwordConfirm.value.length < 6) {
-          alert(u.lngData.password_min_chars)
+          alertUser(u.lngData.password_min_chars)
         } else {
           if (passwordInput.value === passwordConfirm.value) {
             userLSG.newPassword = passwordConfirm.value
             socket.emit("updateAccountPassword", userLSG)
           } else {
-            alert(u.lngData.passwords_mismatch)
+            alertUser(u.lngData.passwords_mismatch)
           }
         }
       })
@@ -1190,7 +1077,7 @@ function dash_parameters(u) {
           userLSG.newPublicID = publicIdInput.value
           socket.emit('updatePublicID', userLSG, updatedPublicID => {
             if (updatedPublicID.success == true) {
-              alert(u.lngData.saved)
+              alertUser(u.lngData.saved)
             }
           })
         }
