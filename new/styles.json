@@ -225,7 +225,7 @@
         "paddingLeft": "clamp(2svw, 5svw, 60px)",
         "paddingRight": "clamp(2svw, 5svw, 60px)",
         "position": "relative",
-        "zIndex": "25",
+        "zIndex": "36",
         "width": "100%"
       },
       "Portrait": {

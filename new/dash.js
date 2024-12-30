@@ -498,8 +498,6 @@ function dash_parameters(u) {
     }
     else if (tabValue == "controls") {
 
-
-
       const line = lab_design_system("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
       line.style.width = "100%"
       line.style.alignItems = "center"
@@ -861,4 +859,17 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
 
   lab_fade_in_recursively(wrapper, 0.3)
 
+}
+
+
+function footer(parent) {
+  rootLayer.setAttribute('class', 'lab-laboranth-scroll-classic')
+  const footer = lab_design_system_d("div", "footer", parent, null, null, ['containers', 'footer'])
+  const text = lab_design_system_d("span", "date", footer, `Laboranth>  |  ${new Date().getFullYear()}`, null, ['elements', 'date'])
+
+  const link = lab_design_system_d("a", "legal", footer, "Legal CGU/CGV", null, ['links', 'legal'])
+  link.setAttribute("href", "#")
+
+  const contact = lab_design_system_d("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
+  contact.setAttribute("href", "mailto:contact@laboranth.tech")
 }
