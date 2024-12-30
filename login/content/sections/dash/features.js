@@ -9,7 +9,7 @@ const styles_d = {
         "paddingLeft": "clamp(5svw, 2vw, 50px)",
         "paddingRight": "clamp(5svw, 2vw, 50px)",
         "width": "fit-content",
-        "height": "auto",
+        "height": "clamp(16svh, 10svh, 50px)",
         "background": "#fed05e",
         "fontWeight": "500",
         "fontSize": "clamp(14px, 2vw, 20px)",
@@ -159,21 +159,22 @@ const styles_d = {
     "box": {
       "default": {
         "background": "#fff",
-        "height": "clamp(5svh,35px,50px)",
-        "width": "100%",
+        "height": "clamp( 35px,5svh,50px)",
+        'boxSizing': "border-box",
         "borderRadius": "40px",
         "cursor": "pointer",
         "display": "flex",
         "alignItems": "center",
         "position": "relative",
         "padding": "0 15px",
-        "margin": "0 auto"
       },
       "Portrait": {
-        "order": "99"
+        "order": "98",
+        "width": "calc(100% - 85px)",
       },
       "Landscape": {
-        "width": "clamp(20svw, 50svw, 500px)"
+        "width": "clamp(20svw, 50svw, 500px)",
+        "margin": "0 auto"
       }
     },
     "input": {
@@ -225,13 +226,13 @@ const styles_d = {
         "paddingLeft": "clamp(2svw, 5svw, 60px)",
         "paddingRight": "clamp(2svw, 5svw, 60px)",
         "position": "relative",
-        "zIndex": "999",
+        "zIndex": "25",
         "width": "100%"
       },
       "Portrait": {
         "justifyContent": "space-between",
         "flexWrap": "wrap",
-        "gap": "20px"
+        "gap": "8px"
       }
     },
     "footer": {
@@ -300,6 +301,50 @@ const styles_d = {
         "alignItems": "center",
         "justifyContent": "start"
       },
+    },
+    "gridSwitch": {
+      "default": {
+        "background": "#E2E2E2",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+      },
+      "Landscape": {
+        "padding": "5px",
+        "borderRadius": "50px",
+        "marginRight": "5svw",
+        "width": "110px",
+        "height": "50px",
+      },
+      "Portrait": {
+        "padding": "3.5px",
+        "width": "77px",
+        "height": "35px",
+        "borderRadius": "35px",
+        "order": "99"
+      }
+    },
+    "gridBtn": {
+      "default": {
+        'border': "none",
+        "background": "transparent",
+        'boxSizing': "border-box",
+        'borderRadius': "50%",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center"
+      },
+      "Landscape": {
+        'width': "40px",
+        'height': "40px",
+        'padding': "5px",
+      },
+      "Portrait": {
+        'width': "28px",
+        'height': "28px",
+        'padding': "6px",
+      }
     }
   },
   "header": {
@@ -307,7 +352,7 @@ const styles_d = {
       "default": {
         "display": "flex",
         "flexDirection": "column",
-        "zIndex": "999",
+        "zIndex": "25",
         "gap": "30px",
         "fontSize": "18px",
         "fontWeight": "600",
@@ -351,7 +396,7 @@ const styles_d = {
         "paddingRight": "clamp(2svw, 5svw, 60px)"
       }
     },
-    "project": {
+    "row": {
       "default": {
         "flex": "0 1 24%",
         "boxshadow": "2px 4px 30px 1px rgba(0, 0, 0, 0.09)",
@@ -369,6 +414,19 @@ const styles_d = {
         "flex": "0 1 100%"
       }
     },
+    "column": {
+      "default": {
+        "flex": "0 1 100%",
+        "background": "#fff",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "cursor": "pointer",
+        "position": "relative",
+        "boxSizing": "border-box",
+        "zIndex": "0",
+        'borderRadius': "10px"
+      }
+    },
     "preview": {
       "default": {
         "height": "calc(100% - 40px)",
@@ -380,7 +438,7 @@ const styles_d = {
         "backgroundImage": "url(`https://laboranth.tech/D/R/IMG/logoAlt.svg`)"
       }
     },
-    "wrap": {
+    "wrap-row": {
       "default": {
         "display": "flex",
         "alignItems": "center",
@@ -392,6 +450,19 @@ const styles_d = {
         "fontSize": "16px",
         "color": "#000",
         "borderRadius": "0 0 20px 20px"
+      }
+    },
+    "wrap-column": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "height": "40px",
+        'width': "100%",
+        "padding": "10px 10px 10px 30px",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "color": "#000",
       }
     },
     "box": {
@@ -415,7 +486,7 @@ const styles_d = {
         "padding": "11px 11px 27px 27px",
         "borderRadius": "15px",
         "gap": "10px",
-        "zIndex": "999"
+        "zIndex": "26"
       }
     },
     "settings": {
@@ -451,10 +522,20 @@ const styles_d = {
         "minHeight": "clamp(90%, 50%, 600px)",
         "transform": "translateY(-50%) translateX(-50%)",
         "position": "fixed",
-        "zIndex": "999",
+        "zIndex": "25",
         "left": "50%",
         "top": "50%",
         "transition": "all 0.7s linear"
+      }
+    },
+    "wrapper": {
+      "default": {
+        "position": "fixed",
+        "zIndex": "25",
+        "left": "0",
+        "right": "0",
+        "top": "0",
+        'bottom': "0"
       }
     },
     "side": {
@@ -462,7 +543,6 @@ const styles_d = {
         "backgroundColor": "#3C4CA6",
         "color": "#fff",
         "padding": "24px 0 24px 24px",
-        "width": "23%",
         "minHeight": "100%",
         "display": "flex",
         "flexDirection": "column",
@@ -493,6 +573,7 @@ const styles_d = {
         "background-color": "transparent",
         "border": "none",
         "padding": "10px",
+        "paddingRight": "3svw",
         "borderRadius": "10px 0 0 10px",
         "gap": "15px",
         "flexDirection": "row-reverse",
@@ -613,6 +694,16 @@ const styles_d = {
         "borderRadius": "30px"
       }
     },
+    "wrap": {
+      "default": {
+        "position": "fixed",
+        "top": "0",
+        "right": 0,
+        'left': 0,
+        'bottom': 0,
+        "zIndex": "99",
+      }
+    },
     "content": {
       "default": {
         "width": "clamp(60%, 60%, 80%)",
@@ -645,18 +736,36 @@ const styles_d = {
       }
     }
   },
+  "alert": {
+    "wrap": {
+      "default": {
+        "max-width": "250px",
+        "position": "fixed",
+        "top": "120px",
+        "right": "0",
+        "background": "#6F6E6E",
+        "padding": "10px 16px",
+        "borderRadius": "10px 0px 0px 10px",
+        'zIndex': "9999",
+        "color": "#fff",
+        "opacity": "0",
+        "transition": "all 0.3s linear",
+        "transform": "translateX(100%)"
+      }
+    }
+  },
 }
 
 function select(label, list, parent, value, func) {
-  let select = lab_design_system_d("div", `select-${value}`, parent, null, null, ['select', 'box'])
-  let top = lab_design_system_d("div", `select-top-${value}`, select, null, null, ['select', 'top'])
-  let topSpan = lab_design_system_d("span", `selected-${value}`, top, label, null)
-  let listing = lab_design_system_d("div", `select-list-${value}`, select, null, null, ['select', 'list'])
-  let arrow = lab_design_system_d("img", `select-arrow-${value}`, top, null, null)
+  const select = lab_design_system_d("div", `select-${value}`, parent, null, null, ['select', 'box'])
+  const top = lab_design_system_d("div", `select-top-${value}`, select, null, null, ['select', 'top'])
+  const topSpan = lab_design_system_d("span", `selected-${value}`, top, label, null)
+  const listing = lab_design_system_d("div", `select-list-${value}`, select, null, null, ['select', 'list'])
+  const arrow = lab_design_system_d("img", `select-arrow-${value}`, top, null, null)
   arrow.src = "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_drop_down.svg"
 
   Object.keys(list).forEach(e => {
-    let item = lab_design_system_d("div", `select-item-${e}-${value}`, listing, list[e], "select-item")
+    const item = lab_design_system_d("div", `select-item-${e}-${value}`, listing, list[e], "select-item")
     item.addEventListener("click", () => {
       topSpan.innerHTML = list[e]
       func(e)
@@ -672,16 +781,295 @@ function select(label, list, parent, value, func) {
 }
 
 function popup(id, parent, wrap = false) {
+  const popupWrap = lab_design_system_d("div", `popup-wrap-${id}`, parent, null, null, ['popup', 'wrap'])
   const popup = lab_design_system_d("div", `popup-${id}`, parent, null, null, ['popup', 'box'])
   const popupContent = lab_design_system_d("div", `popup-content-${id}`, popup, null, null, ['popup', 'content'])
+  popupWrap.addEventListener('click', () => {
+    parent.removeChild(popupWrap)
+    parent.removeChild(popup)
+  })
 
   return wrap ? popup : popupContent;
+}
+
+async function checkMicrophoneStatus() {
+  if ('permissions' in navigator) {
+    const permission = await navigator.permissions.query({ name: 'microphone' });
+    if (permission.state === 'granted') return true
+  }
+  return false
+}
+
+function alert(text) {
+  const wrap = lab_design_system_d("div", "alert", rootLayer, text, null, ["alert", "wrap"])
+
+  wrap.style.transition = 'all 0.4s linear'
+  wrap.style.opacity = 1
+  wrap.style.transform = 'none'
+
+  setTimeout(() => {
+    wrap.style.transition = 'all 0.2s linear'
+    wrap.style.opacity = 0
+
+    setTimeout(() => {
+      rootLayer.removeChild(wrap)
+    }, 2000);
+  }, 6000);
+}
+
+function shortcutsSettings(u, parent) {
+
+  const functionalitiesList = {
+    dash: u.lngData.dash,
+    save: u.lngData.save,
+    text_editor: u.lngData.text_editor,
+    menu: u.lngData.menu,
+    manual: u.lngData.manual,
+    designer_mode: u.lngData.designer_mode,
+    copy: u.lngData.copy,
+    paste: u.lngData.paste,
+    translate: u.lngData.translate,
+    rotate: u.lngData.rotate,
+    set_to_foreground: u.lngData.set_to_foreground,
+    set_to_background: u.lngData.set_to_background,
+    merge: u.lngData.merge,
+    forward_on_z_index: u.lngData.forward_on_z_index,
+    backspace_on_z_index: u.lngData.backspace_on_z_index,
+    marker: u.lngData.marker,
+    peeling_mask: u.lngData.peeling_mask,
+    square: u.lngData.square,
+    circle: u.lngData.circle,
+    triangle: u.lngData.triangle,
+    free_form: u.lngData.free_form,
+    feather: u.lngData.feather,
+  }
+
+  let activeOption = functionalitiesList.dash
+
+  const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
+
+  const shortcuts = select('shortcuts', functionalitiesList, line, activeOption, null, (e) => {
+    activeOption = e
+    socket.emit('userShortcuts', lab_local_storage_object('global'), callback => {
+      applyShortcuts(callback.data)
+    })
+  })
+
+  const altLabel = lab_design_system_d("div", "alt-label", line, "CTRL | CMD +", null)
+
+  const keyInput = input('', '', line)
+
+  keyInput.setAttribute('readonly', true)
+
+  keyInput.addEventListener('keydown', e => {
+    e.preventDefault()
+    keyInput.value = e.key
+  })
+  const buttons = lab_design_system_d("div", "alt-buttons-line", parent, null, null, ["parameters", "line"])
+
+  const save = lab_design_system_d("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
+  const reinitialize = lab_design_system_d("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'action'])
+
+  reinitialize.addEventListener('click', () => {
+    switch (functionalitiesList[activeOption]) {
+      case u.lngData.dash:
+        keyInput.value = 'h'
+        break;
+      case u.lngData.save:
+        keyInput.value = 's'
+        break;
+      case u.lngData.text_editor:
+        keyInput.value = 't'
+        break;
+      case u.lngData.menu:
+        keyInput.value = 'm'
+        break;
+      case u.lngData.manual:
+        keyInput.value = 'i'
+        break;
+      case u.lngData.designer_mode:
+        keyInput.value = 'd'
+        break;
+      case u.lngData.copy:
+        keyInput.value = 'c'
+        break;
+      case u.lngData.paste:
+        keyInput.value = 'v'
+        break;
+      case u.lngData.translate:
+        keyInput.value = 'q'
+        break;
+      case u.lngData.rotate:
+        keyInput.value = 'a'
+        break;
+      case u.lngData.foreground:
+        keyInput.value = 'w'
+        break;
+      case u.lngData.background:
+        keyInput.value = 'x'
+        break;
+      case u.lngData.merge:
+        keyInput.value = 'y'
+        break;
+      case u.lngData.up:
+        keyInput.value = '+'
+        break;
+      case u.lngData.down:
+        keyInput.value = '-'
+        break;
+      case u.lngData.marker:
+        keyInput.value = 'r'
+        break;
+      case u.lngData.peeling_mask:
+        keyInput.value = 'u'
+        break;
+      case u.lngData.square:
+        keyInput.value = 'k'
+        break;
+      case u.lngData.circle:
+        keyInput.value = 'j'
+        break;
+      case u.lngData.triangle:
+        keyInput.value = 'b'
+        break;
+      case u.lngData.free_form:
+        keyInput.value = 'l'
+        break;
+      case u.lngData.feather:
+        keyInput.value = 'f'
+        break;
+
+      default:
+        break;
+    }
+
+    const userLSG = lab_local_storage_object('global')
+    userLSG.bindedTo = lab_functionalities_select.selectedIndex
+    userLSG.binding = keyInput.value
+    userLSG.fn_name = activeOption
+    socket.emit('bindShortcut', userLSG)
+  })
+
+  save.addEventListener('click', () => {
+    const userLSG = lab_local_storage_object('global')
+    if (keyInput.value) {
+      userLSG.bindedTo = lab_functionalities_select.selectedIndex
+      userLSG.binding = keyInput.value
+      userLSG.fn_name = getKeyFromValue(functionalitiesList[activeOption])
+      socket.emit('bindShortcut', userLSG)
+    } else {
+      alertUser(u.lngData.input_cannot_be_empty)
+    }
+  })
+
+  function defaults() {
+    switch (functionalitiesList[activeOption]) {
+      case u.lngData.dash:
+        keyInput.setAttribute('placeholder', 'h')
+        break;
+      case u.lngData.save:
+        keyInput.setAttribute('placeholder', 's')
+        break;
+      case u.lngData.text_editor:
+        keyInput.setAttribute('placeholder', 't')
+        break;
+      case u.lngData.menu:
+        keyInput.setAttribute('placeholder', 'm')
+        break;
+      case u.lngData.manual:
+        keyInput.setAttribute('placeholder', 'i')
+        break;
+      case u.lngData.designer_mode:
+        keyInput.setAttribute('placeholder', 'd')
+        break;
+      case u.lngData.copy:
+        keyInput.setAttribute('placeholder', 'c')
+        break;
+      case u.lngData.paste:
+        keyInput.setAttribute('placeholder', 'v')
+        break;
+      case u.lngData.translate:
+        keyInput.setAttribute('placeholder', 'q')
+        break;
+      case u.lngData.rotate:
+        keyInput.setAttribute('placeholder', 'a')
+        break;
+      case u.lngData.first_plan:
+        keyInput.setAttribute('placeholder', 'w')
+        break;
+      case u.lngData.second_plan:
+        keyInput.setAttribute('placeholder', 'x')
+        break;
+      case u.lngData.merge:
+        keyInput.setAttribute('placeholder', 'y')
+        break;
+      case u.lngData.up:
+        keyInput.setAttribute('placeholder', '+')
+        break;
+      case u.lngData.down:
+        keyInput.setAttribute('placeholder', '-')
+        break;
+      case u.lngData.marker:
+        keyInput.setAttribute('placeholder', 'r')
+        break;
+      case u.lngData.peeling_mask:
+        keyInput.setAttribute('placeholder', 'u')
+        break;
+      case u.lngData.square:
+        keyInput.setAttribute('placeholder', 'k')
+        break;
+      case u.lngData.circle:
+        keyInput.setAttribute('placeholder', 'j')
+        break;
+      case u.lngData.triangle:
+        keyInput.setAttribute('placeholder', 'b')
+        break;
+      case u.lngData.free_form:
+        keyInput.setAttribute('placeholder', 'l')
+        break;
+      case u.lngData.feather:
+        keyInput.setAttribute('placeholder', 'f')
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  function applyShortcuts(configs) {
+    keyInput.value = ""
+    if (configs) {
+      u.configs = configs
+    }
+
+    if (lab_obj_has_key(u.configs, 'shortcuts')) {
+      const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
+      if (findAssociatedIndex) {
+        keyInput.value = findAssociatedIndex.binding
+      } else {
+        defaults()
+      }
+    } else {
+      defaults()
+    }
+  }
+
+  applyShortcuts()
+
 }
 
 function dash_parameters(u) {
   let activeTab = "profile"
 
+  const parametersWrap = lab_design_system_d("div", "parameters-wrapper", rootLayer, null, null, ["parameters", "wrapper"])
+
   const parameters = lab_design_system_d("div", "parameters", rootLayer, null, null, ["parameters", "popup"])
+
+  parametersWrap.addEventListener('click', () => {
+    rootLayer.removeChild(parametersWrap)
+    rootLayer.removeChild(parameters)
+  })
+
 
   const side = lab_design_system_d("div", "parameters-side", parameters, null, null, ["parameters", "side"])
 
@@ -702,36 +1090,36 @@ function dash_parameters(u) {
       const line = lab_design_system_d("div", "profile-box-a", boxWrap, null, null, ["parameters", "line"])
       line.style.alignItems = "center"
 
-      const mail = lab_design_system_d("span", "profile-box-mail", line, "E-mail", null)
+      const mail = lab_design_system_d("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system_d("p", "profile-box-d3csw", line, u.email, null)
 
       const password = lab_design_system_d("div", "profile-box-pass", boxWrap, null, null, ["parameters", "line"])
-      const passwordSpan = lab_design_system_d("span", "profile-box-passord", password, "Password", null)
+      const passwordSpan = lab_design_system_d("span", "profile-box-passord", password, u.lngData.password, null)
       const confirm = lab_design_system_d("div", "profile-box-conf", password, null, null, ['parameters', 'confirm'])
 
-      const passwordInput = input("Create new password", "password", confirm, null, null)
-      const passwordConfirm = input("Confirm new password", "confirm-password", confirm, null, null)
+      const passwordInput = input(u.lngData.new_password, "password", confirm, null, null)
+      const passwordConfirm = input(u.lngData.confirm, "confirm-password", confirm, null, null)
 
       const profileButtons = lab_design_system_d("div", "profile-buttons", boxWrap, null, null, ['parameters', 'buttons'])
 
-      const save = lab_design_system_d("button", "profile-button-save", profileButtons, "Save", null, ["buttons", "action"])
+      const save = lab_design_system_d("button", "profile-button-save", profileButtons, u.lngData.save, null, ["buttons", "action"])
 
       save.addEventListener("click", () => {
         const userLSG = lab_local_storage_object("global")
 
         if (passwordConfirm.value.length < 6) {
-          alertUser(u.lngData.password_min_chars)
+          alert(u.lngData.password_min_chars)
         } else {
           if (passwordInput.value === passwordConfirm.value) {
             userLSG.newPassword = passwordConfirm.value
             socket.emit("updateAccountPassword", userLSG)
           } else {
-            alertUser(u.lngData.passwords_mismatch)
+            alert(u.lngData.passwords_mismatch)
           }
         }
       })
 
-      const del = lab_design_system_d("button", "profile-button-del", profileButtons, "Delete account", null, ["buttons", "grey"])
+      const del = lab_design_system_d("button", "profile-button-del", profileButtons, u.lngData.account_deletion, null, ["buttons", "grey"])
 
       del.addEventListener("click", () => {
         const userLSG = lab_local_storage_object("global")
@@ -759,12 +1147,12 @@ function dash_parameters(u) {
 
       const theme = lab_design_system_d("div", "parameters-theme", boxWrap, null, null, ["parameters", "line"])
 
-      const themeTitle = lab_design_system_d("span", "theme-heading", theme, "Interface theme", null)
+      const themeTitle = lab_design_system_d("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
       select(themes[u.configs.ui], themes, theme, "theme")
 
       const language = lab_design_system_d("div", "profile-box-language", boxWrap, null, null, ["parameters", "line"])
-      const languageTitle = lab_design_system_d("span", "profile-language", language, "Language", null)
+      const languageTitle = lab_design_system_d("span", "profile-language", language, u.lngData.language, null)
 
       select(langs[u.lng], langs, language, "language", (lng) => {
         const userLSG = lab_local_storage_object_update('global', { manualLng: lng })
@@ -774,20 +1162,21 @@ function dash_parameters(u) {
 
 
       const sftp = lab_design_system_d("div", "profile-box-sftp", boxWrap, null, null, ["parameters", "line"])
-      const sftpTitle = lab_design_system_d("span", "profile-sftp", sftp, "SFTP connection", null)
+      const sftpTitle = lab_design_system_d("span", "profile-sftp", sftp, u.lngData.sftp_connection, null)
 
-      const sftpBtn = lab_design_system_d("div", "profile-btn-sftp", sftp, "Generate key", null, ["buttons", "action"])
+      const sftpBtn = lab_design_system_d("div", "profile-btn-sftp", sftp, u.lngData.generate_the_key, null, ["buttons", "action"])
+
       sftpBtn.style.width = "clamp(120px, 15svw, 160px)"
       sftpBtn.addEventListener("click", () => {
         const userLSG = lab_local_storage_object("global")
         socket.emit("getSftpKey", userLSG)
       })
       const publicId = lab_design_system_d("div", "profile-box-public", boxWrap, null, null, ["parameters", "line"])
-      const publicIdTitle = lab_design_system_d("span", "profile-public", publicId, "Public ID", null)
+      const publicIdTitle = lab_design_system_d("span", "profile-public", publicId, u.lngData.public_id, null)
 
       let publicIdInput = input("", "publicId", publicId, null, "clamp(120px, 15svw, 160px)")
 
-      const publicIdBtn = lab_design_system_d("button", "publicId-btn", publicId, "Save", null, ["buttons", "action"])
+      const publicIdBtn = lab_design_system_d("button", "publicId-btn", publicId, u.lngData.save, null, ["buttons", "action"])
 
 
       publicIdBtn.style.width = "clamp(120px, 15svw, 160px)"
@@ -797,7 +1186,7 @@ function dash_parameters(u) {
           userLSG.newPublicID = publicIdInput.value
           socket.emit('updatePublicID', userLSG, updatedPublicID => {
             if (updatedPublicID.success == true) {
-              alertUser(u.lngData.saved)
+              alert(u.lngData.saved)
             }
           })
         }
@@ -805,17 +1194,17 @@ function dash_parameters(u) {
 
       const collaborators = lab_design_system_d("div", "collaborators", boxWrap, null, null, ["parameters", "line"])
 
-      const collaboratorsTitle = lab_design_system_d("span", "profile-collaborators", collaborators, "Collaborators", null)
+      const collaboratorsTitle = lab_design_system_d("span", "profile-collaborators", collaborators, u.lngData.collaborators, null)
 
-      const collaboratorsBtn = lab_design_system_d("button", "collaborators-btn", collaborators, "Edit", null, ["buttons", "action"])
+      const collaboratorsBtn = lab_design_system_d("button", "collaborators-btn", collaborators, u.lngData.edit, null, ["buttons", "action"])
 
       collaboratorsBtn.style.width = "clamp(120px, 15svw, 160px)"
 
 
       const rights = {
-        'designer': "Designer",
-        'developer': "Developer",
-        'administrator': "Administrator",
+        'designer': u.lngData.designer,
+        'developer': u.lngData.developer,
+        'administrator': u.lngData.administrator,
       }
 
       collaboratorsBtn.addEventListener('click', () => {
@@ -865,46 +1254,16 @@ function dash_parameters(u) {
 
     }
     else if (tabValue == "controls") {
-      const lab_functionalities_list = [
-        u.lngData.dash,
-        u.lngData.save,
-        u.lngData.text_editor,
-        u.lngData.menu,
-        u.lngData.manual,
-        u.lngData.designer_mode,
-        u.lngData.copy,
-        u.lngData.paste,
-        u.lngData.translate,
-        u.lngData.rotate,
-        u.lngData.set_to_foreground,
-        u.lngData.set_to_background,
-        u.lngData.merge,
-        u.lngData.forward_on_z_index,
-        u.lngData.backspace_on_z_index,
-        u.lngData.marker,
-        u.lngData.peeling_mask,
-        u.lngData.square,
-        u.lngData.circle,
-        u.lngData.triangle,
-        u.lngData.free_form,
-        u.lngData.feather,
-      ]
+
+
 
       const line = lab_design_system_d("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
+      line.style.width = "100%"
       line.style.alignItems = "center"
 
       const voice = lab_design_system_d("span", "voice-command", line, u.lngData.vocal_command, null)
 
-      const lab_seek_user_speech = lab_local_storage_object('global')
-      const lab_user_speech = Object.keys(lab_seek_user_speech).find(x => x === 'speech')
-
-      if (lab_user_speech === undefined) {
-        lab_local_storage_object_update('global', { speech: 'firstAccess' })
-      } else {
-        lab_user_speech = lab_seek_user_speech.speech
-      }
-
-      if (lab_user_speech === 'enabled') {
+      if (checkMicrophoneStatus()) {
         const voiceBtn = lab_design_system_d("button", "voice-activate", voice, u.lngData.activate, null, ["buttons", "action"])
         voiceBtn.addEventListener('click', () => {
           lab_vocal_control('on', u.lng)
@@ -921,38 +1280,8 @@ function dash_parameters(u) {
         })
 
       }
+      shortcutsSettings(u, boxWrap)
 
-
-
-      const passwordInput = input("Create new password", "password", confirm, null, null)
-      const passwordConfirm = input("Confirm new password", "confirm-password", confirm, null, null)
-
-      const profileButtons = lab_design_system_d("div", "profile-buttons", boxWrap, null, null, ['parameters', 'buttons'])
-
-      const save = lab_design_system_d("button", "profile-button-save", profileButtons, "Save", null, ["buttons", "action"])
-
-      save.addEventListener("click", () => {
-        const userLSG = lab_local_storage_object("global")
-
-        if (passwordConfirm.value.length < 6) {
-          alertUser(u.lngData.password_min_chars)
-        } else {
-          if (passwordInput.value === passwordConfirm.value) {
-            userLSG.newPassword = passwordConfirm.value
-            socket.emit("updateAccountPassword", userLSG)
-          } else {
-            alertUser(u.lngData.passwords_mismatch)
-          }
-        }
-      })
-
-      const del = lab_design_system_d("button", "profile-button-del", profileButtons, "Delete account", null, ["buttons", "grey"])
-
-      del.addEventListener("click", () => {
-        const userLSG = lab_local_storage_object("global")
-        userLSG.emailToDel = u.email
-        socket.emit("userAccountDel", userLSG)
-      })
 
     }
   }
@@ -968,7 +1297,6 @@ function dash_parameters(u) {
   }
 
   const white = lab_design_system_d("div", "active-white", tabButtons, null, null, ["parameters", "white"])
-
 
   Object.keys(tabs).forEach((e, index) => {
     const tabBtn = lab_design_system_d("button", `parameters-tabs-${e}`, tabButtons, tabs[e], null, ["parameters", "btn"])
@@ -986,6 +1314,7 @@ function dash_parameters(u) {
       }
     })
   })
+
   lab_fade_in_recursively(parameters, 0.5)
 
 }
@@ -1022,23 +1351,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
   }
 
   return A
-}
-
-
-function lab_fade_in_recursively(element, duration = 1) {
-  if (!element || !(element instanceof HTMLElement)) return
-
-  element.style.opacity = '0'
-  element.style.transition = 'none'
-
-  Array.from(element.children).forEach(child => lab_fade_in_recursively(child, duration))
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      element.style.opacity = '1'
-      element.style.transition = `all ${duration}s ease-in-out`
-    })
-  })
 }
 
 function footer(parent) {
@@ -1133,22 +1445,27 @@ function setTheme(el) {
   })
 }
 
-function dashboard(appList, externalApps) {
+function dashboard(appList, checkLng, externalApps, accountData, lngData) {
+
+  rootLayer.style.overflowY = "auto"
   let viewMyList = true
-  let wrapper = lab_design_system_d("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
 
-  let header = lab_design_system_d("header", "header", wrapper, 0, 0, ["containers", "header"])
+  const wrapper = lab_design_system_d("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
+  const header = lab_design_system_d("header", "header", wrapper, 0, 0, ["containers", "header"])
 
-  let logo = lab_design_system_d("a", "logo", header, 0, 0, null);
+  const logo = lab_design_system_d("a", "logo", header, 0, 0, null);
   logo.setAttribute("href", "/")
-  let logoImg = lab_design_system_d("img", "logo-img", logo, null, null, ["logo", "small"]);
+
+
+  const logoImg = lab_design_system_d("img", "logo-img", logo, null, null, ["logo", "small"]);
   logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
 
-  let themeSwitcher = lab_design_system_d("div", "theme-switcher", header, null, null, ["elements", "theme"])
-  let colorTheme = lab_design_system_d("div", "color-theme", themeSwitcher, null, null, ["elements", "colorTheme"])
-  let darkTheme = lab_design_system_d("img", "img-theme", colorTheme, null, null)
+  const themeSwitcher = lab_design_system_d("div", "theme-switcher", header, null, null, ["elements", "theme"])
+  const colorTheme = lab_design_system_d("div", "color-theme", themeSwitcher, null, null, ["elements", "colorTheme"])
+  const darkTheme = lab_design_system_d("img", "img-theme", colorTheme, null, null)
   darkTheme.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/nightlight.svg")
   darkTheme.style.width = '0'
+
   themeSwitcher.addEventListener('click', () => {
     themeSwitcher.style.justifyContent = themeSwitcher.style.justifyContent == "end" ? "start" : "end"
     colorTheme.style.background = colorTheme.style.background == "rgb(252, 206, 92)" ? "transparent" : "rgb(252, 206, 92)"
@@ -1157,14 +1474,15 @@ function dashboard(appList, externalApps) {
     setTheme(rootLayer)
   })
 
-  let searchBox = lab_design_system_d("div", "search-box", header, null, null, ["search", "box"])
 
-  let searchImage = lab_design_system_d("img", "search-img", searchBox, null, null, null)
+  const searchBox = lab_design_system_d("div", "search-box", header, null, null, ["search", "box"])
+
+  const searchImage = lab_design_system_d("img", "search-img", searchBox, null, null, null)
   searchImage.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/search.svg")
 
-  let searchInput = lab_design_system_d("input", "search", searchBox, null, "search", ["search", "input"])
+  const searchInput = lab_design_system_d("input", "search", searchBox, null, "search", ["search", "input"])
 
-  let result = lab_design_system_d("div", "result", searchBox, null, null, ["search", "result"])
+  const result = lab_design_system_d("div", "result", searchBox, null, null, ["search", "result"])
 
   searchInput.addEventListener("input", () => {
     result.innerHTML = ""
@@ -1172,23 +1490,52 @@ function dashboard(appList, externalApps) {
       myList = search(viewMyList ? appList : externalApps, searchInput.value)
       if (myList.length) {
         myList.forEach((item, index) => {
-          let resultItem = lab_design_system_d("a", `result-${item}`, result, item, null, ['search', !index ? "first" : "item"])
+          const resultItem = lab_design_system_d("a", `result-${item}`, result, item, null, ['search', !index ? "first" : "item"])
           resultItem.setAttribute("href", `./${item}/home`)
         })
       }
     }
 
   })
+  const gridSwitch = lab_design_system_d("div", "grid-switch", header, null, null, ["elements", "gridSwitch"])
 
-  let create = lab_design_system_d("button", "create-btn", header, "+ Create project", null, ["buttons", "action"])
+  let activeSwitch = 'row'
+
+  const gridLayouts = ['row', 'column']
+  gridLayouts.forEach((e, index) => {
+    const btn = lab_design_system_d("button", `grid-switch-${e}`, gridSwitch, null, null, ["elements", "gridBtn"])
+
+    e == activeSwitch && (btn.style.background = "#fff")
+
+
+    const icon = lab_design_system_d("img", `grid-icon-${e}`, btn)
+    icon.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/${e}.svg`)
+    icon.style.maxWidth = '100%'
+
+    btn.addEventListener('click', () => {
+      if (e != activeSwitch) {
+        document.getElementById(`lab-grid-switch-${e == 'row' ? "column" : "row"}`).style.background = "transparent"
+        btn.style.background = "#fff"
+
+        activeSwitch = e
+
+        viewMyList ? renderList(appList, e) : renderList(externalApps, e)
+      }
+
+    })
+  })
+
+  const create = lab_design_system_d("button", "create-btn", header, "u.lngData.create", null, ["buttons", "action"])
 
   create.addEventListener("click", e => {
     lab_fade_in_recursively(wrapper, 0.3)
 
     const createPopup = popup('delete-app', rootLayer)
-    const popupTitle = lab_design_system_d("span", "popup-title", createPopup, "Create app", null, ['popup', 'title'])
+    const popupTitle = lab_design_system_d("span", "popup-title", createPopup, "u.lngData.create_app", null, ['popup', 'title'])
+
     const popupInput = input('name', 'create', createPopup, null, '100%', ['popup', 'input'])
-    const createPopupBtn = lab_design_system_d("button", "create-popup-btn", createPopup, "Create", null, ["buttons", "action"])
+    const createPopupBtn = lab_design_system_d("button", "create-popup-btn", createPopup, "u.lngData.create", null, ["buttons", "action"])
+
     lab_fade_in_recursively(createPopup, 0.3)
 
     const lab_user_current_config = lab_local_storage_object('global')
@@ -1201,24 +1548,25 @@ function dashboard(appList, externalApps) {
 
   })
 
-  let avatar = lab_design_system_d("button", "user-avatar", header, null, null, ['elements', 'avatar'])
+  const avatar = lab_design_system_d("button", "user-avatar", header, null, null, ['elements', 'avatar'])
 
   avatar.addEventListener("click", () => {
+
     if (document.getElementById("lab-header-menu")) {
-      let menu = document.getElementById("lab-header-menu")
+      const menu = document.getElementById("lab-header-menu")
       avatar.removeChild(menu)
     } else {
-      let headerMenu = lab_design_system_d("div", "header-menu", avatar, null, null, ['header', 'menu'])
+      const headerMenu = lab_design_system_d("div", "header-menu", avatar, null, null, ['header', 'menu'])
 
       headerMenu.addEventListener('mouseleave', () => {
         avatar.removeChild(headerMenu)
       })
 
-      let menuList = ['settings', 'plans', 'logout']
+      const menuList = ['settings', 'plans', 'logout']
 
       menuList.forEach(e => {
-        let item = lab_design_system_d("a", `menu-${e}`, headerMenu, e, null, ['header', 'link'])
-        let image = lab_design_system_d("img", `${e}-img`, item, null, null, null)
+        const item = lab_design_system_d("a", `menu-${e}`, headerMenu, e, null, ['header', 'link'])
+        const image = lab_design_system_d("img", `${e}-img`, item, null, null, null)
         image.setAttribute("src", `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/${e}.svg`)
         item.addEventListener('click', () => {
           if (e == 'logout') {
@@ -1226,7 +1574,6 @@ function dashboard(appList, externalApps) {
             window.open("https://laboranth.tech/", "_self")
           }
           else if (e == 'settings') {
-            // dash_parameters({ email: "baranenko.work@aaa" })
             socket.emit('askAccount', lab_local_storage_object('global'), res => {
               lab_load_language_module(res.configs.language).then(lngData => {
                 res.lngData = lngData
@@ -1245,16 +1592,18 @@ function dashboard(appList, externalApps) {
   })
 
 
-  let apps = lab_design_system_d("div", "app-list", wrapper, null, null, ['apps', 'list'])
+  const apps = lab_design_system_d("div", "app-list", wrapper, null, null, ['apps', 'list'])
 
-  function renderList(list) {
+
+  function renderList(list, direction = 'row') {
     apps.innerHTML = ""
     let len = list.length
 
     list.forEach(e => {
       if (e != ".DS_Store") {
 
-        let project = lab_design_system_d("div", `project-${e}`, apps, null, null, ['apps', 'project'])
+        const project = lab_design_system_d("div", `project-${e}`, apps, null, null, ['apps', direction])
+        // const project = lab_design_system_d("div", `project-${e}`, apps, null, null, ['apps', 'project'])
         project.addEventListener('mouseover', () => {
           project.style.transform = 'scale(1.01)';
         })
@@ -1262,18 +1611,18 @@ function dashboard(appList, externalApps) {
           project.style.transform = 'none';
         })
 
-        let previewBox = lab_design_system_d("div", `item-preview-${e}`, project, null, null, ['apps', 'preview'])
+        const previewBox = lab_design_system_d("div", `item-preview-${e}`, project, null, null, ['apps', 'preview'])
 
         previewBox.addEventListener("click", () => {
           lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
           window.open(window.location.href + "/" + e + "/" + "home", "_self")
         })
 
-        let preview = lab_design_system_d("img", `item-img-${e}`, previewBox, null, null)
+        const preview = lab_design_system_d("img", `item-img-${e}`, previewBox, null, null)
 
-        let bottom = lab_design_system_d("div", `apps-item-wrap-${e}`, project, null, null, ['apps', 'wrap'])
-        let text = lab_design_system_d("span", `apps-item-${e}`, bottom, e, null, null)
-        let img = lab_design_system_d("img", `apps-item-img-${e}`, bottom, null, null, null)
+        const bottom = lab_design_system_d("div", `apps-item-wrap-${e}`, project, null, null, ['apps', `wrap-${direction}`])
+        const text = lab_design_system_d("span", `apps-item-${e}`, bottom, e, null, null)
+        const img = lab_design_system_d("img", `apps-item-img-${e}`, bottom, null, null, null)
 
         img.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/more_vert.svg")
 
@@ -1282,9 +1631,9 @@ function dashboard(appList, externalApps) {
           if (document.getElementById('apps-item-menu')) {
             project.removeChild(document.getElementById(`apps-item-menu`))
           } else {
-            let itemMenu = lab_design_system_d("div", `apps-item-menu`, project, null, null, ['apps', 'menu'])
+            const itemMenu = lab_design_system_d("div", `apps-item-menu`, project, null, null, ['apps', 'menu'])
 
-            let menuImg = lab_design_system_d("img", `apps-menu-img-${e}`, itemMenu, null, null, ['apps', 'more'])
+            const menuImg = lab_design_system_d("img", `apps-menu-img-${e}`, itemMenu, null, null, ['apps', 'more'])
 
             menuImg.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/more_vert.svg")
 
@@ -1292,7 +1641,7 @@ function dashboard(appList, externalApps) {
               project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
             })
 
-            renderMenu(itemMenu, e, project)
+            renderMenu(itemMenu, e, project, { 'settings': "settings", 'copy': "copy", 'delete': "delete" })
 
           }
         })
