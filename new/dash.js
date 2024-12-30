@@ -718,16 +718,16 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
     })
   })
 
-  const create = lab_design_system("button", "create-btn", header, "u.lngData.create", null, ["buttons", "action"])
+  const create = lab_design_system("button", "create-btn", header, lngData.create, null, ["buttons", "action"])
 
   create.addEventListener("click", e => {
     lab_fade_in_recursively(wrapper, 0.3)
 
     const createPopup = popup("delete-app", rootLayer)
-    const popupTitle = lab_design_system("span", "popup-title", createPopup, "u.lngData.create_app", null, ["popup", "title"])
+    const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
 
     const popupInput = input("name", "create", createPopup, null, "100%", ["popup", "input"])
-    const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, "u.lngData.create", null, ["buttons", "action"])
+    const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, lngData.create, null, ["buttons", "action"])
 
     lab_fade_in_recursively(createPopup, 0.3)
 
