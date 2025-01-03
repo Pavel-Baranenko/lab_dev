@@ -8,7 +8,6 @@ const styles_d = {
         "paddingLeft": "clamp(5svw, 2vw, 50px)",
         "paddingRight": "clamp(5svw, 2vw, 50px)",
         "width": "fit-content",
-        "height": "clamp(16svh, 10svh, 50px)",
         "background": "#fed05e",
         "fontWeight": "500",
         "fontSize": "clamp(14px, 2vw, 20px)",
@@ -158,7 +157,7 @@ const styles_d = {
     "box": {
       "default": {
         "background": "#fff",
-        "height": "clamp( 35px,5svh,50px)",
+        "height": "clamp(3svh, 35px, 50px)",
         "boxSizing": "border-box",
         "borderRadius": "40px",
         "cursor": "pointer",
@@ -169,7 +168,7 @@ const styles_d = {
       },
       "Portrait": {
         "order": "98",
-        "width": "calc(100% - 85px)"
+        "width": "calc(100% - 128px)"
       },
       "Landscape": {
         "width": "clamp(20svw, 50svw, 500px)",
@@ -231,7 +230,7 @@ const styles_d = {
       "Portrait": {
         "justifyContent": "space-between",
         "flexWrap": "wrap",
-        "gap": "8px"
+        "gap": "20px 8px"
       }
     },
     "footer": {
@@ -370,6 +369,12 @@ const styles_d = {
         "marginLeft": "30px",
         "boxSizing": "border-box",
         "transition": "all 0.3s linear"
+      },
+      'Portrait': {
+        'order': "99",
+        "width": "35px",
+        "height": "35px",
+        'margin': '0'
       }
     }
   },
@@ -568,7 +573,7 @@ const styles_d = {
       "default": {
         "backgroundColor": "#3C4CA6",
         "color": "#fff",
-        "padding": "24px 0 24px 24px",
+        "padding": "clamp(15px, 2vw, 24px) 0 clamp(5px, 2vw, 24px) clamp(15px, 2vw, 24px)",
         "minHeight": "100%",
         "display": "flex",
         "flexDirection": "column",
@@ -604,7 +609,7 @@ const styles_d = {
         "gap": "15px",
         "flexDirection": "row-reverse",
         "justifyContent": "flex-end",
-        "fontSize": "18px",
+        "fontSize": "clamp(12px, 2vw,18px)",
         "height": "45px",
         "fontWeight": "600",
         "lineHeight": "24.55px",
@@ -633,6 +638,10 @@ const styles_d = {
         "fontSize": "18px",
         "fontWeight": "500",
         "textAlign": "left"
+      },
+      "Portrait": {
+        'flexDirection': "column",
+        'gap': "10px"
       }
     },
     "confirm": {
@@ -646,6 +655,10 @@ const styles_d = {
       "default": {
         "display": "flex",
         "gap": "26px"
+      },
+      "Portrait": {
+        "flexDirection": "column",
+        "gap": "10px"
       }
     }
   },
@@ -875,7 +888,7 @@ const styles_d = {
     "heading": {
       "default": {
         "fontWeight": 700,
-        "fontSize": "40px",
+        "fontSize": "clamp(20px,2vw,40px)",
         "marginBottom": "20px",
         "marginLeft": "12px",
         "color": "#000"
@@ -889,18 +902,18 @@ const styles_d = {
     "top": {
       "default": {
         "textAlign": "center",
-        "marginTop": "70px"
+        "marginTop": "clamp(35px,2vh,70px)"
       }
     },
     "text": {
       "default": {
         "fontWeight": 600,
         "fontStyle": "italic",
-        "fontSize": "16px",
+        "fontSize": "clamp(14px,2vw,16px)",
         "textAlign": "center",
         "color": "#000",
-        "maxWidth": "clamp(250px,50vw,800px)",
-        "margin": "0 auto"
+        "maxWidth": "clamp(90%,50vw,800px)",
+        "margin": "14px auto 0 auto"
       }
     },
     "btn": {
@@ -921,7 +934,7 @@ const styles_d = {
         "display": "flex",
         "fontSize": "18px",
         "borderRadius": "80px",
-        "maxWidth": "267px",
+        "maxWidth": "clamp(200px,2vw,267px)",
         "backgroundColor": "#fff",
         "padding": "7px",
         "margin": "45px auto 0 auto"
@@ -937,7 +950,7 @@ const styles_d = {
         "borderRadius": "80px",
         "backgroundColor": "transparent",
         "color": "#000",
-        "padding": "10px"
+        "padding": "clamp(8px,2vw,10px)"
       }
     }
   }
@@ -1089,7 +1102,7 @@ function plans(parent) {
     tariff.forEach((e, index) => {
       const item = lab_design_system_d("div", `plans-${index}`, wrap, 0, 0, ["plans", "plan"])
       const angle = lab_design_system_d("img", `plans-angle-${index}`, item, 0, 0, ["plans", "angle"])
-      angle.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/point-card-${e.color.label}.svg`)
+      angle.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/point-card-${e.color.label}.svg`)
       const title = lab_design_system_d("span", `plans-title-${index}`, item, e.title, 0, ["plans", "title"])
       const description = lab_design_system_d("p", `plans-description-${index}`, item, e.description, 0, ["plans", "description"])
       if (e.price) {
@@ -1104,7 +1117,7 @@ function plans(parent) {
         list.forEach((p, i) => {
           const point = lab_design_system_d("div", `point-${type}-${index}-${i}`, points, 0, 0, ['plans', 'point'])
           const img = lab_design_system_d("img", `point-img-${type}-${index}-${i}`, point)
-          img.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/point-${e.color.label}.svg`)
+          img.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/point-${e.color.label}.svg`)
           const span = lab_design_system_d("span", `point-text-${type}-${index}-${i}`, point, p, 0, (type ? ['plans', type] : 0))
         })
       }
@@ -1122,7 +1135,7 @@ function plans(parent) {
     lab_fade_in_recursively(wrap, 0.3)
 
   }
-
+  lab_fade_in_recursively(top, 0.3)
   renderPlans(activeDuration)
 }
 
@@ -1206,7 +1219,6 @@ async function checkMicrophoneStatus() {
 let activeOption
 
 function shortcutsSettings(u, parent) {
-
   const functionalitiesList = {
     dash: u.lngData.dash,
     save: u.lngData.save,
@@ -1244,8 +1256,9 @@ function shortcutsSettings(u, parent) {
   })
 
   const altLabel = lab_design_system_d("div", "alt-label", line, "CTRL | CMD +", null)
+  let width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
-  const keyInput = input('', '', line)
+  const keyInput = input('', '', line, null, width)
   keyInput.setAttribute('readonly', true)
   keyInput.addEventListener('keydown', e => {
     e.preventDefault()
@@ -1363,12 +1376,12 @@ function dash_parameters(u) {
   function tab(tabValue) {
 
     activeTab = tabValue
+    let width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
     boxWrap.innerHTML = ""
 
     if (tabValue == "profile") {
       const line = lab_design_system_d("div", "profile-box-a", boxWrap, null, null, ["parameters", "line"])
-      line.style.alignItems = "center"
 
       const mail = lab_design_system_d("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system_d("p", "profile-box-d3csw", line, u.email, null)
@@ -1377,8 +1390,8 @@ function dash_parameters(u) {
       const passwordSpan = lab_design_system_d("span", "profile-box-passord", password, u.lngData.password, null)
       const confirm = lab_design_system_d("div", "profile-box-conf", password, null, null, ["parameters", "confirm"])
 
-      const passwordInput = input(u.lngData.new_password, "password", confirm, null, null)
-      const passwordConfirm = input(u.lngData.confirm, "confirm-password", confirm, null, null)
+      const passwordInput = input(u.lngData.new_password, "password", confirm, null, width)
+      const passwordConfirm = input(u.lngData.confirm, "confirm-password", confirm, null, width)
 
       const profileButtons = lab_design_system_d("div", "profile-buttons", boxWrap, null, null, ["parameters", "buttons"])
 
@@ -1430,7 +1443,9 @@ function dash_parameters(u) {
 
       const themeTitle = lab_design_system_d("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
-      select(themes[u.configs.ui], themes, theme, "theme")
+      select(themes[u.configs.ui], themes, theme, "theme", (themeName) => {
+
+      })
 
       const language = lab_design_system_d("div", "profile-box-language", boxWrap, null, null, ["parameters", "line"])
       const languageTitle = lab_design_system_d("span", "profile-language", language, u.lngData.language, null)
@@ -1447,7 +1462,7 @@ function dash_parameters(u) {
 
       const sftpBtn = lab_design_system_d("div", "profile-btn-sftp", sftp, u.lngData.generate_the_key, null, ["buttons", "action"])
 
-      sftpBtn.style.width = "clamp(120px, 15svw, 160px)"
+      sftpBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
       sftpBtn.addEventListener("click", () => {
         const userLSG = lab_local_storage_object("global")
         socket.emit("getSftpKey", userLSG)
@@ -1455,12 +1470,12 @@ function dash_parameters(u) {
       const publicId = lab_design_system_d("div", "profile-box-public", boxWrap, null, null, ["parameters", "line"])
       const publicIdTitle = lab_design_system_d("span", "profile-public", publicId, u.lngData.public_id, null)
 
-      let publicIdInput = input("", "publicId", publicId, null, "clamp(120px, 15svw, 160px)")
+      let publicIdInput = input("", "publicId", publicId, null, width)
 
       const publicIdBtn = lab_design_system_d("button", "publicId-btn", publicId, u.lngData.save, null, ["buttons", "action"])
 
 
-      publicIdBtn.style.width = "clamp(120px, 15svw, 160px)"
+      publicIdBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
       publicIdBtn.addEventListener("click", () => {
         if (publicIdInput.value) {
           const userLSG = lab_local_storage_object("global")
@@ -1479,7 +1494,7 @@ function dash_parameters(u) {
 
       const collaboratorsBtn = lab_design_system_d("button", "collaborators-btn", collaborators, u.lngData.edit, null, ["buttons", "action"])
 
-      collaboratorsBtn.style.width = "clamp(120px, 15svw, 160px)"
+      collaboratorsBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
 
       const rights = {
@@ -1494,10 +1509,10 @@ function dash_parameters(u) {
 
         const collaboratorsList = lab_design_system_d("div", "collaborators-list", boxWrap, null, null, ["parameters", "line"])
 
-        input("", "collaborator-email", collaboratorsList)
+        input("", "collaborator-email", collaboratorsList, null, width)
         const addCollaborator = lab_design_system_d("button", "add-collaborator", collaboratorsList, u.lngData.add, null, ["buttons", "action"])
 
-        addCollaborator.style.width = "clamp(120px, 15svw, 160px)"
+        addCollaborator.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
         let len = u.configs.collaboratorsLIST.length;
 
@@ -1517,7 +1532,7 @@ function dash_parameters(u) {
 
           const deleteCollaborator = lab_design_system_d("button", `delete-collaborator-${index}`, collaboratorsItem, u.lngData.delete, null, ["buttons", "action"])
 
-          deleteCollaborator.style.width = "clamp(120px, 15svw, 160px)"
+          deleteCollaborator.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
           deleteCollaborator.addEventListener("click", () => {
             const userLSG = lab_local_storage_object("global")
@@ -1537,13 +1552,12 @@ function dash_parameters(u) {
     }
     else if (tabValue == "controls") {
       const line = lab_design_system_d("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
-      line.style.width = "100%"
-      line.style.alignItems = "center"
 
       const voice = lab_design_system_d("span", "voice-command", line, u.lngData.vocal_command, null)
 
       if (checkMicrophoneStatus()) {
         const voiceBtn = lab_design_system_d("button", "voice-activate", line, u.lngData.activate, null, ["buttons", "action"])
+        voiceBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("on", u.lng)
           lab_local_storage_object_update("global", { speech: "enabled" })
@@ -1552,6 +1566,7 @@ function dash_parameters(u) {
       }
       else {
         const voiceBtn = lab_design_system_d("button", "voice-activate", line, u.lngData.disable, null, ["buttons", "grey"])
+        voiceBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("off")
           lab_local_storage_object_update("global", { speech: "disabled" })
@@ -1661,7 +1676,6 @@ function appActions(e, action) {
 
 }
 
-
 function setTheme(el) {
 
   const themeColors = {
@@ -1683,7 +1697,7 @@ function themeSwitch(parent) {
   const themeSwitcher = lab_design_system_d("div", "theme-switcher", parent, null, null, ["elements", "theme"])
   const colorTheme = lab_design_system_d("div", "color-theme", themeSwitcher, null, null, ["elements", "lightTheme"])
   const darkTheme = lab_design_system_d("img", "img-theme", colorTheme, null, null)
-  darkTheme.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/nightlight.svg")
+  darkTheme.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/nightlight.svg")
   darkTheme.style.width = "0"
 
   if (theme == 'dark') {
@@ -1739,7 +1753,7 @@ function dashboard(dashObject) {
   if (externalApps.length > 0) {
     const shared = lab_design_system_d("button", "shared-btn", header, null, null, ["elements", "share"]);
     const sharedIcon = lab_design_system_d("img", "shared-img", shared);
-    sharedIcon.setAttribute('src', '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/share.svg')
+    sharedIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/share.svg')
     sharedIcon.style.width = '100%'
 
 
@@ -1901,7 +1915,7 @@ function dashboard(dashObject) {
 
         previewBox.addEventListener("click", () => {
           lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
-          window.open(window.location.href + "/" + e + "/" + "home", "_self")
+          window.open(window.location.href + e + "/" + "home", "_self")
         })
 
         const preview = lab_design_system_d("img", `item-img-${e}`, previewBox, null, null)

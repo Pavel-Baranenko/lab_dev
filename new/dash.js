@@ -178,9 +178,10 @@ function plans(parent) {
     lab_fade_in_recursively(wrap, 0.3)
 
   }
-
+  lab_fade_in_recursively(top, 0.3)
   renderPlans(activeDuration)
 }
+
 
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
@@ -230,7 +231,6 @@ async function checkMicrophoneStatus() {
 let activeOption
 
 function shortcutsSettings(u, parent) {
-
   const functionalitiesList = {
     dash: u.lngData.dash,
     save: u.lngData.save,
@@ -268,8 +268,9 @@ function shortcutsSettings(u, parent) {
   })
 
   const altLabel = lab_design_system("div", "alt-label", line, "CTRL | CMD +", null)
+  let width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
-  const keyInput = input('', '', line)
+  const keyInput = input('', '', line, null, width)
   keyInput.setAttribute('readonly', true)
   keyInput.addEventListener('keydown', e => {
     e.preventDefault()
@@ -387,12 +388,12 @@ function dash_parameters(u) {
   function tab(tabValue) {
 
     activeTab = tabValue
+    let width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
     boxWrap.innerHTML = ""
 
     if (tabValue == "profile") {
       const line = lab_design_system("div", "profile-box-a", boxWrap, null, null, ["parameters", "line"])
-      line.style.alignItems = "center"
 
       const mail = lab_design_system("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system("p", "profile-box-d3csw", line, u.email, null)
@@ -401,8 +402,8 @@ function dash_parameters(u) {
       const passwordSpan = lab_design_system("span", "profile-box-passord", password, u.lngData.password, null)
       const confirm = lab_design_system("div", "profile-box-conf", password, null, null, ["parameters", "confirm"])
 
-      const passwordInput = input(u.lngData.new_password, "password", confirm, null, null)
-      const passwordConfirm = input(u.lngData.confirm, "confirm-password", confirm, null, null)
+      const passwordInput = input(u.lngData.new_password, "password", confirm, null, width)
+      const passwordConfirm = input(u.lngData.confirm, "confirm-password", confirm, null, width)
 
       const profileButtons = lab_design_system("div", "profile-buttons", boxWrap, null, null, ["parameters", "buttons"])
 
@@ -454,7 +455,9 @@ function dash_parameters(u) {
 
       const themeTitle = lab_design_system("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
-      select(themes[u.configs.ui], themes, theme, "theme")
+      select(themes[u.configs.ui], themes, theme, "theme", (themeName) => {
+
+      })
 
       const language = lab_design_system("div", "profile-box-language", boxWrap, null, null, ["parameters", "line"])
       const languageTitle = lab_design_system("span", "profile-language", language, u.lngData.language, null)
@@ -471,7 +474,7 @@ function dash_parameters(u) {
 
       const sftpBtn = lab_design_system("div", "profile-btn-sftp", sftp, u.lngData.generate_the_key, null, ["buttons", "action"])
 
-      sftpBtn.style.width = "clamp(120px, 15svw, 160px)"
+      sftpBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
       sftpBtn.addEventListener("click", () => {
         const userLSG = lab_local_storage_object("global")
         socket.emit("getSftpKey", userLSG)
@@ -479,12 +482,12 @@ function dash_parameters(u) {
       const publicId = lab_design_system("div", "profile-box-public", boxWrap, null, null, ["parameters", "line"])
       const publicIdTitle = lab_design_system("span", "profile-public", publicId, u.lngData.public_id, null)
 
-      let publicIdInput = input("", "publicId", publicId, null, "clamp(120px, 15svw, 160px)")
+      let publicIdInput = input("", "publicId", publicId, null, width)
 
       const publicIdBtn = lab_design_system("button", "publicId-btn", publicId, u.lngData.save, null, ["buttons", "action"])
 
 
-      publicIdBtn.style.width = "clamp(120px, 15svw, 160px)"
+      publicIdBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
       publicIdBtn.addEventListener("click", () => {
         if (publicIdInput.value) {
           const userLSG = lab_local_storage_object("global")
@@ -503,7 +506,7 @@ function dash_parameters(u) {
 
       const collaboratorsBtn = lab_design_system("button", "collaborators-btn", collaborators, u.lngData.edit, null, ["buttons", "action"])
 
-      collaboratorsBtn.style.width = "clamp(120px, 15svw, 160px)"
+      collaboratorsBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
 
       const rights = {
@@ -518,10 +521,10 @@ function dash_parameters(u) {
 
         const collaboratorsList = lab_design_system("div", "collaborators-list", boxWrap, null, null, ["parameters", "line"])
 
-        input("", "collaborator-email", collaboratorsList)
+        input("", "collaborator-email", collaboratorsList, null, width)
         const addCollaborator = lab_design_system("button", "add-collaborator", collaboratorsList, u.lngData.add, null, ["buttons", "action"])
 
-        addCollaborator.style.width = "clamp(120px, 15svw, 160px)"
+        addCollaborator.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
         let len = u.configs.collaboratorsLIST.length;
 
@@ -541,7 +544,7 @@ function dash_parameters(u) {
 
           const deleteCollaborator = lab_design_system("button", `delete-collaborator-${index}`, collaboratorsItem, u.lngData.delete, null, ["buttons", "action"])
 
-          deleteCollaborator.style.width = "clamp(120px, 15svw, 160px)"
+          deleteCollaborator.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
 
           deleteCollaborator.addEventListener("click", () => {
             const userLSG = lab_local_storage_object("global")
@@ -561,13 +564,12 @@ function dash_parameters(u) {
     }
     else if (tabValue == "controls") {
       const line = lab_design_system("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
-      line.style.width = "100%"
-      line.style.alignItems = "center"
 
       const voice = lab_design_system("span", "voice-command", line, u.lngData.vocal_command, null)
 
       if (checkMicrophoneStatus()) {
         const voiceBtn = lab_design_system("button", "voice-activate", line, u.lngData.activate, null, ["buttons", "action"])
+        voiceBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("on", u.lng)
           lab_local_storage_object_update("global", { speech: "enabled" })
@@ -576,6 +578,7 @@ function dash_parameters(u) {
       }
       else {
         const voiceBtn = lab_design_system("button", "voice-activate", line, u.lngData.disable, null, ["buttons", "grey"])
+        voiceBtn.style.width = lab_orientation == "Portrait" ? "100%" : "clamp(120px, 15svw, 160px)"
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("off")
           lab_local_storage_object_update("global", { speech: "disabled" })
@@ -684,7 +687,6 @@ function appActions(e, action) {
   else if (action == "settings") console.log("settings");
 
 }
-
 
 function setTheme(el) {
 
@@ -828,15 +830,15 @@ function dashboard(dashObject) {
     })
   })
 
-  const create = lab_design_system("button", "create-btn", header, lngData.create, null, ["buttons", "action"])
+  const create = lab_design_system("button", "create-btn", header, 'lngData.create', null, ["buttons", "action"])
 
   create.addEventListener("click", e => {
     if (!document.getElementById('lab-popup-create-app')) {
       const createPopup = popup("create-app", rootLayer)
-      const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
+      const popupTitle = lab_design_system("span", "popup-title", createPopup, 'lngData.create_app', null, ["popup", "title"])
 
       const popupInput = input("name", "create", createPopup, null, "100%", ["popup", "input"])
-      const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, lngData.create, null, ["buttons", "action"])
+      const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, 'lngData.create', null, ["buttons", "action"])
 
       lab_fade_in_recursively(createPopup, 0.3)
 
@@ -902,8 +904,6 @@ function dashboard(dashObject) {
 
 
   function renderList(list, direction = "row") {
-
-
     if (localStorage.getItem('layout') == 'column') {
       direction = 'column'
     }
@@ -927,7 +927,7 @@ function dashboard(dashObject) {
 
         previewBox.addEventListener("click", () => {
           lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
-          window.open(window.location.href + "/" + e + "/" + "home", "_self")
+          window.open(window.location.href + e + "/" + "home", "_self")
         })
 
         const preview = lab_design_system("img", `item-img-${e}`, previewBox, null, null)
@@ -976,5 +976,7 @@ function dashboard(dashObject) {
 
 }
 
+let appList = ["test", "test2", "test3", "test4", "test5", "test6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17", "77", "66", "55", "44", "54", "65", "7656", "4545"]
+let externalApps = ["ext1", "ext2", "exfbgnt3", "4545"]
 
-return dashboard
+dashboard({ appList: appList, externalApps: externalApps })
