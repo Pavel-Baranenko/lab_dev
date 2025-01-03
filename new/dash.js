@@ -337,8 +337,6 @@ function shortcutsSettings(u, parent) {
   })
 
   function defaults() {
-    console.log(activeOption);
-
     keyInput.setAttribute('placeholder', defaultOpt[activeOption])
   }
 
@@ -904,7 +902,7 @@ function dashboard(dashObject) {
 
 
   function renderList(list, direction = "row") {
-    console.log(direction);
+
 
     if (localStorage.getItem('layout') == 'column') {
       direction = 'column'
