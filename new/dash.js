@@ -830,15 +830,15 @@ function dashboard(dashObject) {
     })
   })
 
-  const create = lab_design_system("button", "create-btn", header, 'lngData.create', null, ["buttons", "action"])
+  const create = lab_design_system("button", "create-btn", header, lngData.create, null, ["buttons", "action"])
 
   create.addEventListener("click", e => {
     if (!document.getElementById('lab-popup-create-app')) {
       const createPopup = popup("create-app", rootLayer)
-      const popupTitle = lab_design_system("span", "popup-title", createPopup, 'lngData.create_app', null, ["popup", "title"])
+      const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
 
       const popupInput = input("name", "create", createPopup, null, "100%", ["popup", "input"])
-      const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, 'lngData.create', null, ["buttons", "action"])
+      const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, lngData.create, null, ["buttons", "action"])
 
       lab_fade_in_recursively(createPopup, 0.3)
 
@@ -976,7 +976,6 @@ function dashboard(dashObject) {
 
 }
 
-let appList = ["test", "test2", "test3", "test4", "test5", "test6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17", "77", "66", "55", "44", "54", "65", "7656", "4545"]
-let externalApps = ["ext1", "ext2", "exfbgnt3", "4545"]
 
-dashboard({ appList: appList, externalApps: externalApps })
+
+return dashboard
