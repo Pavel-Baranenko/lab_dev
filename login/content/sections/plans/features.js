@@ -1,4 +1,5 @@
-{
+
+const styles_d = {
   "buttons": {
     "yellowBtn": {
       "default": {
@@ -253,25 +254,15 @@
   "elements": {
     "avatar": {
       "default": {
+        "borderRadius": "50px",
+        "backgroundColor": "#ddd",
         "position": "relative",
-        "cursor": "pointer",
-        "border": "none",
-        "background": "#FFFFFF",
-        "borderRadius": "50%",
-        "padding": "15px",
         "width": "clamp(45px,5svw,50px)",
-        "height": "clamp(45px,5svw,50px)",
-        "boxSizing": "border-box"
+        "aspectRatio": 1,
+        "border": "none"
       },
       "Landscape": {
         "marginLeft": "50px"
-      }
-    },
-    "avatarIcon": {
-      "default": {
-        "max-height": "100%",
-        "height": "100%",
-        "width": "auto"
       }
     },
     "date": {
@@ -295,10 +286,11 @@
         "display": "flex",
         "alignItems": "center",
         "borderRadius": "10px",
-        "padding": "0 2px"
+        "padding": "0 2px",
+        "marginLeft": "20px"
       }
     },
-    "lightTheme": {
+    "colorTheme": {
       "default": {
         "background": "rgb(252, 206, 92)",
         "width": "10px",
@@ -352,24 +344,6 @@
         "width": "28px",
         "height": "28px",
         "padding": "6px"
-      }
-    },
-    "share": {
-      "default": {
-        "border": "none",
-        "background": "transparent",
-        "boxSizing": "border-box",
-        "borderRadius": "50%",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "width": "40px",
-        "height": "40px",
-        "padding": "9px",
-        "background": "#fff",
-        "marginLeft": "30px",
-        "boxSizing": "border-box",
-        "transition": "all 0.3s linear"
       }
     }
   },
@@ -780,165 +754,484 @@
       }
     }
   },
-  "plans": {
-    "wrap": {
-      "default": {
-        "display": "flex",
+  'plans': {
+    'wrap': {
+      'default': {
+        'display': "flex",
         "boxSizing": "border-box",
         "justifyContent": "space-between",
         "paddingTop": "clamp(2svh, 30px, 50px)",
         "paddingBottom": "clamp(2svh, 12svh, 50px)",
         "paddingLeft": "clamp(2svw, 5svw, 60px)",
         "paddingRight": "clamp(2svw, 5svw, 60px)",
-        "gap": "clamp(10px,2vw,50px)"
+        'gap': "clamp(10px,2vw,50px)"
       },
       "Portrait": {
-        "flexDirection": "column"
+        'flexDirection': "column"
       }
     },
-    "plan": {
-      "default": {
-        "display": "flex",
-        "position": "relative",
-        "height": "fit-content",
-        "flexDirection": "column",
-        "padding": "34px 20px",
-        "borderRadius": "45px",
-        "background": "#fff",
-        "boxShadow": "0 6px 33px 0 rgba(0, 0, 0, 0.11)"
+    'plan': {
+      'default': {
+        display: 'flex',
+        'position': "relative",
+        'height': "fit-content",
+        flexDirection: 'column',
+        'padding': "34px 20px",
+        borderRadius: '45px',
+        background: "#fff",
+        boxShadow: '0 6px 33px 0 rgba(0, 0, 0, 0.11)'
       },
       "Landscape": {
-        "flex": "0 1 21%"
+        'flex': "0 1 21%",
       }
     },
-    "angle": {
-      "default": {
-        "position": "absolute",
-        "top": 0,
-        "right": 0
+    'angle': {
+      'default': {
+        'position': "absolute",
+        top: 0,
+        right: 0
       }
     },
-    "title": {
-      "default": {
-        "fontSize": "24px",
-        "marginLeft": "12px",
-        "fontWeight": 700,
-        "marginBottom": "15px"
+    'title': {
+      'default': {
+        fontSize: '24px',
+        marginLeft: "12px",
+        fontWeight: 700,
+        marginBottom: "15px",
+
       }
     },
-    "description": {
-      "default": {
-        "fontSize": "14px",
-        "fontStyle": "italic",
-        "marginLeft": "12px",
-        "fontWeight": 600,
-        "marginBottom": "20px"
+    'description': {
+      'default': {
+        fontSize: '14px',
+        fontStyle: 'italic',
+        marginLeft: "12px",
+        fontWeight: 600,
+        marginBottom: "20px",
+
       }
     },
-    "box": {
-      "default": {
-        "display": "flex",
-        "alignItems": "end",
-        "marginLeft": "12px",
-        "fontSize": "15px",
-        "marginBottom": "20px",
-        "gap": "4px"
+    'box': {
+      'default': {
+        'display': "flex",
+        'alignItems': 'end',
+        marginLeft: "12px",
+        fontSize: '15px',
+        marginBottom: "20px",
+        gap: "4px"
+
       }
     },
-    "price": {
-      "default": {
-        "fontSize": "40px",
-        "fontWeight": 800
+    'price': {
+      'default': {
+        fontSize: '40px',
+        fontWeight: 800,
       }
     },
-    "point": {
-      "default": {
-        "display": "flex",
-        "alignItems": "flex-start",
-        "gap": "7px",
-        "lineHeight": "1",
-        "fontSize": "14px",
-        "color": "#000"
+    'point': {
+      'default': {
+        'display': "flex",
+        'alignItems': 'flex-start',
+        gap: "7px",
+        'lineHeight': "1",
+        fontSize: '14px',
+        color: '#000'
       }
     },
-    "points": {
-      "default": {
-        "display": "flex",
-        "flexDirection": "column",
-        "gap": "20px",
-        "padding": "20px",
-        "borderRadius": "25px",
-        "marginBottom": "20px",
-        "background": "#f0f0f0"
+    'points': {
+      'default': {
+        'display': "flex",
+        flexDirection: "column",
+        gap: "20px",
+        padding: "20px",
+        borderRadius: '25px',
+        marginBottom: "20px",
+        background: '#f0f0f0'
       }
     },
-    "heading": {
-      "default": {
-        "fontWeight": 700,
-        "fontSize": "40px",
-        "marginBottom": "20px",
-        "marginLeft": "12px",
-        "color": "#000"
+    'heading': {
+      'default': {
+        fontWeight: 700,
+        fontSize: '40px',
+        marginBottom: "20px",
+        marginLeft: '12px',
+        color: '#000',
       }
     },
-    "bold": {
-      "default": {
-        "fontWeight": 700
+    'bold': {
+      'default': {
+        fontWeight: 700,
       }
     },
-    "top": {
-      "default": {
-        "textAlign": "center",
-        "marginTop": "70px"
+    'btn': {
+      'default': {
+        fontWeight: 700,
+        fontSize: '18px',
+        textAlign: 'center',
+        color: '#fff',
+        padding: '12px 35px',
+        borderRadius: '15px',
+        margin: "0 auto",
+        border: 'none',
+        cursor: "pointer"
       }
     },
-    "text": {
-      "default": {
-        "fontWeight": 600,
-        "fontStyle": "italic",
-        "fontSize": "16px",
-        "textAlign": "center",
-        "color": "#000",
-        "maxWidth": "clamp(250px,50vw,800px)",
-        "margin": "0 auto"
-      }
-    },
-    "btn": {
-      "default": {
-        "fontWeight": 700,
-        "fontSize": "18px",
-        "textAlign": "center",
-        "color": "#fff",
-        "padding": "12px 35px",
-        "borderRadius": "15px",
-        "margin": "0 auto",
-        "border": "none",
-        "cursor": "pointer"
-      }
-    },
-    "switcher": {
-      "default": {
-        "display": "flex",
-        "fontSize": "18px",
-        "borderRadius": "80px",
-        "maxWidth": "267px",
-        "backgroundColor": "#fff",
-        "padding": "7px",
-        "margin": "45px auto 0 auto"
-      }
-    },
-    "switcherBtn": {
-      "default": {
-        "border": "none",
-        "flex": "0 1 50%",
-        "cursor": "pointer",
-        "fontWeight": "500",
-        "fontSize": "15px",
-        "borderRadius": "80px",
-        "backgroundColor": "transparent",
-        "color": "#000",
-        "padding": "10px"
-      }
-    }
   }
 }
+
+
+
+function lab_design_system_d(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  const styles = styles_d
+
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
+
+function footer(parent) {
+  rootLayer.setAttribute('class', 'lab-laboranth-scroll-classic')
+  const footer = lab_design_system_d("div", "footer", parent, null, null, ['containers', 'footer'])
+  const text = lab_design_system_d("span", "date", footer, `Laboranth>  |  ${new Date().getFullYear()}`, null, ['elements', 'date'])
+
+  const link = lab_design_system_d("a", "legal", footer, "Legal CGU/CGV", null, ['links', 'legal'])
+  link.setAttribute("href", "https://laboranth.tech/D/R/PDF/LegalLaboranthSAS.pdf")
+
+  const contact = lab_design_system_d("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
+  contact.setAttribute("href", "mailto:contact@laboranth.tech")
+}
+
+function header(parent) {
+
+  function search(array, string) {
+    let listing = []
+
+    array.forEach(e => {
+      if (e.match(string)) {
+        listing.push(e)
+      }
+    })
+
+    return Array.from(new Set(listing))
+  }
+
+  const header = lab_design_system_d("header", "header", parent, 0, 0, ["containers", "header"])
+
+  const logo = lab_design_system_d("a", "logo", header, 0, 0, null);
+  logo.setAttribute("href", "/")
+
+
+  const logoImg = lab_design_system_d("img", "logo-img", logo, null, null, ["logo", "small"]);
+  logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
+
+
+  const searchBox = lab_design_system_d("div", "search-box", header, null, null, ["search", "box"])
+
+  const searchImage = lab_design_system_d("img", "search-img", searchBox, null, null, null)
+  searchImage.setAttribute("src", "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/search.svg")
+
+  const searchInput = lab_design_system_d("input", "search", searchBox, null, "search", ["search", "input"])
+
+  const result = lab_design_system_d("div", "result", searchBox, null, null, ["search", "result"])
+
+  searchInput.addEventListener("input", () => {
+    result.innerHTML = ""
+    if (searchInput.value.length) {
+      myList = search(viewMyList ? appList : externalApps, searchInput.value)
+      if (myList.length) {
+        myList.forEach((item, index) => {
+          const resultItem = lab_design_system_d("a", `result-${item}`, result, item, null, ['search', !index ? "first" : "item"])
+          resultItem.setAttribute("href", `./${item}/home`)
+        })
+      }
+    }
+
+  })
+  const gridSwitch = lab_design_system_d("div", "grid-switch", header, null, null, ["elements", "gridSwitch"])
+
+  let activeSwitch = 'row'
+
+  const gridLayouts = ['row', 'column']
+  gridLayouts.forEach((e, index) => {
+    const btn = lab_design_system_d("button", `grid-switch-${e}`, gridSwitch, null, null, ["elements", "gridBtn"])
+
+    e == activeSwitch && (btn.style.background = "#fff")
+
+
+    const icon = lab_design_system_d("img", `grid-icon-${e}`, btn)
+    icon.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/${e}.svg`)
+    icon.style.maxWidth = '100%'
+
+    btn.addEventListener('click', () => {
+      if (e != activeSwitch) {
+        document.getElementById(`lab-grid-switch-${e == 'row' ? "column" : "row"}`).style.background = "transparent"
+        btn.style.background = "#fff"
+
+        activeSwitch = e
+
+        viewMyList ? renderList(appList, e) : renderList(externalApps, e)
+      }
+
+    })
+  })
+
+  const create = lab_design_system_d("button", "create-btn", header, "u.lngData.create", null, ["buttons", "action"])
+
+  create.addEventListener("click", e => {
+    lab_fade_in_recursively(wrapper, 0.3)
+
+    const createPopup = popup('delete-app', rootLayer)
+    const popupTitle = lab_design_system_d("span", "popup-title", createPopup, "u.lngData.create_app", null, ['popup', 'title'])
+
+    const popupInput = input('name', 'create', createPopup, null, '100%', ['popup', 'input'])
+    const createPopupBtn = lab_design_system_d("button", "create-popup-btn", createPopup, "u.lngData.create", null, ["buttons", "action"])
+
+    lab_fade_in_recursively(createPopup, 0.3)
+
+    const lab_user_current_config = lab_local_storage_object('global')
+
+    createPopupBtn.addEventListener('click', () => {
+      lab_user_current_config.newApp = popupInput.value
+      socket.emit("createApp", lab_user_current_config)
+      window.reload()
+    })
+
+  })
+
+  const avatar = lab_design_system_d("button", "user-avatar", header, null, null, ['elements', 'avatar'])
+
+  avatar.addEventListener("click", () => {
+
+    if (document.getElementById("lab-header-menu")) {
+      const menu = document.getElementById("lab-header-menu")
+      avatar.removeChild(menu)
+    } else {
+      const headerMenu = lab_design_system_d("div", "header-menu", avatar, null, null, ['header', 'menu'])
+
+      headerMenu.addEventListener('mouseleave', () => {
+        avatar.removeChild(headerMenu)
+      })
+
+      const menuList = ['settings', 'plans', 'logout']
+
+      menuList.forEach(e => {
+        const item = lab_design_system_d("a", `menu-${e}`, headerMenu, e, null, ['header', 'link'])
+        const image = lab_design_system_d("img", `${e}-img`, item, null, null, null)
+        image.setAttribute("src", `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/${e}.svg`)
+        item.addEventListener('click', () => {
+          if (e == 'logout') {
+            localStorage.clear()
+            window.open("https://laboranth.tech/", "_self")
+          }
+          else if (e == 'settings') {
+            socket.emit('askAccount', lab_local_storage_object('global'), res => {
+              lab_load_language_module(res.configs.language).then(lngData => {
+                res.lngData = lngData
+                res.lng = res.configs.language
+                dash_parameters(res)
+              })
+            })
+
+          }
+        })
+      })
+
+      lab_fade_in_recursively(headerMenu, 0.6)
+
+    }
+  })
+
+}
+
+function input(placeholder, value, parent, func, width, style) {
+  const input = lab_design_system_d("input", `input-${value}`, parent, null, null, (style || ["input", 'box']))
+  input.placeholder = placeholder
+  width ? input.style.width = `${width}` : ""
+
+  input.addEventListener("input", () => func(input.value))
+  return input
+}
+
+
+
+function plans() {
+
+  const tariff = [
+    {
+      title: "Free",
+      description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
+      price: {
+        mounth: 0,
+        year: 0
+      },
+      points: [
+        'Creation of 3 projects',
+        'Disk space 200MB',
+        'Content and Plugins Basic'
+      ],
+      color: {
+        label: "black",
+        value: "#243042"
+      }
+    },
+    {
+      title: "Personal",
+      description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
+      price: {
+        mounth: 35,
+        year: 420
+      },
+      points: [
+        'Creation of 15 projects',
+        'Disk space 1GB',
+        'Export git / .zip / serveurs persos (purchasing servers from our partners)',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro'
+      ],
+      color: {
+        label: "green",
+        value: "#3e8483"
+      }
+    },
+    {
+      title: "Business Lite",
+      description: "An exceptional choice for growing businesses with up to 5 team members.",
+      price: {
+        mounth: 60,
+        year: 720
+      },
+      points: [
+        'Unlimited project creation',
+        'Disk space 10GB',
+        '5 collaborators',
+        'Export git / .zip / serveurs persos /serveurs auto',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro'
+      ],
+      subPoints: [
+        'Full transfer of source code',
+        'Using AI',
+        'Ephemeral sharing',
+        'Payment tools',
+        'Automaticly daily backup'
+      ],
+      color: {
+        label: "orange",
+        value: "#ff642a"
+      }
+    },
+    {
+      title: "Business Premium",
+      description: "For businesses that want to use all the capabilities of the service. Also ideal for web studios and IT companies",
+      price: {
+        mounth: 350,
+        year: 4200
+      },
+      points: [
+        'Unlimited project creation',
+        'Disk space 50GB',
+        '15 collaborators',
+        'Export git / .zip / serveurs persos /serveurs auto',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro',
+        'Content and Plugins VIP'
+      ],
+      subPoints: [
+        'Full transfer of source code',
+        'Using AI',
+        'Ephemeral sharing',
+        'Payment tools',
+        'Automaticly daily backup',
+        'eCommerce',
+        'Access to training materials'
+      ],
+      color: {
+        label: "blue",
+        value: "#2463eb"
+      }
+    },
+    {
+      title: "Tailored",
+      description: "Extended solution for high scale businesses and organizations like universities",
+      heading: "On request",
+      color: {
+        label: "yellow",
+        value: "#fed05e"
+      }
+    }
+  ]
+
+  rootLayer.style.overflowY = "auto"
+  const wrapper = lab_design_system_d("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
+  header(wrapper)
+
+  const wrap = lab_design_system_d("div", "plans", wrapper, 0, 0, ["plans", "wrap"])
+
+  tariff.forEach((e, index) => {
+    const item = lab_design_system_d("div", `plans-${index}`, wrap, 0, 0, ["plans", "plan"])
+    const angle = lab_design_system_d("img", `plans-angle-${index}`, item, 0, 0, ["plans", "angle"])
+    angle.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/point-card-${e.color.label}.svg`)
+    const title = lab_design_system_d("span", `plans-title-${index}`, item, e.title, 0, ["plans", "title"])
+    const description = lab_design_system_d("p", `plans-description-${index}`, item, e.description, 0, ["plans", "description"])
+    if (e.price) {
+
+      const priceBox = lab_design_system_d("div", `plans-box-${index}`, item, 0, 0, ["plans", "box"])
+      const currency = lab_design_system_d("div", `plans-currency-${index}`, priceBox, 'usd ', 0, 0)
+      const price = lab_design_system_d("div", `plans-price-${index}`, priceBox, String(e.price.mounth), 0, ["plans", "price"])
+      const duration = lab_design_system_d("div", `plans-duration-${index}`, priceBox, ' /month', 0, 0)
+    }
+    function renderPoint(list, type = '') {
+      const points = lab_design_system_d("div", `points-${type}-${index}`, item, 0, 0, ['plans', 'points'])
+      list.forEach((p, i) => {
+        const point = lab_design_system_d("div", `point-${type}-${index}-${i}`, points, 0, 0, ['plans', 'point'])
+        const img = lab_design_system_d("img", `point-img-${type}-${index}-${i}`, point)
+        img.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/point-${e.color.label}.svg`)
+        const span = lab_design_system_d("span", `point-text-${type}-${index}-${i}`, point, p, 0, (type ? ['plans', type] : 0))
+      })
+    }
+
+    e.points && renderPoint(e.points)
+    e.subPoints && renderPoint(e.points, 'bold')
+
+    e.heading && lab_design_system_d("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
+
+    const btn = lab_design_system_d("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+    btn.style.backgroundColor = e.color.value
+    e.color.label == 'yellow' && (btn.style.color = '#000')
+  })
+
+  footer(wrapper)
+  lab_fade_in_recursively(wrapper, 0.3)
+}
+
+plans()
+
+
+

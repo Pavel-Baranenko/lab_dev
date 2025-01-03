@@ -1,14 +1,197 @@
 
+function plans(parent) {
+  const tariff = [
+    {
+      title: "Free",
+      description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
+      price: {
+        mounth: 0,
+        year: 0
+      },
+      points: [
+        'Creation of 3 projects',
+        'Disk space 200MB',
+        'Content and Plugins Basic'
+      ],
+      color: {
+        label: "black",
+        value: "#243042"
+      }
+    },
+    {
+      title: "Personal",
+      description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
+      price: {
+        mounth: 35,
+        year: 420
+      },
+      points: [
+        'Creation of 15 projects',
+        'Disk space 1GB',
+        'Export git / .zip / serveurs persos (purchasing servers from our partners)',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro'
+      ],
+      color: {
+        label: "green",
+        value: "#3e8483"
+      }
+    },
+    {
+      title: "Business Lite",
+      description: "An exceptional choice for growing businesses with up to 5 team members.",
+      price: {
+        mounth: 60,
+        year: 720
+      },
+      points: [
+        'Unlimited project creation',
+        'Disk space 10GB',
+        '5 collaborators',
+        'Export git / .zip / serveurs persos /serveurs auto',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro'
+      ],
+      subPoints: [
+        'Full transfer of source code',
+        'Using AI',
+        'Ephemeral sharing',
+        'Payment tools',
+        'Automaticly daily backup'
+      ],
+      color: {
+        label: "orange",
+        value: "#ff642a"
+      }
+    },
+    {
+      title: "Business Premium",
+      description: "For businesses that want to use all the capabilities of the service. Also ideal for web studios and IT companies",
+      price: {
+        mounth: 350,
+        year: 4200
+      },
+      points: [
+        'Unlimited project creation',
+        'Disk space 50GB',
+        '15 collaborators',
+        'Export git / .zip / serveurs persos /serveurs auto',
+        'Linking your domain',
+        'Content and Plugins Basic',
+        'Content and Plugins Pro',
+        'Content and Plugins VIP'
+      ],
+      subPoints: [
+        'Full transfer of source code',
+        'Using AI',
+        'Ephemeral sharing',
+        'Payment tools',
+        'Automaticly daily backup',
+        'eCommerce',
+        'Access to training materials'
+      ],
+      color: {
+        label: "blue",
+        value: "#2463eb"
+      }
+    },
+    {
+      title: "Tailored",
+      description: "Extended solution for high scale businesses and organizations like universities",
+      heading: "On request",
+      color: {
+        label: "yellow",
+        value: "#fed05e"
+      }
+    }
+  ]
+
+  const top = lab_design_system("div", "plans-top", parent, 0, 0, ["plans", "top"])
+  const heading = lab_design_system("span", "plans-heading", top, 'Tariff plans', 0, ["plans", "heading"])
+  const subHeading = lab_design_system("p", "plans-sub-heading", top, "Commencez avec plus de 900 templates gratuits et personnalisables, l'Éditeur intuitif glissez-déposez, des outils pour renforcer votre présence en ligne et plus encore.", 0, ["plans", "text"])
+
+  let activeDuration = 'mounth'
+
+  const plansMass = { 'mounth': 'Monthly', 'year': 'Yearly' }
+  const switcher = lab_design_system("div", "plans-switcher", top, 0, 0, ["plans", "switcher"])
+
+  Object.keys(plansMass).forEach(e => {
+    const switcherBtn = lab_design_system("button", `plans-switcher-${e}`, switcher, plansMass[e], 0, ["plans", "switcherBtn"])
+    if (e == activeDuration) {
+      switcherBtn.style.background = '#FED05E'
+      switcherBtn.style.fontWeight = '700'
+    }
+    switcherBtn.addEventListener('click', () => {
+      if (e != activeDuration) {
+        let last = document.getElementById(`lab-plans-switcher-${activeDuration}`)
+        last.style.background = 'transparent'
+        last.style.fontWeight = '500'
+
+        switcherBtn.style.background = '#FED05E'
+        switcherBtn.style.fontWeight = '700'
+        activeDuration = e
+        renderPlans(activeDuration)
+      }
+    })
+  })
+
+  const wrap = lab_design_system("div", "plans", parent, 0, 0, ["plans", "wrap"])
+
+  function renderPlans(dur) {
+    wrap.innerHTML = ''
+
+    tariff.forEach((e, index) => {
+      const item = lab_design_system("div", `plans-${index}`, wrap, 0, 0, ["plans", "plan"])
+      const angle = lab_design_system("img", `plans-angle-${index}`, item, 0, 0, ["plans", "angle"])
+      angle.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/point-card-${e.color.label}.svg`)
+      const title = lab_design_system("span", `plans-title-${index}`, item, e.title, 0, ["plans", "title"])
+      const description = lab_design_system("p", `plans-description-${index}`, item, e.description, 0, ["plans", "description"])
+      if (e.price) {
+
+        const priceBox = lab_design_system("div", `plans-box-${index}`, item, 0, 0, ["plans", "box"])
+        const currency = lab_design_system("div", `plans-currency-${index}`, priceBox, 'usd ', 0, 0)
+        const price = lab_design_system("div", `plans-price-${index}`, priceBox, String(e.price[dur]), 0, ["plans", "price"])
+        const duration = lab_design_system("div", `plans-duration-${index}`, priceBox, ' /month', 0, 0)
+      }
+      function renderPoint(list, type = '') {
+        const points = lab_design_system("div", `points-${type}-${index}`, item, 0, 0, ['plans', 'points'])
+        list.forEach((p, i) => {
+          const point = lab_design_system("div", `point-${type}-${index}-${i}`, points, 0, 0, ['plans', 'point'])
+          const img = lab_design_system("img", `point-img-${type}-${index}-${i}`, point)
+          img.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/point-${e.color.label}.svg`)
+          const span = lab_design_system("span", `point-text-${type}-${index}-${i}`, point, p, 0, (type ? ['plans', type] : 0))
+        })
+      }
+
+      e.points && renderPoint(e.points)
+      e.subPoints && renderPoint(e.points, 'bold')
+
+      e.heading && lab_design_system("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
+
+      const btn = lab_design_system("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+      btn.style.backgroundColor = e.color.value
+      e.color.label == 'yellow' && (btn.style.color = '#000')
+    })
+
+    lab_fade_in_recursively(wrap, 0.3)
+
+  }
+
+  renderPlans(activeDuration)
+}
+
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
   const top = lab_design_system("div", `select-top-${value}`, select, null, null, ["select", "top"])
   const topSpan = lab_design_system("span", `selected-${value}`, top, label, null)
   const listing = lab_design_system("div", `select-list-${value}`, select, null, null, ["select", "list"])
   const arrow = lab_design_system("img", `select-arrow-${value}`, top, null, null)
-  arrow.src = "https://laboranth.tech/D/R/IMG/arrow_drop_down.svg"
+  arrow.src = "https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg"
 
   Object.keys(list).forEach(e => {
-    const item = lab_design_system("div", `select-item-${e}-${value}`, listing, list[e], null, ["select", "item"])
+    const item = lab_design_system("div", `select-item-${e}-${value}`, listing, list[e], "select-item")
     item.addEventListener("click", () => {
       topSpan.innerHTML = list[e]
       func(e)
@@ -32,6 +215,7 @@ function popup(id, parent, wrap = false) {
     parent.removeChild(popup)
   })
 
+  lab_fade_in_recursively(popup, 0.3)
   return wrap ? popup : popupContent;
 }
 
@@ -43,22 +227,7 @@ async function checkMicrophoneStatus() {
   return false
 }
 
-function alert(text) {
-  const wrap = lab_design_system("div", "alert", rootLayer, text, null, ["alert", "wrap"])
-
-  wrap.style.transition = "all 0.4s linear"
-  wrap.style.opacity = 1
-  wrap.style.transform = "none"
-
-  setTimeout(() => {
-    wrap.style.transition = "all 0.2s linear"
-    wrap.style.opacity = 0
-
-    setTimeout(() => {
-      rootLayer.removeChild(wrap)
-    }, 2000);
-  }, 6000);
-}
+let activeOption
 
 function shortcutsSettings(u, parent) {
 
@@ -87,9 +256,9 @@ function shortcutsSettings(u, parent) {
     feather: u.lngData.feather,
   }
 
-  let activeOption = functionalitiesList.dash
+  activeOption = 'dash'
 
-  const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
+  const line = lab_design_system("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
   const shortcuts = select(functionalitiesList.dash, functionalitiesList, line, activeOption, (e) => {
     activeOption = e
@@ -98,20 +267,19 @@ function shortcutsSettings(u, parent) {
     })
   })
 
-  const altLabel = lab_design_system_d("div", "alt-label", line, "CTRL | CMD +", null)
+  const altLabel = lab_design_system("div", "alt-label", line, "CTRL | CMD +", null)
 
   const keyInput = input('', '', line)
-
   keyInput.setAttribute('readonly', true)
-
   keyInput.addEventListener('keydown', e => {
     e.preventDefault()
     keyInput.value = e.key
   })
-  const buttons = lab_design_system_d("div", "alt-buttons-line", parent, null, null, ["parameters", "line"])
 
-  const save = lab_design_system_d("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
-  const reinitialize = lab_design_system_d("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'action'])
+  const buttons = lab_design_system("div", "alt-buttons-line", parent, null, null, ["parameters", "line"])
+
+  const reinitialize = lab_design_system("button", "reinitialize", buttons, u.lngData.reinitialize, null, ['buttons', 'grey'])
+  const save = lab_design_system("button", "save", buttons, u.lngData.save, null, ['buttons', 'action'])
 
   const defaultOpt = {
     dash: 'h',
@@ -140,7 +308,6 @@ function shortcutsSettings(u, parent) {
 
   reinitialize.addEventListener('click', () => {
     keyInput.value = defaultOpt[activeOption]
-
     const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
 
     const userLSG = lab_local_storage_object('global')
@@ -151,8 +318,12 @@ function shortcutsSettings(u, parent) {
   })
 
   save.addEventListener('click', () => {
-    const findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
-    console.log(findAssociatedIndex);
+    let findAssociatedIndex
+    if (u.configs.shortcuts) {
+      findAssociatedIndex = u.configs.shortcuts.find(s => s.fn_name === activeOption)
+    } else {
+      findAssociatedIndex = defaultOpt[activeOption]
+    }
 
     const userLSG = lab_local_storage_object('global')
     if (keyInput.value) {
@@ -166,77 +337,9 @@ function shortcutsSettings(u, parent) {
   })
 
   function defaults() {
-    switch (functionalitiesList[activeOption]) {
-      case u.lngData.dash:
-        keyInput.setAttribute('placeholder', 'h')
-        break;
-      case u.lngData.save:
-        keyInput.setAttribute('placeholder', 's')
-        break;
-      case u.lngData.text_editor:
-        keyInput.setAttribute('placeholder', 't')
-        break;
-      case u.lngData.menu:
-        keyInput.setAttribute('placeholder', 'm')
-        break;
-      case u.lngData.manual:
-        keyInput.setAttribute('placeholder', 'i')
-        break;
-      case u.lngData.designer_mode:
-        keyInput.setAttribute('placeholder', 'd')
-        break;
-      case u.lngData.copy:
-        keyInput.setAttribute('placeholder', 'c')
-        break;
-      case u.lngData.paste:
-        keyInput.setAttribute('placeholder', 'v')
-        break;
-      case u.lngData.translate:
-        keyInput.setAttribute('placeholder', 'q')
-        break;
-      case u.lngData.rotate:
-        keyInput.setAttribute('placeholder', 'a')
-        break;
-      case u.lngData.first_plan:
-        keyInput.setAttribute('placeholder', 'w')
-        break;
-      case u.lngData.second_plan:
-        keyInput.setAttribute('placeholder', 'x')
-        break;
-      case u.lngData.merge:
-        keyInput.setAttribute('placeholder', 'y')
-        break;
-      case u.lngData.up:
-        keyInput.setAttribute('placeholder', '+')
-        break;
-      case u.lngData.down:
-        keyInput.setAttribute('placeholder', '-')
-        break;
-      case u.lngData.marker:
-        keyInput.setAttribute('placeholder', 'r')
-        break;
-      case u.lngData.peeling_mask:
-        keyInput.setAttribute('placeholder', 'u')
-        break;
-      case u.lngData.square:
-        keyInput.setAttribute('placeholder', 'k')
-        break;
-      case u.lngData.circle:
-        keyInput.setAttribute('placeholder', 'j')
-        break;
-      case u.lngData.triangle:
-        keyInput.setAttribute('placeholder', 'b')
-        break;
-      case u.lngData.free_form:
-        keyInput.setAttribute('placeholder', 'l')
-        break;
-      case u.lngData.feather:
-        keyInput.setAttribute('placeholder', 'f')
-        break;
+    console.log(activeOption);
 
-      default:
-        break;
-    }
+    keyInput.setAttribute('placeholder', defaultOpt[activeOption])
   }
 
   function applyShortcuts(configs) {
@@ -349,6 +452,7 @@ function dash_parameters(u) {
       }
 
       const theme = lab_design_system("div", "parameters-theme", boxWrap, null, null, ["parameters", "line"])
+      themeSwitch(boxWrap)
 
       const themeTitle = lab_design_system("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
@@ -452,19 +556,20 @@ function dash_parameters(u) {
 
           len--
         })
+        lab_fade_in_recursively(boxWrap, 0.5)
       })
 
 
     }
     else if (tabValue == "controls") {
-
       const line = lab_design_system("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
       line.style.width = "100%"
+      line.style.alignItems = "center"
 
       const voice = lab_design_system("span", "voice-command", line, u.lngData.vocal_command, null)
 
       if (checkMicrophoneStatus()) {
-        const voiceBtn = lab_design_system("button", "voice-activate", voice, u.lngData.activate, null, ["buttons", "action"])
+        const voiceBtn = lab_design_system("button", "voice-activate", line, u.lngData.activate, null, ["buttons", "action"])
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("on", u.lng)
           lab_local_storage_object_update("global", { speech: "enabled" })
@@ -472,7 +577,7 @@ function dash_parameters(u) {
         })
       }
       else {
-        const voiceBtn = lab_design_system("button", "voice-activate", voice, u.lngData.disable, null, ["buttons", "grey"])
+        const voiceBtn = lab_design_system("button", "voice-activate", line, u.lngData.disable, null, ["buttons", "grey"])
         voiceBtn.addEventListener("click", () => {
           lab_vocal_control("off")
           lab_local_storage_object_update("global", { speech: "disabled" })
@@ -484,6 +589,7 @@ function dash_parameters(u) {
 
 
     }
+    lab_fade_in_recursively(boxWrap, 0.5)
   }
 
 
@@ -491,9 +597,9 @@ function dash_parameters(u) {
   tabButtons.style.position = "relative"
 
   const tabs = {
-    "profile": "Profile",
+    "profile": u.lngData.profile,
     "settings": u.lngData.settings,
-    "controls": "Controls"
+    "controls": u.lngData.controls
   }
 
   const white = lab_design_system("div", "active-white", tabButtons, null, null, ["parameters", "white"])
@@ -530,6 +636,7 @@ function renderMenu(itemMenu, e, parent, lngData) {
   menuItems.forEach(p => {
     const item = lab_design_system("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
     const itemImg = lab_design_system("img", `project-menu-img-${p}`, item, null, null)
+    itemImg.style.transform = 'rotate(-deg)'
     itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
 
     item.addEventListener("click", () => {
@@ -580,6 +687,7 @@ function appActions(e, action) {
 
 }
 
+
 function setTheme(el) {
 
   const themeColors = {
@@ -595,40 +703,85 @@ function setTheme(el) {
   })
 }
 
-function dashboard(appList, checkLng, externalApps, accountData, lngData) {
+function themeSwitch(parent) {
+  let theme = localStorage.getItem('theme')
 
-  rootLayer.style.overflowY = "auto"
-  let viewMyList = true
-
-  const wrapper = lab_design_system("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
-  const header = lab_design_system("header", "header", wrapper, 0, 0, ["containers", "header"])
-
-  const logo = lab_design_system("a", "logo", header, 0, 0, null);
-  logo.setAttribute("href", "/")
-
-
-  const logoImg = lab_design_system("img", "logo-img", logo, null, null, ["logo", "small"]);
-  logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
-
-  const themeSwitcher = lab_design_system("div", "theme-switcher", header, null, null, ["elements", "theme"])
-  const colorTheme = lab_design_system("div", "color-theme", themeSwitcher, null, null, ["elements", "colorTheme"])
+  const themeSwitcher = lab_design_system("div", "theme-switcher", parent, null, null, ["elements", "theme"])
+  const colorTheme = lab_design_system("div", "color-theme", themeSwitcher, null, null, ["elements", "lightTheme"])
   const darkTheme = lab_design_system("img", "img-theme", colorTheme, null, null)
-  darkTheme.setAttribute("src", "https://laboranth.tech/D/R/IMG/nightlight.svg")
+  darkTheme.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/nightlight.svg")
   darkTheme.style.width = "0"
+
+  if (theme == 'dark') {
+    themeSwitcher.style.justifyContent = "end"
+    colorTheme.style.background = "transparent"
+    colorTheme.style.transform = "rotate(-180deg)"
+    darkTheme.style.width = "auto"
+  }
 
   themeSwitcher.addEventListener("click", () => {
     themeSwitcher.style.justifyContent = themeSwitcher.style.justifyContent == "end" ? "start" : "end"
     colorTheme.style.background = colorTheme.style.background == "rgb(252, 206, 92)" ? "transparent" : "rgb(252, 206, 92)"
     colorTheme.style.transform = colorTheme.style.transform == "rotate(-180deg)" ? "none" : "rotate(-180deg)"
     darkTheme.style.width = darkTheme.style.width == "auto" ? "0" : "auto"
+    const color = localStorage.getItem('theme')
+    localStorage.setItem('theme', (color == 'light' ? "dark" : "light"))
+
     setTheme(rootLayer)
   })
 
 
-  const searchBox = lab_design_system("div", "search-box", header, null, null, ["search", "box"])
+}
 
+function footer(parent) {
+  rootLayer.setAttribute('class', 'lab-laboranth-scroll-classic')
+  const footer = lab_design_system("div", "footer", parent, null, null, ['containers', 'footer'])
+  const text = lab_design_system("span", "date", footer, `Laboranth>  |  ${new Date().getFullYear()}`, null, ['elements', 'date'])
+
+  const link = lab_design_system("a", "legal", footer, "Legal CGU/CGV", null, ['links', 'legal'])
+  link.style.cursor = "pointer"
+  link.addEventListener('click', e => {
+    window.open('/D/R/PDF/LegalLaboranthSAS.pdf')
+  })
+
+  const contact = lab_design_system("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
+  contact.setAttribute("href", "mailto:contact@laboranth.tech")
+}
+
+function dashboard(dashObject) {
+  let appList = dashObject.appList, externalApps = dashObject.externalApps, lngData = dashObject.lngData
+  rootLayer.style.overflowY = "auto"
+  let viewMyList = true
+
+  const wrapper = lab_design_system("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
+  const header = lab_design_system("header", "header", wrapper, 0, 0, ["containers", "header"])
+  const content = lab_design_system("div", "content-box", wrapper, null, null, null)
+
+  const logo = lab_design_system("a", "logo", header, 0, 0, null);
+  logo.setAttribute("href", "/")
+  const logoImg = lab_design_system("img", "logo-img", logo, null, null, ["logo", "small"]);
+  logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
+
+  if (externalApps.length > 0) {
+    const shared = lab_design_system("button", "shared-btn", header, null, null, ["elements", "share"]);
+    const sharedIcon = lab_design_system("img", "shared-img", shared);
+    sharedIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/share.svg')
+    sharedIcon.style.width = '100%'
+
+
+    shared.addEventListener("click", () => {
+      viewMyList = !viewMyList
+      viewMyList ? renderList(appList) : renderList(externalApps)
+      shared.style.transform = shared.style.transform == 'rotate(70deg)' ? "none" : "rotate(70deg)"
+    })
+
+  }
+
+
+
+  const searchBox = lab_design_system("div", "search-box", header, null, null, ["search", "box"])
   const searchImage = lab_design_system("img", "search-img", searchBox, null, null, null)
-  searchImage.setAttribute("src", "https://laboranth.tech/D/R/IMG/search.svg")
+  searchImage.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/search.svg")
 
   const searchInput = lab_design_system("input", "search", searchBox, null, "search", ["search", "input"])
 
@@ -645,60 +798,64 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
         })
       }
     }
+    lab_fade_in_recursively(result, 0.6)
 
   })
   const gridSwitch = lab_design_system("div", "grid-switch", header, null, null, ["elements", "gridSwitch"])
 
-  let activeSwitch = "row"
 
   const gridLayouts = ["row", "column"]
   gridLayouts.forEach((e, index) => {
+    let activeSwitch = localStorage.getItem('layout') || 'row'
+
     const btn = lab_design_system("button", `grid-switch-${e}`, gridSwitch, null, null, ["elements", "gridBtn"])
 
     e == activeSwitch && (btn.style.background = "#fff")
 
-
     const icon = lab_design_system("img", `grid-icon-${e}`, btn)
-    icon.setAttribute("src", `https://laboranth.tech/D/R/IMG/${e}.svg`)
+    icon.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
     icon.style.maxWidth = "100%"
 
     btn.addEventListener("click", () => {
+      activeSwitch = localStorage.getItem('layout')
       if (e != activeSwitch) {
         document.getElementById(`lab-grid-switch-${e == "row" ? "column" : "row"}`).style.background = "transparent"
         btn.style.background = "#fff"
+        localStorage.setItem('layout', e)
 
         activeSwitch = e
 
         viewMyList ? renderList(appList, e) : renderList(externalApps, e)
       }
-
     })
   })
 
   const create = lab_design_system("button", "create-btn", header, lngData.create, null, ["buttons", "action"])
 
   create.addEventListener("click", e => {
-    lab_fade_in_recursively(wrapper, 0.3)
+    if (!document.getElementById('lab-popup-create-app')) {
+      const createPopup = popup("create-app", rootLayer)
+      const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
 
-    const createPopup = popup("delete-app", rootLayer)
-    const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
+      const popupInput = input("name", "create", createPopup, null, "100%", ["popup", "input"])
+      const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, lngData.create, null, ["buttons", "action"])
 
-    const popupInput = input("name", "create", createPopup, null, "100%", ["popup", "input"])
-    const createPopupBtn = lab_design_system("button", "create-popup-btn", createPopup, lngData.create, null, ["buttons", "action"])
+      lab_fade_in_recursively(createPopup, 0.3)
 
-    lab_fade_in_recursively(createPopup, 0.3)
+      const lab_user_current_config = lab_local_storage_object("global")
 
-    const lab_user_current_config = lab_local_storage_object("global")
-
-    createPopupBtn.addEventListener("click", () => {
-      lab_user_current_config.newApp = popupInput.value
-      socket.emit("createApp", lab_user_current_config)
-      window.reload()
-    })
-
+      createPopupBtn.addEventListener("click", () => {
+        lab_user_current_config.newApp = popupInput.value
+        socket.emit("createApp", lab_user_current_config)
+        window.reload()
+      })
+    }
   })
 
   const avatar = lab_design_system("button", "user-avatar", header, null, null, ["elements", "avatar"])
+  const avatarIcon = lab_design_system("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])
+
+  avatarIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/profile.svg')
 
   avatar.addEventListener("click", () => {
 
@@ -717,7 +874,7 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
       menuList.forEach(e => {
         const item = lab_design_system("a", `menu-${e}`, headerMenu, e, null, ["header", "link"])
         const image = lab_design_system("img", `${e}-img`, item, null, null, null)
-        image.setAttribute("src", `https://laboranth.tech/D/R/IMG/${e}.svg`)
+        image.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
         item.addEventListener("click", () => {
           if (e == "logout") {
             localStorage.clear()
@@ -733,6 +890,10 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
             })
 
           }
+          else if (e == 'plans') {
+            content.innerHTML = ''
+            plans(content)
+          }
         })
       })
 
@@ -742,16 +903,20 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
   })
 
 
-  const apps = lab_design_system("div", "app-list", wrapper, null, null, ["apps", "list"])
-
-
   function renderList(list, direction = "row") {
+    console.log(direction);
+
+    if (localStorage.getItem('layout') == 'column') {
+      direction = 'column'
+    }
+    content.innerHTML = ''
+    const apps = lab_design_system("div", "app-list", content, null, null, ["apps", "list"])
+
     apps.innerHTML = ""
     let len = list.length
 
     list.forEach(e => {
-      if (e != ".DS_Store") {
-
+      if (!e.startsWith('.')) {
         const project = lab_design_system("div", `project-${e}`, apps, null, null, ["apps", direction])
         project.addEventListener("mouseover", () => {
           project.style.transform = "scale(1.01)";
@@ -773,7 +938,7 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
         const text = lab_design_system("span", `apps-item-${e}`, bottom, e, null, null)
         const img = lab_design_system("img", `apps-item-img-${e}`, bottom, null, null, null)
 
-        img.setAttribute("src", "https://laboranth.tech/D/R/IMG/more_vert.svg")
+        img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
 
         img.addEventListener("click", () => {
 
@@ -784,7 +949,7 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
 
             const menuImg = lab_design_system("img", `apps-menu-img-${e}`, itemMenu, null, null, ["apps", "more"])
 
-            menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/more_vert.svg")
+            menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
 
             menuImg.addEventListener("click", () => {
               project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
@@ -800,35 +965,18 @@ function dashboard(appList, checkLng, externalApps, accountData, lngData) {
       }
     })
 
-
-
     lab_fade_in_recursively(apps, 0.6)
 
   }
+
   renderList(appList)
-
-  let setList = lab_design_system("button", "set-list", wrapper, "Set Listing", null, ["buttons", "action"])
-  setList.style.width = "180px"
-  setList.addEventListener("click", () => {
-    viewMyList = !viewMyList
-    viewMyList ? renderList(appList) : renderList(externalApps, true)
-  })
-
   footer(wrapper)
+  const theme = localStorage.getItem('theme')
+  if (theme == 'dark') setTheme(rootLayer)
 
   lab_fade_in_recursively(wrapper, 0.3)
 
 }
 
 
-function footer(parent) {
-  rootLayer.setAttribute('class', 'lab-laboranth-scroll-classic')
-  const footer = lab_design_system_d("div", "footer", parent, null, null, ['containers', 'footer'])
-  const text = lab_design_system_d("span", "date", footer, `Laboranth>  |  ${new Date().getFullYear()}`, null, ['elements', 'date'])
-
-  const link = lab_design_system_d("a", "legal", footer, "Legal CGU/CGV", null, ['links', 'legal'])
-  link.setAttribute("href", "#")
-
-  const contact = lab_design_system_d("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
-  contact.setAttribute("href", "mailto:contact@laboranth.tech")
-}
+return dashboard

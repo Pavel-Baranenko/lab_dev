@@ -33,49 +33,6 @@
 			}
 		},
 		{
-			"id": "lab_div_8026",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"style": {
-					"z-index": "1",
-					"position": "fixed",
-					"width": "1500px",
-					"height": "645px",
-					"top": "14.4629svh",
-					"background-color": "rgb(252, 206, 92)",
-					"display": "flex",
-					"align-items": "center",
-					"justify-content": "center",
-					"border-top-left-radius": "15px",
-					"border-top-right-radius": "15px",
-					"border-bottom-right-radius": "15px",
-					"border-bottom-left-radius": "15px",
-					"left": "24.9763svw",
-					"border-top-width": "2px",
-					"border-right-width": "2px",
-					"border-bottom-width": "2px",
-					"border-left-width": "2px",
-					"border-top-style": "solid",
-					"border-right-style": "solid",
-					"border-bottom-style": "solid",
-					"border-left-style": "solid",
-					"border-top-color": "cyan",
-					"border-right-color": "cyan",
-					"border-bottom-color": "cyan",
-					"border-left-color": "cyan",
-					"border-image-source": "initial",
-					"border-image-slice": "initial",
-					"border-image-width": "initial",
-					"border-image-outset": "initial",
-					"border-image-repeat": "initial",
-					"stroke": "cyan"
-				},
-				"text": "Новый элемент",
-				"textArray": []
-			}
-		},
-		{
 			"id": "lab_ctx_primary",
 			"tagName": "DIV",
 			"attributes": [],
@@ -108,54 +65,6 @@
 					"left": "100svw"
 				},
 				"text": "Кнопка",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_92953",
-			"tagName": "DIV",
-			"attributes": [],
-			"classes": "lab-apps-item",
-			"style": {
-				"parent": "lab-app-list",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_88477",
-			"tagName": "DIV",
-			"attributes": [],
-			"classes": "lab-apps-item",
-			"style": {
-				"parent": "lab-app-list",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_93235",
-			"tagName": "DIV",
-			"attributes": [],
-			"classes": "lab-apps-item",
-			"style": {
-				"parent": "lab-app-list",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_5693",
-			"tagName": "DIV",
-			"attributes": [],
-			"classes": "lab-apps-item",
-			"style": {
-				"parent": "lab-app-list",
-				"style": {},
-				"text": "",
 				"textArray": []
 			}
 		}
