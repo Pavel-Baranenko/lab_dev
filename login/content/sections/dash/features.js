@@ -124,7 +124,8 @@ const styles_d = {
         "fontSize": "14px",
         "textDecoration": "underline",
         "textAlign": "left",
-        "color": "#fff"
+        "color": "#fff",
+        'marginRight': "20px"
       }
     },
     "contact": {
@@ -157,7 +158,7 @@ const styles_d = {
     "box": {
       "default": {
         "background": "#fff",
-        "height": "clamp(3svh, 35px, 50px)",
+        "height": "clamp(35px, 5svh, 50px)",
         "boxSizing": "border-box",
         "borderRadius": "40px",
         "cursor": "pointer",
@@ -168,11 +169,11 @@ const styles_d = {
       },
       "Portrait": {
         "order": "98",
-        "width": "calc(100% - 128px)"
+        "width": "100%"
       },
       "Landscape": {
         "width": "clamp(20svw, 50svw, 500px)",
-        "margin": "0 auto"
+        "margin": "0 auto 0 0"
       }
     },
     "input": {
@@ -233,6 +234,19 @@ const styles_d = {
         "gap": "20px 8px"
       }
     },
+    'headerWrap': {
+      'default': {
+        display: 'none'
+      },
+      'Portrait': {
+        display: 'flex',
+        justifyContent: "space-between",
+        gap: "8px",
+        order: 99,
+        alignItems: "center",
+        width: '100%'
+      }
+    },
     "footer": {
       "default": {
         "display": "flex",
@@ -256,19 +270,21 @@ const styles_d = {
         "cursor": "pointer",
         "border": "none",
         "background": "#FFFFFF",
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: "center",
         "borderRadius": "50%",
-        "padding": "15px",
-        "width": "clamp(45px,5svw,50px)",
-        "height": "clamp(45px,5svw,50px)",
+        "width": "clamp(35px, 5svh, 50px)",
+        "height": "clamp(35px, 5svh, 50px)",
         "boxSizing": "border-box"
       },
       "Landscape": {
-        "marginLeft": "50px"
+        "marginLeft": "40px"
       }
     },
     "avatarIcon": {
       "default": {
-        "max-height": "100%",
+        "max-height": "50%",
         "height": "100%",
         "width": "auto"
       }
@@ -315,19 +331,18 @@ const styles_d = {
         "boxSizing": "border-box",
         "display": "flex",
         "alignItems": "center",
-        "justifyContent": "space-between"
+        "justifyContent": "space-between",
+        "height": "clamp(35px, 5svh, 50px)",
       },
       "Landscape": {
         "padding": "5px",
         "borderRadius": "50px",
         "marginRight": "5svw",
         "width": "110px",
-        "height": "50px"
       },
       "Portrait": {
         "padding": "3.5px",
-        "width": "77px",
-        "height": "35px",
+        "width": "85px",
         "borderRadius": "35px",
         "order": "99"
       }
@@ -340,17 +355,10 @@ const styles_d = {
         "borderRadius": "50%",
         "display": "flex",
         "alignItems": "center",
-        "justifyContent": "center"
-      },
-      "Landscape": {
-        "width": "40px",
-        "height": "40px",
-        "padding": "5px"
-      },
-      "Portrait": {
-        "width": "28px",
-        "height": "28px",
-        "padding": "6px"
+        "justifyContent": "center",
+        "height": "100%",
+        "padding": "5px",
+        "aspectRatio": "1"
       }
     },
     "share": {
@@ -362,19 +370,37 @@ const styles_d = {
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
-        "width": "40px",
-        "height": "40px",
+        "width": "clamp(35px, 5svh, 40px)",
+        "height": "clamp(35px, 5svh, 40px)",
         "padding": "9px",
         "background": "#fff",
-        "marginLeft": "30px",
+        "margin": "0 10px 0 auto",
         "boxSizing": "border-box",
         "transition": "all 0.3s linear"
       },
       'Portrait': {
-        'order': "99",
+        'order': "1",
         "width": "35px",
         "height": "35px",
         'margin': '0'
+      }
+    },
+    "chatsBtn": {
+      'default': {
+        border: 'none',
+        background: "transparent",
+        width: "30px",
+        height: "30px",
+      },
+      "Landscape": {
+        "marginLeft": "30px"
+      }
+    },
+    "checkBox": {
+      'default': {
+        'width': "16px",
+        'height': "16px",
+        'border': "1px solid #000"
       }
     }
   },
@@ -433,7 +459,8 @@ const styles_d = {
         "boxshadow": "2px 4px 30px 1px rgba(0, 0, 0, 0.09)",
         "background": "#fff",
         "borderRadius": "20px",
-        "aspectRatio": 1.39,
+        // "aspectRatio": 1.39,
+        height: "clamp(100px,28svh, 310px)",
         "display": "flex",
         "flexDirection": "column",
         "cursor": "pointer",
@@ -534,7 +561,6 @@ const styles_d = {
     },
     "more": {
       "default": {
-        "transform": "rotate(90deg)",
         "width": "25px",
         "marginLeft": "auto"
       }
@@ -759,7 +785,7 @@ const styles_d = {
         "fontSize": "32px",
         "fontWeight": "700",
         "lineHeight": "38.58px",
-        "textClign": "center",
+        "textAlign": "center",
         "color": "#000",
         "marginBottom": "15px"
       }
@@ -953,7 +979,275 @@ const styles_d = {
         "padding": "clamp(8px,2vw,10px)"
       }
     }
+  },
+  'chat': {
+    'wrap': {
+      'default': {
+        position: 'fixed',
+        right: 0,
+        zIndex: 99999,
+        backgroundColor: '#464C59',
+        padding: '5svh 3svw 3svh 3svw',
+        width: 'clamp(42svw,85svw,810px)',
+        height: '75svh',
+        display: 'flex',
+        top: '11svh',
+        borderRadius: '30px 0px 0px 30px',
+        gap: "3svw"
+      }
+    },
+    'close': {
+      'default': {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: '40px',
+        height: '40px',
+        borderRadius: '30px 30px 30px 0px',
+        background: '#FED05E',
+        border: 'none'
+      }
+    },
+    'body': {
+      'default': {
+        flex: '0 1 100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: "2svw"
+      }
+    },
+    'users': {
+      'default': {
+        flex: '0 1 3.125svw',
+        display: 'flex',
+        flexDirection: 'column',
+      }
+    },
+    'add': {
+      'default': {
+        borderRadius: '50%',
+        background: '#FED05E',
+        width: '100%',
+        aspectRatio: 1,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        border: "none"
+      }
+    },
+    'room': {
+      'default': {
+        background: '#F7F7F7',
+        flex: "0 1 100%",
+        padding: '2.3svh 1svw',
+        borderRadius: "20px"
+      }
+    },
+    'top': {
+      'default': {
+        textAlign: "center",
+        fontSize: '12px',
+        fontWeight: 500,
+        color: '#464C59',
+        paddingBottom: "2svh",
+        borderBottom: "1px solid #D0D0D0"
+      }
+    },
+    'bottom': {
+      'default': {
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        gap: "1svw"
+      }
+    },
+    'input': {
+      'default': {
+        border: "none",
+        flex: "0 1 93%",
+        outline: "none",
+        width: "93%",
+        height: 'calmp(15px,6svh,40px)',
+        borderRadius: '60px',
+        padding: "clamp(1svh,2svh,5px) 15px",
+        background: "#fff",
+        boxSizing: "border-box"
+      }
+    },
+    'send': {
+      'default': {
+        border: "none",
+        with: 'clamp(15px, 3svh,25px)',
+        height: 'clamp(15px, 3svh,25px)',
+        background: "transparent"
+      }
+    },
+    'new': {
+      'default': {
+        background: "#fff",
+        padding: "3svh",
+        borderRadius: '30px'
+      }
+    },
+    'heading': {
+      'default': {
+        textAlign: "center",
+        fontSize: 'clamp(10px,2svw,20px)',
+        fontWeight: 500,
+        marginBottom: '4svh'
+      }
+    },
+    'box': {
+      'default': {
+        display: "flex",
+        alignItems: 'center',
+        gap: "10px",
+        boxSizing: "border-box",
+      }
+    },
+    'boxInput': {
+      'default': {
+        border: "none",
+        outline: "none",
+        width: "100%",
+        height: 'clamp(15px,5svh,50px)',
+        borderRadius: '40px',
+        padding: "clamp(1svh,1svh,5px) 15px",
+        background: "#E1E1E1",
+        boxSizing: "border-box",
+
+      }
+    },
+    'boxBtn': {
+      'default': {
+        border: "none",
+        height: 'clamp(15px,5svh,50px)',
+        boxSizing: "border-box",
+        width: '19%',
+        fontWeight: 500,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: '40px',
+        background: '#FED05E'
+      }
+    }
   }
+}
+
+let oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
+let staticCLA = 'https://laboranth.tech/D/R/IMG/CLA/'
+
+
+function chat(parent) {
+  if (!document.getElementById('lab-chat')) {
+    socket.emit('askMessages', lab_local_storage_object('global'), reloadMessages => {
+      if (reloadMessages.success === true) {
+        console.log("AAAAAAAAAAAAAAAAAAAA");
+
+        const messages = reloadMessages.data
+        console.log(messages);
+      }
+    })
+
+    const wrap = lab_design_system_d("div", "chat", parent, 0, 0, ["chat", "wrap"])
+
+    const close = lab_design_system_d("button", "chat-close", wrap, 0, 0, ["chat", "close"])
+    const closeIcon = lab_design_system_d("img", "chat-close-icon", close)
+    closeIcon.setAttribute('src', `${oldSRC}close.svg`)
+
+    close.addEventListener('click', () => {
+      wrap.style.transition = 'all 0.2s linear'
+      wrap.style.transform = 'translateX(100%)'
+      wrap.style.opacity = '0'
+
+      setTimeout(() => {
+        parent.removeChild(wrap)
+      }, 2000);
+    })
+
+    const body = lab_design_system_d("div", "chat-body", wrap, 0, 0, ["chat", "body"])
+
+    function chatRoom() {
+      body.innerHTML = ''
+      const room = lab_design_system_d("div", "chat-room", body, 0, 0, ["chat", "room"])
+      const top = lab_design_system_d("div", "chat-top", room, 'Synthia K.', 0, ["chat", "top"])
+      const bottom = lab_design_system_d("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
+      const input = lab_design_system_d("input", "chat-input", bottom, 0, 0, ["chat", "input"])
+      const send = lab_design_system_d("button", "chat-send", bottom, 0, 0, ["chat", "send"])
+      const sendIcon = lab_design_system_d("img", "chat-send-icon", send)
+      sendIcon.style.width = '100%'
+      sendIcon.style.height = '100%'
+      sendIcon.setAttribute('src', `${oldSRC}send.svg`)
+    }
+    function addUserContact() {
+      body.innerHTML = ''
+      const newUser = lab_design_system_d("div", "chat-new-user", body, 0, 0, ["chat", "new"])
+      const newHeading = lab_design_system_d("div", "chat-heading", newUser, 'Enter an email to invite you to your project', 0, ["chat", "heading"])
+      const box = lab_design_system_d("div", "chat-box", newUser, 0, 0, ["chat", "box"])
+      const boxInput = lab_design_system_d("input", "chat-box-input", box, 0, 0, ["chat", "boxInput"])
+      const boxBtn = lab_design_system_d("button", "chat-box-btn", box, 'Invite', 0, ["chat", "boxBtn"])
+
+      boxBtn.addEventListener('click', () => {
+        if (boxInput.value) {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.contactEmail = boxInput.value
+
+          socket.emit('addNewContact', userLSG, contactData => {
+            if (contactData.success === true) {
+              // contactData.data.email
+              console.log("aaa");
+
+            }
+          })
+        } else {
+          alertUser(lngData.input_cannot_be_empty)
+        }
+      })
+    }
+
+    const users = lab_design_system_d("div", "chat-users", wrap, 0, 0, ["chat", "users"])
+    const addUser = lab_design_system_d("button", "chat-add-user", users, 0, 0, ["chat", "add"])
+    const addUserIcon = lab_design_system_d("img", "chat-add-user-icon", addUser)
+    addUserIcon.setAttribute('src', `${oldSRC}add_user.svg`)
+    addUser.addEventListener('click', () => addUserContact())
+
+  }
+
+}
+function lab_design_system_d(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  const styles = styles_d
+
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
 }
 
 function plans(parent) {
@@ -1139,38 +1433,6 @@ function plans(parent) {
   renderPlans(activeDuration)
 }
 
-function lab_design_system_d(tag, id, parent, content, className, styled) {
-  const elementToAppend = document.createElement(tag)
-  const styles = styles_d
-
-  elementToAppend.setAttribute("id", "lab-" + id)
-  parent.appendChild(elementToAppend)
-
-  const A = document.querySelector("#" + "lab-" + id)
-  A.setAttribute("class", "escape")
-  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
-
-  if (content && typeof content == "string") {
-    A.innerText = content
-  }
-  A.style.opacity = 1
-  if (styled) {
-    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
-
-    Object.keys(elementStyles.default).forEach(e => {
-      A.style[e] = elementStyles.default[e]
-    })
-
-    if (elementStyles[lab_orientation]) {
-      Object.keys(elementStyles[lab_orientation]).forEach(e => {
-        A.style[e] = elementStyles[lab_orientation][e]
-      })
-    }
-  }
-
-  return A
-}
-
 function select(label, list, parent, value, func) {
   const select = lab_design_system_d("div", `select-${value}`, parent, null, null, ["select", "box"])
   const top = lab_design_system_d("div", `select-top-${value}`, select, null, null, ["select", "top"])
@@ -1216,8 +1478,6 @@ async function checkMicrophoneStatus() {
   return false
 }
 
-let activeOption
-
 function shortcutsSettings(u, parent) {
   const functionalitiesList = {
     dash: u.lngData.dash,
@@ -1243,8 +1503,7 @@ function shortcutsSettings(u, parent) {
     free_form: u.lngData.free_form,
     feather: u.lngData.feather,
   }
-
-  activeOption = 'dash'
+  let activeOption = 'dash'
 
   const line = lab_design_system_d("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
@@ -1443,8 +1702,10 @@ function dash_parameters(u) {
 
       const themeTitle = lab_design_system_d("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
-      select(themes[u.configs.ui], themes, theme, "theme", (themeName) => {
-
+      select(themes[u.configs.ui], themes, theme, "theme", (val) => {
+        const userLSG = lab_local_storage_object('global')
+        userLSG.newUI = val
+        socket.emit('switchUI', userLSG)
       })
 
       const language = lab_design_system_d("div", "profile-box-language", boxWrap, null, null, ["parameters", "line"])
@@ -1455,6 +1716,13 @@ function dash_parameters(u) {
         userLSG.config = "updateLng"
         socket.emit("userConfigsUpdate", lab_local_storage_object("global"))
       })
+      const news = lab_design_system_d("div", "news", boxWrap, null, null, ["parameters", "line"])
+
+      const newsTitle = lab_design_system_d("span", "news-title", news, 'Receive news by email')
+
+
+      const checkBox = lab_design_system_d("input", "checkbox", news, null, null, ["elements", "checkBox"]);
+      checkBox.setAttribute('type', 'checkbox')
 
 
       const sftp = lab_design_system_d("div", "profile-box-sftp", boxWrap, null, null, ["parameters", "line"])
@@ -1614,28 +1882,6 @@ function dash_parameters(u) {
 
 }
 
-function renderMenu(itemMenu, e, parent, lngData) {
-  const itemMenuBox = lab_design_system_d("div", `apps-item-box-${e}`, itemMenu, null, null, ["apps", "box"])
-  const menuItems = ["settings", "copy", "delete"]
-
-  itemMenu.addEventListener("mouseleave", () => {
-    parent.removeChild(itemMenu)
-  })
-
-  menuItems.forEach(p => {
-    const item = lab_design_system_d("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
-    const itemImg = lab_design_system_d("img", `project-menu-img-${p}`, item, null, null)
-    itemImg.style.transform = 'rotate(-deg)'
-    itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
-
-    item.addEventListener("click", () => {
-      appActions(e, p)
-    })
-  })
-
-  lab_fade_in_recursively(itemMenu, 0.6)
-}
-
 function search(array, string) {
   let listing = []
 
@@ -1655,25 +1901,6 @@ function input(placeholder, value, parent, func, width, style) {
 
   input.addEventListener("input", () => func(input.value))
   return input
-}
-
-function appActions(e, action) {
-  const lab_user_current_config = lab_local_storage_object("global")
-
-  if (action == "copy") {
-    inputValue = e + "-copy"
-    lab_user_current_config.newApp = inputValue
-    socket.emit("createApp", lab_user_current_config)
-  }
-  else if (action == "delete") {
-    popup("delete-app", rootLayer)
-    lab_user_current_config.appToDelete = e
-    socket.emit("deleteApp", lab_user_current_config)
-    document.querySelector(`#lab-project-${e}`).remove()
-  }
-  else if (action == "pages") console.log("pages");
-  else if (action == "settings") console.log("settings");
-
 }
 
 function setTheme(el) {
@@ -1731,6 +1958,7 @@ function footer(parent) {
   link.addEventListener('click', e => {
     window.open('/D/R/PDF/LegalLaboranthSAS.pdf')
   })
+  const version = lab_design_system_d("span", "version", footer, "RC Version")
 
   const contact = lab_design_system_d("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
   contact.setAttribute("href", "mailto:contact@laboranth.tech")
@@ -1740,23 +1968,24 @@ function dashboard(dashObject) {
   let appList = dashObject.appList, externalApps = dashObject.externalApps, lngData = dashObject.lngData
   rootLayer.style.overflowY = "auto"
   let viewMyList = true
-
   const wrapper = lab_design_system_d("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
   const header = lab_design_system_d("header", "header", wrapper, 0, 0, ["containers", "header"])
   const content = lab_design_system_d("div", "content-box", wrapper, null, null, null)
+  const headerWrap = lab_design_system_d("div", "header-wrap", header, 0, 0, ["containers", "headerWrap"])
+  let headerLayout = lab_orientation == "Portrait" ? headerWrap : header
 
   const logo = lab_design_system_d("a", "logo", header, 0, 0, null);
   logo.setAttribute("href", "/")
   const logoImg = lab_design_system_d("img", "logo-img", logo, null, null, ["logo", "small"]);
   logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
 
+
+
   if (externalApps.length > 0) {
-    const shared = lab_design_system_d("button", "shared-btn", header, null, null, ["elements", "share"]);
+    const shared = lab_design_system_d("button", "shared-btn", headerLayout, null, null, ["elements", "share"]);
     const sharedIcon = lab_design_system_d("img", "shared-img", shared);
     sharedIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/share.svg')
     sharedIcon.style.width = '100%'
-
-
     shared.addEventListener("click", () => {
       viewMyList = !viewMyList
       viewMyList ? renderList(appList) : renderList(externalApps)
@@ -1767,7 +1996,7 @@ function dashboard(dashObject) {
 
 
 
-  const searchBox = lab_design_system_d("div", "search-box", header, null, null, ["search", "box"])
+  const searchBox = lab_design_system_d("div", "search-box", headerLayout, null, null, ["search", "box"])
   const searchImage = lab_design_system_d("img", "search-img", searchBox, null, null, null)
   searchImage.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/search.svg")
 
@@ -1789,7 +2018,7 @@ function dashboard(dashObject) {
     lab_fade_in_recursively(result, 0.6)
 
   })
-  const gridSwitch = lab_design_system_d("div", "grid-switch", header, null, null, ["elements", "gridSwitch"])
+  const gridSwitch = lab_design_system_d("div", "grid-switch", headerLayout, null, null, ["elements", "gridSwitch"])
 
 
   const gridLayouts = ["row", "column"]
@@ -1819,8 +2048,12 @@ function dashboard(dashObject) {
   })
 
   const create = lab_design_system_d("button", "create-btn", header, 'lngData.create', null, ["buttons", "action"])
+  create.style.height = 'clamp(35px, 5svh, 50px)'
+  create.style.boxSizing = 'border-box'
+  create.style.paddingBottom = '0'
+  create.style.paddingTop = '0'
 
-  create.addEventListener("click", e => {
+  create.addEventListener("click", () => {
     if (!document.getElementById('lab-popup-create-app')) {
       const createPopup = popup("create-app", rootLayer)
       const popupTitle = lab_design_system_d("span", "popup-title", createPopup, 'lngData.create_app', null, ["popup", "title"])
@@ -1839,6 +2072,12 @@ function dashboard(dashObject) {
       })
     }
   })
+
+  const cahtBtn = lab_design_system_d("button", "chats", header, null, null, ["elements", "chatsBtn"])
+  const cahtIcon = lab_design_system_d("img", "cahts-icon", cahtBtn)
+  cahtIcon.style.width = '100%'
+  cahtIcon.setAttribute('src', `${oldSRC}chat.svg`)
+  cahtBtn.addEventListener('click', () => { chat(rootLayer) })
 
   const avatar = lab_design_system_d("button", "user-avatar", header, null, null, ["elements", "avatar"])
   const avatarIcon = lab_design_system_d("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])
@@ -1925,6 +2164,7 @@ function dashboard(dashObject) {
         const img = lab_design_system_d("img", `apps-item-img-${e}`, bottom, null, null, null)
 
         img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+        img.style.transform = 'rotate(90deg)'
 
         img.addEventListener("click", () => {
 
@@ -1936,6 +2176,7 @@ function dashboard(dashObject) {
             const menuImg = lab_design_system_d("img", `apps-menu-img-${e}`, itemMenu, null, null, ["apps", "more"])
 
             menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+
 
             menuImg.addEventListener("click", () => {
               project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
@@ -1955,6 +2196,89 @@ function dashboard(dashObject) {
 
   }
 
+  function renderMenu(itemMenu, e, parent, lngData) {
+    const itemMenuBox = lab_design_system_d("div", `apps-item-box-${e}`, itemMenu, null, null, ["apps", "box"])
+    const menuItems = ["settings", "copy", "delete"]
+
+
+
+    itemMenu.addEventListener("mouseleave", () => {
+      parent.removeChild(itemMenu)
+    })
+
+    menuItems.forEach(p => {
+      const item = lab_design_system_d("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
+      const itemImg = lab_design_system_d("img", `project-menu-img-${p}`, item, null, null)
+      itemImg.style.transform = 'rotate(-deg)'
+      itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
+
+      item.addEventListener("click", () => {
+        appActions(e, p)
+      })
+    })
+
+    lab_fade_in_recursively(itemMenu, 0.6)
+  }
+
+  function appActions(e, action) {
+
+    if (action == "copy") {
+      if (!document.getElementById('lab-popup-copy-app')) {
+        const copyPopup = popup("copy-app", rootLayer)
+        const popupTitle = lab_design_system_d("span", "popup-title", copyPopup, 'lngData.naming_app', null, ["popup", "title"])
+        const inputName = input('', '', copyPopup, null, null, null)
+        const copyPopupBtn = lab_design_system_d("button", "delete-popup-btn", copyPopup, 'lngData.copy', null, ["buttons", "action"])
+
+        lab_fade_in_recursively(copyPopup, 0.3)
+
+        copyPopupBtn.addEventListener("click", () => {
+          if (inputName.value > 0) {
+            if (!appList.includes(inputName.value)) {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.srcApp = e
+              userLSG.newApp = inputName.value
+              socket.emit('duplicateAp', userLSG)
+              document.getElementById('lab-popup-wrap-copy-app').remove()
+              document.getElementById('lab-popup-copy-app').remove()
+            }
+            else {
+              elertUser('An application with that name has already been created')
+            }
+          }
+          else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+        })
+      }
+
+    }
+    else if (action == "delete") {
+      if (!document.getElementById('lab-popup-delete-app')) {
+        const deletePopup = popup("delete-app", rootLayer)
+        const popupTitle = lab_design_system_d("span", "popup-title", deletePopup, 'Are you sure you want to uninstall the application', null, ["popup", "title"])
+
+        const deletePopupBtn = lab_design_system_d("button", "delete-popup-btn", deletePopup, 'lngData.delete', null, ["buttons", "action"])
+
+        lab_fade_in_recursively(deletePopup, 0.3)
+
+        const lab_user_current_config = lab_local_storage_object("global")
+
+        deletePopupBtn.addEventListener("click", () => {
+          lab_user_current_config.appToDelete = e
+          socket.emit("deleteApp", lab_user_current_config)
+          document.querySelector(`#lab-project-${e}`).remove()
+          document.getElementById('lab-popup-wrap-delete-app').remove()
+          document.getElementById('lab-popup-delete-app').remove()
+        })
+      }
+
+    }
+    else if (action == "pages") console.log("pages");
+    else if (action == "settings") console.log("settings");
+
+  }
+
+
   renderList(appList)
   footer(wrapper)
   const theme = localStorage.getItem('theme')
@@ -1963,6 +2287,7 @@ function dashboard(dashObject) {
   lab_fade_in_recursively(wrapper, 0.3)
 
 }
+
 
 let appList = ["test", "test2", "test3", "test4", "test5", "test6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17", "77", "66", "55", "44", "54", "65", "7656", "4545"]
 let externalApps = ["ext1", "ext2", "exfbgnt3", "4545"]

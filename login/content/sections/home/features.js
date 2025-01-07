@@ -92,9 +92,6 @@ const styles = {
   "containers": {}
 }
 
-// const VPM = window.innerWidth > window.innerHeight ? "Landscape" : "Portrait"
-
-
 function lab_design_system(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
 

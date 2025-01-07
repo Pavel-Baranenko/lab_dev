@@ -1,4 +1,82 @@
 
+
+function chat(parent) {
+  if (!document.getElementById('lab-chat')) {
+    socket.emit('askMessages', lab_local_storage_object('global'), reloadMessages => {
+      if (reloadMessages.success === true) {
+        console.log("AAAAAAAAAAAAAAAAAAAA");
+
+        const messages = reloadMessages.data
+        console.log(messages);
+      }
+    })
+
+    const wrap = lab_design_system("div", "chat", parent, 0, 0, ["chat", "wrap"])
+
+    const close = lab_design_system("button", "chat-close", wrap, 0, 0, ["chat", "close"])
+    const closeIcon = lab_design_system("img", "chat-close-icon", close)
+    closeIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/close.svg`)
+
+    close.addEventListener('click', () => {
+      wrap.style.transition = 'all 0.2s linear'
+      wrap.style.transform = 'translateX(100%)'
+      wrap.style.opacity = '0'
+
+      setTimeout(() => {
+        parent.removeChild(wrap)
+      }, 2000);
+    })
+
+    const body = lab_design_system("div", "chat-body", wrap, 0, 0, ["chat", "body"])
+
+    function chatRoom() {
+      body.innerHTML = ''
+      const room = lab_design_system("div", "chat-room", body, 0, 0, ["chat", "room"])
+      const top = lab_design_system("div", "chat-top", room, 'Synthia K.', 0, ["chat", "top"])
+      const bottom = lab_design_system("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
+      const input = lab_design_system("input", "chat-input", bottom, 0, 0, ["chat", "input"])
+      const send = lab_design_system("button", "chat-send", bottom, 0, 0, ["chat", "send"])
+      const sendIcon = lab_design_system("img", "chat-send-icon", send)
+      sendIcon.style.width = '100%'
+      sendIcon.style.height = '100%'
+      sendIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/send.svg`)
+    }
+    function addUserContact() {
+      body.innerHTML = ''
+      const newUser = lab_design_system("div", "chat-new-user", body, 0, 0, ["chat", "new"])
+      const newHeading = lab_design_system("div", "chat-heading", newUser, 'Enter an email to invite you to your project', 0, ["chat", "heading"])
+      const box = lab_design_system("div", "chat-box", newUser, 0, 0, ["chat", "box"])
+      const boxInput = lab_design_system("input", "chat-box-input", box, 0, 0, ["chat", "boxInput"])
+      const boxBtn = lab_design_system("button", "chat-box-btn", box, 'Invite', 0, ["chat", "boxBtn"])
+
+      boxBtn.addEventListener('click', () => {
+        if (boxInput.value) {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.contactEmail = boxInput.value
+
+          socket.emit('addNewContact', userLSG, contactData => {
+            if (contactData.success === true) {
+              // contactData.data.email
+              console.log("aaa");
+
+            }
+          })
+        } else {
+          alertUser(lngData.input_cannot_be_empty)
+        }
+      })
+    }
+
+    const users = lab_design_system("div", "chat-users", wrap, 0, 0, ["chat", "users"])
+    const addUser = lab_design_system("button", "chat-add-user", users, 0, 0, ["chat", "add"])
+    const addUserIcon = lab_design_system("img", "chat-add-user-icon", addUser)
+    addUserIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`)
+    addUser.addEventListener('click', () => addUserContact())
+
+  }
+
+}
+
 function plans(parent) {
   const tariff = [
     {
@@ -182,7 +260,6 @@ function plans(parent) {
   renderPlans(activeDuration)
 }
 
-
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
   const top = lab_design_system("div", `select-top-${value}`, select, null, null, ["select", "top"])
@@ -228,8 +305,6 @@ async function checkMicrophoneStatus() {
   return false
 }
 
-let activeOption
-
 function shortcutsSettings(u, parent) {
   const functionalitiesList = {
     dash: u.lngData.dash,
@@ -255,8 +330,7 @@ function shortcutsSettings(u, parent) {
     free_form: u.lngData.free_form,
     feather: u.lngData.feather,
   }
-
-  activeOption = 'dash'
+  let activeOption = 'dash'
 
   const line = lab_design_system("div", "alt-label-line", parent, null, null, ["parameters", "line"])
 
@@ -455,8 +529,10 @@ function dash_parameters(u) {
 
       const themeTitle = lab_design_system("span", "theme-heading", theme, u.lngData.interface_theme, null)
       theme.style.zIndex = "1"
-      select(themes[u.configs.ui], themes, theme, "theme", (themeName) => {
-
+      select(themes[u.configs.ui], themes, theme, "theme", (val) => {
+        const userLSG = lab_local_storage_object('global')
+        userLSG.newUI = val
+        socket.emit('switchUI', userLSG)
       })
 
       const language = lab_design_system("div", "profile-box-language", boxWrap, null, null, ["parameters", "line"])
@@ -467,6 +543,13 @@ function dash_parameters(u) {
         userLSG.config = "updateLng"
         socket.emit("userConfigsUpdate", lab_local_storage_object("global"))
       })
+      const news = lab_design_system("div", "news", boxWrap, null, null, ["parameters", "line"])
+
+      const newsTitle = lab_design_system("span", "news-title", news, 'Receive news by email')
+
+
+      const checkBox = lab_design_system("input", "checkbox", news, null, null, ["elements", "checkBox"]);
+      checkBox.setAttribute('type', 'checkbox')
 
 
       const sftp = lab_design_system("div", "profile-box-sftp", boxWrap, null, null, ["parameters", "line"])
@@ -626,28 +709,6 @@ function dash_parameters(u) {
 
 }
 
-function renderMenu(itemMenu, e, parent, lngData) {
-  const itemMenuBox = lab_design_system("div", `apps-item-box-${e}`, itemMenu, null, null, ["apps", "box"])
-  const menuItems = ["settings", "copy", "delete"]
-
-  itemMenu.addEventListener("mouseleave", () => {
-    parent.removeChild(itemMenu)
-  })
-
-  menuItems.forEach(p => {
-    const item = lab_design_system("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
-    const itemImg = lab_design_system("img", `project-menu-img-${p}`, item, null, null)
-    itemImg.style.transform = 'rotate(-deg)'
-    itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
-
-    item.addEventListener("click", () => {
-      appActions(e, p)
-    })
-  })
-
-  lab_fade_in_recursively(itemMenu, 0.6)
-}
-
 function search(array, string) {
   let listing = []
 
@@ -667,25 +728,6 @@ function input(placeholder, value, parent, func, width, style) {
 
   input.addEventListener("input", () => func(input.value))
   return input
-}
-
-function appActions(e, action) {
-  const lab_user_current_config = lab_local_storage_object("global")
-
-  if (action == "copy") {
-    inputValue = e + "-copy"
-    lab_user_current_config.newApp = inputValue
-    socket.emit("createApp", lab_user_current_config)
-  }
-  else if (action == "delete") {
-    popup("delete-app", rootLayer)
-    lab_user_current_config.appToDelete = e
-    socket.emit("deleteApp", lab_user_current_config)
-    document.querySelector(`#lab-project-${e}`).remove()
-  }
-  else if (action == "pages") console.log("pages");
-  else if (action == "settings") console.log("settings");
-
 }
 
 function setTheme(el) {
@@ -743,6 +785,7 @@ function footer(parent) {
   link.addEventListener('click', e => {
     window.open('/D/R/PDF/LegalLaboranthSAS.pdf')
   })
+  const version = lab_design_system("span", "version", footer, "RC Version")
 
   const contact = lab_design_system("a", "contacts", footer, "contact@laboranth.tech", null, ['links', 'contact'])
   contact.setAttribute("href", "mailto:contact@laboranth.tech")
@@ -752,23 +795,24 @@ function dashboard(dashObject) {
   let appList = dashObject.appList, externalApps = dashObject.externalApps, lngData = dashObject.lngData
   rootLayer.style.overflowY = "auto"
   let viewMyList = true
-
   const wrapper = lab_design_system("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
   const header = lab_design_system("header", "header", wrapper, 0, 0, ["containers", "header"])
   const content = lab_design_system("div", "content-box", wrapper, null, null, null)
+  const headerWrap = lab_design_system("div", "header-wrap", header, 0, 0, ["containers", "headerWrap"])
+  let headerLayout = lab_orientation == "Portrait" ? headerWrap : header
 
   const logo = lab_design_system("a", "logo", header, 0, 0, null);
   logo.setAttribute("href", "/")
   const logoImg = lab_design_system("img", "logo-img", logo, null, null, ["logo", "small"]);
   logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
 
+
+
   if (externalApps.length > 0) {
-    const shared = lab_design_system("button", "shared-btn", header, null, null, ["elements", "share"]);
+    const shared = lab_design_system("button", "shared-btn", headerLayout, null, null, ["elements", "share"]);
     const sharedIcon = lab_design_system("img", "shared-img", shared);
     sharedIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/share.svg')
     sharedIcon.style.width = '100%'
-
-
     shared.addEventListener("click", () => {
       viewMyList = !viewMyList
       viewMyList ? renderList(appList) : renderList(externalApps)
@@ -779,7 +823,7 @@ function dashboard(dashObject) {
 
 
 
-  const searchBox = lab_design_system("div", "search-box", header, null, null, ["search", "box"])
+  const searchBox = lab_design_system("div", "search-box", headerLayout, null, null, ["search", "box"])
   const searchImage = lab_design_system("img", "search-img", searchBox, null, null, null)
   searchImage.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/search.svg")
 
@@ -801,7 +845,7 @@ function dashboard(dashObject) {
     lab_fade_in_recursively(result, 0.6)
 
   })
-  const gridSwitch = lab_design_system("div", "grid-switch", header, null, null, ["elements", "gridSwitch"])
+  const gridSwitch = lab_design_system("div", "grid-switch", headerLayout, null, null, ["elements", "gridSwitch"])
 
 
   const gridLayouts = ["row", "column"]
@@ -831,7 +875,10 @@ function dashboard(dashObject) {
   })
 
   const create = lab_design_system("button", "create-btn", header, lngData.create, null, ["buttons", "action"])
-
+  create.style.height = 'clamp(35px, 5svh, 50px)'
+  create.style.boxSizing = 'border-box'
+  create.style.paddingBottom = '0'
+  create.style.paddingTop = '0'
   create.addEventListener("click", e => {
     if (!document.getElementById('lab-popup-create-app')) {
       const createPopup = popup("create-app", rootLayer)
@@ -851,6 +898,12 @@ function dashboard(dashObject) {
       })
     }
   })
+
+  const cahtBtn = lab_design_system("button", "chats", header, null, null, ["elements", "chatsBtn"])
+  const cahtIcon = lab_design_system("img", "cahts-icon", cahtBtn)
+  cahtIcon.style.width = '100%'
+  cahtIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chat.svg`)
+  cahtBtn.addEventListener('click', () => { chat(rootLayer) })
 
   const avatar = lab_design_system("button", "user-avatar", header, null, null, ["elements", "avatar"])
   const avatarIcon = lab_design_system("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])
@@ -937,6 +990,7 @@ function dashboard(dashObject) {
         const img = lab_design_system("img", `apps-item-img-${e}`, bottom, null, null, null)
 
         img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+        img.style.transform = 'rotate(90deg)'
 
         img.addEventListener("click", () => {
 
@@ -948,6 +1002,7 @@ function dashboard(dashObject) {
             const menuImg = lab_design_system("img", `apps-menu-img-${e}`, itemMenu, null, null, ["apps", "more"])
 
             menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+
 
             menuImg.addEventListener("click", () => {
               project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
@@ -967,6 +1022,89 @@ function dashboard(dashObject) {
 
   }
 
+  function renderMenu(itemMenu, e, parent, lngData) {
+    const itemMenuBox = lab_design_system("div", `apps-item-box-${e}`, itemMenu, null, null, ["apps", "box"])
+    const menuItems = ["settings", "copy", "delete"]
+
+
+
+    itemMenu.addEventListener("mouseleave", () => {
+      parent.removeChild(itemMenu)
+    })
+
+    menuItems.forEach(p => {
+      const item = lab_design_system("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
+      const itemImg = lab_design_system("img", `project-menu-img-${p}`, item, null, null)
+      itemImg.style.transform = 'rotate(-deg)'
+      itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
+
+      item.addEventListener("click", () => {
+        appActions(e, p)
+      })
+    })
+
+    lab_fade_in_recursively(itemMenu, 0.6)
+  }
+
+  function appActions(e, action) {
+
+    if (action == "copy") {
+      if (!document.getElementById('lab-popup-copy-app')) {
+        const copyPopup = popup("copy-app", rootLayer)
+        const popupTitle = lab_design_system("span", "popup-title", copyPopup, lngData.naming_app, null, ["popup", "title"])
+        const inputName = input('', '', copyPopup, null, null, null)
+        const copyPopupBtn = lab_design_system("button", "delete-popup-btn", copyPopup, lngData.copy, null, ["buttons", "action"])
+
+        lab_fade_in_recursively(copyPopup, 0.3)
+
+        copyPopupBtn.addEventListener("click", () => {
+          if (inputName.value > 0) {
+            if (!appList.includes(inputName.value)) {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.srcApp = e
+              userLSG.newApp = inputName.value
+              socket.emit('duplicateAp', userLSG)
+              document.getElementById('lab-popup-wrap-copy-app').remove()
+              document.getElementById('lab-popup-copy-app').remove()
+            }
+            else {
+              elertUser('An application with that name has already been created')
+            }
+          }
+          else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+        })
+      }
+
+    }
+    else if (action == "delete") {
+      if (!document.getElementById('lab-popup-delete-app')) {
+        const deletePopup = popup("delete-app", rootLayer)
+        const popupTitle = lab_design_system("span", "popup-title", deletePopup, 'Are you sure you want to uninstall the application', null, ["popup", "title"])
+
+        const deletePopupBtn = lab_design_system("button", "delete-popup-btn", deletePopup, lngData.delete, null, ["buttons", "action"])
+
+        lab_fade_in_recursively(deletePopup, 0.3)
+
+        const lab_user_current_config = lab_local_storage_object("global")
+
+        deletePopupBtn.addEventListener("click", () => {
+          lab_user_current_config.appToDelete = e
+          socket.emit("deleteApp", lab_user_current_config)
+          document.querySelector(`#lab-project-${e}`).remove()
+          document.getElementById('lab-popup-wrap-delete-app').remove()
+          document.getElementById('lab-popup-delete-app').remove()
+        })
+      }
+
+    }
+    else if (action == "pages") console.log("pages");
+    else if (action == "settings") console.log("settings");
+
+  }
+
+
   renderList(appList)
   footer(wrapper)
   const theme = localStorage.getItem('theme')
@@ -975,7 +1113,6 @@ function dashboard(dashObject) {
   lab_fade_in_recursively(wrapper, 0.3)
 
 }
-
 
 
 return dashboard
