@@ -125,7 +125,10 @@ const styles_d = {
         "textDecoration": "underline",
         "textAlign": "left",
         "color": "#fff",
-        'marginRight': "20px"
+        "marginRight": "20px"
+      },
+      "Portrait": {
+        "marginRight": "0"
       }
     },
     "contact": {
@@ -136,6 +139,9 @@ const styles_d = {
         "textAlign": "left",
         "color": "#fff",
         "marginLeft": "auto"
+      },
+      "Portrait": {
+        "marginLeft": "0"
       }
     }
   },
@@ -234,17 +240,17 @@ const styles_d = {
         "gap": "20px 8px"
       }
     },
-    'headerWrap': {
-      'default': {
-        display: 'none'
+    "headerWrap": {
+      "default": {
+        "display": "none"
       },
-      'Portrait': {
-        display: 'flex',
-        justifyContent: "space-between",
-        gap: "8px",
-        order: 99,
-        alignItems: "center",
-        width: '100%'
+      "Portrait": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "gap": "8px",
+        "order": 99,
+        "alignItems": "center",
+        "width": "100%"
       }
     },
     "footer": {
@@ -260,6 +266,10 @@ const styles_d = {
         "paddingBottom": "clamp(2svh, 12svh, 30px)",
         "paddingLeft": "clamp(2svw, 5svw, 60px)",
         "paddingRight": "clamp(2svw, 12svw, 60px)"
+      },
+      "Portrait": {
+        "justifyContent": "center",
+        "gap": "8px"
       }
     }
   },
@@ -270,9 +280,9 @@ const styles_d = {
         "cursor": "pointer",
         "border": "none",
         "background": "#FFFFFF",
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: "center",
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
         "borderRadius": "50%",
         "width": "clamp(35px, 5svh, 50px)",
         "height": "clamp(35px, 5svh, 50px)",
@@ -332,13 +342,13 @@ const styles_d = {
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "space-between",
-        "height": "clamp(35px, 5svh, 50px)",
+        "height": "clamp(35px, 5svh, 50px)"
       },
       "Landscape": {
         "padding": "5px",
         "borderRadius": "50px",
         "marginRight": "5svw",
-        "width": "110px",
+        "width": "110px"
       },
       "Portrait": {
         "padding": "3.5px",
@@ -364,43 +374,48 @@ const styles_d = {
     "share": {
       "default": {
         "border": "none",
-        "background": "transparent",
-        "boxSizing": "border-box",
         "borderRadius": "50%",
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
-        "width": "clamp(35px, 5svh, 40px)",
-        "height": "clamp(35px, 5svh, 40px)",
+        "width": "clamp(35px, 5svh, 50px)",
+        "height": "clamp(35px, 5svh, 50px)",
         "padding": "9px",
         "background": "#fff",
         "margin": "0 10px 0 auto",
         "boxSizing": "border-box",
         "transition": "all 0.3s linear"
       },
-      'Portrait': {
-        'order': "1",
-        "width": "35px",
-        "height": "35px",
-        'margin': '0'
+      "Portrait": {
+        "order": "1",
+        "margin": "0",
+        "minWidth": "clamp(35px, 5svh, 50px)"
       }
     },
     "chatsBtn": {
-      'default': {
-        border: 'none',
-        background: "transparent",
-        width: "30px",
-        height: "30px",
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "width": "30px",
+        "height": "30px"
       },
       "Landscape": {
         "marginLeft": "30px"
       }
     },
     "checkBox": {
-      'default': {
-        'width': "16px",
-        'height': "16px",
-        'border': "1px solid #000"
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #000"
+      }
+    },
+    "avatarBox": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "width": "60px",
+        "height": "60px"
       }
     }
   },
@@ -459,8 +474,7 @@ const styles_d = {
         "boxshadow": "2px 4px 30px 1px rgba(0, 0, 0, 0.09)",
         "background": "#fff",
         "borderRadius": "20px",
-        // "aspectRatio": 1.39,
-        height: "clamp(100px,28svh, 310px)",
+        "height": "clamp(100px,28svh, 310px)",
         "display": "flex",
         "flexDirection": "column",
         "cursor": "pointer",
@@ -666,8 +680,8 @@ const styles_d = {
         "textAlign": "left"
       },
       "Portrait": {
-        'flexDirection': "column",
-        'gap': "10px"
+        "flexDirection": "column",
+        "gap": "10px"
       }
     },
     "confirm": {
@@ -980,159 +994,372 @@ const styles_d = {
       }
     }
   },
-  'chat': {
-    'wrap': {
-      'default': {
-        position: 'fixed',
-        right: 0,
-        zIndex: 99999,
-        backgroundColor: '#464C59',
-        padding: '5svh 3svw 3svh 3svw',
-        width: 'clamp(42svw,85svw,810px)',
-        height: '75svh',
-        display: 'flex',
-        top: '11svh',
-        borderRadius: '30px 0px 0px 30px',
-        gap: "3svw"
+  "chat": {
+    "wrap": {
+      "default": {
+        "position": "fixed",
+        "right": 0,
+        "zIndex": 99999,
+        "backgroundColor": "#464C59",
+        "padding": "5svh 3svw 3svh 3svw",
+        "width": "clamp(42svw,85svw,810px)",
+        "height": "75svh",
+        "display": "flex",
+        "top": "11svh",
+        "borderRadius": "30px 0px 0px 30px",
+        "gap": "3svw"
       }
     },
-    'close': {
-      'default': {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: '40px',
-        height: '40px',
-        borderRadius: '30px 30px 30px 0px',
-        background: '#FED05E',
-        border: 'none'
+    "close": {
+      "default": {
+        "position": "absolute",
+        "left": 0,
+        "top": 0,
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "width": "40px",
+        "height": "40px",
+        "borderRadius": "30px 30px 30px 0px",
+        "background": "#FED05E",
+        "border": "none"
       }
     },
-    'body': {
-      'default': {
-        flex: '0 1 100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: "2svw"
+    "body": {
+      "default": {
+        "flex": "0 1 100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "2svw"
       }
     },
-    'users': {
-      'default': {
-        flex: '0 1 3.125svw',
-        display: 'flex',
-        flexDirection: 'column',
+    "users": {
+      "default": {
+        "flex": "0 1 3.125svw",
+        "display": "flex",
+        "gap": "10px",
+        "flexDirection": "column"
       }
     },
-    'add': {
-      'default': {
-        borderRadius: '50%',
-        background: '#FED05E',
-        width: '100%',
-        aspectRatio: 1,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        border: "none"
+    "add": {
+      "default": {
+        "borderRadius": "50%",
+        "background": "#FED05E",
+        "width": "100%",
+        "aspectRatio": 1,
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "border": "none"
       }
     },
-    'room': {
-      'default': {
-        background: '#F7F7F7',
-        flex: "0 1 100%",
-        padding: '2.3svh 1svw',
-        borderRadius: "20px"
+    "room": {
+      "default": {
+        "background": "#F7F7F7",
+        "flex": "0 1 100%",
+        "padding": "2.3svh 1svw",
+        "borderRadius": "20px",
+        "overflowY": "scroll",
+        "overflowX": "hidden"
       }
     },
-    'top': {
-      'default': {
-        textAlign: "center",
-        fontSize: '12px',
-        fontWeight: 500,
-        color: '#464C59',
-        paddingBottom: "2svh",
-        borderBottom: "1px solid #D0D0D0"
+    "top": {
+      "default": {
+        "textAlign": "center",
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "color": "#464C59",
+        "paddingBottom": "2svh",
+        "borderBottom": "1px solid #D0D0D0"
       }
     },
-    'bottom': {
-      'default': {
-        display: "flex",
-        alignItems: "center",
-        width: "100%",
-        gap: "1svw"
+    "bottom": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "width": "100%",
+        "gap": "1svw"
       }
     },
-    'input': {
-      'default': {
-        border: "none",
-        flex: "0 1 93%",
-        outline: "none",
-        width: "93%",
-        height: 'calmp(15px,6svh,40px)',
-        borderRadius: '60px',
-        padding: "clamp(1svh,2svh,5px) 15px",
-        background: "#fff",
-        boxSizing: "border-box"
+    "input": {
+      "default": {
+        "border": "none",
+        "flex": "0 1 93%",
+        "outline": "none",
+        "width": "93%",
+        "height": "calmp(15px,6svh,40px)",
+        "borderRadius": "60px",
+        "padding": "clamp(1svh,2svh,5px) 15px",
+        "background": "#fff",
+        "boxSizing": "border-box"
       }
     },
-    'send': {
-      'default': {
-        border: "none",
-        with: 'clamp(15px, 3svh,25px)',
-        height: 'clamp(15px, 3svh,25px)',
-        background: "transparent"
+    "send": {
+      "default": {
+        "border": "none",
+        "with": "clamp(15px, 3svh,25px)",
+        "height": "clamp(15px, 3svh,25px)",
+        "background": "transparent"
       }
     },
-    'new': {
-      'default': {
-        background: "#fff",
-        padding: "3svh",
-        borderRadius: '30px'
+    "new": {
+      "default": {
+        "background": "#fff",
+        "padding": "3svh",
+        "borderRadius": "30px"
       }
     },
-    'heading': {
-      'default': {
-        textAlign: "center",
-        fontSize: 'clamp(10px,2svw,20px)',
-        fontWeight: 500,
-        marginBottom: '4svh'
+    "heading": {
+      "default": {
+        "textAlign": "center",
+        "fontSize": "clamp(10px,2svw,20px)",
+        "fontWeight": 500,
+        "marginBottom": "4svh"
       }
     },
-    'box': {
-      'default': {
-        display: "flex",
-        alignItems: 'center',
-        gap: "10px",
-        boxSizing: "border-box",
+    "box": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "10px",
+        "boxSizing": "border-box"
       }
     },
-    'boxInput': {
-      'default': {
-        border: "none",
-        outline: "none",
-        width: "100%",
-        height: 'clamp(15px,5svh,50px)',
-        borderRadius: '40px',
-        padding: "clamp(1svh,1svh,5px) 15px",
-        background: "#E1E1E1",
-        boxSizing: "border-box",
-
+    "contact": {
+      "default": {
+        "display": "flex",
+        "position": "relative",
+        "alignItems": "center",
+        "gap": "10px",
+        "boxSizing": "border-box",
+        "flexDirection": "column",
+        "cursor": "pointer"
       }
     },
-    'boxBtn': {
-      'default': {
-        border: "none",
-        height: 'clamp(15px,5svh,50px)',
-        boxSizing: "border-box",
-        width: '19%',
-        fontWeight: 500,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: '40px',
-        background: '#FED05E'
+    "label": {
+      "default": {
+        "position": "absolute",
+        "width": "fit-content",
+        "minWidth": "16px",
+        "height": "16px",
+        "top": "4px",
+        "left": "4px",
+        "background": "#FC3F1D",
+        "borderRadius": "50%",
+        "color": "#fff",
+        "fontWeight": "500",
+        "fontSize": "14px",
+        "lineHeight": "16px",
+        "textAlign": "center"
+      }
+    },
+    "email": {
+      "default": {
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "color": "#fff",
+        "maxWidth": "65px",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    },
+    "boxInput": {
+      "default": {
+        "border": "none",
+        "outline": "none",
+        "width": "100%",
+        "height": "clamp(15px,5svh,50px)",
+        "borderRadius": "40px",
+        "padding": "clamp(1svh,1svh,5px) 15px",
+        "background": "#E1E1E1",
+        "boxSizing": "border-box"
+      }
+    },
+    "boxBtn": {
+      "default": {
+        "border": "none",
+        "height": "clamp(15px,5svh,50px)",
+        "boxSizing": "border-box",
+        "width": "19%",
+        "fontWeight": 500,
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "borderRadius": "40px",
+        "background": "#FED05E"
+      }
+    },
+    "messages": {
+      "default": {
+        "display": "flex",
+        "margin": "10px 0",
+        "gap": "4px",
+        "flexDirection": "column"
+      }
+    },
+    "myMessage": {
+      "default": {
+        "color": "#000",
+        "padding": "11px 15px",
+        "background": "#FED05E",
+        "marginRight": "auto",
+        "borderRadius": "8px 8px 8px 0",
+        "maxWidth": "90%",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    },
+    "message": {
+      "default": {
+        "color": "#000",
+        "padding": "11px 15px",
+        "background": "#EBEEFF",
+        "marginLeft": "auto",
+        "borderRadius": "8px 8px 0 8px",
+        "maxWidth": "90%",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    }
+  },
+  "steps": {
+    "wrap": {
+      "default": {
+        "width": "clamp(56%, 90%, 1080px)",
+        "minHeight": "56%",
+        "background": "#fff",
+        "borderRadius": "40px",
+        "position": "fixed",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "top": "15%",
+        "zIndex": "99999"
+      }
+    },
+    "closeWrapper": {
+      "default": {
+        "position": "fixed",
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0,
+        "background": "ffff",
+        "zIndex": 9999
+      }
+    },
+    "top": {
+      "default": {
+        "background": "#3C4CA6",
+        "color": "#fff",
+        "textAlign": "center",
+        "padding": "33px",
+        "borderRadius": "40px 40px 0px 0px ",
+        "fontSize": "24px",
+        "fontWeight": "700"
+      }
+    },
+    "box": {
+      "default": {
+        "width": "clamp(56%, 90%, 532px)",
+        "display": "flex",
+        "margin": "48px auto 0 auto",
+        "flexDirection": "column",
+        "paddingBottom": "80px"
+      }
+    },
+    "items": {
+      "default": {
+        "display": "flex",
+        "justifyContent": "space-between"
+      }
+    },
+    "item": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "whiteSpace": "nowrap",
+        "fontSize": "16px",
+        "gap": "10px"
+      }
+    },
+    "mark": {
+      "default": {
+        "width": "20px",
+        "height": "20px",
+        "borderRadius": "50%",
+        "boxSizing": "border-box",
+        "border": "2px solid #FED05E"
+      }
+    },
+    "line": {
+      "default": {
+        "width": "100%",
+        "margin": "10px",
+        "borderTop": "1px dashed #FED05E"
+      }
+    },
+    "form": {
+      "default": {
+        "marginTop": "60px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "flexWrap": "wrap",
+        "gap": "20px"
+      }
+    },
+    "input": {
+      "default": {
+        "width": "calc(50% - 10px)",
+        "padding": "10px 32px",
+        "borderRadius": "40px",
+        "background": "#F4F4F5",
+        "border": "none",
+        "height": "50px",
+        "boxSizing": "border-box",
+        "outline": "none"
+      }
+    },
+    "check": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "10px",
+        "color": "#5A5A5A",
+        "fontSize": "14px",
+        "fontWeight": "500"
+      }
+    },
+    "checkbox": {
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #8D8D8D",
+        "cursor": "pointer"
+      }
+    },
+    "btn": {
+      "default": {
+        "width": "140px",
+        "height": "40px",
+        "color": "#000000",
+        "background": "#FED05E",
+        "borderRadius": "10px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "fontWeight": "700",
+        "border": "none"
+      }
+    },
+    "heading": {
+      "default": {
+        "fontSize": "14px",
+        "color": "#5A5A5A",
+        "textAlign": "center"
       }
     }
   }
@@ -1141,18 +1368,226 @@ const styles_d = {
 let oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
 let staticCLA = 'https://laboranth.tech/D/R/IMG/CLA/'
 
+let selectedChat;
+let customerData = {
+  customerFirstName: '',
+  customerLastName: '',
+  customerCountry: '',
+  customerStreetAdress: '',
+  customerCity: '',
+  customerZipCode: '',
+  customerIsPro: '',
+  customerHDAdress: '',
+  customerHDCity: '',
+  customerHDZip: '',
+  customerVatNumber: '',
 
-function chat(parent) {
-  if (!document.getElementById('lab-chat')) {
-    socket.emit('askMessages', lab_local_storage_object('global'), reloadMessages => {
-      if (reloadMessages.success === true) {
-        console.log("AAAAAAAAAAAAAAAAAAAA");
+}
 
-        const messages = reloadMessages.data
-        console.log(messages);
+function plan_payment_steps(parent, plan, price, lngData) {
+  if (!document.getElementById('lab-steps')) {
+    const closeWrapper = lab_design_system_d("div", "close-wrapper", parent, 0, 0, ["steps", "closeWrapper"])
+    closeWrapper.addEventListener('click', () => {
+      parent.removeChild(closeWrapper)
+      parent.removeChild(wrap)
+    })
+    const wrap = lab_design_system_d("div", "steps", parent, 0, 0, ["steps", "wrap"])
+
+    const top = lab_design_system_d("div", "steps-top", wrap, 'Payment information', 0, ["steps", "top"])
+
+    const box = lab_design_system_d("div", "steps-box", wrap, 0, 0, ["steps", "box"])
+
+    const steps = lab_design_system_d("div", "steps-items", box, 0, 0, ["steps", "items"])
+
+    const stepsLng = {
+      step1: "Step 1",
+      step2: "Step 2",
+      step3: "Step 3"
+    }
+    Object.keys(stepsLng).forEach((e, index) => {
+      const step = lab_design_system_d("div", `steps-items-${e}`, steps, 0, 0, ["steps", "item"])
+      const stepMark = lab_design_system_d("div", `steps-mark-${e}`, step, 0, 0, ["steps", "mark"])
+      const stepText = lab_design_system_d("span", `steps-${e}`, step, stepsLng[e])
+
+      if (index < 2) {
+        const line = lab_design_system_d("div", `steps-line-${e}`, steps, 0, 0, ["steps", "line"])
       }
     })
+    const form = lab_design_system_d("div", "steps-form", box, 0, 0, ["steps", "form"])
 
+    function renderForm(stepNumber) {
+      if (stepNumber === 1) {
+        form.innerHTML = ''
+        const lastName = lab_design_system_d("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
+        lastName.setAttribute('value', customerData.customerLastName)
+        lastName.setAttribute('placeholder', lngData.last_name)
+        const firstName = lab_design_system_d("input", "steps-form-first-name", form, 0, 0, ["steps", "input"])
+        firstName.setAttribute('value', customerData.customerFirstName)
+
+        firstName.setAttribute('placeholder', lngData.first_name)
+        const BillingAddress = lab_design_system_d("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
+        BillingAddress.setAttribute('value', customerData.customerStreetAdress)
+
+        BillingAddress.style.width = 'calc(72% - 10px)'
+        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        const postCode = lab_design_system_d("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
+        postCode.setAttribute('value', customerData.customerZipCode)
+
+        postCode.style.width = 'calc(28% - 10px)'
+        postCode.setAttribute('placeholder', lngData.zip_code)
+        const country = lab_design_system_d("input", "steps-form-country", form, 0, 0, ["steps", "input"])
+        country.setAttribute('placeholder', lngData.country)
+        country.setAttribute('value', customerData.customerCountry)
+
+        const city = lab_design_system_d("input", "steps-form-City", form, 0, 0, ["steps", "input"])
+        city.setAttribute('placeholder', lngData.city)
+        city.setAttribute('value', customerData.customerCity)
+
+        const check = lab_design_system_d("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system_d("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.pay_as_enterprise)
+        const btn = lab_design_system_d("button", "steps-form-btn", form, lngData.next_element, 0, ['steps', 'btn'])
+        btn.style.margin = '20px auto 0 0'
+        btn.addEventListener('click', () => {
+          if (lastName.value && firstName.value && BillingAddress.value && postCode.value && country.value && city.value) {
+            customerData.customerLastName = lastName.value
+            customerData.customerFirstName = firstName.value
+            customerData.customerStreetAdress = BillingAddress.value
+            customerData.customerZipCode = postCode.value
+            customerData.customerCountry = country.value
+            customerData.customerCity = city.value
+            customerData.customerIsPro = checkInput.value == 'on'
+
+            console.log(customerData);
+
+            renderForm(2)
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+
+
+        })
+      }
+      else if (stepNumber === 2) {
+        document.getElementById('lab-steps-mark-step1').style.background = '#FED05E'
+        document.getElementById('lab-steps-line-step1').style.borderTop = '1px solid #FED05E'
+
+        form.innerHTML = ''
+        const companyName = lab_design_system_d("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
+        companyName.setAttribute('placeholder', lngData.company_name)
+        companyName.style.width = '100%'
+        // companyName.setAttribute('value',customerData.customerCountry)
+
+
+        const check = lab_design_system_d("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system_d("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+
+
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.to_the_billing_address)
+
+
+        const BillingAddress = lab_design_system_d("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
+        BillingAddress.style.width = 'calc(72% - 10px)'
+        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        BillingAddress.setAttribute('value', customerData.customerHDAdress)
+
+        const postCode = lab_design_system_d("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
+        postCode.style.width = 'calc(28% - 10px)'
+        postCode.setAttribute('placeholder', lngData.zip_code)
+        postCode.setAttribute('value', customerData.customerHDZip)
+
+        checkInput.addEventListener('change', () => {
+          BillingAddress.setAttribute('value', customerData.customerStreetAdress)
+          postCode.setAttribute('value', customerData.customerZipCode)
+        })
+
+        const vat = lab_design_system_d("input", "steps-form-vat", form, 0, 0, ["steps", "input"])
+        vat.setAttribute('placeholder', lngData.vat_number + '(' + lngData.optional + ")")
+        vat.style.width = '100%'
+        postCode.setAttribute('value', customerData.customerVatNumber)
+
+
+        const btn = lab_design_system_d("button", "steps-form-btn", form, 'Next step', 0, ['steps', 'btn'])
+        btn.style.margin = '20px auto 0 0'
+        btn.addEventListener('click', () => {
+          //! companyName
+
+          if (BillingAddress.value && postCode.value && companyName.value) {
+            customerData.customerHDAdress = BillingAddress.value
+            customerData.customerHDZip = postCode.value
+            customerData.customerVatNumber = vat.value
+            renderForm(3)
+
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+
+        })
+
+      }
+      else if (stepNumber === 3) {
+        document.getElementById('lab-steps-mark-step2').style.background = '#FED05E'
+        document.getElementById('lab-steps-line-step2').style.borderTop = '1px solid #FED05E'
+
+        form.innerHTML = ''
+        form.style.flexDirection = 'column'
+        const heading = lab_design_system_d("div", "steps-heading", form, 0, 0, ["steps", "heading"])
+
+        if (price) {
+          const headingFirst = lab_design_system_d("span", "steps-heading-one", heading, lngData.billing_amount_is + " ")
+          const priceText = lab_design_system_d("span", "steps-heading-price", heading, price + '€')
+
+          const headingLast = lab_design_system_d("span", "steps-heading-two", heading, " " + lngData.tax_included)
+
+          priceText.style.fontWeight = '700'
+          priceText.style.fontSize = '32px'
+
+        }
+
+
+        const check = lab_design_system_d("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system_d("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.accept + lngData.laboranth_general_conditions)
+        check.style.width = 'fit-content'
+
+
+        const text = lab_design_system_d("div", "steps-heading-text", form, 'You will be redirected to the mollie platform. All banking Information to process this payment are secured.', 0, ["steps", "heading"])
+        text.style.marginTop = '25px'
+
+        const btn = lab_design_system_d("button", "steps-form-btn", form, 'Pay', 0, ['steps', 'btn'])
+
+        btn.style.margin = '40px auto 0 auto'
+        btn.addEventListener('click', () => {
+          if (checkInput.value == 'on') {
+            let temp = []
+
+            Object.keys(customerData).forEach(e => {
+              temp.push({ [e]: customerData[e] })
+            })
+            customerData = temp
+            console.log(customerData);
+
+          } else {
+            alertUser(lngData.general_conditions_must_be_accepted)
+          }
+
+        })
+      }
+    }
+
+    renderForm(1)
+
+    lab_fade_in_recursively(wrap, 0.3)
+  }
+
+}
+
+function chat(parent, lngData) {
+  if (!document.getElementById('lab-chat')) {
     const wrap = lab_design_system_d("div", "chat", parent, 0, 0, ["chat", "wrap"])
 
     const close = lab_design_system_d("button", "chat-close", wrap, 0, 0, ["chat", "close"])
@@ -1171,18 +1606,95 @@ function chat(parent) {
 
     const body = lab_design_system_d("div", "chat-body", wrap, 0, 0, ["chat", "body"])
 
-    function chatRoom() {
+    function chatRoom(email, messages, status, type) {
+      let userContact = email.split('@')[0]
       body.innerHTML = ''
-      const room = lab_design_system_d("div", "chat-room", body, 0, 0, ["chat", "room"])
-      const top = lab_design_system_d("div", "chat-top", room, 'Synthia K.', 0, ["chat", "top"])
-      const bottom = lab_design_system_d("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
-      const input = lab_design_system_d("input", "chat-input", bottom, 0, 0, ["chat", "input"])
-      const send = lab_design_system_d("button", "chat-send", bottom, 0, 0, ["chat", "send"])
-      const sendIcon = lab_design_system_d("img", "chat-send-icon", send)
-      sendIcon.style.width = '100%'
-      sendIcon.style.height = '100%'
-      sendIcon.setAttribute('src', `${oldSRC}send.svg`)
+      function renderChat() {
+        body.innerHTML = ''
+        const room = lab_design_system_d("div", "chat-room", body, 0, 0, ["chat", "room"])
+        const top = lab_design_system_d("div", "chat-top", room, email, 0, ["chat", "top"])
+        const messagesBox = lab_design_system_d("div", "chat-messages", room, 0, 0, ["chat", "messages"])
+        const bottom = lab_design_system_d("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
+        const input = lab_design_system_d("input", "chat-input", bottom, 0, 0, ["chat", "input"])
+        const send = lab_design_system_d("button", "chat-send", bottom, 0, 0, ["chat", "send"])
+        const sendIcon = lab_design_system_d("img", "chat-send-icon", send)
+
+        function renderMessages(messagesArray) {
+          messagesBox.innerHTML = ''
+          messagesArray.forEach((m) => {
+            if (m.expeditor != email) {
+              const message = lab_design_system_d("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "myMessage"])
+            }
+            else {
+              const message = lab_design_system_d("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "message"])
+            }
+
+          })
+        }
+
+        renderMessages(messages)
+        sendIcon.style.width = '100%'
+        sendIcon.style.height = '100%'
+        sendIcon.setAttribute('src', `${oldSRC}send.svg`)
+
+        send.addEventListener('click', () => {
+          if (input.value) {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.message = input.value
+            userLSG.recipient = email
+            socket.emit('sendMessage', userLSG, sended => {
+              if (sended.success) {
+                const message = lab_design_system_d("span", `chat-message-${sended.data.messageID}`, messagesBox, input.value, 0, ["chat", "myMessage"])
+                input.value = ""
+              }
+              console.log(sended)
+
+            })
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+        })
+
+      }
+
+      if (status == 'pending') {
+        if (type == 'new') {
+          const newUser = lab_design_system_d("div", "chat-new-user", body, 0, 0, ["chat", "new"])
+          const newHeading = lab_design_system_d("div", "chat-heading", newUser, email, 0, ["chat", "heading"])
+          const box = lab_design_system_d("div", "chat-box", newUser, 0, 0, ["chat", "box"])
+          box.style.justifyContent = 'space-between'
+          const acceptBtn = lab_design_system_d("button", "chat-btn-accept", box, 'lngData.accept', 0, ["chat", "boxBtn"])
+          acceptBtn.addEventListener('click', () => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.contactToAdd = email
+            userLSG.addOrRemove = 'add'
+            socket.emit('acceptContact', userLSG, acceptRes => {
+              if (acceptRes.success === true) renderChat()
+            })
+          })
+          const refuseBtn = lab_design_system_d("button", "chat-btn-refuse", box, 'lngData.refuse', 0, ["chat", "boxBtn"])
+          refuseBtn.addEventListener('click', () => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.contactToAdd = email
+            userLSG.addOrRemove = 'remove'
+            socket.emit('refuseContact', userLSG, refuseRes => {
+              if (refuseRes.success === true) {
+                body.innerHTML = ''
+                document.getElementById(`lab-chat-user-contact-${userContact}`).remove()
+              }
+            })
+          })
+        }
+        else {
+          const awaitingValidation = lab_design_system_d("div", "chat-body-awaiting-validation", body, 'lngData.awaiting_validation', 0, ["chat", "top"])
+          awaitingValidation.style.color = "#fff"
+        }
+      }
+
+      if (status == 'accepted') renderChat()
     }
+
+
     function addUserContact() {
       body.innerHTML = ''
       const newUser = lab_design_system_d("div", "chat-new-user", body, 0, 0, ["chat", "new"])
@@ -1215,9 +1727,90 @@ function chat(parent) {
     addUserIcon.setAttribute('src', `${oldSRC}add_user.svg`)
     addUser.addEventListener('click', () => addUserContact())
 
+    socket.emit('fetchMessages', lab_local_storage_object('global'), reloadMessages => {
+      if (reloadMessages.success === true) {
+        console.log(reloadMessages.data);
+
+        function parseMessages(messagesArray, type) {
+          messagesArray.forEach(e => {
+            if (e.email) {
+              let userContact = e.email.split('@')[0]
+              if (selectedChat == e.email) {
+                if (!document.getElementById('lab-chat-room')) chatRoom(e.email, e.messages, e.status, type)
+              }
+              if (!document.getElementById(`lab-chat-user-contact-${userContact}`)) {
+                const contact = lab_design_system_d("div", `chat-user-contact-${userContact}`, users, 0, 0, ["chat", "contact"])
+                const contactAvatar = lab_design_system_d("img", `chat-user-avatar-${userContact}`, contact)
+                contactAvatar.setAttribute('src', `${oldSRC}/avatar.svg`)
+                contactAvatar.style.width = '100%'
+                contactAvatar.style.aspectRatio = '1'
+                contactAvatar.style.boxSizing = 'border-box'
+                contactAvatar.style.borderRadius = '50%'
+                if (selectedChat == e.email) {
+                  contactAvatar.style.border = '2px solid #FED05E'
+                  contactAvatar.classList.add('selected-chat')
+                }
+                const contactEmail = lab_design_system_d("div", `chat-user-${userContact}`, contact, userContact, 0, ["chat", "email"])
+
+                contact.addEventListener('click', () => {
+                  selectedChat = e.email
+                  let last = document.querySelector('.selected-chat')
+                  if (last) {
+                    last.style.border = 'none'
+                    last.classList.remove('selected-chat')
+                  }
+                  contactAvatar.classList.add('selected-chat')
+                  contactAvatar.style.border = '2px solid #FED05E'
+
+                  if (contact.querySelector('.lab-label')) {
+                    contact.removeChild(contact.querySelector('.lab-label'))
+                  }
+
+                  chatRoom(e.email, e.messages, e.status)
+
+                })
+              }
+
+            }
+
+            if (e.expeditor) {
+              const messageFromUser = messagesArray.filter(i => i.expeditor == e.expeditor)
+
+              if (selectedChat != e.expeditor) {
+                const userContact = e.expeditor.split('@')[0]
+                const chatUser = document.getElementById(`lab-chat-user-contact-${userContact}`)
+                const messageLabel = lab_design_system_d("div", `chat-user-message-label-${userContact}`, chatUser, String(messageFromUser.length), 'label', ["chat", "label"])
+              }
+              else {
+                const userLSG = lab_local_storage_object('global')
+                userLSG.expeditor = e.expeditor
+                socket.emit('moveNewMessagesToMessages', userLSG)
+              }
+            }
+
+          })
+        }
+
+        parseMessages(reloadMessages.data.messages, 'my')
+        parseMessages(reloadMessages.data.newMessages, 'new')
+
+
+        setInterval(() => {
+          socket.emit('fetchMessages', lab_local_storage_object('global'), mes => {
+            if (mes.data.newMessages && mes.data.newMessages.length > 0) {
+              parseMessages(reloadMessages.data.messages, 'my')
+              parseMessages(reloadMessages.data.newMessages, 'new')
+            }
+          })
+        }, 1000);
+
+
+      }
+    })
   }
 
 }
+
 function lab_design_system_d(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
   const styles = styles_d
@@ -1250,10 +1843,10 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
   return A
 }
 
-function plans(parent) {
+function plans(parent, lngData) {
   const tariff = [
     {
-      title: "Free",
+      title: lngData.free,
       description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
       price: {
         mounth: 0,
@@ -1270,7 +1863,7 @@ function plans(parent) {
       }
     },
     {
-      title: "Personal",
+      title: lngData.personnal_plan,
       description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
       price: {
         mounth: 35,
@@ -1422,6 +2015,10 @@ function plans(parent) {
       e.heading && lab_design_system_d("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
 
       const btn = lab_design_system_d("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+
+      btn.addEventListener('click', () => {
+        plan_payment_steps(parent, e.title, e.price[dur])
+      })
       btn.style.backgroundColor = e.color.value
       e.color.label == 'yellow' && (btn.style.color = '#000')
     })
@@ -1431,6 +2028,8 @@ function plans(parent) {
   }
   lab_fade_in_recursively(top, 0.3)
   renderPlans(activeDuration)
+
+
 }
 
 function select(label, list, parent, value, func) {
@@ -1644,6 +2243,43 @@ function dash_parameters(u) {
 
       const mail = lab_design_system_d("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system_d("p", "profile-box-d3csw", line, u.email, null)
+
+
+      const userAvatarLine = lab_design_system_d("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
+      const userAvatar = lab_design_system_d("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
+      const userAvatarPic = lab_design_system_d("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
+
+      const userAvatarImg = lab_design_system_d("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
+      userAvatarImg.setAttribute('src', `${oldSRC}/avatar.svg`)
+      userAvatarImg.style.width = '60px'
+      userAvatarImg.style.height = '60px'
+      userAvatarImg.style.objectFit = 'cover'
+      userAvatarImg.style.border = '2px solid #000'
+      userAvatarImg.style.borderRadius = '50%'
+
+
+      const inputImg = lab_design_system_d("input", "input-img", userAvatarPic)
+      inputImg.style.width = '0'
+      inputImg.style.height = '0'
+      inputImg.setAttribute('type', 'file')
+
+      const inputImgLabel = lab_design_system_d("label", "input-img-label", userAvatarPic)
+      inputImgLabel.setAttribute('for', 'lab-input-img')
+      inputImgLabel.style.width = '60px'
+      inputImgLabel.style.height = '60px'
+      inputImgLabel.style.cursor = 'pointer'
+      inputImgLabel.style.marginTop = '-60px'
+
+      inputImg.addEventListener('change', (e) => {
+        const fileInfo = e.target.files[0];
+        userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
+      });
+
+      // let urls: string[] = []
+      // Array.from(event.target.files).forEach(file => {
+      //   urls.push(URL.createObjectURL(file))
+      // })
+
 
       const password = lab_design_system_d("div", "profile-box-pass", boxWrap, null, null, ["parameters", "line"])
       const passwordSpan = lab_design_system_d("span", "profile-box-passord", password, u.lngData.password, null)
@@ -2018,11 +2654,12 @@ function dashboard(dashObject) {
     lab_fade_in_recursively(result, 0.6)
 
   })
+
   const gridSwitch = lab_design_system_d("div", "grid-switch", headerLayout, null, null, ["elements", "gridSwitch"])
 
 
   const gridLayouts = ["row", "column"]
-  gridLayouts.forEach((e, index) => {
+  gridLayouts.forEach(e => {
     let activeSwitch = localStorage.getItem('layout') || 'row'
 
     const btn = lab_design_system_d("button", `grid-switch-${e}`, gridSwitch, null, null, ["elements", "gridBtn"])
@@ -2077,7 +2714,7 @@ function dashboard(dashObject) {
   const cahtIcon = lab_design_system_d("img", "cahts-icon", cahtBtn)
   cahtIcon.style.width = '100%'
   cahtIcon.setAttribute('src', `${oldSRC}chat.svg`)
-  cahtBtn.addEventListener('click', () => { chat(rootLayer) })
+  cahtBtn.addEventListener('click', () => { chat(rootLayer, lngData) })
 
   const avatar = lab_design_system_d("button", "user-avatar", header, null, null, ["elements", "avatar"])
   const avatarIcon = lab_design_system_d("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])
@@ -2119,7 +2756,7 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            plans(content)
+            plans(content, lngData)
           }
         })
       })
@@ -2280,6 +2917,7 @@ function dashboard(dashObject) {
 
 
   renderList(appList)
+
   footer(wrapper)
   const theme = localStorage.getItem('theme')
   if (theme == 'dark') setTheme(rootLayer)

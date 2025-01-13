@@ -1,16 +1,224 @@
 
+let selectedChat;
 
-function chat(parent) {
-  if (!document.getElementById('lab-chat')) {
-    socket.emit('askMessages', lab_local_storage_object('global'), reloadMessages => {
-      if (reloadMessages.success === true) {
-        console.log("AAAAAAAAAAAAAAAAAAAA");
+let customerData = {
+  customerFirstName: '',
+  customerLastName: '',
+  customerCountry: '',
+  customerStreetAdress: '',
+  customerCity: '',
+  customerZipCode: '',
+  customerIsPro: '',
+  customerHDAdress: '',
+  customerHDCity: '',
+  customerHDZip: '',
+  customerVatNumber: '',
+}
 
-        const messages = reloadMessages.data
-        console.log(messages);
+function plan_payment_steps(parent, plan, price, lngData) {
+  if (!document.getElementById('lab-steps')) {
+    const closeWrapper = lab_design_system("div", "close-wrapper", parent, 0, 0, ["steps", "closeWrapper"])
+    closeWrapper.addEventListener('click', () => {
+      parent.removeChild(closeWrapper)
+      parent.removeChild(wrap)
+    })
+    const wrap = lab_design_system("div", "steps", parent, 0, 0, ["steps", "wrap"])
+
+    const top = lab_design_system("div", "steps-top", wrap, 'Payment information', 0, ["steps", "top"])
+
+    const box = lab_design_system("div", "steps-box", wrap, 0, 0, ["steps", "box"])
+
+    const steps = lab_design_system("div", "steps-items", box, 0, 0, ["steps", "items"])
+
+    const stepsLng = {
+      step1: "Step 1",
+      step2: "Step 2",
+      step3: "Step 3"
+    }
+    Object.keys(stepsLng).forEach((e, index) => {
+      const step = lab_design_system("div", `steps-items-${e}`, steps, 0, 0, ["steps", "item"])
+      const stepMark = lab_design_system("div", `steps-mark-${e}`, step, 0, 0, ["steps", "mark"])
+      const stepText = lab_design_system("span", `steps-${e}`, step, stepsLng[e])
+
+      if (index < 2) {
+        const line = lab_design_system("div", `steps-line-${e}`, steps, 0, 0, ["steps", "line"])
       }
     })
+    const form = lab_design_system("div", "steps-form", box, 0, 0, ["steps", "form"])
 
+    function renderForm(stepNumber) {
+      if (stepNumber === 1) {
+        form.innerHTML = ''
+        const lastName = lab_design_system("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
+        lastName.setAttribute('value', customerData.customerLastName)
+        lastName.setAttribute('placeholder', lngData.last_name)
+        const firstName = lab_design_system("input", "steps-form-first-name", form, 0, 0, ["steps", "input"])
+        firstName.setAttribute('value', customerData.customerFirstName)
+
+        firstName.setAttribute('placeholder', lngData.first_name)
+        const BillingAddress = lab_design_system("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
+        BillingAddress.setAttribute('value', customerData.customerStreetAdress)
+
+        BillingAddress.style.width = 'calc(72% - 10px)'
+        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        const postCode = lab_design_system("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
+        postCode.setAttribute('value', customerData.customerZipCode)
+
+        postCode.style.width = 'calc(28% - 10px)'
+        postCode.setAttribute('placeholder', lngData.zip_code)
+        const country = lab_design_system("input", "steps-form-country", form, 0, 0, ["steps", "input"])
+        country.setAttribute('placeholder', lngData.country)
+        country.setAttribute('value', customerData.customerCountry)
+
+        const city = lab_design_system("input", "steps-form-City", form, 0, 0, ["steps", "input"])
+        city.setAttribute('placeholder', lngData.city)
+        city.setAttribute('value', customerData.customerCity)
+
+        const check = lab_design_system("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+
+        const checkText = lab_design_system("div", "steps-form-check-text", check, lngData.pay_as_enterprise)
+        const btn = lab_design_system("button", "steps-form-btn", form, lngData.next_element, 0, ['steps', 'btn'])
+        btn.style.margin = '20px auto 0 0'
+        btn.addEventListener('click', () => {
+          if (lastName.value && firstName.value && BillingAddress.value && postCode.value && country.value && city.value) {
+            customerData.customerLastName = lastName.value
+            customerData.customerFirstName = firstName.value
+            customerData.customerStreetAdress = BillingAddress.value
+            customerData.customerZipCode = postCode.value
+            customerData.customerCountry = country.value
+            customerData.customerCity = city.value
+            customerData.customerIsPro = checkInput.value == 'on'
+
+            console.log(customerData);
+
+            renderForm(2)
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+
+
+        })
+      }
+      else if (stepNumber === 2) {
+        document.getElementById('lab-steps-mark-step1').style.background = '#FED05E'
+        document.getElementById('lab-steps-line-step1').style.borderTop = '1px solid #FED05E'
+
+        form.innerHTML = ''
+        const companyName = lab_design_system("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
+        companyName.setAttribute('placeholder', lngData.company_name)
+        companyName.style.width = '100%'
+        // companyName.setAttribute('value',customerData.customerCountry)
+
+
+        const check = lab_design_system("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+
+
+        const checkText = lab_design_system("div", "steps-form-check-text", check, lngData.to_the_billing_address)
+
+
+        const BillingAddress = lab_design_system("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
+        BillingAddress.style.width = 'calc(72% - 10px)'
+        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        BillingAddress.setAttribute('value', customerData.customerHDAdress)
+
+        const postCode = lab_design_system("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
+        postCode.style.width = 'calc(28% - 10px)'
+        postCode.setAttribute('placeholder', lngData.zip_code)
+        postCode.setAttribute('value', customerData.customerHDZip)
+
+        checkInput.addEventListener('change', () => {
+          BillingAddress.setAttribute('value', customerData.customerStreetAdress)
+          postCode.setAttribute('value', customerData.customerZipCode)
+        })
+
+        const vat = lab_design_system("input", "steps-form-vat", form, 0, 0, ["steps", "input"])
+        vat.setAttribute('placeholder', lngData.vat_number + '(' + lngData.optional + ")")
+        vat.style.width = '100%'
+        postCode.setAttribute('value', customerData.customerVatNumber)
+
+
+        const btn = lab_design_system("button", "steps-form-btn", form, 'Next step', 0, ['steps', 'btn'])
+        btn.style.margin = '20px auto 0 0'
+        btn.addEventListener('click', () => {
+          //! companyName
+
+          if (BillingAddress.value && postCode.value && companyName.value) {
+            customerData.customerHDAdress = BillingAddress.value
+            customerData.customerHDZip = postCode.value
+            customerData.customerVatNumber = vat.value
+            renderForm(3)
+
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+
+        })
+
+      }
+      else if (stepNumber === 3) {
+        document.getElementById('lab-steps-mark-step2').style.background = '#FED05E'
+        document.getElementById('lab-steps-line-step2').style.borderTop = '1px solid #FED05E'
+
+        form.innerHTML = ''
+        form.style.flexDirection = 'column'
+        const heading = lab_design_system("div", "steps-heading", form, 0, 0, ["steps", "heading"])
+
+        if (price) {
+          const headingFirst = lab_design_system("span", "steps-heading-one", heading, lngData.billing_amount_is + " ")
+          const priceText = lab_design_system("span", "steps-heading-price", heading, price + '€')
+
+          const headingLast = lab_design_system("span", "steps-heading-two", heading, " " + lngData.tax_included)
+
+          priceText.style.fontWeight = '700'
+          priceText.style.fontSize = '32px'
+
+        }
+
+
+        const check = lab_design_system("div", "steps-form-check", form, 0, 0, ["steps", "check"])
+        const checkInput = lab_design_system("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
+        checkInput.setAttribute('type', 'checkbox')
+        const checkText = lab_design_system("div", "steps-form-check-text", check, lngData.accept + lngData.laboranth_general_conditions)
+        check.style.width = 'fit-content'
+
+
+        const text = lab_design_system("div", "steps-heading-text", form, 'You will be redirected to the mollie platform. All banking Information to process this payment are secured.', 0, ["steps", "heading"])
+        text.style.marginTop = '25px'
+
+        const btn = lab_design_system("button", "steps-form-btn", form, 'Pay', 0, ['steps', 'btn'])
+
+        btn.style.margin = '40px auto 0 auto'
+        btn.addEventListener('click', () => {
+          if (checkInput.value == 'on') {
+            let temp = []
+
+            Object.keys(customerData).forEach(e => {
+              temp.push({ [e]: customerData[e] })
+            })
+            customerData = temp
+            console.log(customerData);
+
+          } else {
+            alertUser(lngData.general_conditions_must_be_accepted)
+          }
+
+        })
+      }
+    }
+
+    renderForm(1)
+
+    lab_fade_in_recursively(wrap, 0.3)
+  }
+
+}
+
+function chat(parent, lngData) {
+  if (!document.getElementById('lab-chat')) {
     const wrap = lab_design_system("div", "chat", parent, 0, 0, ["chat", "wrap"])
 
     const close = lab_design_system("button", "chat-close", wrap, 0, 0, ["chat", "close"])
@@ -29,18 +237,95 @@ function chat(parent) {
 
     const body = lab_design_system("div", "chat-body", wrap, 0, 0, ["chat", "body"])
 
-    function chatRoom() {
+    function chatRoom(email, messages, status, type) {
+      let userContact = email.split('@')[0]
       body.innerHTML = ''
-      const room = lab_design_system("div", "chat-room", body, 0, 0, ["chat", "room"])
-      const top = lab_design_system("div", "chat-top", room, 'Synthia K.', 0, ["chat", "top"])
-      const bottom = lab_design_system("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
-      const input = lab_design_system("input", "chat-input", bottom, 0, 0, ["chat", "input"])
-      const send = lab_design_system("button", "chat-send", bottom, 0, 0, ["chat", "send"])
-      const sendIcon = lab_design_system("img", "chat-send-icon", send)
-      sendIcon.style.width = '100%'
-      sendIcon.style.height = '100%'
-      sendIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/send.svg`)
+      function renderChat() {
+        body.innerHTML = ''
+        const room = lab_design_system("div", "chat-room", body, 0, 0, ["chat", "room"])
+        const top = lab_design_system("div", "chat-top", room, email, 0, ["chat", "top"])
+        const messagesBox = lab_design_system("div", "chat-messages", room, 0, 0, ["chat", "messages"])
+        const bottom = lab_design_system("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
+        const input = lab_design_system("input", "chat-input", bottom, 0, 0, ["chat", "input"])
+        const send = lab_design_system("button", "chat-send", bottom, 0, 0, ["chat", "send"])
+        const sendIcon = lab_design_system("img", "chat-send-icon", send)
+
+        function renderMessages(messagesArray) {
+          messagesBox.innerHTML = ''
+          messagesArray.forEach((m) => {
+            if (m.expeditor != email) {
+              const message = lab_design_system("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "myMessage"])
+            }
+            else {
+              const message = lab_design_system("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "message"])
+            }
+
+          })
+        }
+
+        renderMessages(messages)
+        sendIcon.style.width = '100%'
+        sendIcon.style.height = '100%'
+        sendIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/send.svg`)
+
+        send.addEventListener('click', () => {
+          if (input.value) {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.message = input.value
+            userLSG.recipient = email
+            socket.emit('sendMessage', userLSG, sended => {
+              if (sended.success) {
+                const message = lab_design_system("span", `chat-message-${sended.data.messageID}`, messagesBox, input.value, 0, ["chat", "myMessage"])
+                input.value = ""
+              }
+              console.log(sended)
+
+            })
+          } else {
+            alertUser(lngData.input_cannot_be_empty)
+          }
+        })
+
+      }
+
+      if (status == 'pending') {
+        if (type == 'new') {
+          const newUser = lab_design_system("div", "chat-new-user", body, 0, 0, ["chat", "new"])
+          const newHeading = lab_design_system("div", "chat-heading", newUser, email, 0, ["chat", "heading"])
+          const box = lab_design_system("div", "chat-box", newUser, 0, 0, ["chat", "box"])
+          box.style.justifyContent = 'space-between'
+          const acceptBtn = lab_design_system("button", "chat-btn-accept", box, lngData.accept, 0, ["chat", "boxBtn"])
+          acceptBtn.addEventListener('click', () => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.contactToAdd = email
+            userLSG.addOrRemove = 'add'
+            socket.emit('acceptContact', userLSG, acceptRes => {
+              if (acceptRes.success === true) renderChat()
+            })
+          })
+          const refuseBtn = lab_design_system("button", "chat-btn-refuse", box, lngData.refuse, 0, ["chat", "boxBtn"])
+          refuseBtn.addEventListener('click', () => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.contactToAdd = email
+            userLSG.addOrRemove = 'remove'
+            socket.emit('refuseContact', userLSG, refuseRes => {
+              if (refuseRes.success === true) {
+                body.innerHTML = ''
+                document.getElementById(`lab-chat-user-contact-${userContact}`).remove()
+              }
+            })
+          })
+        }
+        else {
+          const awaitingValidation = lab_design_system("div", "chat-body-awaiting-validation", body, lngData.awaiting_validation, 0, ["chat", "top"])
+          awaitingValidation.style.color = "#fff"
+        }
+      }
+
+      if (status == 'accepted') renderChat()
     }
+
+
     function addUserContact() {
       body.innerHTML = ''
       const newUser = lab_design_system("div", "chat-new-user", body, 0, 0, ["chat", "new"])
@@ -73,14 +358,126 @@ function chat(parent) {
     addUserIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`)
     addUser.addEventListener('click', () => addUserContact())
 
+    socket.emit('fetchMessages', lab_local_storage_object('global'), reloadMessages => {
+      if (reloadMessages.success === true) {
+        console.log(reloadMessages.data);
+
+        function parseMessages(messagesArray, type) {
+          messagesArray.forEach(e => {
+            if (e.email) {
+              let userContact = e.email.split('@')[0]
+              if (selectedChat == e.email) {
+                if (!document.getElementById('lab-chat-room')) chatRoom(e.email, e.messages, e.status, type)
+              }
+              if (!document.getElementById(`lab-chat-user-contact-${userContact}`)) {
+                const contact = lab_design_system("div", `chat-user-contact-${userContact}`, users, 0, 0, ["chat", "contact"])
+                const contactAvatar = lab_design_system("img", `chat-user-avatar-${userContact}`, contact)
+                contactAvatar.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
+                contactAvatar.style.width = '100%'
+                contactAvatar.style.aspectRatio = '1'
+                contactAvatar.style.boxSizing = 'border-box'
+                contactAvatar.style.borderRadius = '50%'
+                if (selectedChat == e.email) {
+                  contactAvatar.style.border = '2px solid #FED05E'
+                  contactAvatar.classList.add('selected-chat')
+                }
+                const contactEmail = lab_design_system("div", `chat-user-${userContact}`, contact, userContact, 0, ["chat", "email"])
+
+                contact.addEventListener('click', () => {
+                  selectedChat = e.email
+                  let last = document.querySelector('.selected-chat')
+                  if (last) {
+                    last.style.border = 'none'
+                    last.classList.remove('selected-chat')
+                  }
+                  contactAvatar.classList.add('selected-chat')
+                  contactAvatar.style.border = '2px solid #FED05E'
+
+                  if (contact.querySelector('.lab-label')) {
+                    contact.removeChild(contact.querySelector('.lab-label'))
+                  }
+
+                  chatRoom(e.email, e.messages, e.status)
+
+                })
+              }
+
+            }
+
+            if (e.expeditor) {
+              const messageFromUser = messagesArray.filter(i => i.expeditor == e.expeditor)
+
+              if (selectedChat != e.expeditor) {
+                const userContact = e.expeditor.split('@')[0]
+                const chatUser = document.getElementById(`lab-chat-user-contact-${userContact}`)
+                const messageLabel = lab_design_system("div", `chat-user-message-label-${userContact}`, chatUser, String(messageFromUser.length), 'label', ["chat", "label"])
+              }
+              else {
+                const userLSG = lab_local_storage_object('global')
+                userLSG.expeditor = e.expeditor
+                socket.emit('moveNewMessagesToMessages', userLSG)
+              }
+            }
+
+          })
+        }
+
+        parseMessages(reloadMessages.data.messages, 'my')
+        parseMessages(reloadMessages.data.newMessages, 'new')
+
+
+        setInterval(() => {
+          socket.emit('fetchMessages', lab_local_storage_object('global'), mes => {
+            if (mes.data.newMessages && mes.data.newMessages.length > 0) {
+              parseMessages(reloadMessages.data.messages, 'my')
+              parseMessages(reloadMessages.data.newMessages, 'new')
+            }
+          })
+        }, 1000);
+
+
+      }
+    })
   }
 
 }
 
-function plans(parent) {
+function lab_design_system(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  const styles = styles_d
+
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
+
+function plans(parent, lngData) {
   const tariff = [
     {
-      title: "Free",
+      title: lngData.free,
       description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
       price: {
         mounth: 0,
@@ -97,7 +494,7 @@ function plans(parent) {
       }
     },
     {
-      title: "Personal",
+      title: lngData.personnal_plan,
       description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
       price: {
         mounth: 35,
@@ -249,6 +646,10 @@ function plans(parent) {
       e.heading && lab_design_system("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
 
       const btn = lab_design_system("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+
+      btn.addEventListener('click', () => {
+        plan_payment_steps(parent, e.title, e.price[dur])
+      })
       btn.style.backgroundColor = e.color.value
       e.color.label == 'yellow' && (btn.style.color = '#000')
     })
@@ -258,6 +659,8 @@ function plans(parent) {
   }
   lab_fade_in_recursively(top, 0.3)
   renderPlans(activeDuration)
+
+
 }
 
 function select(label, list, parent, value, func) {
@@ -471,6 +874,43 @@ function dash_parameters(u) {
 
       const mail = lab_design_system("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system("p", "profile-box-d3csw", line, u.email, null)
+
+
+      const userAvatarLine = lab_design_system("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
+      const userAvatar = lab_design_system("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
+      const userAvatarPic = lab_design_system("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
+
+      const userAvatarImg = lab_design_system("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
+      userAvatarImg.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
+      userAvatarImg.style.width = '60px'
+      userAvatarImg.style.height = '60px'
+      userAvatarImg.style.objectFit = 'cover'
+      userAvatarImg.style.border = '2px solid #000'
+      userAvatarImg.style.borderRadius = '50%'
+
+
+      const inputImg = lab_design_system("input", "input-img", userAvatarPic)
+      inputImg.style.width = '0'
+      inputImg.style.height = '0'
+      inputImg.setAttribute('type', 'file')
+
+      const inputImgLabel = lab_design_system("label", "input-img-label", userAvatarPic)
+      inputImgLabel.setAttribute('for', 'lab-input-img')
+      inputImgLabel.style.width = '60px'
+      inputImgLabel.style.height = '60px'
+      inputImgLabel.style.cursor = 'pointer'
+      inputImgLabel.style.marginTop = '-60px'
+
+      inputImg.addEventListener('change', (e) => {
+        const fileInfo = e.target.files[0];
+        userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
+      });
+
+      // let urls: string[] = []
+      // Array.from(event.target.files).forEach(file => {
+      //   urls.push(URL.createObjectURL(file))
+      // })
+
 
       const password = lab_design_system("div", "profile-box-pass", boxWrap, null, null, ["parameters", "line"])
       const passwordSpan = lab_design_system("span", "profile-box-passord", password, u.lngData.password, null)
@@ -845,11 +1285,12 @@ function dashboard(dashObject) {
     lab_fade_in_recursively(result, 0.6)
 
   })
+
   const gridSwitch = lab_design_system("div", "grid-switch", headerLayout, null, null, ["elements", "gridSwitch"])
 
 
   const gridLayouts = ["row", "column"]
-  gridLayouts.forEach((e, index) => {
+  gridLayouts.forEach(e => {
     let activeSwitch = localStorage.getItem('layout') || 'row'
 
     const btn = lab_design_system("button", `grid-switch-${e}`, gridSwitch, null, null, ["elements", "gridBtn"])
@@ -879,7 +1320,8 @@ function dashboard(dashObject) {
   create.style.boxSizing = 'border-box'
   create.style.paddingBottom = '0'
   create.style.paddingTop = '0'
-  create.addEventListener("click", e => {
+
+  create.addEventListener("click", () => {
     if (!document.getElementById('lab-popup-create-app')) {
       const createPopup = popup("create-app", rootLayer)
       const popupTitle = lab_design_system("span", "popup-title", createPopup, lngData.create_app, null, ["popup", "title"])
@@ -903,7 +1345,7 @@ function dashboard(dashObject) {
   const cahtIcon = lab_design_system("img", "cahts-icon", cahtBtn)
   cahtIcon.style.width = '100%'
   cahtIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chat.svg`)
-  cahtBtn.addEventListener('click', () => { chat(rootLayer) })
+  cahtBtn.addEventListener('click', () => { chat(rootLayer, lngData) })
 
   const avatar = lab_design_system("button", "user-avatar", header, null, null, ["elements", "avatar"])
   const avatarIcon = lab_design_system("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])
@@ -945,7 +1387,7 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            plans(content)
+            plans(content, lngData)
           }
         })
       })
@@ -1106,6 +1548,7 @@ function dashboard(dashObject) {
 
 
   renderList(appList)
+
   footer(wrapper)
   const theme = localStorage.getItem('theme')
   if (theme == 'dark') setTheme(rootLayer)
