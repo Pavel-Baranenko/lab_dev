@@ -53,7 +53,7 @@
     }
   },
   "inputs": {
-    "standart": {
+    "standard": {
       "default": {
         "borderRadius": "18px",
         "padding": "0 15px",

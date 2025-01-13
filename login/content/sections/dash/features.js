@@ -1386,6 +1386,9 @@ let customerData = {
 
 function plan_payment_steps(parent, plan, price, lngData) {
   if (!document.getElementById('lab-steps')) {
+
+
+
     const closeWrapper = lab_design_system_d("div", "close-wrapper", parent, 0, 0, ["steps", "closeWrapper"])
     closeWrapper.addEventListener('click', () => {
       parent.removeChild(closeWrapper)
@@ -1420,35 +1423,35 @@ function plan_payment_steps(parent, plan, price, lngData) {
         form.innerHTML = ''
         const lastName = lab_design_system_d("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
         lastName.setAttribute('value', customerData.customerLastName)
-        lastName.setAttribute('placeholder', lngData.last_name)
+        lastName.setAttribute('placeholder', 'Last name')
         const firstName = lab_design_system_d("input", "steps-form-first-name", form, 0, 0, ["steps", "input"])
         firstName.setAttribute('value', customerData.customerFirstName)
 
-        firstName.setAttribute('placeholder', lngData.first_name)
+        firstName.setAttribute('placeholder', 'First name')
         const BillingAddress = lab_design_system_d("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
         BillingAddress.setAttribute('value', customerData.customerStreetAdress)
 
         BillingAddress.style.width = 'calc(72% - 10px)'
-        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        BillingAddress.setAttribute('placeholder', 'Billing address')
         const postCode = lab_design_system_d("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
         postCode.setAttribute('value', customerData.customerZipCode)
 
         postCode.style.width = 'calc(28% - 10px)'
-        postCode.setAttribute('placeholder', lngData.zip_code)
+        postCode.setAttribute('placeholder', 'Postal code')
         const country = lab_design_system_d("input", "steps-form-country", form, 0, 0, ["steps", "input"])
-        country.setAttribute('placeholder', lngData.country)
+        country.setAttribute('placeholder', 'Country')
         country.setAttribute('value', customerData.customerCountry)
 
         const city = lab_design_system_d("input", "steps-form-City", form, 0, 0, ["steps", "input"])
-        city.setAttribute('placeholder', lngData.city)
+        city.setAttribute('placeholder', 'City')
         city.setAttribute('value', customerData.customerCity)
 
         const check = lab_design_system_d("div", "steps-form-check", form, 0, 0, ["steps", "check"])
         const checkInput = lab_design_system_d("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
         checkInput.setAttribute('type', 'checkbox')
 
-        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.pay_as_enterprise)
-        const btn = lab_design_system_d("button", "steps-form-btn", form, lngData.next_element, 0, ['steps', 'btn'])
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, 'Pay as enterprise')
+        const btn = lab_design_system_d("button", "steps-form-btn", form, 'Next step', 0, ['steps', 'btn'])
         btn.style.margin = '20px auto 0 0'
         btn.addEventListener('click', () => {
           if (lastName.value && firstName.value && BillingAddress.value && postCode.value && country.value && city.value) {
@@ -1464,7 +1467,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
 
             renderForm(2)
           } else {
-            alertUser(lngData.input_cannot_be_empty)
+            alertUser("Fill in all the required fields")
           }
 
 
@@ -1476,7 +1479,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
 
         form.innerHTML = ''
         const companyName = lab_design_system_d("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
-        companyName.setAttribute('placeholder', lngData.company_name)
+        companyName.setAttribute('placeholder', 'Company name')
         companyName.style.width = '100%'
         // companyName.setAttribute('value',customerData.customerCountry)
 
@@ -1486,17 +1489,17 @@ function plan_payment_steps(parent, plan, price, lngData) {
         checkInput.setAttribute('type', 'checkbox')
 
 
-        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.to_the_billing_address)
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, 'Same to the billing address')
 
 
         const BillingAddress = lab_design_system_d("input", "steps-form-billing-address", form, 0, 0, ["steps", "input"])
         BillingAddress.style.width = 'calc(72% - 10px)'
-        BillingAddress.setAttribute('placeholder', lngData.billing_address)
+        BillingAddress.setAttribute('placeholder', 'Billing address')
         BillingAddress.setAttribute('value', customerData.customerHDAdress)
 
         const postCode = lab_design_system_d("input", "steps-form-post-code", form, 0, 0, ["steps", "input"])
         postCode.style.width = 'calc(28% - 10px)'
-        postCode.setAttribute('placeholder', lngData.zip_code)
+        postCode.setAttribute('placeholder', 'Postal code')
         postCode.setAttribute('value', customerData.customerHDZip)
 
         checkInput.addEventListener('change', () => {
@@ -1505,7 +1508,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
         })
 
         const vat = lab_design_system_d("input", "steps-form-vat", form, 0, 0, ["steps", "input"])
-        vat.setAttribute('placeholder', lngData.vat_number + '(' + lngData.optional + ")")
+        vat.setAttribute('placeholder', 'VAT number (optional)')
         vat.style.width = '100%'
         postCode.setAttribute('value', customerData.customerVatNumber)
 
@@ -1522,7 +1525,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
             renderForm(3)
 
           } else {
-            alertUser(lngData.input_cannot_be_empty)
+            alertUser("Fill in all the required fields")
           }
 
         })
@@ -1537,10 +1540,10 @@ function plan_payment_steps(parent, plan, price, lngData) {
         const heading = lab_design_system_d("div", "steps-heading", form, 0, 0, ["steps", "heading"])
 
         if (price) {
-          const headingFirst = lab_design_system_d("span", "steps-heading-one", heading, lngData.billing_amount_is + " ")
+          const headingFirst = lab_design_system_d("span", "steps-heading-one", heading, 'The billed amourt is ')
           const priceText = lab_design_system_d("span", "steps-heading-price", heading, price + '€')
 
-          const headingLast = lab_design_system_d("span", "steps-heading-two", heading, " " + lngData.tax_included)
+          const headingLast = lab_design_system_d("span", "steps-heading-two", heading, ' Tax Included')
 
           priceText.style.fontWeight = '700'
           priceText.style.fontSize = '32px'
@@ -1551,7 +1554,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
         const check = lab_design_system_d("div", "steps-form-check", form, 0, 0, ["steps", "check"])
         const checkInput = lab_design_system_d("input", "steps-form-checkbox", check, 0, 0, ["steps", "checkbox"])
         checkInput.setAttribute('type', 'checkbox')
-        const checkText = lab_design_system_d("div", "steps-form-check-text", check, lngData.accept + lngData.laboranth_general_conditions)
+        const checkText = lab_design_system_d("div", "steps-form-check-text", check, 'Accept - Laboranth> General Conditions')
         check.style.width = 'fit-content'
 
 
@@ -1561,21 +1564,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
         const btn = lab_design_system_d("button", "steps-form-btn", form, 'Pay', 0, ['steps', 'btn'])
 
         btn.style.margin = '40px auto 0 auto'
-        btn.addEventListener('click', () => {
-          if (checkInput.value == 'on') {
-            let temp = []
-
-            Object.keys(customerData).forEach(e => {
-              temp.push({ [e]: customerData[e] })
-            })
-            customerData = temp
-            console.log(customerData);
-
-          } else {
-            alertUser(lngData.general_conditions_must_be_accepted)
-          }
-
-        })
+        btn.addEventListener('click', () => { })
       }
     }
 
@@ -1843,10 +1832,10 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
   return A
 }
 
-function plans(parent, lngData) {
+function plans(parent) {
   const tariff = [
     {
-      title: lngData.free,
+      title: "Free",
       description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
       price: {
         mounth: 0,
@@ -1863,7 +1852,7 @@ function plans(parent, lngData) {
       }
     },
     {
-      title: lngData.personnal_plan,
+      title: "Personal",
       description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
       price: {
         mounth: 35,
@@ -2756,7 +2745,7 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            plans(content, lngData)
+            plans(content)
           }
         })
       })
