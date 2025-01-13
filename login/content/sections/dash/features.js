@@ -2745,7 +2745,8 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            plans(content)
+            // plans(content)
+            lab_load_component('/D/C/UI/GLOB/lab_plans.js', content, lngData)
           }
         })
       })

@@ -999,7 +999,7 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            lab_load_component('/D/C/UI/LAB/lab_components.js', content, lngData)
+            lab_load_component('/D/C/UI/GLOB/lab_components.js', content, lngData)
           }
         })
       })
