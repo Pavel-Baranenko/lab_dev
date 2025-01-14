@@ -942,15 +942,12 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
+            const currentLng = lab_local_storage_object('global').manualLng || lab_local_storage_object('global').lng
 
-            lab_load_language_module(res.configs.language).then(lngData => {
-              res.lngData = lngData
-              res.lng = res.configs.language
-              dash_parameters(res)
+            lab_load_language_module(currentLng).then(lngData => {
+              lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList })
             })
 
-            plans({ parent: content, lngData: plansLng, closeAction: renderList })
-            // lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList })
           }
         })
       })
