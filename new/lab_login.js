@@ -207,12 +207,12 @@ function registration(lngData) {
   }
 
   function recovery() {
-    let password = lab_design_system("input", 'user_pass', wrap, null, "registration-input", ['inputs', 'standart'])
+    let password = lab_design_system("input", 'user_pass', wrap, null, "registration-input", ['inputs', 'standard'])
     password.style.fontSize = 'large'
     password.setAttribute('placeholder', lngData.password)
     password.setAttribute('type', "password")
 
-    let confirmPassword = lab_design_system("input", 'confirm-user-pass', wrap, null, "registration-input", ['inputs', 'standart'])
+    let confirmPassword = lab_design_system("input", 'confirm-user-pass', wrap, null, "registration-input", ['inputs', 'standard'])
     confirmPassword.style.fontSize = 'large'
     confirmPassword.setAttribute('placeholder', lngData.repeat)
     confirmPassword.setAttribute('type', "password")
