@@ -55,10 +55,11 @@
   "inputs": {
     "standard": {
       "default": {
+        "boxSizing": "border-box",
         "borderRadius": "18px",
         "padding": "0 15px",
         "outline": "none !important",
-        "width": "75%",
+        "width": "90%",
         "maxWidth": "350px",
         "height": "clamp(5svh, 15vh, 70px)",
         "background": "#f4f4f5",
@@ -274,6 +275,21 @@
     }
   },
   "elements": {
+    "showPass": {
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translateY(-50%)",
+        "right": "10px",
+        "opacity": "0",
+        "pointerIvents": "none",
+        "cursor": "pointer",
+        "zIndex": "99",
+        "width": "25px"
+      }
+    },
     "avatar": {
       "default": {
         "position": "relative",
@@ -871,6 +887,20 @@
         "right": 0
       }
     },
+    "close": {
+      "default": {
+        "fontSize": "18px",
+        "background": "#FED05E",
+        "width": "35px",
+        "height": "35px",
+        "borderRadius": "50%",
+        "border": "none",
+        "position": "absolute",
+        "bottom": "12px",
+        "left": "clamp(2svw, 5svw, 60px)",
+        "fontWeight": 700
+      }
+    },
     "title": {
       "default": {
         "fontSize": "24px",
@@ -941,6 +971,7 @@
     },
     "top": {
       "default": {
+        "position": "relative",
         "textAlign": "center",
         "marginTop": "clamp(35px,2vh,70px)"
       }

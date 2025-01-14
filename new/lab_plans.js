@@ -1,304 +1,191 @@
+let customerData = {
+  customerFirstName: '',
+  customerLastName: '',
+  customerCountry: '',
+  customerStreetAdress: '',
+  customerCity: '',
+  customerZipCode: '',
+  customerIsPro: '',
+  customerHDAdress: '',
+  customerHDCity: '',
+  customerHDZip: '',
+  customerVatNumber: '',
+  customerCompany: ''
+}
+
 const plans_styles = {
-  "steps": {
-    "wrap": {
-      "default": {
-        "width": "clamp(56%, 90%, 1080px)",
-        "minHeight": "56%",
-        "background": "#fff",
-        "borderRadius": "40px",
-        "position": "fixed",
-        "left": "50%",
-        "transform": "translateX(-50%)",
-        "top": "15%",
-        "zIndex": "99999"
-      }
+  "wrap": {
+    "default": {
+      "display": "flex",
+      "boxSizing": "border-box",
+      "justifyContent": "space-between",
+      "paddingTop": "clamp(2svh, 30px, 50px)",
+      "paddingBottom": "clamp(2svh, 12svh, 50px)",
+      "paddingLeft": "clamp(2svw, 5svw, 60px)",
+      "paddingRight": "clamp(2svw, 5svw, 60px)",
+      "gap": "clamp(10px,2vw,50px)"
     },
-    "closeWrapper": {
-      "default": {
-        "position": "fixed",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "background": "ffff",
-        "zIndex": 9999
-      }
-    },
-    "top": {
-      "default": {
-        "background": "#3C4CA6",
-        "color": "#fff",
-        "textAlign": "center",
-        "padding": "33px",
-        "borderRadius": "40px 40px 0px 0px ",
-        "fontSize": "24px",
-        "fontWeight": "700"
-      }
-    },
-    "box": {
-      "default": {
-        "width": "clamp(56%, 90%, 532px)",
-        "display": "flex",
-        "margin": "48px auto 0 auto",
-        "flexDirection": "column",
-        "paddingBottom": "80px"
-      }
-    },
-    "items": {
-      "default": {
-        "display": "flex",
-        "justifyContent": "space-between"
-      }
-    },
-    "item": {
-      "default": {
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "whiteSpace": "nowrap",
-        "fontSize": "16px",
-        "gap": "10px"
-      }
-    },
-    "mark": {
-      "default": {
-        "width": "20px",
-        "height": "20px",
-        "borderRadius": "50%",
-        "boxSizing": "border-box",
-        "border": "2px solid #FED05E"
-      }
-    },
-    "line": {
-      "default": {
-        "width": "100%",
-        "margin": "10px",
-        "borderTop": "1px dashed #FED05E"
-      }
-    },
-    "form": {
-      "default": {
-        "marginTop": "60px",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "flexWrap": "wrap",
-        "gap": "20px"
-      }
-    },
-    "input": {
-      "default": {
-        "width": "calc(50% - 10px)",
-        "padding": "10px 32px",
-        "borderRadius": "40px",
-        "background": "#F4F4F5",
-        "border": "none",
-        "height": "50px",
-        "boxSizing": "border-box",
-        "outline": "none"
-      }
-    },
-    "check": {
-      "default": {
-        "width": "100%",
-        "display": "flex",
-        "alignItems": "center",
-        "gap": "10px",
-        "color": "#5A5A5A",
-        "fontSize": "14px",
-        "fontWeight": "500"
-      }
-    },
-    "checkbox": {
-      "default": {
-        "width": "16px",
-        "height": "16px",
-        "border": "1px solid #8D8D8D",
-        "cursor": "pointer"
-      }
-    },
-    "btn": {
-      "default": {
-        "width": "140px",
-        "height": "40px",
-        "color": "#000000",
-        "background": "#FED05E",
-        "borderRadius": "10px",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "fontWeight": "700",
-        "border": "none"
-      }
-    },
-    "heading": {
-      "default": {
-        "fontSize": "14px",
-        "color": "#5A5A5A",
-        "textAlign": "center"
-      }
+    "Portrait": {
+      "flexDirection": "column"
     }
   },
-  "plans": {
-    "wrap": {
-      "default": {
-        "display": "flex",
-        "boxSizing": "border-box",
-        "justifyContent": "space-between",
-        "paddingTop": "clamp(2svh, 30px, 50px)",
-        "paddingBottom": "clamp(2svh, 12svh, 50px)",
-        "paddingLeft": "clamp(2svw, 5svw, 60px)",
-        "paddingRight": "clamp(2svw, 5svw, 60px)",
-        "gap": "clamp(10px,2vw,50px)"
-      },
-      "Portrait": {
-        "flexDirection": "column"
-      }
+  "plan": {
+    "default": {
+      "display": "flex",
+      "position": "relative",
+      "height": "fit-content",
+      "flexDirection": "column",
+      "padding": "34px 20px",
+      "borderRadius": "45px",
+      "background": "#fff",
+      "boxShadow": "0 6px 33px 0 rgba(0, 0, 0, 0.11)"
     },
-    "plan": {
-      "default": {
-        "display": "flex",
-        "position": "relative",
-        "height": "fit-content",
-        "flexDirection": "column",
-        "padding": "34px 20px",
-        "borderRadius": "45px",
-        "background": "#fff",
-        "boxShadow": "0 6px 33px 0 rgba(0, 0, 0, 0.11)"
-      },
-      "Landscape": {
-        "flex": "0 1 21%"
-      }
-    },
-    "angle": {
-      "default": {
-        "position": "absolute",
-        "top": 0,
-        "right": 0
-      }
-    },
-    "title": {
-      "default": {
-        "fontSize": "24px",
-        "marginLeft": "12px",
-        "fontWeight": 700,
-        "marginBottom": "15px"
-      }
-    },
-    "description": {
-      "default": {
-        "fontSize": "14px",
-        "fontStyle": "italic",
-        "marginLeft": "12px",
-        "fontWeight": 600,
-        "marginBottom": "20px"
-      }
-    },
-    "box": {
-      "default": {
-        "display": "flex",
-        "alignItems": "end",
-        "marginLeft": "12px",
-        "fontSize": "15px",
-        "marginBottom": "20px",
-        "gap": "4px"
-      }
-    },
-    "price": {
-      "default": {
-        "fontSize": "40px",
-        "fontWeight": 800
-      }
-    },
-    "point": {
-      "default": {
-        "display": "flex",
-        "alignItems": "flex-start",
-        "gap": "7px",
-        "lineHeight": "1",
-        "fontSize": "14px",
-        "color": "#000"
-      }
-    },
-    "points": {
-      "default": {
-        "display": "flex",
-        "flexDirection": "column",
-        "gap": "20px",
-        "padding": "20px",
-        "borderRadius": "25px",
-        "marginBottom": "20px",
-        "background": "#f0f0f0"
-      }
-    },
-    "heading": {
-      "default": {
-        "fontWeight": 700,
-        "fontSize": "clamp(20px,2vw,40px)",
-        "marginBottom": "20px",
-        "marginLeft": "12px",
-        "color": "#000"
-      }
-    },
-    "bold": {
-      "default": {
-        "fontWeight": 700
-      }
-    },
-    "top": {
-      "default": {
-        "textAlign": "center",
-        "marginTop": "clamp(35px,2vh,70px)"
-      }
-    },
-    "text": {
-      "default": {
-        "fontWeight": 600,
-        "fontStyle": "italic",
-        "fontSize": "clamp(14px,2vw,16px)",
-        "textAlign": "center",
-        "color": "#000",
-        "maxWidth": "clamp(90%,50vw,800px)",
-        "margin": "14px auto 0 auto"
-      }
-    },
-    "btn": {
-      "default": {
-        "fontWeight": 700,
-        "fontSize": "18px",
-        "textAlign": "center",
-        "color": "#fff",
-        "padding": "12px 35px",
-        "borderRadius": "15px",
-        "margin": "0 auto",
-        "border": "none",
-        "cursor": "pointer"
-      }
-    },
-    "switcher": {
-      "default": {
-        "display": "flex",
-        "fontSize": "18px",
-        "borderRadius": "80px",
-        "maxWidth": "clamp(200px,2vw,267px)",
-        "backgroundColor": "#fff",
-        "padding": "7px",
-        "margin": "45px auto 0 auto"
-      }
-    },
-    "switcherBtn": {
-      "default": {
-        "border": "none",
-        "flex": "0 1 50%",
-        "cursor": "pointer",
-        "fontWeight": "500",
-        "fontSize": "15px",
-        "borderRadius": "80px",
-        "backgroundColor": "transparent",
-        "color": "#000",
-        "padding": "clamp(8px,2vw,10px)"
-      }
+    "Landscape": {
+      "flex": "0 1 21%"
+    }
+  },
+  "angle": {
+    "default": {
+      "position": "absolute",
+      "top": 0,
+      "right": 0
+    }
+  },
+  "close": {
+    "default": {
+      "fontSize": "18px",
+      "background": "#FED05E",
+      "width": "35px",
+      "height": "35px",
+      "borderRadius": "50%",
+      "border": "none",
+      "position": "absolute",
+      "bottom": "12px",
+      "left": "clamp(2svw, 5svw, 60px)",
+      "fontWeight": 700
+    }
+  },
+  "title": {
+    "default": {
+      "fontSize": "24px",
+      "marginLeft": "12px",
+      "fontWeight": 700,
+      "marginBottom": "15px"
+    }
+  },
+  "description": {
+    "default": {
+      "fontSize": "14px",
+      "fontStyle": "italic",
+      "marginLeft": "12px",
+      "fontWeight": 600,
+      "marginBottom": "20px"
+    }
+  },
+  "box": {
+    "default": {
+      "display": "flex",
+      "alignItems": "end",
+      "marginLeft": "12px",
+      "fontSize": "15px",
+      "marginBottom": "20px",
+      "gap": "4px"
+    }
+  },
+  "price": {
+    "default": {
+      "fontSize": "40px",
+      "fontWeight": 800
+    }
+  },
+  "point": {
+    "default": {
+      "display": "flex",
+      "alignItems": "flex-start",
+      "gap": "7px",
+      "lineHeight": "1",
+      "fontSize": "14px",
+      "color": "#000"
+    }
+  },
+  "points": {
+    "default": {
+      "display": "flex",
+      "flexDirection": "column",
+      "gap": "20px",
+      "padding": "20px",
+      "borderRadius": "25px",
+      "marginBottom": "20px",
+      "background": "#f0f0f0"
+    }
+  },
+  "heading": {
+    "default": {
+      "fontWeight": 700,
+      "fontSize": "clamp(20px,2vw,40px)",
+      "marginBottom": "20px",
+      "marginLeft": "12px",
+      "color": "#000"
+    }
+  },
+  "bold": {
+    "default": {
+      "fontWeight": 700
+    }
+  },
+  "top": {
+    "default": {
+      "position": "relative",
+      "textAlign": "center",
+      "marginTop": "clamp(35px,2vh,70px)"
+    }
+  },
+  "text": {
+    "default": {
+      "fontWeight": 600,
+      "fontStyle": "italic",
+      "fontSize": "clamp(14px,2vw,16px)",
+      "textAlign": "center",
+      "color": "#000",
+      "maxWidth": "clamp(90%,50vw,800px)",
+      "margin": "14px auto 0 auto"
+    }
+  },
+  "btn": {
+    "default": {
+      "fontWeight": 700,
+      "fontSize": "18px",
+      "textAlign": "center",
+      "color": "#fff",
+      "padding": "12px 35px",
+      "borderRadius": "15px",
+      "margin": "0 auto",
+      "border": "none",
+      "cursor": "pointer"
+    }
+  },
+  "switcher": {
+    "default": {
+      "display": "flex",
+      "fontSize": "18px",
+      "borderRadius": "80px",
+      "maxWidth": "clamp(200px,2vw,267px)",
+      "backgroundColor": "#fff",
+      "padding": "7px",
+      "margin": "45px auto 0 auto"
+    }
+  },
+  "switcherBtn": {
+    "default": {
+      "border": "none",
+      "flex": "0 1 50%",
+      "cursor": "pointer",
+      "fontWeight": "500",
+      "fontSize": "15px",
+      "borderRadius": "80px",
+      "backgroundColor": "transparent",
+      "color": "#000",
+      "padding": "clamp(8px,2vw,10px)"
     }
   }
 }
@@ -345,16 +232,16 @@ function plan_payment_steps(parent, plan, price, lngData) {
     })
     const wrap = plans_design_system("div", "steps", parent, 0, 0, ["steps", "wrap"])
 
-    const top = plans_design_system("div", "steps-top", wrap, 'Payment information', 0, ["steps", "top"])
+    const top = plans_design_system("div", "steps-top", wrap, lngData.payment_informations, 0, ["steps", "top"])
 
     const box = plans_design_system("div", "steps-box", wrap, 0, 0, ["steps", "box"])
 
     const steps = plans_design_system("div", "steps-items", box, 0, 0, ["steps", "items"])
 
     const stepsLng = {
-      step1: "Step 1",
-      step2: "Step 2",
-      step3: "Step 3"
+      step1: lngData.step + " 1",
+      step2: lngData.step + " 2",
+      step3: lngData.step + " 3"
     }
     Object.keys(stepsLng).forEach((e, index) => {
       const step = plans_design_system("div", `steps-items-${e}`, steps, 0, 0, ["steps", "item"])
@@ -430,7 +317,6 @@ function plan_payment_steps(parent, plan, price, lngData) {
         const companyName = plans_design_system("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
         companyName.setAttribute('placeholder', lngData.company_name)
         companyName.style.width = '100%'
-        // companyName.setAttribute('value',customerData.customerCountry)
 
 
         const check = plans_design_system("div", "steps-form-check", form, 0, 0, ["steps", "check"])
@@ -468,6 +354,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
           //! companyName
 
           if (BillingAddress.value && postCode.value && companyName.value) {
+            customerData.customerCompany = companyName.value
             customerData.customerHDAdress = BillingAddress.value
             customerData.customerHDZip = postCode.value
             customerData.customerVatNumber = vat.value
@@ -537,20 +424,21 @@ function plan_payment_steps(parent, plan, price, lngData) {
   }
 
 }
+function plans(dashObject) {
+  const parent = dashObject.parent, lngData = dashObject.lngData, closeAction = dashObject.closeAction
 
-function plans(parent, lngData) {
   const tariff = [
     {
       title: lngData.free,
-      description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
+      description: lngData.tariff_free_description,
       price: {
         mounth: 0,
         year: 0
       },
       points: [
-        'Creation of 3 projects',
-        'Disk space 200MB',
-        'Content and Plugins Basic'
+        lngData.creation_of_3_projects,
+        lngData.disk_space_limit + ' 200mb',
+        lngData.content_and_plugins_basic
       ],
       color: {
         label: "black",
@@ -559,18 +447,19 @@ function plans(parent, lngData) {
     },
     {
       title: lngData.personnal_plan,
-      description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
+      description: lngData.tariff_personal_description,
       price: {
         mounth: 35,
         year: 420
       },
       points: [
-        'Creation of 15 projects',
-        'Disk space 1GB',
-        'Export git / .zip / serveurs persos (purchasing servers from our partners)',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro'
+        lngData.creation_of_15_projects,
+        lngData.disk_space_limit + ' 1GB',
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
+
       ],
       color: {
         label: "green",
@@ -578,27 +467,27 @@ function plans(parent, lngData) {
       }
     },
     {
-      title: "Business Lite",
-      description: "An exceptional choice for growing businesses with up to 5 team members.",
+      title: lngData.business_lite,
+      description: lngData.tariff_business_lite_description,
       price: {
         mounth: 60,
         year: 720
       },
       points: [
-        'Unlimited project creation',
-        'Disk space 10GB',
-        '5 collaborators',
-        'Export git / .zip / serveurs persos /serveurs auto',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro'
+        lngData.unlimited_project_creation,
+        lngData.disk_space_limit + ' 10GB',
+        '5 ' + lngData.collaborators,
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
       ],
       subPoints: [
-        'Full transfer of source code',
-        'Using AI',
-        'Ephemeral sharing',
-        'Payment tools',
-        'Automaticly daily backup'
+        lngData.full_transfer_of_source_code_rights,
+        lngData.using_ai,
+        lngData.ephemeral_sharing,
+        lngData.payment_tools,
+        lngData.automaticly_daily_backup
       ],
       color: {
         label: "orange",
@@ -606,30 +495,30 @@ function plans(parent, lngData) {
       }
     },
     {
-      title: "Business Premium",
-      description: "For businesses that want to use all the capabilities of the service. Also ideal for web studios and IT companies",
+      title: lngData.business_premium,
+      description: lngData.tariff_business_premium_description,
       price: {
         mounth: 350,
         year: 4200
       },
       points: [
-        'Unlimited project creation',
-        'Disk space 50GB',
-        '15 collaborators',
-        'Export git / .zip / serveurs persos /serveurs auto',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro',
-        'Content and Plugins VIP'
+        lngData.unlimited_project_creation,
+        lngData.disk_space_limit + ' 50GB',
+        '15 ' + lngData.collaborators,
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
+        lngData.content_and_plugins_vip
       ],
       subPoints: [
-        'Full transfer of source code',
-        'Using AI',
-        'Ephemeral sharing',
-        'Payment tools',
-        'Automaticly daily backup',
-        'eCommerce',
-        'Access to training materials'
+        lngData.full_transfer_of_source_code_rights,
+        lngData.using_ai,
+        lngData.ephemeral_sharing,
+        lngData.payment_tools,
+        lngData.automaticly_daily_backup,
+        lngData.ecommerce,
+        lngData.access_to_training_materials
       ],
       color: {
         label: "blue",
@@ -637,9 +526,9 @@ function plans(parent, lngData) {
       }
     },
     {
-      title: "Tailored",
-      description: "Extended solution for high scale businesses and organizations like universities",
-      heading: "On request",
+      title: lngData.tailored,
+      description: lngData.tariff_tailored_description,
+      heading: lngData.on_request,
       color: {
         label: "yellow",
         value: "#fed05e"
@@ -649,11 +538,13 @@ function plans(parent, lngData) {
 
   const top = plans_design_system("div", "plans-top", parent, 0, 0, ["plans", "top"])
   const heading = plans_design_system("span", "plans-heading", top, 'Tariff plans', 0, ["plans", "heading"])
-  const subHeading = plans_design_system("p", "plans-sub-heading", top, "Commencez avec plus de 900 templates gratuits et personnalisables, l'Éditeur intuitif glissez-déposez, des outils pour renforcer votre présence en ligne et plus encore.", 0, ["plans", "text"])
+  const subHeading = plans_design_system("p", "plans-sub-heading", top, lngData.tariff_heading, 0, ["plans", "text"])
 
+  const close = plans_design_system("button", "plans-close", top, '<', 0, ['plans', 'close'])
+  close.addEventListener('click', () => closeAction())
   let activeDuration = 'mounth'
 
-  const plansMass = { 'mounth': 'Monthly', 'year': 'Yearly' }
+  const plansMass = { 'mounth': lngData.monthly, 'year': lngData.yearly_payment }
   const switcher = plans_design_system("div", "plans-switcher", top, 0, 0, ["plans", "switcher"])
 
   Object.keys(plansMass).forEach(e => {
@@ -709,13 +600,20 @@ function plans(parent, lngData) {
 
       e.heading && plans_design_system("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
 
-      const btn = plans_design_system("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+      if (index != 4) {
+        const btn = plans_design_system("button", `plan-btn-${index}`, item, lngData.choose_plan, 0, ['plans', 'btn'])
+        btn.addEventListener('click', () => {
+          plan_payment_steps(parent, e.title, e.price[dur])
+        })
+        btn.style.backgroundColor = e.color.value
+      } else {
+        const btn = plans_design_system("a", `plan-btn-${index}`, item, lngData.contact_us, 0, ['plans', 'btn'])
+        btn.setAttribute('href', 'mailto:contact@laboranth.tech')
+        btn.style.textDecoration = 'none'
+        btn.style.backgroundColor = e.color.value
+        e.color.label == 'yellow' && (btn.style.color = '#000')
+      }
 
-      btn.addEventListener('click', () => {
-        plan_payment_steps(parent, e.title, e.price[dur])
-      })
-      btn.style.backgroundColor = e.color.value
-      e.color.label == 'yellow' && (btn.style.color = '#000')
     })
 
     lab_fade_in_recursively(wrap, 0.3)
@@ -723,6 +621,8 @@ function plans(parent, lngData) {
   }
   lab_fade_in_recursively(top, 0.3)
   renderPlans(activeDuration)
+
+
 }
 
 

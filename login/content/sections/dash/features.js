@@ -53,12 +53,13 @@ const styles_d = {
     }
   },
   "inputs": {
-    "standart": {
+    "standard": {
       "default": {
+        "boxSizing": "border-box",
         "borderRadius": "18px",
         "padding": "0 15px",
         "outline": "none !important",
-        "width": "75%",
+        "width": "90%",
         "maxWidth": "350px",
         "height": "clamp(5svh, 15vh, 70px)",
         "background": "#f4f4f5",
@@ -220,6 +221,7 @@ const styles_d = {
       }
     }
   },
+
   "containers": {
     "header": {
       "default": {
@@ -274,6 +276,21 @@ const styles_d = {
     }
   },
   "elements": {
+    "showPass": {
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translateY(-50%)",
+        "right": "10px",
+        "opacity": "0",
+        "pointerIvents": "none",
+        "cursor": "pointer",
+        "zIndex": "99",
+        "width": "25px"
+      }
+    },
     "avatar": {
       "default": {
         "position": "relative",
@@ -871,6 +888,20 @@ const styles_d = {
         "right": 0
       }
     },
+    "close": {
+      "default": {
+        "fontSize": "18px",
+        "background": "#FED05E",
+        "width": "35px",
+        "height": "35px",
+        "borderRadius": "50%",
+        "border": "none",
+        "position": "absolute",
+        "bottom": "12px",
+        "left": "clamp(2svw, 5svw, 60px)",
+        "fontWeight": 700
+      }
+    },
     "title": {
       "default": {
         "fontSize": "24px",
@@ -941,6 +972,7 @@ const styles_d = {
     },
     "top": {
       "default": {
+        "position": "relative",
         "textAlign": "center",
         "marginTop": "clamp(35px,2vh,70px)"
       }
@@ -1384,10 +1416,56 @@ let customerData = {
 
 }
 
+let plansLng = {
+  'payment_informations': "Payment information",
+  'free': "Free",
+  'step': "Step",
+  'creation_of_3_projects': "Creation of 3 projects",
+  'disk_space_limit': "Disk space",
+  'personnal_plan': "Personal",
+  'unlimited_project_creation': 'Unlimited project creation',
+  'collaborators': "collaborators",
+  'full_transfer_of_source_code_rights': "Full transfer of source code",
+  "ephemeral_sharing": "Ephemeral sharing",
+  'yearly_payment': "Yearly",
+  'monthly': 'Monthly',
+  'contact_us': 'Contact us',
+  //!========================
+
+  "business_lite": "Business Lite",
+  'business_premium': "Business Premium",
+  'tailored': "Tailored",
+
+  'tariff_free_description': "Tariff where you can get acquainted with the service's capabilities and create your own website",
+  'tariff_personal_description': "Suitable for aspiring businessmen, individual entrepreneurs and experts",
+  'tariff_business_lite_description': "An exceptional choice for growing businesses with up to 5 team members.",
+  'tariff_business_premium_description': "For businesses that want to use all the capabilities of the service. Also ideal for web studios and IT companies",
+  'tariff_tailored_description': "Extended solution for high scale businesses and organizations like universities",
+  'on_request': "On request",
+
+
+  'content_and_plugins_basic': "Content and Plugins Basic",
+  'content_and_plugins_pro': "Content and Plugins Pro",
+  'content_and_plugins_vip': "Content and Plugins Vip",
+
+
+  "creation_of_15_projects": "Creation of 15 projects",
+  'linking_your_domain': "Linking your domain",
+  'export_formats': "Export git / .zip / serveurs persos (purchasing servers from our partners)",
+  'using_ai': "Using AI",
+  'payment_tools': "Payment tools",
+  'automaticly_daily_backup': "Automaticly daily backup",
+  'ecommerce': "eCommerce",
+  'access_to_training_materials': "Access to training materials",
+
+
+  'tariff_heading': "Commencez avec plus de 900 templates gratuits et personnalisables, l'Éditeur intuitif glissez-déposez, des outils pour renforcer votre présence en ligne et plus encore.",
+  'tariff_plans': "Tariff plans",
+  'choose_plan': "Choose plan",
+}
+
 function plan_payment_steps(parent, plan, price, lngData) {
   if (!document.getElementById('lab-steps')) {
-
-
 
     const closeWrapper = lab_design_system_d("div", "close-wrapper", parent, 0, 0, ["steps", "closeWrapper"])
     closeWrapper.addEventListener('click', () => {
@@ -1396,16 +1474,16 @@ function plan_payment_steps(parent, plan, price, lngData) {
     })
     const wrap = lab_design_system_d("div", "steps", parent, 0, 0, ["steps", "wrap"])
 
-    const top = lab_design_system_d("div", "steps-top", wrap, 'Payment information', 0, ["steps", "top"])
+    const top = lab_design_system_d("div", "steps-top", wrap, lngData.payment_informations, 0, ["steps", "top"])
 
     const box = lab_design_system_d("div", "steps-box", wrap, 0, 0, ["steps", "box"])
 
     const steps = lab_design_system_d("div", "steps-items", box, 0, 0, ["steps", "items"])
 
     const stepsLng = {
-      step1: "Step 1",
-      step2: "Step 2",
-      step3: "Step 3"
+      step1: lngData.step + " 1",
+      step2: lngData.step + " 2",
+      step3: lngData.step + " 3"
     }
     Object.keys(stepsLng).forEach((e, index) => {
       const step = lab_design_system_d("div", `steps-items-${e}`, steps, 0, 0, ["steps", "item"])
@@ -1423,7 +1501,7 @@ function plan_payment_steps(parent, plan, price, lngData) {
         form.innerHTML = ''
         const lastName = lab_design_system_d("input", "steps-form-last-name", form, 0, 0, ["steps", "input"])
         lastName.setAttribute('value', customerData.customerLastName)
-        lastName.setAttribute('placeholder', 'Last name')
+        lastName.setAttribute('placeholder', lngData.last_name)
         const firstName = lab_design_system_d("input", "steps-form-first-name", form, 0, 0, ["steps", "input"])
         firstName.setAttribute('value', customerData.customerFirstName)
 
@@ -1462,8 +1540,6 @@ function plan_payment_steps(parent, plan, price, lngData) {
             customerData.customerCountry = country.value
             customerData.customerCity = city.value
             customerData.customerIsPro = checkInput.value == 'on'
-
-            console.log(customerData);
 
             renderForm(2)
           } else {
@@ -1636,8 +1712,6 @@ function chat(parent, lngData) {
                 const message = lab_design_system_d("span", `chat-message-${sended.data.messageID}`, messagesBox, input.value, 0, ["chat", "myMessage"])
                 input.value = ""
               }
-              console.log(sended)
-
             })
           } else {
             alertUser(lngData.input_cannot_be_empty)
@@ -1700,8 +1774,6 @@ function chat(parent, lngData) {
           socket.emit('addNewContact', userLSG, contactData => {
             if (contactData.success === true) {
               // contactData.data.email
-              console.log("aaa");
-
             }
           })
         } else {
@@ -1718,8 +1790,6 @@ function chat(parent, lngData) {
 
     socket.emit('fetchMessages', lab_local_storage_object('global'), reloadMessages => {
       if (reloadMessages.success === true) {
-        console.log(reloadMessages.data);
-
         function parseMessages(messagesArray, type) {
           messagesArray.forEach(e => {
             if (e.email) {
@@ -1796,6 +1866,9 @@ function chat(parent, lngData) {
 
       }
     })
+
+
+    lab_fade_in_recursively(wrap, 0.3)
   }
 
 }
@@ -1832,19 +1905,22 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
   return A
 }
 
-function plans(parent) {
+function plans(dashObject) {
+  const parent = dashObject.parent, lngData = dashObject.lngData, closeAction = dashObject.closeAction
+
+
   const tariff = [
     {
-      title: "Free",
-      description: "Tariff where you can get acquainted with the service's capabilities and create your own website",
+      title: lngData.free,
+      description: lngData.tariff_free_description,
       price: {
         mounth: 0,
         year: 0
       },
       points: [
-        'Creation of 3 projects',
-        'Disk space 200MB',
-        'Content and Plugins Basic'
+        lngData.creation_of_3_projects,
+        lngData.disk_space_limit + ' 200mb',
+        lngData.content_and_plugins_basic
       ],
       color: {
         label: "black",
@@ -1852,19 +1928,20 @@ function plans(parent) {
       }
     },
     {
-      title: "Personal",
-      description: "Suitable for aspiring businessmen, individual entrepreneurs and experts",
+      title: lngData.personnal_plan,
+      description: lngData.tariff_personal_description,
       price: {
         mounth: 35,
         year: 420
       },
       points: [
-        'Creation of 15 projects',
-        'Disk space 1GB',
-        'Export git / .zip / serveurs persos (purchasing servers from our partners)',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro'
+        lngData.creation_of_15_projects,
+        lngData.disk_space_limit + ' 1GB',
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
+
       ],
       color: {
         label: "green",
@@ -1872,27 +1949,27 @@ function plans(parent) {
       }
     },
     {
-      title: "Business Lite",
-      description: "An exceptional choice for growing businesses with up to 5 team members.",
+      title: lngData.business_lite,
+      description: lngData.tariff_business_lite_description,
       price: {
         mounth: 60,
         year: 720
       },
       points: [
-        'Unlimited project creation',
-        'Disk space 10GB',
-        '5 collaborators',
-        'Export git / .zip / serveurs persos /serveurs auto',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro'
+        lngData.unlimited_project_creation,
+        lngData.disk_space_limit + ' 10GB',
+        '5 ' + lngData.collaborators,
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
       ],
       subPoints: [
-        'Full transfer of source code',
-        'Using AI',
-        'Ephemeral sharing',
-        'Payment tools',
-        'Automaticly daily backup'
+        lngData.full_transfer_of_source_code_rights,
+        lngData.using_ai,
+        lngData.ephemeral_sharing,
+        lngData.payment_tools,
+        lngData.automaticly_daily_backup
       ],
       color: {
         label: "orange",
@@ -1900,30 +1977,30 @@ function plans(parent) {
       }
     },
     {
-      title: "Business Premium",
-      description: "For businesses that want to use all the capabilities of the service. Also ideal for web studios and IT companies",
+      title: lngData.business_premium,
+      description: lngData.tariff_business_premium_description,
       price: {
         mounth: 350,
         year: 4200
       },
       points: [
-        'Unlimited project creation',
-        'Disk space 50GB',
-        '15 collaborators',
-        'Export git / .zip / serveurs persos /serveurs auto',
-        'Linking your domain',
-        'Content and Plugins Basic',
-        'Content and Plugins Pro',
-        'Content and Plugins VIP'
+        lngData.unlimited_project_creation,
+        lngData.disk_space_limit + ' 50GB',
+        '15 ' + lngData.collaborators,
+        lngData.export_formats,
+        lngData.linking_your_domain,
+        lngData.content_and_plugins_basic,
+        lngData.content_and_plugins_pro,
+        lngData.content_and_plugins_vip
       ],
       subPoints: [
-        'Full transfer of source code',
-        'Using AI',
-        'Ephemeral sharing',
-        'Payment tools',
-        'Automaticly daily backup',
-        'eCommerce',
-        'Access to training materials'
+        lngData.full_transfer_of_source_code_rights,
+        lngData.using_ai,
+        lngData.ephemeral_sharing,
+        lngData.payment_tools,
+        lngData.automaticly_daily_backup,
+        lngData.ecommerce,
+        lngData.access_to_training_materials
       ],
       color: {
         label: "blue",
@@ -1931,9 +2008,9 @@ function plans(parent) {
       }
     },
     {
-      title: "Tailored",
-      description: "Extended solution for high scale businesses and organizations like universities",
-      heading: "On request",
+      title: lngData.tailored,
+      description: lngData.tariff_tailored_description,
+      heading: lngData.on_request,
       color: {
         label: "yellow",
         value: "#fed05e"
@@ -1943,11 +2020,13 @@ function plans(parent) {
 
   const top = lab_design_system_d("div", "plans-top", parent, 0, 0, ["plans", "top"])
   const heading = lab_design_system_d("span", "plans-heading", top, 'Tariff plans', 0, ["plans", "heading"])
-  const subHeading = lab_design_system_d("p", "plans-sub-heading", top, "Commencez avec plus de 900 templates gratuits et personnalisables, l'Éditeur intuitif glissez-déposez, des outils pour renforcer votre présence en ligne et plus encore.", 0, ["plans", "text"])
+  const subHeading = lab_design_system_d("p", "plans-sub-heading", top, lngData.tariff_heading, 0, ["plans", "text"])
 
+  const close = lab_design_system_d("button", "plans-close", top, '<', 0, ['plans', 'close'])
+  close.addEventListener('click', () => closeAction())
   let activeDuration = 'mounth'
 
-  const plansMass = { 'mounth': 'Monthly', 'year': 'Yearly' }
+  const plansMass = { 'mounth': lngData.monthly, 'year': lngData.yearly_payment }
   const switcher = lab_design_system_d("div", "plans-switcher", top, 0, 0, ["plans", "switcher"])
 
   Object.keys(plansMass).forEach(e => {
@@ -2003,13 +2082,20 @@ function plans(parent) {
 
       e.heading && lab_design_system_d("span", `heading-${index}`, item, e.heading, 0, ['plans', 'heading'])
 
-      const btn = lab_design_system_d("button", `plan-btn-${index}`, item, 'Choose plan', 0, ['plans', 'btn'])
+      if (index != 4) {
+        const btn = lab_design_system_d("button", `plan-btn-${index}`, item, lngData.choose_plan, 0, ['plans', 'btn'])
+        btn.addEventListener('click', () => {
+          plan_payment_steps(parent, e.title, e.price[dur])
+        })
+        btn.style.backgroundColor = e.color.value
+      } else {
+        const btn = lab_design_system_d("a", `plan-btn-${index}`, item, lngData.contact_us, 0, ['plans', 'btn'])
+        btn.setAttribute('href', 'mailto:contact@laboranth.tech')
+        btn.style.textDecoration = 'none'
+        btn.style.backgroundColor = e.color.value
+        e.color.label == 'yellow' && (btn.style.color = '#000')
+      }
 
-      btn.addEventListener('click', () => {
-        plan_payment_steps(parent, e.title, e.price[dur])
-      })
-      btn.style.backgroundColor = e.color.value
-      e.color.label == 'yellow' && (btn.style.color = '#000')
     })
 
     lab_fade_in_recursively(wrap, 0.3)
@@ -2745,8 +2831,15 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            // plans(content)
-            lab_load_component('/D/C/UI/GLOB/lab_plans.js', content, lngData)
+
+            lab_load_language_module(res.configs.language).then(lngData => {
+              res.lngData = lngData
+              res.lng = res.configs.language
+              dash_parameters(res)
+            })
+
+            plans({ parent: content, lngData: plansLng, closeAction: renderList })
+            // lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList })
           }
         })
       })
@@ -2757,7 +2850,7 @@ function dashboard(dashObject) {
   })
 
 
-  function renderList(list, direction = "row") {
+  function renderList(list = appList, direction = "row") {
     if (localStorage.getItem('layout') == 'column') {
       direction = 'column'
     }
@@ -2788,6 +2881,12 @@ function dashboard(dashObject) {
 
         const bottom = lab_design_system_d("div", `apps-item-wrap-${e}`, project, null, null, ["apps", `wrap-${direction}`])
         const text = lab_design_system_d("span", `apps-item-${e}`, bottom, e, null, null)
+
+        text.addEventListener("click", () => {
+          lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
+          window.open(window.location.href + e + "/" + "home", "_self")
+        })
+
         const img = lab_design_system_d("img", `apps-item-img-${e}`, bottom, null, null, null)
 
         img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")

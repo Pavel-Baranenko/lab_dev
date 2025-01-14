@@ -1,19 +1,4 @@
-
 let selectedChat;
-
-let customerData = {
-  customerFirstName: '',
-  customerLastName: '',
-  customerCountry: '',
-  customerStreetAdress: '',
-  customerCity: '',
-  customerZipCode: '',
-  customerIsPro: '',
-  customerHDAdress: '',
-  customerHDCity: '',
-  customerHDZip: '',
-  customerVatNumber: '',
-}
 
 
 function chat(parent, lngData) {
@@ -77,8 +62,6 @@ function chat(parent, lngData) {
                 const message = lab_design_system("span", `chat-message-${sended.data.messageID}`, messagesBox, input.value, 0, ["chat", "myMessage"])
                 input.value = ""
               }
-              console.log(sended)
-
             })
           } else {
             alertUser(lngData.input_cannot_be_empty)
@@ -141,8 +124,6 @@ function chat(parent, lngData) {
           socket.emit('addNewContact', userLSG, contactData => {
             if (contactData.success === true) {
               // contactData.data.email
-              console.log("aaa");
-
             }
           })
         } else {
@@ -159,8 +140,6 @@ function chat(parent, lngData) {
 
     socket.emit('fetchMessages', lab_local_storage_object('global'), reloadMessages => {
       if (reloadMessages.success === true) {
-        console.log(reloadMessages.data);
-
         function parseMessages(messagesArray, type) {
           messagesArray.forEach(e => {
             if (e.email) {
@@ -237,43 +216,12 @@ function chat(parent, lngData) {
 
       }
     })
+
+
+    lab_fade_in_recursively(wrap, 0.3)
   }
 
 }
-
-function lab_design_system(tag, id, parent, content, className, styled) {
-  const elementToAppend = document.createElement(tag)
-  const styles = styles_d
-
-  elementToAppend.setAttribute("id", "lab-" + id)
-  parent.appendChild(elementToAppend)
-
-  const A = document.querySelector("#" + "lab-" + id)
-  A.setAttribute("class", "escape")
-  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
-
-  if (content && typeof content == "string") {
-    A.innerText = content
-  }
-  A.style.opacity = 1
-  if (styled) {
-    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
-
-    Object.keys(elementStyles.default).forEach(e => {
-      A.style[e] = elementStyles.default[e]
-    })
-
-    if (elementStyles[lab_orientation]) {
-      Object.keys(elementStyles[lab_orientation]).forEach(e => {
-        A.style[e] = elementStyles[lab_orientation][e]
-      })
-    }
-  }
-
-  return A
-}
-
-
 
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
@@ -488,40 +436,35 @@ function dash_parameters(u) {
       const mailValue = lab_design_system("p", "profile-box-d3csw", line, u.email, null)
 
 
-      const userAvatarLine = lab_design_system("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
-      const userAvatar = lab_design_system("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
-      const userAvatarPic = lab_design_system("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
+      // const userAvatarLine = lab_design_system("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
+      // const userAvatar = lab_design_system("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
+      // const userAvatarPic = lab_design_system("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
 
-      const userAvatarImg = lab_design_system("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
-      userAvatarImg.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
-      userAvatarImg.style.width = '60px'
-      userAvatarImg.style.height = '60px'
-      userAvatarImg.style.objectFit = 'cover'
-      userAvatarImg.style.border = '2px solid #000'
-      userAvatarImg.style.borderRadius = '50%'
+      // const userAvatarImg = lab_design_system("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
+      // userAvatarImg.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
+      // userAvatarImg.style.width = '60px'
+      // userAvatarImg.style.height = '60px'
+      // userAvatarImg.style.objectFit = 'cover'
+      // userAvatarImg.style.border = '2px solid #000'
+      // userAvatarImg.style.borderRadius = '50%'
 
 
-      const inputImg = lab_design_system("input", "input-img", userAvatarPic)
-      inputImg.style.width = '0'
-      inputImg.style.height = '0'
-      inputImg.setAttribute('type', 'file')
+      // const inputImg = lab_design_system("input", "input-img", userAvatarPic)
+      // inputImg.style.width = '0'
+      // inputImg.style.height = '0'
+      // inputImg.setAttribute('type', 'file')
 
-      const inputImgLabel = lab_design_system("label", "input-img-label", userAvatarPic)
-      inputImgLabel.setAttribute('for', 'lab-input-img')
-      inputImgLabel.style.width = '60px'
-      inputImgLabel.style.height = '60px'
-      inputImgLabel.style.cursor = 'pointer'
-      inputImgLabel.style.marginTop = '-60px'
+      // const inputImgLabel = lab_design_system("label", "input-img-label", userAvatarPic)
+      // inputImgLabel.setAttribute('for', 'lab-input-img')
+      // inputImgLabel.style.width = '60px'
+      // inputImgLabel.style.height = '60px'
+      // inputImgLabel.style.cursor = 'pointer'
+      // inputImgLabel.style.marginTop = '-60px'
 
-      inputImg.addEventListener('change', (e) => {
-        const fileInfo = e.target.files[0];
-        userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
-      });
-
-      // let urls: string[] = []
-      // Array.from(event.target.files).forEach(file => {
-      //   urls.push(URL.createObjectURL(file))
-      // })
+      // inputImg.addEventListener('change', (e) => {
+      //   const fileInfo = e.target.files[0];
+      //   userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
+      // });
 
 
       const password = lab_design_system("div", "profile-box-pass", boxWrap, null, null, ["parameters", "line"])
@@ -999,7 +942,15 @@ function dashboard(dashObject) {
           }
           else if (e == 'plans') {
             content.innerHTML = ''
-            lab_load_component('/D/C/UI/GLOB/lab_components.js', content, lngData)
+
+            lab_load_language_module(res.configs.language).then(lngData => {
+              res.lngData = lngData
+              res.lng = res.configs.language
+              dash_parameters(res)
+            })
+
+            plans({ parent: content, lngData: plansLng, closeAction: renderList })
+            // lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList })
           }
         })
       })
@@ -1010,7 +961,7 @@ function dashboard(dashObject) {
   })
 
 
-  function renderList(list, direction = "row") {
+  function renderList(list = appList, direction = "row") {
     if (localStorage.getItem('layout') == 'column') {
       direction = 'column'
     }
@@ -1041,6 +992,12 @@ function dashboard(dashObject) {
 
         const bottom = lab_design_system("div", `apps-item-wrap-${e}`, project, null, null, ["apps", `wrap-${direction}`])
         const text = lab_design_system("span", `apps-item-${e}`, bottom, e, null, null)
+
+        text.addEventListener("click", () => {
+          lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
+          window.open(window.location.href + e + "/" + "home", "_self")
+        })
+
         const img = lab_design_system("img", `apps-item-img-${e}`, bottom, null, null, null)
 
         img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
