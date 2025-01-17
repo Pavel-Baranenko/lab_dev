@@ -1,227 +1,4 @@
-let selectedChat;
 
-
-function chat(parent, lngData) {
-  if (!document.getElementById('lab-chat')) {
-    const wrap = lab_design_system("div", "chat", parent, 0, 0, ["chat", "wrap"])
-
-    const close = lab_design_system("button", "chat-close", wrap, 0, 0, ["chat", "close"])
-    const closeIcon = lab_design_system("img", "chat-close-icon", close)
-    closeIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/close.svg`)
-
-    close.addEventListener('click', () => {
-      wrap.style.transition = 'all 0.2s linear'
-      wrap.style.transform = 'translateX(100%)'
-      wrap.style.opacity = '0'
-
-      setTimeout(() => {
-        parent.removeChild(wrap)
-      }, 2000);
-    })
-
-    const body = lab_design_system("div", "chat-body", wrap, 0, 0, ["chat", "body"])
-
-    function chatRoom(email, messages, status, type) {
-      let userContact = email.split('@')[0]
-      body.innerHTML = ''
-      function renderChat() {
-        body.innerHTML = ''
-        const room = lab_design_system("div", "chat-room", body, 0, 0, ["chat", "room"])
-        const top = lab_design_system("div", "chat-top", room, email, 0, ["chat", "top"])
-        const messagesBox = lab_design_system("div", "chat-messages", room, 0, 0, ["chat", "messages"])
-        const bottom = lab_design_system("div", "chat-bottom", body, 0, 0, ["chat", "bottom"])
-        const input = lab_design_system("input", "chat-input", bottom, 0, 0, ["chat", "input"])
-        const send = lab_design_system("button", "chat-send", bottom, 0, 0, ["chat", "send"])
-        const sendIcon = lab_design_system("img", "chat-send-icon", send)
-
-        function renderMessages(messagesArray) {
-          messagesBox.innerHTML = ''
-          messagesArray.forEach((m) => {
-            if (m.expeditor != email) {
-              const message = lab_design_system("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "myMessage"])
-            }
-            else {
-              const message = lab_design_system("span", `chat-message-${m.messageID}`, messagesBox, m.message, 0, ["chat", "message"])
-            }
-
-          })
-        }
-
-        renderMessages(messages)
-        sendIcon.style.width = '100%'
-        sendIcon.style.height = '100%'
-        sendIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/send.svg`)
-
-        send.addEventListener('click', () => {
-          if (input.value) {
-            const userLSG = lab_local_storage_object('global')
-            userLSG.message = input.value
-            userLSG.recipient = email
-            socket.emit('sendMessage', userLSG, sended => {
-              if (sended.success) {
-                const message = lab_design_system("span", `chat-message-${sended.data.messageID}`, messagesBox, input.value, 0, ["chat", "myMessage"])
-                input.value = ""
-              }
-            })
-          } else {
-            alertUser(lngData.input_cannot_be_empty)
-          }
-        })
-
-      }
-
-      if (status == 'pending') {
-        if (type == 'new') {
-          const newUser = lab_design_system("div", "chat-new-user", body, 0, 0, ["chat", "new"])
-          const newHeading = lab_design_system("div", "chat-heading", newUser, email, 0, ["chat", "heading"])
-          const box = lab_design_system("div", "chat-box", newUser, 0, 0, ["chat", "box"])
-          box.style.justifyContent = 'space-between'
-          const acceptBtn = lab_design_system("button", "chat-btn-accept", box, lngData.accept, 0, ["chat", "boxBtn"])
-          acceptBtn.addEventListener('click', () => {
-            const userLSG = lab_local_storage_object('global')
-            userLSG.contactToAdd = email
-            userLSG.addOrRemove = 'add'
-            socket.emit('acceptContact', userLSG, acceptRes => {
-              if (acceptRes.success === true) renderChat()
-            })
-          })
-          const refuseBtn = lab_design_system("button", "chat-btn-refuse", box, lngData.refuse, 0, ["chat", "boxBtn"])
-          refuseBtn.addEventListener('click', () => {
-            const userLSG = lab_local_storage_object('global')
-            userLSG.contactToAdd = email
-            userLSG.addOrRemove = 'remove'
-            socket.emit('refuseContact', userLSG, refuseRes => {
-              if (refuseRes.success === true) {
-                body.innerHTML = ''
-                document.getElementById(`lab-chat-user-contact-${userContact}`).remove()
-              }
-            })
-          })
-        }
-        else {
-          const awaitingValidation = lab_design_system("div", "chat-body-awaiting-validation", body, lngData.awaiting_validation, 0, ["chat", "top"])
-          awaitingValidation.style.color = "#fff"
-        }
-      }
-
-      if (status == 'accepted') renderChat()
-    }
-
-
-    function addUserContact() {
-      body.innerHTML = ''
-      const newUser = lab_design_system("div", "chat-new-user", body, 0, 0, ["chat", "new"])
-      const newHeading = lab_design_system("div", "chat-heading", newUser, 'Enter an email to invite you to your project', 0, ["chat", "heading"])
-      const box = lab_design_system("div", "chat-box", newUser, 0, 0, ["chat", "box"])
-      const boxInput = lab_design_system("input", "chat-box-input", box, 0, 0, ["chat", "boxInput"])
-      const boxBtn = lab_design_system("button", "chat-box-btn", box, 'Invite', 0, ["chat", "boxBtn"])
-
-      boxBtn.addEventListener('click', () => {
-        if (boxInput.value) {
-          const userLSG = lab_local_storage_object('global')
-          userLSG.contactEmail = boxInput.value
-
-          socket.emit('addNewContact', userLSG, contactData => {
-            if (contactData.success === true) {
-              // contactData.data.email
-            }
-          })
-        } else {
-          alertUser(lngData.input_cannot_be_empty)
-        }
-      })
-    }
-
-    const users = lab_design_system("div", "chat-users", wrap, 0, 0, ["chat", "users"])
-    const addUser = lab_design_system("button", "chat-add-user", users, 0, 0, ["chat", "add"])
-    const addUserIcon = lab_design_system("img", "chat-add-user-icon", addUser)
-    addUserIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`)
-    addUser.addEventListener('click', () => addUserContact())
-
-    socket.emit('fetchMessages', lab_local_storage_object('global'), reloadMessages => {
-      if (reloadMessages.success === true) {
-        function parseMessages(messagesArray, type) {
-          messagesArray.forEach(e => {
-            if (e.email) {
-              let userContact = e.email.split('@')[0]
-              if (selectedChat == e.email) {
-                if (!document.getElementById('lab-chat-room')) chatRoom(e.email, e.messages, e.status, type)
-              }
-              if (!document.getElementById(`lab-chat-user-contact-${userContact}`)) {
-                const contact = lab_design_system("div", `chat-user-contact-${userContact}`, users, 0, 0, ["chat", "contact"])
-                const contactAvatar = lab_design_system("img", `chat-user-avatar-${userContact}`, contact)
-                contactAvatar.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
-                contactAvatar.style.width = '100%'
-                contactAvatar.style.aspectRatio = '1'
-                contactAvatar.style.boxSizing = 'border-box'
-                contactAvatar.style.borderRadius = '50%'
-                if (selectedChat == e.email) {
-                  contactAvatar.style.border = '2px solid #FED05E'
-                  contactAvatar.classList.add('selected-chat')
-                }
-                const contactEmail = lab_design_system("div", `chat-user-${userContact}`, contact, userContact, 0, ["chat", "email"])
-
-                contact.addEventListener('click', () => {
-                  selectedChat = e.email
-                  let last = document.querySelector('.selected-chat')
-                  if (last) {
-                    last.style.border = 'none'
-                    last.classList.remove('selected-chat')
-                  }
-                  contactAvatar.classList.add('selected-chat')
-                  contactAvatar.style.border = '2px solid #FED05E'
-
-                  if (contact.querySelector('.lab-label')) {
-                    contact.removeChild(contact.querySelector('.lab-label'))
-                  }
-
-                  chatRoom(e.email, e.messages, e.status)
-
-                })
-              }
-
-            }
-
-            if (e.expeditor) {
-              const messageFromUser = messagesArray.filter(i => i.expeditor == e.expeditor)
-
-              if (selectedChat != e.expeditor) {
-                const userContact = e.expeditor.split('@')[0]
-                const chatUser = document.getElementById(`lab-chat-user-contact-${userContact}`)
-                const messageLabel = lab_design_system("div", `chat-user-message-label-${userContact}`, chatUser, String(messageFromUser.length), 'label', ["chat", "label"])
-              }
-              else {
-                const userLSG = lab_local_storage_object('global')
-                userLSG.expeditor = e.expeditor
-                socket.emit('moveNewMessagesToMessages', userLSG)
-              }
-            }
-
-          })
-        }
-
-        parseMessages(reloadMessages.data.messages, 'my')
-        parseMessages(reloadMessages.data.newMessages, 'new')
-
-
-        setInterval(() => {
-          socket.emit('fetchMessages', lab_local_storage_object('global'), mes => {
-            if (mes.data.newMessages && mes.data.newMessages.length > 0) {
-              parseMessages(reloadMessages.data.messages, 'my')
-              parseMessages(reloadMessages.data.newMessages, 'new')
-            }
-          })
-        }, 1000);
-
-
-      }
-    })
-
-
-    lab_fade_in_recursively(wrap, 0.3)
-  }
-
-}
 
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
@@ -435,13 +212,12 @@ function dash_parameters(u) {
       const mail = lab_design_system("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system("p", "profile-box-d3csw", line, u.email, null)
 
-
       // const userAvatarLine = lab_design_system("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
       // const userAvatar = lab_design_system("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
       // const userAvatarPic = lab_design_system("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
 
       // const userAvatarImg = lab_design_system("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
-      // userAvatarImg.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
+      // userAvatarImg.setAttribute('src', `${oldSRC}/avatar.svg`)
       // userAvatarImg.style.width = '60px'
       // userAvatarImg.style.height = '60px'
       // userAvatarImg.style.objectFit = 'cover'
@@ -543,6 +319,7 @@ function dash_parameters(u) {
       const newsTitle = lab_design_system("span", "news-title", news, 'Receive news by email')
 
 
+
       const checkBox = lab_design_system("input", "checkbox", news, null, null, ["elements", "checkBox"]);
       checkBox.setAttribute('type', 'checkbox')
 
@@ -638,7 +415,6 @@ function dash_parameters(u) {
         lab_fade_in_recursively(boxWrap, 0.5)
       })
 
-
     }
     else if (tabValue == "controls") {
       const line = lab_design_system("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
@@ -668,6 +444,53 @@ function dash_parameters(u) {
 
 
     }
+    else if (tabValue == "git") {
+
+
+      //Git
+
+      const gitUserName = lab_design_system("div", "git-user-name", boxWrap, null, null, ["parameters", "line"])
+      const gitName = lab_design_system("span", "git-name", gitUserName, "Nom d'utilisateur Git")
+      const gitNameInput = input("", "gitNameInput", gitUserName, null, width)
+
+      const gitUserEmail = lab_design_system("div", "git-user-email", boxWrap, null, null, ["parameters", "line"])
+      const gitEmail = lab_design_system("span", "git-email", gitUserEmail, "Email Github")
+
+      const gitEmailInput = input("", "gitEmailInput", gitUserEmail, null, width)
+
+      const gitUserToken = lab_design_system("div", "git-user-token", boxWrap, null, null, ["parameters", "line"])
+
+      const gitToken = lab_design_system("span", "git-token", gitUserToken, "Personal Access Token (PAT)")
+
+      const gitTokenInput = input("", "gitTokenInput", gitUserToken, null, width)
+
+      if (u.configs.gitCredentials) {
+        gitNameInput.value = u.configs.gitCredentials.userName
+        gitEmailInput.value = u.configs.gitCredentials.email
+        gitTokenInput.value = u.configs.gitCredentials.PATtoken
+      }
+
+
+      const gitBtn = lab_design_system("button", "collaborators-btn", boxWrap, 'Enregistrer les identifiants', null, ["buttons", "action"])
+
+      gitBtn.style.width = lab_orientation == "Portrait" ? "100%" : "fit-content"
+
+      gitBtn.addEventListener('click', () => {
+        if (gitNameInput.value && gitEmailInput.value && gitTokenInput.value) {
+          u.configs.gitCredentials = {
+            "userName": gitNameInput.value,
+            "email": gitEmailInput.value,
+            "PATtoken": gitTokenInput.value
+          }
+          console.log(u);
+
+          // socket.emit("userConfigsUpdate", lab_local_storage_object('global'))
+        } else {
+          alertUser(u.lngData.input_cannot_be_empty)
+        }
+      })
+
+    }
     lab_fade_in_recursively(boxWrap, 0.5)
   }
 
@@ -678,7 +501,8 @@ function dash_parameters(u) {
   const tabs = {
     "profile": u.lngData.profile,
     "settings": u.lngData.settings,
-    "controls": u.lngData.controls
+    "controls": u.lngData.controls,
+    "git": "Git"
   }
 
   const white = lab_design_system("div", "active-white", tabButtons, null, null, ["parameters", "white"])
@@ -703,6 +527,7 @@ function dash_parameters(u) {
   lab_fade_in_recursively(parameters, 0.5)
 
 }
+
 
 function search(array, string) {
   let listing = []
@@ -900,7 +725,14 @@ function dashboard(dashObject) {
   const cahtIcon = lab_design_system("img", "cahts-icon", cahtBtn)
   cahtIcon.style.width = '100%'
   cahtIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chat.svg`)
-  cahtBtn.addEventListener('click', () => { chat(rootLayer, lngData) })
+  cahtBtn.addEventListener('click', () => {
+
+    const currentLng = lab_local_storage_object('global').manualLng || lab_local_storage_object('global').lng
+
+    lab_load_language_module(currentLng).then(lngData => {
+      lab_load_component('/D/C/UI/GLOB/lab_chat.js', { parent: rootLayer, lngData: lngData })
+    })
+  })
 
   const avatar = lab_design_system("button", "user-avatar", header, null, null, ["elements", "avatar"])
   const avatarIcon = lab_design_system("img", "user-avatar-icon", avatar, null, null, ["elements", "avatarIcon"])

@@ -640,6 +640,8 @@ const styles_d = {
     "box": {
       "default": {
         "boxSizing": "border-box",
+        "maxHeight": "100svh",
+        "overflowY": "auto",
         "paddingTop": "clamp(5px, 35px, 60px)",
         "paddingBottom": "clamp(5px, 35px, 60px)",
         "paddingRight": "clamp(5px, 35px, 120px)",
@@ -2319,41 +2321,35 @@ function dash_parameters(u) {
       const mail = lab_design_system_d("span", "profile-box-mail", line, u.lngData.email, null)
       const mailValue = lab_design_system_d("p", "profile-box-d3csw", line, u.email, null)
 
+      // const userAvatarLine = lab_design_system_d("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
+      // const userAvatar = lab_design_system_d("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
+      // const userAvatarPic = lab_design_system_d("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
 
-      const userAvatarLine = lab_design_system_d("span", "profile-box-avatar", boxWrap, null, null, ["parameters", "line"])
-      const userAvatar = lab_design_system_d("span", "profile-box-avatar-text", userAvatarLine, 'Avatar', null)
-      const userAvatarPic = lab_design_system_d("div", "profile-box-avatar-pic", userAvatarLine, 0, 0, ['elements', 'avatarBox'])
-
-      const userAvatarImg = lab_design_system_d("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
-      userAvatarImg.setAttribute('src', `${oldSRC}/avatar.svg`)
-      userAvatarImg.style.width = '60px'
-      userAvatarImg.style.height = '60px'
-      userAvatarImg.style.objectFit = 'cover'
-      userAvatarImg.style.border = '2px solid #000'
-      userAvatarImg.style.borderRadius = '50%'
+      // const userAvatarImg = lab_design_system_d("img", "profile-box-avatar-img", userAvatarPic, 0, 0)
+      // userAvatarImg.setAttribute('src', `${oldSRC}/avatar.svg`)
+      // userAvatarImg.style.width = '60px'
+      // userAvatarImg.style.height = '60px'
+      // userAvatarImg.style.objectFit = 'cover'
+      // userAvatarImg.style.border = '2px solid #000'
+      // userAvatarImg.style.borderRadius = '50%'
 
 
-      const inputImg = lab_design_system_d("input", "input-img", userAvatarPic)
-      inputImg.style.width = '0'
-      inputImg.style.height = '0'
-      inputImg.setAttribute('type', 'file')
+      // const inputImg = lab_design_system_d("input", "input-img", userAvatarPic)
+      // inputImg.style.width = '0'
+      // inputImg.style.height = '0'
+      // inputImg.setAttribute('type', 'file')
 
-      const inputImgLabel = lab_design_system_d("label", "input-img-label", userAvatarPic)
-      inputImgLabel.setAttribute('for', 'lab-input-img')
-      inputImgLabel.style.width = '60px'
-      inputImgLabel.style.height = '60px'
-      inputImgLabel.style.cursor = 'pointer'
-      inputImgLabel.style.marginTop = '-60px'
+      // const inputImgLabel = lab_design_system_d("label", "input-img-label", userAvatarPic)
+      // inputImgLabel.setAttribute('for', 'lab-input-img')
+      // inputImgLabel.style.width = '60px'
+      // inputImgLabel.style.height = '60px'
+      // inputImgLabel.style.cursor = 'pointer'
+      // inputImgLabel.style.marginTop = '-60px'
 
-      inputImg.addEventListener('change', (e) => {
-        const fileInfo = e.target.files[0];
-        userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
-      });
-
-      // let urls: string[] = []
-      // Array.from(event.target.files).forEach(file => {
-      //   urls.push(URL.createObjectURL(file))
-      // })
+      // inputImg.addEventListener('change', (e) => {
+      //   const fileInfo = e.target.files[0];
+      //   userAvatarImg.setAttribute('src', URL.createObjectURL(fileInfo))
+      // });
 
 
       const password = lab_design_system_d("div", "profile-box-pass", boxWrap, null, null, ["parameters", "line"])
@@ -2430,6 +2426,7 @@ function dash_parameters(u) {
       const news = lab_design_system_d("div", "news", boxWrap, null, null, ["parameters", "line"])
 
       const newsTitle = lab_design_system_d("span", "news-title", news, 'Receive news by email')
+
 
 
       const checkBox = lab_design_system_d("input", "checkbox", news, null, null, ["elements", "checkBox"]);
@@ -2527,7 +2524,6 @@ function dash_parameters(u) {
         lab_fade_in_recursively(boxWrap, 0.5)
       })
 
-
     }
     else if (tabValue == "controls") {
       const line = lab_design_system_d("div", "profile-box-voice", boxWrap, null, null, ["parameters", "line"])
@@ -2557,6 +2553,53 @@ function dash_parameters(u) {
 
 
     }
+    else if (tabValue == "git") {
+
+
+      //Git
+
+      const gitUserName = lab_design_system_d("div", "git-user-name", boxWrap, null, null, ["parameters", "line"])
+      const gitName = lab_design_system_d("span", "git-name", gitUserName, "Nom d'utilisateur Git")
+      const gitNameInput = input("", "gitNameInput", gitUserName, null, width)
+
+      const gitUserEmail = lab_design_system_d("div", "git-user-email", boxWrap, null, null, ["parameters", "line"])
+      const gitEmail = lab_design_system_d("span", "git-email", gitUserEmail, "Email Github")
+
+      const gitEmailInput = input("", "gitEmailInput", gitUserEmail, null, width)
+
+      const gitUserToken = lab_design_system_d("div", "git-user-token", boxWrap, null, null, ["parameters", "line"])
+
+      const gitToken = lab_design_system_d("span", "git-token", gitUserToken, "Personal Access Token (PAT)")
+
+      const gitTokenInput = input("", "gitTokenInput", gitUserToken, null, width)
+
+      if (u.configs.gitCredentials) {
+        gitNameInput.value = u.configs.gitCredentials.userName
+        gitEmailInput.value = u.configs.gitCredentials.email
+        gitTokenInput.value = u.configs.gitCredentials.PATtoken
+      }
+
+
+      const gitBtn = lab_design_system_d("button", "collaborators-btn", boxWrap, 'Enregistrer les identifiants', null, ["buttons", "action"])
+
+      gitBtn.style.width = lab_orientation == "Portrait" ? "100%" : "fit-content"
+
+      gitBtn.addEventListener('click', () => {
+        if (gitNameInput.value && gitEmailInput.value && gitTokenInput.value) {
+          u.configs.gitCredentials = {
+            "userName": gitNameInput.value,
+            "email": gitEmailInput.value,
+            "PATtoken": gitTokenInput.value
+          }
+          console.log(u);
+
+          // socket.emit("userConfigsUpdate", lab_local_storage_object('global'))
+        } else {
+          alertUser(u.lngData.input_cannot_be_empty)
+        }
+      })
+
+    }
     lab_fade_in_recursively(boxWrap, 0.5)
   }
 
@@ -2567,7 +2610,8 @@ function dash_parameters(u) {
   const tabs = {
     "profile": u.lngData.profile,
     "settings": u.lngData.settings,
-    "controls": u.lngData.controls
+    "controls": u.lngData.controls,
+    "git": "Git"
   }
 
   const white = lab_design_system_d("div", "active-white", tabButtons, null, null, ["parameters", "white"])
@@ -2610,7 +2654,7 @@ function input(placeholder, value, parent, func, width, style) {
   input.placeholder = placeholder
   width ? input.style.width = `${width}` : ""
 
-  input.addEventListener("input", () => func(input.value))
+  func && input.addEventListener("input", () => func(input.value))
   return input
 }
 

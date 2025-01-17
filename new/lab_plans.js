@@ -746,7 +746,7 @@ function plans(dashObject) {
       if (index != 4) {
         const btn = plans_design_system("button", `plan-btn-${index}`, item, lngData.choose_plan, 0, ['plans', 'btn'])
         btn.addEventListener('click', () => {
-          plan_payment_steps(parent, e.title, e.price[dur])
+          plan_payment_steps(parent, e.title, e.price[dur], lngData)
         })
         btn.style.backgroundColor = e.color.value
       } else {
