@@ -169,10 +169,71 @@ const styles_d = {
         background: "transparent",
         border: 'none'
       }
+    },
+    'toolbar': {
+      'default': {
+        'position': 'fixed',
+        left: "50%",
+        bottom: '30px',
+        background: "#fff",
+        width: "100%",
+        borderRadius: '67px',
+        display: "flex",
+        boxSizing: "border-box",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "18px 40px",
+        maxWidth: "550px",
+        'height': "81px",
+        boxShadow: '-1px 1px 13px 0 rgba(0, 0, 0, 0.11)',
+        'transform': "translateX(-50%)"
+      }
+    },
+    'toolbarItem': {
+      'default': {
+        width: "45px",
+        cursor: "pointer",
+        height: "45px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: '8px'
+      }
     }
   }
 }
+const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
+function toolBar(parent) {
+  const wrap = lab_design_system_d('div', "toolbar", parent, 0, 0, ['design', 'toolbar'])
+  const cursor = lab_design_system_d('div', "cursor", wrap, 0, 0, ['design', 'toolbarItem'])
+  const cursorIcon = lab_design_system_d('img', "cursor-icon", cursor)
+  cursorIcon.setAttribute('src', `${oldSRC}cursor.svg`)
 
+  const resize = lab_design_system_d('div', "resize", wrap, 0, 0, ['design', 'toolbarItem'])
+  const resizeIcon = lab_design_system_d('img', "resize-icon", resize)
+  resizeIcon.setAttribute('src', `${oldSRC}resize.svg`)
+
+  const shape = lab_design_system_d('div', "shape", wrap, 0, 0, ['design', 'toolbarItem'])
+  const shapeIcon = lab_design_system_d('img', "shape-icon", shape)
+  shapeIcon.setAttribute('src', `${oldSRC}shape.svg`)
+
+  const pen = lab_design_system_d('div', "pen", wrap, 0, 0, ['design', 'toolbarItem'])
+  const penIcon = lab_design_system_d('img', "pen-icon", pen)
+  penIcon.setAttribute('src', `${oldSRC}pen.svg`)
+
+  const text = lab_design_system_d('div', "text", wrap, 0, 0, ['design', 'toolbarItem'])
+  const textIcon = lab_design_system_d('img', "text-icon", text)
+  textIcon.setAttribute('src', `${oldSRC}text.svg`)
+
+  const actions = lab_design_system_d('div', "actions", wrap, 0, 0, ['design', 'toolbarItem'])
+  const actionsIcon = lab_design_system_d('img', "actions-icon", actions)
+  actionsIcon.setAttribute('src', `${oldSRC}actions.svg`)
+
+  const image = lab_design_system_d('div', "image", wrap, 0, 0, ['design', 'toolbarItem'])
+  const imageIcon = lab_design_system_d('img', "image-icon", image)
+  imageIcon.setAttribute('src', `${oldSRC}image.svg`)
+
+}
 
 function lab_design_system_d(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
@@ -226,9 +287,9 @@ let uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "
 
 function sideMenu(TemplatesList, ElementsLists, box) {
 
-  let menu = lab_design_system_d('div', 'side-menu', box, 0, 0, ['design', 'side'])
-  let menuButton = lab_design_system_d('div', "show-menu", menu, 0, 0, ['design', 'showMenu'])
-  let buttonIcon = lab_design_system_d('img', "show-menu-icon", menuButton, null, null)
+  const menu = lab_design_system_d('div', 'side-menu', box, 0, 0, ['design', 'side'])
+  const menuButton = lab_design_system_d('div', "show-menu", menu, 0, 0, ['design', 'showMenu'])
+  const buttonIcon = lab_design_system_d('img', "show-menu-icon", menuButton, null, null)
   buttonIcon.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg")
 
   menuButton.addEventListener('click', () => {
@@ -236,38 +297,38 @@ function sideMenu(TemplatesList, ElementsLists, box) {
     menuButton.style.transform = menuButton.style.transform == "translateX(40px) rotate(-180deg)" ? "none" : "translateX(40px) rotate(-180deg)"
   })
 
-  let templatesBox = lab_design_system_d('div', "templates-box", menu)
-  let templatesTitle = lab_design_system_d('span', "templates-menu-span", templatesBox, "Templates", 0, ['design', 'templatesHeading'])
-  let templatesWrap = lab_design_system_d('div', "templates-wrap", templatesBox, 0, 0, ['design', 'templates'])
+  const templatesBox = lab_design_system_d('div', "templates-box", menu)
+  const templatesTitle = lab_design_system_d('span', "templates-menu-span", templatesBox, "Templates", 0, ['design', 'templatesHeading'])
+  const templatesWrap = lab_design_system_d('div', "templates-wrap", templatesBox, 0, 0, ['design', 'templates'])
 
 
-  let elementsBox = lab_design_system_d('div', "elements-box", menu, null, null)
+  const elementsBox = lab_design_system_d('div', "elements-box", menu, null, null)
   elementsBox.style.margin = "40px 0 0 0"
-  let elementsTitle = lab_design_system_d('span', "elements-menu-span", elementsBox, "Elements", 0, ['design', 'templatesHeading'])
-  let elementsWrap = lab_design_system_d('div', "elements-wrap", elementsBox, 0, 0, ['design', 'templates'])
+  const elementsTitle = lab_design_system_d('span', "elements-menu-span", elementsBox, "Elements", 0, ['design', 'templatesHeading'])
+  const elementsWrap = lab_design_system_d('div', "elements-wrap", elementsBox, 0, 0, ['design', 'templates'])
 
 
   function addList(e, listing) {
     e.map(el => {
-      let item = lab_design_system_d('div', `side-menu-template-${el.code}`, listing, null, 0, ['design', 'template'])
-      let icon = lab_design_system_d('div', `${el.code}-icon-box`, item, null, 0, ['design', 'templateIcon'])
-      let img = lab_design_system_d('img', `${el.code}-icon`, icon, null, "side-menu-template-img")
+      const item = lab_design_system_d('div', `side-menu-template-${el.code}`, listing, null, 0, ['design', 'template'])
+      const icon = lab_design_system_d('div', `${el.code}-icon-box`, item, null, 0, ['design', 'templateIcon'])
+      const img = lab_design_system_d('img', `${el.code}-icon`, icon, null, "side-menu-template-img")
       img.setAttribute('src', el.icon)
       img.style.width = '30px'
       img.style.height = '30px'
-      let text = lab_design_system_d('span', `${el.code}-label`, item, el.label, 0, ['design', 'templateTitle'])
+      const text = lab_design_system_d('span', `${el.code}-label`, item, el.label, 0, ['design', 'templateTitle'])
 
       item.addEventListener('click', () => {
         item.style.position = "relative"
-        let coord = item.getBoundingClientRect()
-        let copy = item.cloneNode(true)
+        const coord = item.getBoundingClientRect()
+        const copy = item.cloneNode(true)
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
         item.after(copy)
         copy.style.left = `${coord.left + 7}px`
         copy.style.top = `${coord.top}px`
 
-        let page = document.getElementById('lab-user-page')
+        const page = document.getElementById('lab-user-page')
 
         if (copy) {
           function onMouseDrag({ movementX, movementY }) {
@@ -309,33 +370,32 @@ function sideMenu(TemplatesList, ElementsLists, box) {
 }
 
 function rightMenu(box) {
-  let menu = lab_design_system_d('div', 'code-box', box, null, 'code-box')
+  const menu = lab_design_system_d('div', 'code-box', box, null, 'code-box')
 
-  let menuButton = lab_design_system_d('div', "code-menu-show", menu, null, "code-menu-show")
-  let buttonIcon = lab_design_system_d('img', "code-menu-icon", menuButton, null, null)
+  const menuButton = lab_design_system_d('div', "code-menu-show", menu, null, "code-menu-show")
+  const buttonIcon = lab_design_system_d('img', "code-menu-icon", menuButton, null, null)
   buttonIcon.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/message-code 1.svg")
-  let codeWrapper = lab_design_system_d('div', "code-wrapper", menu, null, "code-wrapper")
+  const codeWrapper = lab_design_system_d('div', "code-wrapper", menu, null, "code-wrapper")
 
   menuButton.addEventListener('click', () => {
     menu.classList.toggle('active')
-    let page = document.getElementById('lab-user-page').innerHTML
+    const page = document.getElementById('lab-user-page').innerHTML
     codeWrapper.innerText = `${page}`
-
   })
 
 }
 
 function topSettingsBar(box) {
 
-  let topSettings = lab_design_system_d('div', "top-settings", box, 0, 0, ['design', 'top'])
+  const topSettings = lab_design_system_d('div', "top-settings", box, 0, 0, ['design', 'top'])
 
-  let button = lab_design_system_d("button", "top-settings-btn", topSettings, 0, 0, ['design', 'btn'])
+  const button = lab_design_system_d("button", "top-settings-btn", topSettings, 0, 0, ['design', 'btn'])
 
-  let buttonImg = lab_design_system_d("img", "top-settings-btn-img", button)
+  const buttonImg = lab_design_system_d("img", "top-settings-btn-img", button)
   buttonImg.style.maxWidth = '25px'
   buttonImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings-white.svg")
 
-  let responsiveList = ["desctop", "tablet", "mobile"]
+  const responsiveList = ["desctop", "tablet", "mobile"]
 
   responsiveList.map(e => {
     let button = lab_design_system_d("button", `set-responsive-${e}`, topSettings, 0, 'screen-btn', ['design', 'screenBtn'])
@@ -359,29 +419,29 @@ function topSettingsBar(box) {
   })
 
 
-  let pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
-  let pixelSettings = lab_design_system_d("button", "top-settings-btn-pixel", topSettings, null, "top-settings-btn mini line", ['design', 'btn'])
-  let pixelSettingsImg = lab_design_system_d("img", "top-settings-btn-icon", pixelSettings, null, null)
+  const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
+  const pixelSettings = lab_design_system_d("button", "top-settings-btn-pixel", topSettings, null, "top-settings-btn mini line", ['design', 'btn'])
+  const pixelSettingsImg = lab_design_system_d("img", "top-settings-btn-icon", pixelSettings, null, null)
   pixelSettingsImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings-white.svg")
   pixelSettingsImg.style.width = '15px'
-  let setPage = lab_design_system_d('button', "top-settings-page", topSettings, 0, 0, ['design', 'setPage'])
-  let img = lab_design_system_d('img', 'page-box', setPage, null, null)
+  const setPage = lab_design_system_d('button', "top-settings-page", topSettings, 0, 0, ['design', 'setPage'])
+  const img = lab_design_system_d('img', 'page-box', setPage, null, null)
   img.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/page-box.svg`)
 
   setPage.appendChild(document.createTextNode("Main"))
 
-  let arrow = lab_design_system_d('img', 'page-arrow', setPage, null, "top-settings-page-arrow")
+  const arrow = lab_design_system_d('img', 'page-arrow', setPage, null, "top-settings-page-arrow")
 
   arrow.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/chevron_right.svg`)
 
-  let sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
+  const sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('min', "1")
   sizeSwitcher.setAttribute('max', "100")
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  let size = lab_design_system_d('div', 'screen-size', topSettings, "100%", 0, ['design', 'pixelView'])
+  const size = lab_design_system_d('div', 'screen-size', topSettings, "100%", 0, ['design', 'pixelView'])
   size.style.width = "60px"
 
   sizeSwitcher.oninput = function () {
@@ -389,28 +449,28 @@ function topSettingsBar(box) {
     document.getElementById('lab-user-page').style.transform = `scale(${this.value / 100})`
   }
 
-  let view = lab_design_system_d('button', "top-settings-view", topSettings, null, null, ['design', 'btn'])
-  let viewImg = lab_design_system_d('img', "top-settings-view-icon", view, null, null)
+  const view = lab_design_system_d('button', "top-settings-view", topSettings, null, null, ['design', 'btn'])
+  const viewImg = lab_design_system_d('img', "top-settings-view-icon", view, null, null)
   viewImg.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/visibility.svg`)
-  let download = lab_design_system_d('button', "top-settings-btn-download", topSettings, null, null, ['design', 'btn'])
-  let downloadImg = lab_design_system_d('img', "top-settings-download-icon", download, null, null)
+  const download = lab_design_system_d('button', "top-settings-btn-download", topSettings, null, null, ['design', 'btn'])
+  const downloadImg = lab_design_system_d('img', "top-settings-download-icon", download, null, null)
   downloadImg.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/download.svg`)
 
 
 
-  let blind = lab_design_system_d('button', "blind-btn", topSettings, null, null, ['design', 'blind'])
+  const blind = lab_design_system_d('button', "blind-btn", topSettings, null, null, ['design', 'blind'])
   blind.addEventListener('click', () => {
     topSettings.style.transform = topSettings.style.transform == "translateY(-98%) translateX(-50%)" ? "translateX(-50%)" : "translateY(-98%) translateX(-50%)"
   })
 
 }
 
-let TemplatesList = [
+const TemplatesList = [
   { label: "header", code: "header-1", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
   { label: "section", code: "section", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
 ]
 
-let ElementsList = [
+const ElementsList = [
   { label: "button", code: "button", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
   { label: "section", code: "section-1", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
   { label: "div", code: "div", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" }
@@ -434,7 +494,7 @@ function dropList(e, value, arr, parent) {
 }
 
 function button(e, parent, icon, text) {
-  let btn = lab_design_system_d('button', `menu-style-${e}`, parent, null, 'menu-style-btn')
+  const btn = lab_design_system_d('button', `menu-style-${e}`, parent, null, 'menu-style-btn')
 
   if (icon) {
     const innerIcon = document.createElement('img')
@@ -446,7 +506,7 @@ function button(e, parent, icon, text) {
   return btn
 }
 function input(e, parent, icon, value) {
-  let wrap = lab_design_system_d('div', `input-wrap-${e}`, parent, null, 'input-wrap')
+  const wrap = lab_design_system_d('div', `input-wrap-${e}`, parent, null, 'input-wrap')
 
   if (icon) {
     const innerIcon = document.createElement('img')
@@ -454,7 +514,7 @@ function input(e, parent, icon, value) {
     wrap.appendChild(innerIcon)
   }
 
-  let input = lab_design_system_d('input', `input-style-${e}`, wrap, null, 'input-style')
+  const input = lab_design_system_d('input', `input-style-${e}`, wrap, null, 'input-style')
 
   value && input.setAttribute('value', value)
 
@@ -463,10 +523,10 @@ function input(e, parent, icon, value) {
 
 
 function UserContent(box) {
-  let page = lab_design_system_d('div', "user-page", box, null, null)
+  const page = lab_design_system_d('div', "user-page", box, null, null)
 
 
-  let selectedItem = ''
+  const selectedItem = ''
   function StylesMenu(item) {
     if (document.querySelector('.selectedItem')) {
       document.querySelector('.selectedItem').classList.remove('selectedItem')
@@ -474,8 +534,8 @@ function UserContent(box) {
     item.classList.add('selectedItem')
 
 
-    let itemStyles = window.getComputedStyle(item)
-    let css = {
+    const itemStyles = window.getComputedStyle(item)
+    const css = {
       'font-family': itemStyles.fontFamily,
       'text-align': itemStyles.textAlign,
       'font-style': itemStyles.fontStyle,
@@ -489,14 +549,14 @@ function UserContent(box) {
     }
 
     function renderMenu() {
-      let elementMenu = lab_design_system_d('div', "elementMenu", box, null, null)
-      let elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, null, null)
-      let elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, null, null)
-      let menuSettings = ['general', 'additional']
-      let activeSettings = 'additional'
+      const elementMenu = lab_design_system_d('div', "elementMenu", box, null, null)
+      const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, null, null)
+      const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, null, null)
+      const menuSettings = ['general', 'additional']
+      const activeSettings = 'additional'
 
       menuSettings.forEach((e) => {
-        let btn = lab_design_system_d('button', e, elementMenuButtons, e, 'element-menu-btn')
+        const btn = lab_design_system_d('button', e, elementMenuButtons, e, 'element-menu-btn')
         e == activeSettings && btn.classList.add('active')
 
         btn.addEventListener('click', () => {
@@ -507,19 +567,19 @@ function UserContent(box) {
         })
       })
 
-      let settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+      const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
 
       dropList('tag', 'p', ['div', 'span', 'h1'], settings)
       dropList('font', css['font-family'], ['Arial', 'Arial2', 'Arial3'], settings)
 
-      let fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-      let textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-      let textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
-      let textALignList = ['left', 'center', 'right', 'justify']
-      let textStyleList = ['italic', 'underline', 'line', 'dec']
+      const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
+      const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
+      const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+      const textALignList = ['left', 'center', 'right', 'justify']
+      const textStyleList = ['italic', 'underline', 'line', 'dec']
 
       textALignList.forEach(v => {
-        let btn = button(v, textALign, `${v}-text.svg`, null)
+        const btn = button(v, textALign, `${v}-text.svg`, null)
         btn.addEventListener('click', () => {
           item.style.textAlign = v
         })
@@ -533,10 +593,10 @@ function UserContent(box) {
       button('dec', textStyle, 'text-decoration-style.svg', null)
 
 
-      let textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+      const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
 
       dropList('weight', css['font-weight'], ['normal', 'bold', 'thin', 'medium', 'black'], textSettings)
-      let fontSize = input('size', textSettings, null, css['font-size'])
+      const fontSize = input('size', textSettings, null, css['font-size'])
 
       function inputStyle(e, style, postfix) {
         item.style[style] = `${e.value}${postfix ? postfix : ''}`
@@ -545,18 +605,18 @@ function UserContent(box) {
       }
       fontSize.addEventListener('input', () => inputStyle(fontSize, 'fontSize', 'px'))
 
-      let lineHeight = input('line-height', textSettings, 'line-height.svg', css['line-height'])
+      const lineHeight = input('line-height', textSettings, 'line-height.svg', css['line-height'])
 
       lineHeight.addEventListener('input', () => inputStyle(lineHeight, 'lineHeight', null))
 
-      let letterSpacing = input('letter-spacing', textSettings, 'letter-spacing.svg', css['letter-spacing'])
+      const letterSpacing = input('letter-spacing', textSettings, 'letter-spacing.svg', css['letter-spacing'])
       letterSpacing.addEventListener('input', () => inputStyle(letterSpacing, 'letterSpacing', null))
 
 
 
-      let colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-      let textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-      let textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+      const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+      const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
+      const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
       textColorInput.setAttribute('type', 'color')
       textColorInput.setAttribute('value', css['color'])
       textColorInput.addEventListener('input', () => {
@@ -567,11 +627,11 @@ function UserContent(box) {
 
       })
 
-      let stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
+      const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
 
-      let strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
+      const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
       input('stroke', strokeWrap, null, null)
-      let strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
+      const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
       strokeColorInput.setAttribute('type', 'color')
       strokeColorInput.setAttribute('value', css['stroke'])
     }
@@ -591,7 +651,7 @@ function UserContent(box) {
   page.addEventListener('mousemove', (e) => {
 
     page.addEventListener('click', () => {
-      let el = document.elementsFromPoint(e.pageX, e.pageY)[0]
+      const el = document.elementsFromPoint(e.pageX, e.pageY)[0]
 
       console.log(el)
       StylesMenu(el)
@@ -601,13 +661,13 @@ function UserContent(box) {
 }
 
 function design_mode() {
-  let designBody = lab_design_system_d('div', "designBody", rootLayer, null, null)
+  const designBody = lab_design_system_d('div', "designBody", rootLayer, null, null)
 
   sideMenu(TemplatesList, ElementsList, designBody)
   topSettingsBar(designBody)
   UserContent(designBody)
   // rightMenu(designBody)
-
+  toolBar(designBody)
   lab_fade_in_recursively(designBody, 0.3)
 }
 
