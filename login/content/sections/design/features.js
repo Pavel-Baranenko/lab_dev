@@ -4,6 +4,7 @@ const styles_d = {
       'default': {
         'transition': 'all 0.1s linear',
         'position': 'fixed',
+        boxSizing: 'border-box',
         top: 0,
         left: 0,
         width: '100px',
@@ -22,6 +23,7 @@ const styles_d = {
       'default': {
         border: "4px solid #f2f3f7",
         borderRadius: "30px 0 30px 30px",
+        boxSizing: 'border-box',
         width: "40px",
         height: "40px",
         background: '#fed05e',
@@ -36,6 +38,7 @@ const styles_d = {
     },
     'templates': {
       'default': {
+        boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
         gap: '15px',
@@ -46,6 +49,7 @@ const styles_d = {
     'templatesHeading': {
       'default': {
         fontWeight: 700,
+        boxSizing: 'border-box',
         fontSize: '14px',
         color: '#000',
       }
@@ -54,6 +58,7 @@ const styles_d = {
       'default': {
         display: 'flex',
         flexDirection: 'column',
+        boxSizing: 'border-box',
         cursor: 'pointer',
         justifyContent: 'center',
         alignItems: 'center',
@@ -66,6 +71,7 @@ const styles_d = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        boxSizing: 'border-box',
         height: '55px',
         borderRadius: '19px',
         background: '#f2f3f7',
@@ -75,6 +81,7 @@ const styles_d = {
       'default': {
         fontWeight: 500,
         fontSize: '10px',
+        boxSizing: 'border-box',
         lineHeight: '110%',
         textAlign: 'center',
         color: "#000",
@@ -88,6 +95,7 @@ const styles_d = {
         padding: '12px 40px 18px 40px',
         display: 'flex',
         alignItems: 'center',
+        boxSizing: 'border-box',
         justifyContent: 'space-between',
         backgroundColor: '#464C59',
         position: 'fixed',
@@ -104,7 +112,21 @@ const styles_d = {
     'btn': {
       'default': {
         backgroundColor: "transparent",
+        boxSizing: 'border-box',
         border: "none"
+      }
+    },
+    'screenBtn': {
+      'default': {
+        backgroundColor: "transparent",
+        border: "none",
+        borderRadius: '8px',
+        width: '42px',
+        boxSizing: 'border-box',
+        height: '42px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }
     },
     'blind': {
@@ -113,10 +135,39 @@ const styles_d = {
         bottom: '-3px',
         backgroundColor: '#FED05E',
         width: '96px',
+        boxSizing: 'border-box',
         height: '6px',
         left: '50%',
         transform: 'translateX(-50%)',
         borderRadius: '50px',
+        border: 'none'
+      }
+    },
+    'pixelView': {
+      'default': {
+        borderRadius: '8px',
+        height: '33px',
+        boxSizing: 'border-box',
+        background: '#f3f3f3',
+        fontWeight: '400',
+        fontSize: '13px',
+        color: '#000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '8px 12px',
+      }
+    },
+    'setPage': {
+      'default': {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        fontWeight: 600,
+        fontSize: '18px',
+        color: '#fff',
+        background: "transparent",
+        border: 'none'
       }
     }
   }
@@ -282,31 +333,38 @@ function topSettingsBar(box) {
 
   let buttonImg = lab_design_system_d("img", "top-settings-btn-img", button)
   buttonImg.style.maxWidth = '25px'
-  buttonImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings.svg")
+  buttonImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings-white.svg")
+
   let responsiveList = ["desctop", "tablet", "mobile"]
 
   responsiveList.map(e => {
-    let button = lab_design_system_d("button", `set-responsive-${e}`, topSettings, null, 'top-settings-screen', ['design', 'btn'])
+    let button = lab_design_system_d("button", `set-responsive-${e}`, topSettings, 0, 'screen-btn', ['design', 'screenBtn'])
 
-    e == "desctop" && button.classList.add('active')
+    if (e == "desctop") {
+      button.style.background = '#6a768e'
+      button.classList.add('active')
+    }
 
     button.addEventListener('click', () => {
-      if (document.querySelector('.lab-top-settings-screen.active')) {
-        document.querySelector('.lab-top-settings-screen.active').classList.remove('active')
+      if (document.querySelector('.lab-screen-btn.active')) {
+        document.querySelector('.lab-screen-btn.active').style.background = 'transparent'
+        document.querySelector('.lab-screen-btn.active').classList.remove('active')
       }
       button.classList.add('active')
+      button.style.background = '#6a768e'
     })
 
-    let buttonImg = lab_design_system_d("img", `set-responsive-icon-${e}`, button, null, "top-settings-btn-img")
+    let buttonImg = lab_design_system_d("img", `set-responsive-icon-${e}`, button)
     buttonImg.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/${e}.svg`)
   })
 
 
-  let pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', "top-settings-pixel")
+  let pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
   let pixelSettings = lab_design_system_d("button", "top-settings-btn-pixel", topSettings, null, "top-settings-btn mini line", ['design', 'btn'])
   let pixelSettingsImg = lab_design_system_d("img", "top-settings-btn-icon", pixelSettings, null, null)
-  pixelSettingsImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings.svg")
-  let setPage = lab_design_system_d('button', "top-settings-page", topSettings, null, "top-settings-page line", ['design', 'btn'])
+  pixelSettingsImg.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/settings-white.svg")
+  pixelSettingsImg.style.width = '15px'
+  let setPage = lab_design_system_d('button', "top-settings-page", topSettings, 0, 0, ['design', 'setPage'])
   let img = lab_design_system_d('img', 'page-box', setPage, null, null)
   img.setAttribute('src', `/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/page-box.svg`)
 
@@ -323,7 +381,7 @@ function topSettingsBar(box) {
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  let size = lab_design_system_d('div', 'screen-size', topSettings, "100%", "top-settings-pixel lined ")
+  let size = lab_design_system_d('div', 'screen-size', topSettings, "100%", 0, ['design', 'pixelView'])
   size.style.width = "60px"
 
   sizeSwitcher.oninput = function () {
@@ -548,7 +606,7 @@ function design_mode() {
   sideMenu(TemplatesList, ElementsList, designBody)
   topSettingsBar(designBody)
   UserContent(designBody)
-  rightMenu(designBody)
+  // rightMenu(designBody)
 
   lab_fade_in_recursively(designBody, 0.3)
 }

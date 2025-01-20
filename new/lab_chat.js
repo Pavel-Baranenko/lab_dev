@@ -416,7 +416,7 @@ function chat(parent, lngData) {
               if (!document.getElementById(`lab-chat-user-contact-${userContact}`)) {
                 const contact = chat_design_system("div", `chat-user-contact-${userContact}`, users, 0, 0, ["chat", "contact"])
                 const contactAvatar = chat_design_system("img", `chat-user-avatar-${userContact}`, contact)
-                contactAvatar.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA//avatar.svg`)
+                contactAvatar.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/avatar.svg`)
                 contactAvatar.style.width = '100%'
                 contactAvatar.style.aspectRatio = '1'
                 contactAvatar.style.boxSizing = 'border-box'
