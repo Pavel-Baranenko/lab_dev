@@ -127,14 +127,6 @@
 }
 
 
-.lab-registration-input::placeholder {
-  font-weight: 400;
-  font-size: clamp(2.6svh, 15vw, 20px);
-  text-align: center;
-  color: #6e6e6e;
-}
-
-
 /*---rangeSlider------------------------------*/
 
 #lab-sliderRange {
@@ -175,14 +167,6 @@
   background: #FED05E;
 }
 
-
-#lab-user-page {
-  width: 100%;
-  position: relative;
-  min-height: 100vh;
-  background: #D3E3FD;
-}
-
 body {
   overflow: scroll;
 }
@@ -191,16 +175,7 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
-#lab-designBody {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  height: fit-content;
-}
 
-#lab_div_7737 {
-  display: none !important;
-}
 
 #lab-code-box {
   display: flex;

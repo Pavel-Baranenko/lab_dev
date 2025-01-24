@@ -3,15 +3,58 @@
 		{
 			"id": "background",
 			"tagName": "DIV",
+			"attributes": [],
 			"classes": "background",
 			"style": {
 				"style": {
 					"position": "absolute",
 					"width": "100svw",
 					"height": "100svh",
-					"background-color": "#91b2f2"
+					"background-color": "rgb(145, 178, 242)"
 				},
-				"text": ""
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab_div_7737",
+			"tagName": "DIV",
+			"attributes": [],
+			"style": {
+				"style": {
+					"z-index": "1",
+					"position": "fixed",
+					"width": "25svw",
+					"height": "10svh",
+					"top": "11svh",
+					"background-color": "rgb(252, 206, 92)",
+					"display": "flex",
+					"align-items": "center",
+					"justify-content": "center",
+					"border-top-left-radius": "15px",
+					"border-top-right-radius": "15px",
+					"border-bottom-right-radius": "15px",
+					"border-bottom-left-radius": "15px",
+					"left": "11svw"
+				},
+				"text": "Новый элемент",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab-element6173bcfb003acb22e9b7",
+			"tagName": "BUTTON",
+			"attributes": [],
+			"style": {
+				"parent": "lab-user-page",
+				"style": {
+					"padding-top": "15px",
+					"padding-right": "15px",
+					"padding-bottom": "15px",
+					"padding-left": "15px"
+				},
+				"text": "",
+				"textArray": []
 			}
 		}
 	],
