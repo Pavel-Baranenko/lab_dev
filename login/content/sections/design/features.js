@@ -283,6 +283,344 @@ const styles_d = {
 }
 let styles = styles_d
 
+const TemplatesList = {
+  'template-20dh28d820d2': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "button",
+    'template': {
+      'paysage': {
+        'id': "lab-button",//
+        'tag': "button",//
+        'root': true,//
+        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
+        'attributes': {//
+          'data-img': "value"//
+        },//
+        'styles': {
+          'padding': '10px 20px',
+          'borderRadius': "15px",
+          'fontWeight': "700",
+          'color': "#1C1B1F",
+          'background': "#FED05E"
+        },
+        'text': 'Button',
+      }
+      ,
+      'portrait': {
+        'id': "lab-button",//
+        'tag': "button",//
+        'root': true,//
+        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
+        'attributes': {//
+          'data-img': "value"//
+        },//
+        'styles': {
+          'padding': '3svh 5svw',
+          'borderRadius': "15px",
+          'fontWeight': "700",
+          'color': "#1C1B1F",
+          'background': "#FED05E"
+        },
+        'text': 'Button',
+      }
+    }
+  }
+}
+const ElementsList = {
+  'button': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "button",
+    'template': {
+      'paysage': {
+        'id': "lab-button",//
+        'tag': "button",//
+        'root': true,//
+        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
+        'attributes': {//
+          'data-img': "value"//
+        },//
+        'styles': {
+          'padding': '10px 20px',
+          'borderRadius': "15px",
+          'fontWeight': "700",
+          'color': "#1C1B1F",
+          'background': "#FED05E"
+        },
+        'text': 'Button',
+      }
+      ,
+      'portrait': {
+        'id': "lab-button",//
+        'tag': "button",//
+        'root': true,//
+        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
+        'attributes': {//
+          'data-img': "value"//
+        },//
+        'styles': {
+          'padding': '3svh 5svw',
+          'borderRadius': "15px",
+          'fontWeight': "700",
+          'color': "#1C1B1F",
+          'background': "#FED05E"
+        },
+        'text': 'Button',
+      }
+    }
+  },
+  'section': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "section",
+    'template': {
+      'paysage': {
+        'id': "lab-section",
+        'tag': "section",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+        }
+      }
+      ,
+      'portrait': {
+        'id': "lab-section",
+        'tag': "section",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+        }
+      }
+    }
+  },
+  'div': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "div",
+    'template': {
+      'paysage': {
+        'id': "lab-div",
+        'tag': "div",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+        }
+      }
+      ,
+      'portrait': {
+        'id': "lab-section",
+        'tag': "section",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+        }
+      }
+    }
+  },
+  'form': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "form",
+    'template': {
+      'paysage': {
+        'id': "lab-div",
+        'tag': "form",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+          'borderRadius': "15px",
+          'display': "flex",
+          'flexDirection': "column",
+          'gap': "10px",
+          'background': "#FFFFFF",
+          'boxSizing': "border-box",
+          'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+        },
+        'child': [
+          {
+            'paysage': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            },
+            'portrait': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            }
+          },
+          {
+            'paysage': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            },
+            'portrait': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'boxSizing': "border-box",
+                'width': "100%",
+                'background': "#EFEFEF"
+              },
+            }
+          },
+          {
+            'paysage': {
+              'id': "lab-button",
+              'tag': "button",
+              'styles': {
+                'padding': '10px 25px',
+                'textAlign': "center",
+                'borderRadius': "15px",
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+                'boxSizing': "border-box",
+                'background': "#FED05E"
+              },
+              'text': 'Button'
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'styles': {
+                'padding': '10px 25px',
+                'textAlign': "center",
+                'borderRadius': "15px",
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+                'boxSizing': "border-box",
+                'background': "#FED05E"
+              },
+              'text': 'Button'
+            }
+          }
+        ]
+      },
+      'portrait': {
+        'id': "lab-div",
+        'tag': "form",
+        'root': true,
+        'styles': {
+          'padding': '15px',
+          'borderRadius': "15px",
+          'display': "flex",
+          'flexDirection': "column",
+          'gap': "10px",
+          'background': "#FFFFFF",
+          'boxSizing': "border-box",
+          'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+        },
+        'child': [
+          {
+            'paysage': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            },
+            'portrait': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            }
+          },
+          {
+            'paysage': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'width': "100%",
+                'boxSizing': "border-box",
+                'background': "#EFEFEF"
+              },
+            },
+            'portrait': {
+              'id': "lab-div-input",
+              'tag': "input",
+              'styles': {
+                'padding': '10px',
+                'borderRadius': "10px",
+                'border': "none",
+                'boxSizing': "border-box",
+                'width': "100%",
+                'background': "#EFEFEF"
+              },
+            }
+          },
+          {
+            'paysage': {
+              'id': "lab-button",
+              'tag': "button",
+              'styles': {
+                'padding': '10px 25px',
+                'textAlign': "center",
+                'borderRadius': "15px",
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+                'boxSizing': "border-box",
+                'background': "#FED05E"
+              },
+              'text': 'Button'
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'styles': {
+                'padding': '10px 25px',
+                'textAlign': "center",
+                'borderRadius': "15px",
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+                'boxSizing': "border-box",
+                'background': "#FED05E"
+              },
+              'text': 'Button'
+            }
+          }
+        ]
+      }
+    }
+  },
+}
+
+
 class Designer {
   static ID() {
     const S4 = function () {
@@ -291,7 +629,86 @@ class Designer {
     return ('lab-element' + S4() + S4() + S4() + S4() + S4());
   }
 
-  static create() {
+  static async create(TemplatesList, template_id, parent, vpm, random) {
+    const T = TemplatesList[template_id].template
+    let A
+
+    function readObject(temt, child) {
+      const obj = temt[vpm]
+      const element = document.createElement(obj.tag)
+      console.log(element);
+
+      if (obj.root) {
+        parent.appendChild(element)
+        A = element
+      }
+
+      element.id = (random ? Designer.ID() : obj.id)
+
+      if (obj.classes) {
+        const classes = obj.classes.split(' ')
+        element.classList.add(...classes)
+      }
+
+      obj.attributes && Object.keys(obj.attributes).forEach(e => {
+        element.setAttribute(e, obj.attributes[e])
+      })
+      obj.styles && Object.keys(obj.styles).forEach(e => {
+        element.style[e] = obj.styles[e]
+      })
+      obj.text && element.appendChild(document.createTextNode(obj.text))
+
+      obj.child && obj.child.forEach((e) => {
+        element.appendChild(readObject(e, true))
+      })
+
+      if (child) return element
+    }
+
+    readObject(T)
+
+    return A
+  }
+
+  static hover(parent) {
+    const last = document.querySelector('lab-active-element')
+    const page = document.getElementById('lab-user-page')
+
+    function createOptions() {
+      if (document.getElementById('lab-HoverBox')) {
+        document.getElementById('lab-HoverBox').remove()
+        document.getElementById('lab-HoverBoxbtn').remove()
+      }
+
+      const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
+      HoverBox.style.borderRadius = parent.style.borderRadius
+      const parentPos = page.getBoundingClientRect();
+      const childPos = parent.getBoundingClientRect();
+
+      HoverBox.style.left = (childPos.left - parentPos.left) / parentPos.width * 100 + '%'
+      HoverBox.style.top = (childPos.top - parentPos.top) / parentPos.height * 100 + '%'
+      HoverBox.style.width = childPos.width / parentPos.width * 100 + '%'
+      HoverBox.style.height = childPos.height / parentPos.height * 100 + '%'
+
+      parent.classList.add('lab-active-element')
+
+      const hoverMenuBtn = lab_design_system_d('button', "HoverBoxbtn", page, 0, 0, ['design', 'hoverMenuBtn'])
+      hoverMenuBtn.style.top = ((childPos.top - parentPos.top) / parentPos.height + (7 / parentPos.height)) * 100 + '%'
+      hoverMenuBtn.style.left = ((childPos.left - parentPos.left + childPos.width) / parentPos.width - (42 / parentPos.width)) * 100 + '%'
+
+      const hoverMenuBtnIcon = lab_design_system_d('img', "hover-btn-icon", hoverMenuBtn)
+      hoverMenuBtnIcon.style.pointerEvents = 'none'
+
+      hoverMenuBtnIcon.setAttribute('src', `${oldSRC}more_vert_white.svg`)
+    }
+
+    if (!(['lab-HoverBox', 'lab-HoverBoxbtn', 'lab-user-page'].includes(parent.id))) {
+      if (last && last != parent) {
+        if (last.id != parent.id) {
+          last.classList.remove('lab-active-element')
+        } else createOptions()
+      } else createOptions()
+    }
 
   }
 }
@@ -331,6 +748,7 @@ class DesignConstructor {
       }
     })
   }
+
   static addClass(el, styleList, className) {
     Object.keys(styles[styleList][className].default).forEach(e => {
       el.style[e] = styles[styleList][className].default[e]
@@ -342,56 +760,14 @@ class DesignConstructor {
 function UserContent(box) {
   const page = lab_design_system_d('div', "user-page", box, 0, 0, ['design', 'page'])
 
-  function hover(parent) {
-
-    const last = document.querySelector('lab-active-element')
-
-
-    function createOptions() {
-      if (document.getElementById('lab-HoverBox')) {
-        document.getElementById('lab-HoverBox').remove()
-        document.getElementById('lab-HoverBoxbtn').remove()
-      }
-
-      const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
-
-      const rect = parent.getBoundingClientRect();
-      HoverBox.style.left = rect.x + 'px'
-      HoverBox.style.top = rect.y + 'px'
-      HoverBox.style.width = rect.width + 'px'
-      HoverBox.style.height = rect.height + 'px'
-
-      parent.classList.add('lab-active-element')
-
-      const hoverMenuBtn = lab_design_system_d('button', "HoverBoxbtn", page, 0, 0, ['design', 'hoverMenuBtn'])
-      hoverMenuBtn.style.top = rect.y + 7 + 'px'
-      hoverMenuBtn.style.left = rect.x + rect.width - 42 + 'px'
-
-      const hoverMenuBtnIcon = lab_design_system_d('img', "hover-btn-icon", hoverMenuBtn)
-      hoverMenuBtnIcon.style.pointerEvents = 'none'
-
-      hoverMenuBtnIcon.setAttribute('src', `${oldSRC}more_vert_white.svg`)
-    }
-
-    if (!(['lab-HoverBox', 'lab-HoverBoxbtn', 'lab-user-page'].includes(parent.id))) {
-      if (last && last != parent) {
-        if (last.id != parent.id) {
-          last.classList.remove('lab-active-element')
-        } else createOptions()
-      } else createOptions()
-    }
-  }
+  Designer.create(TemplatesList, 'template-20dh28d820d2', page, 'paysage')
 
   page.style.boxSizing = 'border-box'
   page.style.padding = '60px'
-
-  page.addEventListener('mousemove', (e) => {
-    const elementsFromPoint = document.elementsFromPoint(e.pageX, e.pageY)
-
-    page.addEventListener('mouseover', (p) => {
-      hover(p.target)
-    })
+  page.addEventListener('mouseover', (p) => {
+    Designer.hover(p.target)
   })
+
 }
 
 function lab_design_system_d(tag, id, parent, content, className, styled) {
@@ -424,20 +800,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
   return A
 }
 
-function createElement(tag, id, parent, content) {
-  const elementToAppend = document.createElement(tag)
-
-  elementToAppend.setAttribute('id', id)
-  elementToAppend.style.padding = '15px'
-  parent.appendChild(elementToAppend)
-
-  if (content != "" && content != null && content != undefined && typeof String) {
-    elementToAppend.innerText = content
-  }
-
-  return elementToAppend
-}
-
 
 let contentTags = ["DIV", "SECTION"]
 
@@ -459,24 +821,10 @@ function rightMenu(box) {
 
 }
 
-
-const TemplatesList = [
-  { label: "header", code: "header-1", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
-  { label: "section", code: "section", icon: "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/arrow_menu_close.svg" },
-]
-
-const ElementsList = [
-  { label: "button", code: "button", icon: `${oldSRC}arrow_menu_close.svg` },
-  { label: "section", code: "section", icon: `${oldSRC}arrow_menu_close.svg` },
-  { label: "div", code: "div", icon: `${oldSRC}arrow_menu_close.svg` }
-]
-
-
-
 function design_mode() {
+
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options'))
-
   if (!options) {
     const userOpt = {
       'vpm': "paysage",//portrait
@@ -512,15 +860,16 @@ function design_mode() {
   const elementsWrap = lab_design_system_d('div', "elements-wrap", elementsBox, 0, 0, ['design', 'templates'])
 
   function addList(e, list) {
-    e.map(el => {
+
+    Object.keys(e).map(el => {
       const item = lab_design_system_d('div', Designer.ID(), list, 0, 0, ['design', 'template'])
       const icon = lab_design_system_d('div', Designer.ID(), item, 0, 0, ['design', 'templateIcon'])
       const img = lab_design_system_d('img', Designer.ID(), icon)
-      img.setAttribute('src', el.icon)
+      img.setAttribute('src', e[el].icon)
       img.style.width = '30px'
       img.style.height = '30px'
 
-      const text = lab_design_system_d('span', Designer.ID(), item, el.label)
+      const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
 
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
@@ -550,7 +899,8 @@ function design_mode() {
           document.addEventListener("mouseup", () => {
             copy.removeEventListener("mousemove", onMouseDrag)
             list.removeChild(copy)
-            createElement(el.code, Designer.ID(), page, '')
+            Designer.create(e, el, page, 'paysage', true)
+            // createElement(e[el].code, Designer.ID(), page, '')
           })
         }
       })
@@ -652,6 +1002,26 @@ function design_mode() {
 
   UserContent(designBody)
   // rightMenu(designBody)
+
+  document.addEventListener("wheel", preventZoom, { passive: false });
+  document.addEventListener("keydown", preventZoomKey, false);
+
+  function preventZoom(e) {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+    }
+  }
+
+  function preventZoomKey(e) {
+    if ((e.ctrlKey || e.metaKey) &&
+      (e.key === '+' || e.key === '=' || e.key === 'equal') ||
+      (e.key === '-' || e.key === '_')) {
+      e.preventDefault();
+    }
+  }
+
+
+
   lab_fade_in_recursively(designBody, 0.3)
 }
 
