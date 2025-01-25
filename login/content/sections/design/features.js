@@ -1039,6 +1039,20 @@ function design_mode() {
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
   const responsiveList = ["paysage", "portrait"]
 
+  function setVpm(vpm) {
+    if (vpm == 'paysage') {
+      pixelScreen.innerHTML = window.outerWidth + 'px'
+      page.style.maxWidth = 'none'
+      page.style.maxHeight = 'none'
+    }
+
+    if (vpm == 'portrait') {
+      pixelScreen.innerHTML = '414px'
+      page.style.maxWidth = '414px'
+      page.style.maxHeight = '896px'
+    }
+  }
+
   responsiveList.map(e => {
     const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn')
 
@@ -1048,33 +1062,27 @@ function design_mode() {
     }
 
     btn.addEventListener('click', () => {
-      const page = document.getElementById('lab-user-page')
-
-      if (document.querySelector('.lab-screen-btn.active')) {
+      if (e != options.vpm) {
         document.querySelector('.lab-screen-btn.active').style.background = 'transparent'
         document.querySelector('.lab-screen-btn.active').classList.remove('active')
+
+        btn.classList.add('active')
+        btn.style.background = '#6a768e'
+
+        options.vpm = e
+        localStorage.setItem('options', JSON.stringify(options))
+        setVpm(e)
       }
 
-      btn.classList.add('active')
-      btn.style.background = '#6a768e'
-
-      if (e == 'paysage') {
-        pixelScreen.innerHTML = window.outerWidth + 'px'
-        page.style.maxWidth = 'none'
-        page.style.maxHeight = 'none'
-      }
-
-      if (e == 'portrait') {
-        pixelScreen.innerHTML = '414px'
-        page.style.maxWidth = '414px'
-        page.style.maxHeight = '896px'
-      }
     })
 
   })
 
 
+
   const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
+
+  setVpm(options.vpm)
 
   const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
   pixelSettings.querySelector('img').style.width = '15px'
@@ -1091,12 +1099,16 @@ function design_mode() {
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  const size = lab_design_system_d('div', 'screen-size', topSettings, "100%", 0, ['design', 'pixelView'])
+  const size = lab_design_system_d('div', 'screen-size', topSettings, options.zoom + '%', 0, ['design', 'pixelView'])
   size.style.width = "60px"
+  sizeSwitcher.value = options.zoom
+  page.style.scale = options.zoom / 100
 
   sizeSwitcher.oninput = function () {
     size.innerHTML = this.value + "%"
-    document.getElementById('lab-user-page').style.scale = this.value / 100
+    options.zoom = this.value
+    localStorage.setItem('options', JSON.stringify(options))
+    page.style.scale = this.value / 100
   }
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'visibility')
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'download')
