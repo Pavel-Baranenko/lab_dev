@@ -25,7 +25,7 @@ const styles_d = {
         backgroundColor: '#fff',
         minHeight: '100vh',
         paddingTop: '63px',
-        zIndex: 999,
+        zIndex: 9999,
         boxShadow: '0 4px 19px - 4px rgba(0, 0, 0, 0.18)',
         borderRadius: '0 20px 0 0',
       }
@@ -125,7 +125,7 @@ const styles_d = {
         width: '100%',
         borderRadius: '0 0 30px 30px',
         height: '70px',
-        zIndex: 999,
+        zIndex: 9999,
       }
     },
     'hideTop': {
@@ -199,7 +199,7 @@ const styles_d = {
         'position': 'fixed',
         left: "50%",
         bottom: '30px',
-        zIndex: "99",
+        zIndex: "9999",
         background: "#fff",
         width: "100%",
         borderRadius: '67px',
@@ -235,7 +235,7 @@ const styles_d = {
     'HoverBox': {
       'default': {
         position: 'absolute',
-        zIndex: '9999',
+        zIndex: '999',
         pointerEvents: 'none',
         boxShadow: '0px 0px 0px 2px rgba(36, 99, 235, 1) inset'
       }
@@ -263,7 +263,8 @@ const styles_d = {
         position: 'relative',
         minHeight: '100vh',
         background: '#EFEFEF',
-        margin: "auto"
+        margin: "auto",
+        boxSizing: 'border-box'
       }
     },
     'blindTools': {
@@ -277,6 +278,17 @@ const styles_d = {
         transform: "translateX(-50%)",
         borderRadius: "50px",
         border: "none"
+      }
+    },
+    'blockMenu': {
+      'default': {
+        'display': 'flex',
+        background: "#fff",
+        gap: '20px',
+        padding: "18px 25px",
+        boxShadow: '0px 1px 13.9px 0px #00000014',
+        borderRadius: "15px",
+        'flexDirection': "column"
       }
     }
   }
@@ -326,6 +338,7 @@ const TemplatesList = {
     }
   }
 }
+
 const ElementsList = {
   'button': {
     'icon': `${oldSRC}arrow_menu_close.svg`,
@@ -336,34 +349,78 @@ const ElementsList = {
         'tag': "button",
         'root': true,
         'classes': "lab-button",
-        'attributes': {
-          'data-img': "value"
-        },
         'styles': {
           'padding': '10px 20px',
           'borderRadius': "15px",
-          'fontWeight': "700",
-          'color': "#1C1B1F",
+          'display': "flex",
+          'gap': "10px",
+          'alignItems': "center",
+          'justifyContent': "center",
           'background': "#FED05E"
         },
-        'text': 'Button',
+        'child': [
+          {
+            'paysage': {
+              'id': "lab-button-span",
+              'tag': "span",
+              'classes': "lab-button-span",
+              'styles': {
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+              },
+              'text': 'Button',
+            },
+            'paysage': {
+              'id': "lab-button-span",
+              'tag': "span",
+              'classes': "lab-button-span",
+              'styles': {
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+              },
+              'text': 'Button',
+            }
+          }
+        ]
       },
       'paysage': {
         'id': "lab-button",
         'tag': "button",
         'root': true,
         'classes': "lab-button",
-        'attributes': {
-          'data-img': "value"
-        },
         'styles': {
           'padding': '10px 20px',
           'borderRadius': "15px",
-          'fontWeight': "700",
-          'color': "#1C1B1F",
+          'display': "flex",
+          'gap': "10px",
+          'alignItems': "center",
+          'justifyContent': "center",
           'background': "#FED05E"
         },
-        'text': 'Button',
+        'child': [
+          {
+            'paysage': {
+              'id': "lab-button-span",
+              'tag': "span",
+              'classes': "lab-button-span",
+              'styles': {
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+              },
+              'text': 'Button',
+            },
+            'paysage': {
+              'id': "lab-button-span",
+              'tag': "span",
+              'classes': "lab-button-span",
+              'styles': {
+                'fontWeight': "700",
+                'color': "#1C1B1F",
+              },
+              'text': 'Button',
+            }
+          }
+        ]
       }
     }
   },
@@ -671,44 +728,38 @@ class Designer {
     return A
   }
 
-  static hover(parent) {
-    const last = document.querySelector('lab-active-element')
+  static hover(element) {
     const page = document.getElementById('lab-user-page')
 
     function createOptions() {
+
       if (document.getElementById('lab-HoverBox')) {
         document.getElementById('lab-HoverBox').remove()
         document.getElementById('lab-HoverBoxbtn').remove()
       }
+      element.classList.add('lab-active-element')
 
       const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
-      HoverBox.style.borderRadius = parent.style.borderRadius
-      const parentPos = page.getBoundingClientRect();
-      const childPos = parent.getBoundingClientRect();
+      HoverBox.style.borderRadius = element.style.borderRadius
 
-      HoverBox.style.left = (childPos.left - parentPos.left) / parentPos.width * 100 + '%'
-      HoverBox.style.top = (childPos.top - parentPos.top) / parentPos.height * 100 + '%'
-      HoverBox.style.width = childPos.width / parentPos.width * 100 + '%'
-      HoverBox.style.height = childPos.height / parentPos.height * 100 + '%'
+      DesignConstructor.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
 
-      parent.classList.add('lab-active-element')
+      const hoverMenuBtn = DesignConstructor.button(page, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
 
-      const hoverMenuBtn = lab_design_system_d('button', "HoverBoxbtn", page, 0, 0, ['design', 'hoverMenuBtn'])
-      hoverMenuBtn.style.top = ((childPos.top - parentPos.top) / parentPos.height + (7 / parentPos.height)) * 100 + '%'
-      hoverMenuBtn.style.left = ((childPos.left - parentPos.left + childPos.width) / parentPos.width - (42 / parentPos.width)) * 100 + '%'
+      DesignConstructor.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
 
-      const hoverMenuBtnIcon = lab_design_system_d('img', "hover-btn-icon", hoverMenuBtn)
-      hoverMenuBtnIcon.style.pointerEvents = 'none'
-
-      hoverMenuBtnIcon.setAttribute('src', `${oldSRC}more_vert_white.svg`)
+      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page))
     }
 
-    if (!(['lab-HoverBox', 'lab-HoverBoxbtn', 'lab-user-page'].includes(parent.id))) {
-      if (last && last != parent) {
-        if (last.id != parent.id) {
-          last.classList.remove('lab-active-element')
-        } else createOptions()
-      } else createOptions()
+    if (!(['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page'].includes(element.id))) {
+      const last = document.querySelector('.lab-active-element')
+
+      if (!last) createOptions()
+
+      else if (last.id != element.id) {
+        last.classList.remove('lab-active-element')
+        createOptions()
+      }
     }
 
   }
@@ -733,6 +784,14 @@ class Designer {
     document.addEventListener(endListener, removeListeners, false)
   }
 
+  static saveTemplate(element) {
+    let tamlpateObj = {
+      'title': "button",
+      'template': {
+
+      }
+    }
+  }
 }
 
 class DesignConstructor {
@@ -761,6 +820,34 @@ class DesignConstructor {
     return input
   }
 
+  static Proportions(element, child, parent, alignment) {
+    const parentPos = parent.getBoundingClientRect();
+    const elementPos = child.getBoundingClientRect();
+
+    if (alignment.vert && alignment.vert == 'full') {
+      element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
+      element.style.width = elementPos.width / parentPos.width * 100 + '%'
+    }
+    if (alignment.hor == 'full') {
+      element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
+      element.style.height = elementPos.height / parentPos.height * 100 + '%'
+    }
+
+    Object.keys(alignment).forEach(e => {
+      if (['left', 'top'].includes(e)) {
+        const orientation = ['left'].includes(e) ? 'width' : 'height'
+        const axis = ['left'].includes(e) ? 'x' : 'y'
+
+        element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
+      }
+    })
+
+  }
+
+  static blockMenu(element, parent, options) {
+    const menu = lab_design_system_d('div', Designer.ID(), parent, '', '', ['design', 'blockMenu'])
+  }
+
   static toggleClass(el, styleList, usual, active) {
     Object.keys(styles[styleList][active].default).forEach(e => {
       if (el.style[e] == styles[styleList][active].default[e]) {
@@ -777,49 +864,6 @@ class DesignConstructor {
     })
   }
 
-}
-
-function UserContent(box) {
-  const page = lab_design_system_d('div', "user-page", box, 0, 0, ['design', 'page'])
-
-  Designer.create(TemplatesList, 'template-20dh28d820d2', page, 'paysage')
-
-  page.style.boxSizing = 'border-box'
-  page.style.padding = '60px'
-  page.addEventListener('mouseover', (p) => {
-    Designer.hover(p.target)
-  })
-
-}
-
-function lab_design_system_d(tag, id, parent, content, className, styled) {
-  const elementToAppend = document.createElement(tag)
-  elementToAppend.setAttribute("id", "lab-" + id)
-  parent.appendChild(elementToAppend)
-
-  const A = document.querySelector("#" + "lab-" + id)
-  A.setAttribute("class", "escape")
-  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
-
-  if (content && typeof content == "string") {
-    A.innerText = content
-  }
-  A.style.opacity = 1
-  if (styled) {
-    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
-
-    Object.keys(elementStyles.default).forEach(e => {
-      A.style[e] = elementStyles.default[e]
-    })
-
-    if (elementStyles[lab_orientation]) {
-      Object.keys(elementStyles[lab_orientation]).forEach(e => {
-        A.style[e] = elementStyles[lab_orientation][e]
-      })
-    }
-  }
-
-  return A
 }
 
 
@@ -899,40 +943,40 @@ function design_mode() {
         const copy = item.cloneNode(true)
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
+
         item.after(copy)
-        copy.style.left = `${coord.left + 7}px`
+
+        copy.style.left = `${coord.left}px`
         copy.style.top = `${coord.top}px`
 
-        const page = document.getElementById('lab-user-page')
 
-        // function onMouseDrag({ movementX, movementY }) {
-        //   let getContainerStyle = window.getComputedStyle(copy)
-        //   let leftValue = parseInt(getContainerStyle.left)
-        //   let topValue = parseInt(getContainerStyle.top)
-        //   copy.style.left = `${leftValue + movementX}px`
-        //   copy.style.top = `${topValue + movementY}px`
-        // }
         Designer.move(copy, () => {
           list.removeChild(copy)
           Designer.create(e, el, page, 'paysage', true)
         })
 
-        // document.addEventListener("mousemove", onMouseDrag)
-
-        // document.addEventListener("mouseup", () => {
-        //   if (copy) {
-        //     document.removeEventListener("mousemove", onMouseDrag)
-        //     list.removeChild(copy)
-        //     Designer.create(e, el, page, 'paysage', true)
-        //   }
-        // })
       })
-
-
     })
   }
 
   addList(ElementsList, elementsWrap)
+
+  //SIDE MENU END
+
+  //USER PAGE
+
+  const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody)
+  const page = lab_design_system_d('div', "user-page", pageWrap, 0, 0, ['design', 'page'])
+  page.classList.remove('escape')
+
+
+  page.style.boxSizing = 'border-box'
+  page.style.padding = '60px'
+  page.addEventListener('mouseover', (p) => {
+    Designer.hover(p.target)
+  })
+
+  //USER PAGE END
 
   //TOOLBAR
 
@@ -1025,7 +1069,6 @@ function design_mode() {
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
 
-  UserContent(designBody)
   // rightMenu(designBody)
 
   document.addEventListener("wheel", preventZoom, { passive: false });
@@ -1176,3 +1219,41 @@ design_mode()
 
 
 // }
+
+
+
+
+
+
+
+
+
+function lab_design_system_d(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
