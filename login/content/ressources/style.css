@@ -177,58 +177,6 @@ body::-webkit-scrollbar {
 
 
 
-#lab-code-box {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  transition: all 0.1s linear;
-  top: 100px;
-  right: 0;
-  background-color: #464C59;
-  border-radius: 30px 0 0 0;
-  padding: 80px 100px 0 20px;
-  min-height: calc(100vh - 100px);
-  height: 100%;
-  transform: translateX(100%);
-}
-
-#lab-code-menu-show {
-  position: absolute;
-  top: 0;
-  left: -63px;
-  cursor: pointer;
-  width: 62px;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 30px 30px 0px 30px;
-
-  opacity: 0px;
-  background-color: #FED05E;
-}
-
-
-#lab-code-box.active #lab-code-menu-show {
-  left: -1px;
-  border-radius: 30px 0px 30px 30px;
-}
-
-#lab-code-box.active {
-  transform: none;
-}
-
-#lab-code-wrapper {
-  width: 830px;
-  background-color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 22px;
-  border-radius: 30px 30px 0 0;
-  flex: 0 1 100%;
-  padding: 30px 35px;
-}
-
 
 #lab-elementMenu {
   position: fixed;
@@ -486,7 +434,6 @@ button {
   min-height: 100svh;
   width: 100%;
   padding-bottom: 50svh;
-  padding-top: 10svh;
   box-sizing: border-box;
 }
 

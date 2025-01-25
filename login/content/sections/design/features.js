@@ -188,6 +188,7 @@ const styles_d = {
         alignItems: 'center',
         gap: '8px',
         fontWeight: 600,
+        position: "relative",
         fontSize: '18px',
         color: '#fff',
         background: "transparent",
@@ -299,6 +300,64 @@ const styles_d = {
         'display': 'flex',
         gap: '12px',
         cursor: 'pointer'
+      }
+    },
+    'codeBox': {
+      'default': {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        transition: 'all 0.1s linear',
+        top: '100px',
+        right: 0,
+        width: "clamp(320px,49svw, 950px)",
+        backgroundColor: '#464C59',
+        borderRadius: '30px 0 0 0',
+        padding: '80px 20px 0 20px',
+        minHeight: 'calc(100vh - 100px)',
+        height: '100%',
+        transform: 'translateX(100%)',
+      }
+    },
+    'codeBoxActive': {
+      'default': {
+        transform: 'none',
+        top: '0'
+      }
+    },
+    'codeBoxShow': {
+      'default': {
+        position: 'absolute',
+        top: 0,
+        left: '-63px',
+        border: "none",
+        cursor: 'pointer',
+        width: '62px',
+        height: '62px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '30px 30px 0px 30px',
+        opacity: '0px',
+        backgroundColor: '#FED05E'
+      }
+    },
+    'codeBoxShowActive': {
+      'default': {
+        left: '-1px',
+        borderRadius: '30px 0px 30px 30px'
+      }
+    },
+    'codeWrapper': {
+      'default': {
+        width: '87%',
+        backgroundColor: '#fff',
+        fontSize: '12px',
+        fontWeight: 500,
+        lineHeight: '22px',
+        borderRadius: '30px 30px 0 0',
+        flex: '0 1 100%',
+        padding: '30px 35px',
       }
     },
   }
@@ -795,7 +854,6 @@ class Designer {
     Designer.romovePointer()
     return element.remove()
   }
-
   static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup') {
 
     function onMouseDrag({ movementX, movementY }) {
@@ -909,43 +967,46 @@ class DesignConstructor {
     })
   }
 
+  static BlockResize() {
+    document.addEventListener("wheel", preventZoom, { passive: false });
+    document.addEventListener("keydown", preventZoomKey, false);
+
+    function preventZoom(e) {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+      }
+    }
+
+    function preventZoomKey(e) {
+      if ((e.ctrlKey || e.metaKey) &&
+        (e.key === '+' || e.key === '=' || e.key === 'equal') ||
+        (e.key === '-' || e.key === '_')) {
+        e.preventDefault();
+      }
+    }
+
+  }
 }
 
+function Options(obj, key, value) {
+  obj[key] = value ? value : !obj[key]
+  localStorage.setItem('options', JSON.stringify(obj))
+}
 
 let contentTags = ["DIV", "SECTION"]
 
 let uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
-function rightMenu(box) {
-  const menu = lab_design_system_d('div', 'code-box', box, null, 'code-box')
-
-  const menuButton = lab_design_system_d('div', "code-menu-show", menu, null, "code-menu-show")
-  const buttonIcon = lab_design_system_d('img', "code-menu-icon", menuButton, null, null)
-  buttonIcon.setAttribute('src', `${oldSRC}message-code 1.svg`)
-  const codeWrapper = lab_design_system_d('div', "code-wrapper", menu, null, "code-wrapper")
-
-  menuButton.addEventListener('click', () => {
-    menu.classList.toggle('active')
-    const page = document.getElementById('lab-user-page').innerHTML
-    codeWrapper.innerText = `${page}`
-  })
-
-}
 
 function design_mode() {
 
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
-  let options = JSON.parse(localStorage.getItem('options'))
-
-  if (!options) {
-    const userOpt = {
-      'vpm': "paysage",//portrait
-      'zoom': 100,
-      'toolBar': true,
-      'settingsBar': true,
-      'sideMenu': true,
-    }
-    localStorage.setItem('options', JSON.stringify(userOpt))
+  let options = JSON.parse(localStorage.getItem('options')) || {
+    'vpm': "paysage",
+    'zoom': 100,
+    'toolBar': true,
+    'settingsBar': true,
+    'sideMenu': true,
   }
 
   //SIDE MENU
@@ -956,8 +1017,7 @@ function design_mode() {
   menuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
     DesignConstructor.toggleClass(menuButton, 'design', 'showMenu', 'hideMenu')
-    options.sideMenu = !options.sideMenu
-    localStorage.setItem('options', JSON.stringify(options))
+    Options(options, 'sideMenu')
   })
 
   if (!options.sideMenu) {
@@ -1029,8 +1089,7 @@ function design_mode() {
   const blind = lab_design_system_d('button', "blind-tools", toolBar, 0, 0, ['design', 'blindTools'])
   blind.addEventListener('click', () => {
     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
-    options.toolBar = !options.toolBar
-    localStorage.setItem('options', JSON.stringify(options))
+    Options(options, 'toolBar')
   })
 
   if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
@@ -1068,9 +1127,7 @@ function design_mode() {
 
         btn.classList.add('active')
         btn.style.background = '#6a768e'
-
-        options.vpm = e
-        localStorage.setItem('options', JSON.stringify(options))
+        Options(options, 'vpm', e)
         setVpm(e)
       }
 
@@ -1106,8 +1163,7 @@ function design_mode() {
 
   sizeSwitcher.oninput = function () {
     size.innerHTML = this.value + "%"
-    options.zoom = this.value
-    localStorage.setItem('options', JSON.stringify(options))
+    Options(options, 'zoom', this.value)
     page.style.scale = this.value / 100
   }
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'visibility')
@@ -1117,31 +1173,26 @@ function design_mode() {
 
   blindTop.addEventListener('click', () => {
     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
-    options.settingsBar = !options.settingsBar
-    localStorage.setItem('options', JSON.stringify(options))
+    Options(options, 'settingsBar')
   })
 
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
+  //CODE MENU
 
-  // rightMenu(designBody)
+  const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
+  const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'message-code 1')
+  const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', "", ['design', 'codeWrapper'])
+  codeMenuButton.addEventListener('click', () => {
+    DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
+    DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
+    const page = document.getElementById('lab-user-page').innerHTML
+    codeWrapper.innerText = `${page}`
+  })
 
-  document.addEventListener("wheel", preventZoom, { passive: false });
-  document.addEventListener("keydown", preventZoomKey, false);
+  //CODE MENU END
 
-  function preventZoom(e) {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-    }
-  }
-
-  function preventZoomKey(e) {
-    if ((e.ctrlKey || e.metaKey) &&
-      (e.key === '+' || e.key === '=' || e.key === 'equal') ||
-      (e.key === '-' || e.key === '_')) {
-      e.preventDefault();
-    }
-  }
+  DesignConstructor.BlockResize()
 
   lab_fade_in_recursively(designBody, 0.3)
 }
