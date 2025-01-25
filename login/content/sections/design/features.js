@@ -738,15 +738,13 @@ class Designer {
     return A
   }
 
-  static hover(element) {
+  static async hover(element) {
     const page = document.getElementById('lab-user-page')
 
-    function createOptions() {
+    async function createOptions() {
 
-      if (document.getElementById('lab-HoverBox')) {
-        document.getElementById('lab-HoverBox').remove()
-        document.getElementById('lab-HoverBoxbtn').remove()
-      }
+      await Designer.romovePointer()
+
       element.classList.add('lab-active-element')
 
       const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
@@ -782,12 +780,19 @@ class Designer {
 
   }
 
+  static async romovePointer() {
+    if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
+    if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
+    if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
+  }
+
   static copy(element, parent) {
     const copyItem = element.cloneNode(true)
     element.after(copyItem)
     return copyItem
   }
   static del(element) {
+    Designer.romovePointer()
     return element.remove()
   }
 
@@ -871,20 +876,21 @@ class DesignConstructor {
     return input
   }
 
-
   static blockMenu(element, parent, options) {
-    const menu = lab_design_system_d('div', Designer.ID(), parent, '', 'none', ['design', 'blockMenu'])
-    Object.keys(options).forEach(e => {
-      const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
-      const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
-      const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
-      itemIcon.setAttribute('src', `${oldSRC}${e}-icon.svg`)
-      itemIcon.style.width = '15px'
+    if (!document.getElementById('lab-block-menu')) {
+      const menu = lab_design_system_d('div', 'block-menu', parent, '', 'none', ['design', 'blockMenu'])
+      Object.keys(options).forEach(e => {
+        const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
+        const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
+        const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
+        itemIcon.setAttribute('src', `${oldSRC}${e}-icon.svg`)
+        itemIcon.style.width = '15px'
 
-      item.addEventListener('click', () => Designer[e](element))
-    })
-    Designer.Proportions(menu, element, parent, { top: 31, left: -42 })
-
+        item.addEventListener('click', () => Designer[e](element))
+      })
+      Designer.Proportions(menu, element, parent, { top: 31, left: -42 })
+      menu.addEventListener('mouseleave', () => menu.remove())
+    }
   }
 
   static toggleClass(el, styleList, usual, active) {
@@ -979,16 +985,13 @@ function design_mode() {
 
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
-        // const copy = item.cloneNode(true)
+
         const copy = Designer.copy(item)
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
 
-        // item.after(copy)
-
         copy.style.left = `${coord.left}px`
         copy.style.top = `${coord.top}px`
-
 
         Designer.move(copy, () => {
           list.removeChild(copy)
