@@ -284,13 +284,23 @@ const styles_d = {
       'default': {
         'display': 'flex',
         background: "#fff",
+        position: "absolute",
+        maxWidth: "160px",
         gap: '20px',
         padding: "18px 25px",
         boxShadow: '0px 1px 13.9px 0px #00000014',
         borderRadius: "15px",
-        'flexDirection': "column"
+        'flexDirection': "column",
+        zIndex: 9999
       }
-    }
+    },
+    'blockMenuItem': {
+      'default': {
+        'display': 'flex',
+        gap: '12px',
+        cursor: 'pointer'
+      }
+    },
   }
 }
 let styles = styles_d
@@ -742,16 +752,24 @@ class Designer {
       const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
       HoverBox.style.borderRadius = element.style.borderRadius
 
-      DesignConstructor.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
+      Designer.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
 
       const hoverMenuBtn = DesignConstructor.button(page, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
 
-      DesignConstructor.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
+      Designer.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
 
-      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page))
+      const BlockOptions = {
+        'copy': "Copy",
+        'move': "Move",
+        'transform': "Transform",
+        'del': "Delete",
+      }
+
+      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page, BlockOptions))
     }
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
 
-    if (!(['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page'].includes(element.id))) {
+    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
       const last = document.querySelector('.lab-active-element')
 
       if (!last) createOptions()
@@ -762,6 +780,15 @@ class Designer {
       }
     }
 
+  }
+
+  static copy(element, parent) {
+    const copyItem = element.cloneNode(true)
+    element.after(copyItem)
+    return copyItem
+  }
+  static del(element) {
+    return element.remove()
   }
 
   static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup') {
@@ -792,6 +819,30 @@ class Designer {
       }
     }
   }
+
+  static Proportions(element, child, parent, alignment) {
+    const parentPos = parent.getBoundingClientRect();
+    const elementPos = child.getBoundingClientRect();
+
+    if (alignment.vert && alignment.vert == 'full') {
+      element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
+      element.style.width = elementPos.width / parentPos.width * 100 + '%'
+    }
+    if (alignment.hor == 'full') {
+      element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
+      element.style.height = elementPos.height / parentPos.height * 100 + '%'
+    }
+
+    Object.keys(alignment).forEach(e => {
+      if (['left', 'top'].includes(e)) {
+        const orientation = ['left'].includes(e) ? 'width' : 'height'
+        const axis = ['left'].includes(e) ? 'x' : 'y'
+
+        element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
+      }
+    })
+
+  }
 }
 
 class DesignConstructor {
@@ -820,32 +871,20 @@ class DesignConstructor {
     return input
   }
 
-  static Proportions(element, child, parent, alignment) {
-    const parentPos = parent.getBoundingClientRect();
-    const elementPos = child.getBoundingClientRect();
-
-    if (alignment.vert && alignment.vert == 'full') {
-      element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
-      element.style.width = elementPos.width / parentPos.width * 100 + '%'
-    }
-    if (alignment.hor == 'full') {
-      element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
-      element.style.height = elementPos.height / parentPos.height * 100 + '%'
-    }
-
-    Object.keys(alignment).forEach(e => {
-      if (['left', 'top'].includes(e)) {
-        const orientation = ['left'].includes(e) ? 'width' : 'height'
-        const axis = ['left'].includes(e) ? 'x' : 'y'
-
-        element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
-      }
-    })
-
-  }
 
   static blockMenu(element, parent, options) {
-    const menu = lab_design_system_d('div', Designer.ID(), parent, '', '', ['design', 'blockMenu'])
+    const menu = lab_design_system_d('div', Designer.ID(), parent, '', 'none', ['design', 'blockMenu'])
+    Object.keys(options).forEach(e => {
+      const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
+      const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
+      const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
+      itemIcon.setAttribute('src', `${oldSRC}${e}-icon.svg`)
+      itemIcon.style.width = '15px'
+
+      item.addEventListener('click', () => Designer[e](element))
+    })
+    Designer.Proportions(menu, element, parent, { top: 31, left: -42 })
+
   }
 
   static toggleClass(el, styleList, usual, active) {
@@ -940,11 +979,12 @@ function design_mode() {
 
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
-        const copy = item.cloneNode(true)
+        // const copy = item.cloneNode(true)
+        const copy = Designer.copy(item)
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
 
-        item.after(copy)
+        // item.after(copy)
 
         copy.style.left = `${coord.left}px`
         copy.style.top = `${coord.top}px`
