@@ -332,13 +332,13 @@ const ElementsList = {
     'title': "button",
     'template': {
       'paysage': {
-        'id': "lab-button",//
-        'tag': "button",//
-        'root': true,//
-        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
-        'attributes': {//
-          'data-img': "value"//
-        },//
+        'id': "lab-button",
+        'tag': "button",
+        'root': true,
+        'classes': "lab-button",
+        'attributes': {
+          'data-img': "value"
+        },
         'styles': {
           'padding': '10px 20px',
           'borderRadius': "15px",
@@ -347,18 +347,17 @@ const ElementsList = {
           'background': "#FED05E"
         },
         'text': 'Button',
-      }
-      ,
-      'portrait': {
-        'id': "lab-button",//
-        'tag': "button",//
-        'root': true,//
-        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
-        'attributes': {//
-          'data-img': "value"//
-        },//
+      },
+      'paysage': {
+        'id': "lab-button",
+        'tag': "button",
+        'root': true,
+        'classes': "lab-button",
+        'attributes': {
+          'data-img': "value"
+        },
         'styles': {
-          'padding': '3svh 5svw',
+          'padding': '10px 20px',
           'borderRadius': "15px",
           'fontWeight': "700",
           'color': "#1C1B1F",
@@ -375,20 +374,23 @@ const ElementsList = {
       'paysage': {
         'id': "lab-section",
         'tag': "section",
+        'classes': "lab-empty-section",
         'root': true,
         'styles': {
-          'padding': '15px',
+          'padding': '80px 20px',
+          'position': "relative"
         }
-      }
-      ,
+      },
       'portrait': {
         'id': "lab-section",
         'tag': "section",
+        'classes': "lab-empty-section",
         'root': true,
         'styles': {
-          'padding': '15px',
+          'padding': '80px 20px',
+          'position': "relative"
         }
-      }
+      },
     }
   },
   'div': {
@@ -396,22 +398,23 @@ const ElementsList = {
     'title': "div",
     'template': {
       'paysage': {
-        'id': "lab-div",
-        'tag': "div",
+        'id': "lab-section",
+        'tag': "section",
+        'classes': "lab-empty-section",
         'root': true,
         'styles': {
-          'padding': '15px',
+          'position': "relative"
         }
-      }
-      ,
+      },
       'portrait': {
         'id': "lab-section",
         'tag': "section",
+        'classes': "lab-empty-section",
         'root': true,
         'styles': {
-          'padding': '15px',
+          'position': "relative"
         }
-      }
+      },
     }
   },
   'form': {
@@ -419,7 +422,7 @@ const ElementsList = {
     'title': "form",
     'template': {
       'paysage': {
-        'id': "lab-div",
+        'id': "lab-form",
         'tag': "form",
         'root': true,
         'styles': {
@@ -620,7 +623,6 @@ const ElementsList = {
   },
 }
 
-
 class Designer {
   static ID() {
     const S4 = function () {
@@ -636,7 +638,6 @@ class Designer {
     function readObject(temt, child) {
       const obj = temt[vpm]
       const element = document.createElement(obj.tag)
-      console.log(element);
 
       if (obj.root) {
         parent.appendChild(element)
@@ -711,6 +712,27 @@ class Designer {
     }
 
   }
+
+  static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup') {
+
+    function onMouseDrag({ movementX, movementY }) {
+      let getContainerStyle = window.getComputedStyle(element)
+      let leftValue = parseInt(getContainerStyle.left)
+      let topValue = parseInt(getContainerStyle.top)
+      element.style.left = `${leftValue + movementX}px`
+      element.style.top = `${topValue + movementY}px`
+    }
+
+    document.addEventListener(moveListener, onMouseDrag)
+
+    function removeListeners() {
+      document.removeEventListener(moveListener, onMouseDrag)
+      document.removeEventListener(endListener, removeListeners)
+      if (endFunc) endFunc(element)
+    }
+    document.addEventListener(endListener, removeListeners, false)
+  }
+
 }
 
 class DesignConstructor {
@@ -810,7 +832,7 @@ function rightMenu(box) {
 
   const menuButton = lab_design_system_d('div', "code-menu-show", menu, null, "code-menu-show")
   const buttonIcon = lab_design_system_d('img', "code-menu-icon", menuButton, null, null)
-  buttonIcon.setAttribute('src', "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/message-code 1.svg")
+  buttonIcon.setAttribute('src', `${oldSRC}message-code 1.svg`)
   const codeWrapper = lab_design_system_d('div', "code-wrapper", menu, null, "code-wrapper")
 
   menuButton.addEventListener('click', () => {
@@ -825,6 +847,7 @@ function design_mode() {
 
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options'))
+
   if (!options) {
     const userOpt = {
       'vpm': "paysage",//portrait
@@ -882,28 +905,30 @@ function design_mode() {
 
         const page = document.getElementById('lab-user-page')
 
-        if (copy) {
+        // function onMouseDrag({ movementX, movementY }) {
+        //   let getContainerStyle = window.getComputedStyle(copy)
+        //   let leftValue = parseInt(getContainerStyle.left)
+        //   let topValue = parseInt(getContainerStyle.top)
+        //   copy.style.left = `${leftValue + movementX}px`
+        //   copy.style.top = `${topValue + movementY}px`
+        // }
+        Designer.move(copy, () => {
+          list.removeChild(copy)
+          Designer.create(e, el, page, 'paysage', true)
+        })
 
-          function onMouseDrag({ movementX, movementY }) {
-            let getContainerStyle = window.getComputedStyle(copy)
-            let leftValue = parseInt(getContainerStyle.left)
-            let topValue = parseInt(getContainerStyle.top)
-            copy.style.left = `${leftValue + movementX}px`
-            copy.style.top = `${topValue + movementY}px`
-          }
+        // document.addEventListener("mousemove", onMouseDrag)
 
-          copy.addEventListener("mousedown", () => {
-            copy.addEventListener("mousemove", onMouseDrag)
-          })
-
-          document.addEventListener("mouseup", () => {
-            copy.removeEventListener("mousemove", onMouseDrag)
-            list.removeChild(copy)
-            Designer.create(e, el, page, 'paysage', true)
-            // createElement(e[el].code, Designer.ID(), page, '')
-          })
-        }
+        // document.addEventListener("mouseup", () => {
+        //   if (copy) {
+        //     document.removeEventListener("mousemove", onMouseDrag)
+        //     list.removeChild(copy)
+        //     Designer.create(e, el, page, 'paysage', true)
+        //   }
+        // })
       })
+
+
     })
   }
 
@@ -1019,8 +1044,6 @@ function design_mode() {
       e.preventDefault();
     }
   }
-
-
 
   lab_fade_in_recursively(designBody, 0.3)
 }
