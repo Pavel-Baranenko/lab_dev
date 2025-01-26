@@ -178,43 +178,6 @@ body::-webkit-scrollbar {
 
 
 
-#lab-elementMenu {
-  position: fixed;
-  right: 0;
-  top: 240px;
-
-}
-
-#lab-elementMenuBody {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 0 0 30px 30px;
-  width: 340px;
-  height: 474px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#lab-elementMenu-buttons {
-  display: grid;
-  border-bottom: 1px solid #EFEFEF;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.lab-element-menu-btn {
-  border-radius: 20px 20px 0 0;
-  height: 40px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 137%;
-  text-align: center;
-  cursor: pointer;
-  color: #000;
-  background: #e5e5e5;
-  text-transform: capitalize;
-}
-
 .lab-element-menu-btn:active {
   position: relative;
   top: 1px;

@@ -1,4 +1,5 @@
 const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
+
 const styles_d = {
   "design": {
     'body': {
@@ -265,6 +266,7 @@ const styles_d = {
         minHeight: '100vh',
         background: '#EFEFEF',
         margin: "auto",
+        padding: "30px",
         boxSizing: 'border-box'
       }
     },
@@ -285,14 +287,12 @@ const styles_d = {
       'default': {
         'display': 'flex',
         background: "#fff",
-        position: "absolute",
         maxWidth: "160px",
         gap: '20px',
         padding: "18px 25px",
         boxShadow: '0px 1px 13.9px 0px #00000014',
         borderRadius: "15px",
-        'flexDirection': "column",
-        zIndex: 9999
+        'flexDirection': "column"
       }
     },
     'blockMenuItem': {
@@ -360,53 +360,144 @@ const styles_d = {
         padding: '30px 35px',
       }
     },
+    'blockMenuWrap': {
+      'default': {
+        position: "absolute",
+        padding: '30px',
+        zIndex: 9999
+      }
+    },
+    'styleMenu': {
+      'default': {
+        position: "absolute",
+        padding: '30px',
+        zIndex: 9999
+      }
+    },
+    'elementMenu': {
+      'default': {
+        position: 'fixed',
+        right: '2px',
+        zIndex: 9999,
+        top: '50%',
+        transform: "translateY(-50%)"
+      }
+    },
+    'elementMenuBody': {
+      'default': {
+        backgroundColor: '#fff',
+        padding: '20px',
+        boxSizing: 'border-box',
+        boxShadow: '0px 1px 13.9px 0px #00000014',
+        borderRadius: '0 0 30px 30px',
+        width: '340px',
+        height: '474px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+      }
+    },
+    'StyleButtons': {
+      'default': {
+        width: '100%',
+        display: 'flex',
+        borderBottom: '1px solid #EFEFEF',
+      }
+    },
+    'StyleBtn': {
+      'default': {
+        borderRadius: '20px 20px 0 0',
+        height: '40px',
+        fontWeight: 500,
+        fontSize: '16px',
+        lineHeight: '137%',
+        textAlign: 'center',
+        cursor: 'pointer',
+        color: '#000',
+        background: '#e5e5e5',
+        textTransform: 'capitalize',
+        border: "none",
+        flex: '0 1 50%'
+      }
+    },
+    'stylesBtn': {
+      'default': {
+        background: "transparent",
+        border: "none"
+      }
+    },
+    'icon': {
+      'default': {
+        maxWidth: "100%"
+      }
+    },
+    'inputWrap': {
+      'default': {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '9px',
+        borderRadius: '5px',
+        background: '#f4f4f5',
+        padding: '7px',
+        height: '35px',
+        boxSizing: 'border-box'
+      }
+    },
+    'input': {
+      'default': {
+        width: '100%',
+        border: 'none',
+        outline: "none",
+        backgroundColor: 'transparent'
+      }
+    },
+    'dropList': {
+      'default': {
+        width: '100%',
+        position: 'relative'
+      }
+    },
+    'dropSel': {
+      'default': {
+        width: '100%',
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "space-between",
+        borderRadius: '5px',
+        fontSize: '16px',
+        cursor: "pointer",
+        background: "#F4F4F5",
+        boxSizing: "border-box",
+        textTransform: "lowercase",
+        fontWeight: 500,
+        height: '35px',
+        padding: '7px',
+      }
+    },
+    'dropListing': {
+      'default': {
+        width: '100%',
+        position: 'absolute',
+        zIndex: 1,
+        top: 'calc(100% - 7px)',
+        left: 0,
+        height: 0,
+        background: "#F4F4F5",
+        cursor: "pointer",
+        overflow: "hidden",
+        display: "flex",
+        gap: "3px",
+        boxSizing: "border-box",
+        flexDirection: "column",
+        fontSize: '14px',
+        borderRadius: '0 0 5px 5px'
+      }
+    },
   }
 }
-let styles = styles_d
 
-const TemplatesList = {
-  'template-20dh28d820d2': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
-    'title': "button",
-    'template': {
-      'paysage': {
-        'id': "lab-button",//
-        'tag': "button",//
-        'root': true,//
-        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
-        'attributes': {//
-          'data-img': "value"//
-        },//
-        'styles': {
-          'padding': '10px 20px',
-          'borderRadius': "15px",
-          'fontWeight': "700",
-          'color': "#1C1B1F",
-          'background': "#FED05E"
-        },
-        'text': 'Button',
-      }
-      ,
-      'portrait': {
-        'id': "lab-button",//
-        'tag': "button",//
-        'root': true,//
-        'classes': "button-ascsc kdkkdd ksxkskmmsxm",//
-        'attributes': {//
-          'data-img': "value"//
-        },//
-        'styles': {
-          'padding': '3svh 5svw',
-          'borderRadius': "15px",
-          'fontWeight': "700",
-          'color': "#1C1B1F",
-          'background': "#FED05E"
-        },
-        'text': 'Button',
-      }
-    }
-  }
-}
+let styles = styles_d
 
 const ElementsList = {
   'button': {
@@ -836,7 +927,7 @@ class Designer {
         createOptions()
       }
     }
-
+    element.addEventListener('click', () => StylesMenu(element))
   }
 
   static async romovePointer() {
@@ -850,10 +941,12 @@ class Designer {
     element.after(copyItem)
     return copyItem
   }
+
   static del(element) {
     Designer.romovePointer()
     return element.remove()
   }
+
   static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup') {
 
     function onMouseDrag({ movementX, movementY }) {
@@ -906,37 +999,81 @@ class Designer {
     })
 
   }
+
+  static WriteStyle(element, styleName, styleValue) {
+    element.style[styleName] = styleValue
+  }
+
 }
 
 class DesignConstructor {
-  static button(parent, styles, content, icon, className, id = Designer.ID()) {
+  static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
     const btn = lab_design_system_d('button', id, parent, content, className, styles)
     if (icon) {
-      const btnIcon = lab_design_system_d('img', `${id}-icon`, btn)
+      const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
       btnIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
     }
     return btn;
   }
 
-  static input(parent) {
-    const wrap = lab_design_system_d('div', `input-wrap-${e}`, parent, null, 'input-wrap')
+  static input(parent, value, placeholder, icon, className = 'none', styles, id = Designer.ID()) {
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
 
     if (icon) {
-      const innerIcon = document.createElement('img')
-      innerIcon.setAttribute('src', `${oldSRC}${icon}`)
-      wrap.appendChild(innerIcon)
+      const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
+      innerIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
     }
 
-    const input = lab_design_system_d('input', `input-style-${e}`, wrap, null, 'input-style')
+    const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
 
-    value && input.setAttribute('value', value)
+    value && Input.setAttribute('value', value)
+    placeholder && Input.setAttribute('placeholder', placeholder)
 
-    return input
+    return Input
+  }
+
+  static dropList(parent, list, value, func) {
+    let id = Designer.ID()
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'dropList'])
+    const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
+    const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
+    const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
+    icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
+
+    const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
+    list.forEach(e => {
+      const item = lab_design_system_d('span', Designer.ID(), listing, e)
+      item.addEventListener('click', () => {
+        text.innerHTML = e
+        func && func(e)
+        close()
+      })
+    })
+
+    function close() {
+      listing.style.height = 0
+      listing.style.padding = 0
+      listing.classList.remove('active')
+    }
+
+    selected.addEventListener('click', () => {
+      if (!listing.classList.contains('active')) {
+        listing.classList.add('active')
+        listing.style.height = 'auto'
+        listing.style.padding = '7px'
+      }
+      else close()
+    })
+
+
+
+    return wrap
   }
 
   static blockMenu(element, parent, options) {
     if (!document.getElementById('lab-block-menu')) {
-      const menu = lab_design_system_d('div', 'block-menu', parent, '', 'none', ['design', 'blockMenu'])
+      const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
+      const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
       Object.keys(options).forEach(e => {
         const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
         const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
@@ -946,8 +1083,8 @@ class DesignConstructor {
 
         item.addEventListener('click', () => Designer[e](element))
       })
-      Designer.Proportions(menu, element, parent, { top: 31, left: -42 })
-      menu.addEventListener('mouseleave', () => menu.remove())
+      Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
+      menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
     }
   }
 
@@ -998,6 +1135,9 @@ let contentTags = ["DIV", "SECTION"]
 let uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 
+let selectedItem = ''
+
+
 function design_mode() {
 
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
@@ -1040,9 +1180,7 @@ function design_mode() {
       img.setAttribute('src', e[el].icon)
       img.style.width = '30px'
       img.style.height = '30px'
-
       const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
-
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
 
@@ -1072,20 +1210,21 @@ function design_mode() {
   const page = lab_design_system_d('div', "user-page", pageWrap, 0, 0, ['design', 'page'])
   page.classList.remove('escape')
 
-
-  page.style.boxSizing = 'border-box'
-  page.style.padding = '60px'
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
   })
 
+  StylesMenu(page)
   //USER PAGE END
 
   //TOOLBAR
 
   const toolBar = lab_design_system_d('div', "toolbar", designBody, 0, 0, ['design', 'toolbar'])
+
   const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'image']
+
   tools.forEach(tool => DesignConstructor.button(toolBar, ['design', 'toolbarItem'], 0, tool))
+
   const blind = lab_design_system_d('button', "blind-tools", toolBar, 0, 0, ['design', 'blindTools'])
   blind.addEventListener('click', () => {
     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
@@ -1183,6 +1322,7 @@ function design_mode() {
   const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
   const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'message-code 1')
   const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', "", ['design', 'codeWrapper'])
+
   codeMenuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
@@ -1197,140 +1337,129 @@ function design_mode() {
   lab_fade_in_recursively(designBody, 0.3)
 }
 
-
 design_mode()
 
+function StylesMenu(item) {
+  if (document.querySelector('.selectedItem')) {
+    document.querySelector('.selectedItem').classList.remove('selectedItem')
+  }
+  item.classList.add('selectedItem')
+  const box = document.getElementById('lab-designBody')
+
+  const itemStyles = window.getComputedStyle(item)
+
+  const css = {
+    'font-family': itemStyles.fontFamily,
+    'text-align': itemStyles.textAlign,
+    'font-style': itemStyles.fontStyle,
+    'font-weight': itemStyles.fontWeight,
+    'font-size': itemStyles.fontSize,
+    'line-height': itemStyles.lineHeight,
+    'letter-spacing': itemStyles.letterSpacing,
+    'stroke': itemStyles.stroke,
+    'color': itemStyles.color,
+    'stroke-width': itemStyles.strokeWidth,
+  }
+
+  function renderMenu() {
+    const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
+    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
+    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
+    const menuSettings = ['general', 'additional']
+    const activeSettings = 'additional'
+
+    menuSettings.forEach((e) => {
+      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, '', ['design', 'StyleBtn'])
+      e == activeSettings && btn.classList.add('active')
+
+      btn.addEventListener('click', () => {
+        if (!btn.classList.contains('active')) {
+          document.querySelector('.lab-element-menu-btn.active').classList.remove('active')
+          btn.classList.add('active')
+        }
+      })
+    })
+
+    const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+
+    const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
+    tag.style.flex = '0 1 35%'
+    const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
+
+    const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
+    const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
+    const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+    const textALignList = ['left', 'center', 'right', 'justify']
+    const textStyleList = ['italic', 'underline', 'line', 'dec']
+
+    textALignList.forEach(e => {
+      const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
+      btn.addEventListener('click', () => {
+        item.style.textAlign = e
+      })
+    })
+
+
+    const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
+    const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
+    const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
+    const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
+
+
+    const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+
+    const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'])
+
+    const fontSize = DesignConstructor.input(textSettings, css['font-size'])
+
+    function inputStyle(e, style, postfix) {
+      item.style[style] = `${e.value}${postfix ? postfix : ''}`
+    }
+
+    fontSize.addEventListener('input', () => inputStyle(fontSize, 'fontSize', 'px'))
+
+    const lineHeight = DesignConstructor.input(textSettings, css['line-height'], 'line-height')
+    const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], 'letter-spacing')
+
+    lineHeight.addEventListener('input', () => inputStyle(lineHeight, 'lineHeight', null))
+
+    letterSpacing.addEventListener('input', () => inputStyle(letterSpacing, 'letterSpacing', null))
 
 
 
+    const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+    const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
+    const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+    textColorInput.setAttribute('type', 'color')
+    textColorInput.setAttribute('value', css['color'])
+    textColorInput.addEventListener('input', () => {
+      console.log("aaaaaa")
+
+      inputStyle(textColorInput, 'color', null)
+      console.log(textColorInput.value)
+
+    })
+
+    const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
+
+    const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
+    const strokeInput = DesignConstructor.input(strokeWrap)
+
+    const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
+    strokeColorInput.setAttribute('type', 'color')
+    strokeColorInput.setAttribute('value', css['stroke'])
+  }
+  if (selectedItem == '') {
+    renderMenu()
+    selectedItem = item
+  } else {
+    box.removeChild(document.getElementById('lab-elementMenu'))
+    renderMenu()
+    selectedItem = item
+  }
 
 
-// function StylesMenu(item) {
-//   if (document.querySelector('.selectedItem')) {
-//     document.querySelector('.selectedItem').classList.remove('selectedItem')
-//   }
-//   item.classList.add('selectedItem')
-
-
-//   const itemStyles = window.getComputedStyle(item)
-//   const css = {
-//     'font-family': itemStyles.fontFamily,
-//     'text-align': itemStyles.textAlign,
-//     'font-style': itemStyles.fontStyle,
-//     'font-weight': itemStyles.fontWeight,
-//     'font-size': itemStyles.fontSize,
-//     'line-height': itemStyles.lineHeight,
-//     'letter-spacing': itemStyles.letterSpacing,
-//     'stroke': itemStyles.stroke,
-//     'color': itemStyles.color,
-//     'stroke-width': itemStyles.strokeWidth,
-//   }
-
-//   function renderMenu() {
-//     const elementMenu = lab_design_system_d('div', "elementMenu", box, null, null)
-//     const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, null, null)
-//     const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, null, null)
-//     const menuSettings = ['general', 'additional']
-//     const activeSettings = 'additional'
-
-//     menuSettings.forEach((e) => {
-//       const btn = lab_design_system_d('button', e, elementMenuButtons, e, 'element-menu-btn')
-//       e == activeSettings && btn.classList.add('active')
-
-//       btn.addEventListener('click', () => {
-//         if (!btn.classList.contains('active')) {
-//           document.querySelector('.lab-element-menu-btn.active').classList.remove('active')
-//           btn.classList.add('active')
-//         }
-//       })
-//     })
-
-//     const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
-
-//     dropList('tag', 'p', ['div', 'span', 'h1'], settings)
-//     dropList('font', css['font-family'], ['Arial', 'Arial2', 'Arial3'], settings)
-
-//     const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-//     const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-//     const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
-//     const textALignList = ['left', 'center', 'right', 'justify']
-//     const textStyleList = ['italic', 'underline', 'line', 'dec']
-
-//     textALignList.forEach(v => {
-//       const btn = button(v, textALign, `${v}-text.svg`, null)
-//       btn.addEventListener('click', () => {
-//         item.style.textAlign = v
-//       })
-//     })
-
-
-
-//     button('italic', textStyle, 'italic-style.svg', null)
-//     button('underline', textStyle, 'underline-style.svg', null)
-//     button('line', textStyle, 'line-through-style.svg', null)
-//     button('dec', textStyle, 'text-decoration-style.svg', null)
-
-
-//     const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
-
-//     dropList('weight', css['font-weight'], ['normal', 'bold', 'thin', 'medium', 'black'], textSettings)
-//     const fontSize = input('size', textSettings, null, css['font-size'])
-
-//     function inputStyle(e, style, postfix) {
-//       item.style[style] = `${e.value}${postfix ? postfix : ''}`
-//       console.log(item.style[style])
-
-//     }
-//     fontSize.addEventListener('input', () => inputStyle(fontSize, 'fontSize', 'px'))
-
-//     const lineHeight = input('line-height', textSettings, 'line-height.svg', css['line-height'])
-
-//     lineHeight.addEventListener('input', () => inputStyle(lineHeight, 'lineHeight', null))
-
-//     const letterSpacing = input('letter-spacing', textSettings, 'letter-spacing.svg', css['letter-spacing'])
-//     letterSpacing.addEventListener('input', () => inputStyle(letterSpacing, 'letterSpacing', null))
-
-
-
-//     const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-//     const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-//     const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-//     textColorInput.setAttribute('type', 'color')
-//     textColorInput.setAttribute('value', css['color'])
-//     textColorInput.addEventListener('input', () => {
-//       console.log("aaaaaa")
-
-//       inputStyle(textColorInput, 'color', null)
-//       console.log(textColorInput.value)
-
-//     })
-
-//     const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
-
-//     const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
-//     input('stroke', strokeWrap, null, null)
-//     const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
-//     strokeColorInput.setAttribute('type', 'color')
-//     strokeColorInput.setAttribute('value', css['stroke'])
-//   }
-//   if (selectedItem == '') {
-//     renderMenu()
-//     selectedItem = item
-//   }
-//   else {
-//     box.removeChild(document.getElementById('lab-elementMenu'))
-//     renderMenu()
-//     selectedItem = item
-//   }
-
-
-// }
-
-
-
-
-
-
+}
 
 
 
