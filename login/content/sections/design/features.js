@@ -1016,7 +1016,7 @@ class DesignConstructor {
     return btn;
   }
 
-  static input(parent, value, placeholder, icon, className = 'none', styles, id = Designer.ID()) {
+  static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
     const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
 
     if (icon) {
@@ -1028,6 +1028,8 @@ class DesignConstructor {
 
     value && Input.setAttribute('value', value)
     placeholder && Input.setAttribute('placeholder', placeholder)
+    params && Input.addEventListener('input', () => Designer.WriteStyle(params.el, params.style, Input.value)
+    )
 
     return Input
   }
@@ -1207,7 +1209,7 @@ function design_mode() {
   //USER PAGE
 
   const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody)
-  const page = lab_design_system_d('div', "user-page", pageWrap, 0, 0, ['design', 'page'])
+  const page = lab_design_system_d('div', "user-page", pageWrap, 'aaaaaaaaaaaaaaaaaaaa', '', ['design', 'page'])
   page.classList.remove('escape')
 
   page.addEventListener('mouseover', (p) => {
@@ -1340,9 +1342,10 @@ function design_mode() {
 design_mode()
 
 function StylesMenu(item) {
-  if (document.querySelector('.selectedItem')) {
-    document.querySelector('.selectedItem').classList.remove('selectedItem')
-  }
+  let last = document.querySelector('.selectedItem')
+
+  if (last && last.id != item.id) last.remove()
+
   item.classList.add('selectedItem')
   const box = document.getElementById('lab-designBody')
 
@@ -1369,86 +1372,82 @@ function StylesMenu(item) {
     const activeSettings = 'additional'
 
     menuSettings.forEach((e) => {
-      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, '', ['design', 'StyleBtn'])
-      e == activeSettings && btn.classList.add('active')
+      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+      if (e == activeSettings) {
+        btn.classList.add('active')
+        btn.style.background = '#F7F7F7'
+        StyleSection(e)
+      }
 
       btn.addEventListener('click', () => {
         if (!btn.classList.contains('active')) {
-          document.querySelector('.lab-element-menu-btn.active').classList.remove('active')
+          let last = document.querySelector('.lab-element-menu-btn.active')
+          last.classList.remove('active')
+          last.style.background = '#E5E5E5'
           btn.classList.add('active')
+          btn.style.background = '#F7F7F7'
         }
       })
     })
 
-    const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+    function StyleSection(param) {
+      if (param == 'additional') {
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
 
-    const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
-    tag.style.flex = '0 1 35%'
-    const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
+        const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
+        tag.style.flex = '0 1 35%'
+        const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
-    const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-    const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-    const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
-    const textALignList = ['left', 'center', 'right', 'justify']
-    const textStyleList = ['italic', 'underline', 'line', 'dec']
+        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
+        const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
+        const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+        const textALignList = ['left', 'center', 'right', 'justify']
+        const textStyleList = ['italic', 'underline', 'line', 'dec']
 
-    textALignList.forEach(e => {
-      const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
-      btn.addEventListener('click', () => {
-        item.style.textAlign = e
-      })
-    })
+        textALignList.forEach(e => {
+          const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
+          btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
+        })
 
+        const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
+        const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
+        const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
+        const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
 
-    const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
-    const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
-    const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
-    const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
+        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
 
+        const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
 
-    const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+        const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
 
-    const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'])
+        const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
 
-    const fontSize = DesignConstructor.input(textSettings, css['font-size'])
+        const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
 
-    function inputStyle(e, style, postfix) {
-      item.style[style] = `${e.value}${postfix ? postfix : ''}`
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
+        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        textColorInput.setAttribute('type', 'color')
+        textColorInput.setAttribute('value', css['color'])
+        textColorInput.addEventListener('input', () => {
+          // inputStyle(textColorInput, 'color', null)
+          // Designer.WriteStyle(item, 'lineHeight', e)
+        })
+
+        const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
+
+        const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
+        const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
+
+        const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
+        strokeColorInput.setAttribute('type', 'color')
+        strokeColorInput.setAttribute('value', css['stroke'])
+      }
+
     }
 
-    fontSize.addEventListener('input', () => inputStyle(fontSize, 'fontSize', 'px'))
-
-    const lineHeight = DesignConstructor.input(textSettings, css['line-height'], 'line-height')
-    const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], 'letter-spacing')
-
-    lineHeight.addEventListener('input', () => inputStyle(lineHeight, 'lineHeight', null))
-
-    letterSpacing.addEventListener('input', () => inputStyle(letterSpacing, 'letterSpacing', null))
-
-
-
-    const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-    const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-    const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-    textColorInput.setAttribute('type', 'color')
-    textColorInput.setAttribute('value', css['color'])
-    textColorInput.addEventListener('input', () => {
-      console.log("aaaaaa")
-
-      inputStyle(textColorInput, 'color', null)
-      console.log(textColorInput.value)
-
-    })
-
-    const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
-
-    const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
-    const strokeInput = DesignConstructor.input(strokeWrap)
-
-    const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
-    strokeColorInput.setAttribute('type', 'color')
-    strokeColorInput.setAttribute('value', css['stroke'])
   }
+
   if (selectedItem == '') {
     renderMenu()
     selectedItem = item
