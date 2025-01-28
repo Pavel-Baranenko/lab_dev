@@ -266,6 +266,9 @@ const styles_d = {
         minHeight: '100vh',
         background: '#EFEFEF',
         margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
         padding: "30px",
         boxSizing: 'border-box'
       }
@@ -308,7 +311,7 @@ const styles_d = {
         flexDirection: 'column',
         position: 'fixed',
         transition: 'all 0.1s linear',
-        top: '100px',
+        top: '0',
         right: 0,
         width: "clamp(320px,49svw, 950px)",
         backgroundColor: '#464C59',
@@ -317,6 +320,7 @@ const styles_d = {
         minHeight: 'calc(100vh - 100px)',
         height: '100%',
         transform: 'translateX(100%)',
+        zIndex: 99991
       }
     },
     'codeBoxActive': {
@@ -494,6 +498,13 @@ const styles_d = {
         borderRadius: '0 0 5px 5px'
       }
     },
+    'grid-box': {
+      'default': {
+        display: "grid",
+        gap: '4px',
+        gridTemplateColumns: "repeat(4, 1fr)"
+      }
+    }
   }
 }
 
@@ -718,6 +729,9 @@ const ElementsList = {
                 'boxSizing': "border-box",
                 'background': "#FED05E"
               },
+              'attributes': {
+                'type': "button"
+              },
               'text': 'Button'
             },
             'portrait': {
@@ -892,32 +906,35 @@ class Designer {
     const page = document.getElementById('lab-user-page')
 
     async function createOptions() {
+      if (!stopList.includes(element.id)) {
+        await Designer.romovePointer()
 
-      await Designer.romovePointer()
+        element.classList.add('lab-active-element')
 
-      element.classList.add('lab-active-element')
+        const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
+        HoverBox.style.borderRadius = element.style.borderRadius
 
-      const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
-      HoverBox.style.borderRadius = element.style.borderRadius
+        Designer.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
 
-      Designer.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
+        const hoverMenuBtn = DesignConstructor.button(page, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
 
-      const hoverMenuBtn = DesignConstructor.button(page, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
+        Designer.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
 
-      Designer.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
+        const BlockOptions = {
+          'copy': "Copy",
+          'move': "Move",
+          'transform': "Transform",
+          'del': "Delete",
+        }
 
-      const BlockOptions = {
-        'copy': "Copy",
-        'move': "Move",
-        'transform': "Transform",
-        'del': "Delete",
+        hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page, BlockOptions))
+
       }
 
-      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page, BlockOptions))
     }
     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
 
-    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+    if (!element.classList.contains('lab-none')) {
       const last = document.querySelector('.lab-active-element')
 
       if (!last) createOptions()
@@ -927,7 +944,6 @@ class Designer {
         createOptions()
       }
     }
-    element.addEventListener('click', () => StylesMenu(element))
   }
 
   static async romovePointer() {
@@ -1209,14 +1225,15 @@ function design_mode() {
   //USER PAGE
 
   const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody)
-  const page = lab_design_system_d('div', "user-page", pageWrap, 'aaaaaaaaaaaaaaaaaaaa', '', ['design', 'page'])
+  const page = lab_design_system_d('div', "user-page", pageWrap, '', '', ['design', 'page'])
   page.classList.remove('escape')
 
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
   })
-
-  StylesMenu(page)
+  page.addEventListener('click', (e) => {
+    StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
+  })
   //USER PAGE END
 
   //TOOLBAR
@@ -1275,8 +1292,6 @@ function design_mode() {
     })
 
   })
-
-
 
   const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
 
@@ -1339,15 +1354,26 @@ function design_mode() {
   lab_fade_in_recursively(designBody, 0.3)
 }
 
+function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+function rgb2hex(rgb) {
+  var rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+
+  return (rgb && rgb.length === 4) ? "#" +
+    ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
+};
+
 design_mode()
 
 function StylesMenu(item) {
-  let last = document.querySelector('.selectedItem')
-
-  if (last && last.id != item.id) last.remove()
+  const lastSelected = document.querySelector('.selectedItem')
+  const box = document.getElementById('lab-designBody')
 
   item.classList.add('selectedItem')
-  const box = document.getElementById('lab-designBody')
 
   const itemStyles = window.getComputedStyle(item)
 
@@ -1361,15 +1387,33 @@ function StylesMenu(item) {
     'letter-spacing': itemStyles.letterSpacing,
     'stroke': itemStyles.stroke,
     'color': itemStyles.color,
+    'background': rgb2hex(itemStyles.background),
     'stroke-width': itemStyles.strokeWidth,
+    'padding-top': itemStyles.paddingTop,
+    'padding-right': itemStyles.paddingRight,
+    'padding-bottom': itemStyles.paddingBottom,
+    'padding-left': itemStyles.paddingLeft,
+    'margin-top': itemStyles.marginTop,
+    'margin-right': itemStyles.marginRight,
+    'margin-bottom': itemStyles.marginBottom,
+    'margin-left': itemStyles.marginLeft,
   }
+
+
+  if (lastSelected && lastSelected.id != item.id) {
+    box.removeChild(document.getElementById('lab-elementMenu'))
+    lastSelected.classList.remove('selectedItem')
+    renderMenu()
+  }
+  if (!lastSelected) renderMenu()
+
 
   function renderMenu() {
     const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
     const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
     const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
     const menuSettings = ['general', 'additional']
-    const activeSettings = 'additional'
+    const activeSettings = 'general'
 
     menuSettings.forEach((e) => {
       const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
@@ -1384,6 +1428,7 @@ function StylesMenu(item) {
           let last = document.querySelector('.lab-element-menu-btn.active')
           last.classList.remove('active')
           last.style.background = '#E5E5E5'
+          StyleSection(e)
           btn.classList.add('active')
           btn.style.background = '#F7F7F7'
         }
@@ -1391,6 +1436,45 @@ function StylesMenu(item) {
     })
 
     function StyleSection(param) {
+      elementMenuBody.innerHTML = ''
+      if (param == 'general') {
+
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+        console.log(String(item.style.display));
+
+        const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
+
+
+        const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+
+        const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
+
+        const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
+        const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
+        const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
+
+        const padList = ['top', 'right', 'bottom', 'left']
+
+        padList.forEach(e => {
+          const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
+        })
+
+        padList.forEach(e => {
+          const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
+        })
+
+
+
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+        const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
+        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        colorInput.setAttribute('type', 'color')
+        colorInput.setAttribute('value', css['background'])
+
+        colorInput.addEventListener('input', () => {
+          Designer.WriteStyle(item, 'background', colorInput.value)
+        })
+      }
       if (param == 'additional') {
         const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
 
@@ -1447,16 +1531,6 @@ function StylesMenu(item) {
     }
 
   }
-
-  if (selectedItem == '') {
-    renderMenu()
-    selectedItem = item
-  } else {
-    box.removeChild(document.getElementById('lab-elementMenu'))
-    renderMenu()
-    selectedItem = item
-  }
-
 
 }
 
