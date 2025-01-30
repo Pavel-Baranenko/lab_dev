@@ -503,6 +503,16 @@ const styles_d = {
         gap: '4px',
         gridTemplateColumns: "repeat(4, 1fr)"
       }
+    },
+    'pointer': {
+      'default': {
+        background: "#464C59",
+        width: "24px",
+        position: 'absolute',
+        height: "7px",
+        borderRadius: "20px",
+        cursor: "pointer"
+      }
     }
   }
 }
@@ -921,7 +931,7 @@ class Designer {
 
   static async hover(element) {
     const page = document.getElementById('lab-user-page')
-    if (!element.classList.contains('lab-none')) {
+    if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
       const last = document.querySelector('.lab-active-element')
       if (!last) DesignConstructor.createOptions(element, page)
       else if (last.id != element.id) {
@@ -937,6 +947,7 @@ class Designer {
     if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
     if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
     if (document.getElementById('lab-block-menu-wrap')) document.getElementById('lab-block-menu-wrap').remove()
+    if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
   }
 
   static copy(element, parent) {
@@ -1082,9 +1093,39 @@ class Designer {
   }
 
   static transform(el) {
+    const page = document.getElementById('lab-user-page')
+    el.classList.add('lab-transform')
 
     function movePos({ x, y }) {
       const pos = el.getBoundingClientRect()
+
+      function writePointer(top, left, direction) {
+        let last = document.getElementById('lab-pointer')
+        if (!last || !last.classList.contains(direction)) {
+          Designer.romovePointer()
+          const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
+          if (['left', 'right'].includes(direction)) {
+            pointer.style.rotate = '90deg'
+          }
+          Designer.Proportions(pointer, el, page, { top: top, left: left })
+        }
+      }
+
+      if (y < (pos.y + (pos.height - (pos.height / 5))) && y > pos.y - 50) {
+        writePointer(-4, -(pos.width / 2 + 12), 'top')
+      }
+
+      if (y > (pos.y + pos.height - (pos.height / 5)) && y < (pos.y + pos.height + 50)) {
+        writePointer(pos.height - 4, -(pos.width / 2 + 12), 'bottom')
+      }
+
+      if (x > (pos.x - 50) && x < (pos.x + (pos.width / 5))) {
+        writePointer((pos.height / 2 - 4), -(pos.width + 12), 'left')
+      }
+
+      if (x > (pos.x + pos.width - (pos.width / 5)) && x < (pos.x + pos.width + 50)) {
+        writePointer((pos.height / 2 - 4), -12, 'right')
+      }
 
     }
 
@@ -1203,17 +1244,11 @@ class DesignConstructor {
         })
       })
       Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
-      const rect = element.getBoundingClientRect()
       const menuRect = menuWrap.getBoundingClientRect()
 
       if (menuRect.left + menuRect.width > window.innerWidth) {
-        console.log(rect);
-        console.warn(menuRect);
-        console.log(window.innerWidth);
         let options = JSON.parse(localStorage.getItem('options'))
-        let right = 0
-        if (options.sideMenu) right = 100
-        menuWrap.style.left = window.innerWidth - menuRect.width - right + 'px'
+        menuWrap.style.left = window.innerWidth - menuRect.width - (options.sideMenu ? 100 : 0) + 'px'
       }
 
       menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
@@ -1705,9 +1740,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
   return A
 }
-
-
-
 
 
 window.addEventListener('resize', () => {
