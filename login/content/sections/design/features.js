@@ -507,6 +507,8 @@ const styles_d = {
   }
 }
 
+const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
+
 let styles = styles_d
 
 const ElementsList = {
@@ -927,6 +929,7 @@ class Designer {
         DesignConstructor.createOptions(element, page)
       }
     }
+    if (uditableTags.includes(element.tagName)) element.contentEditable = true
   }
 
   static async romovePointer() {
@@ -1008,6 +1011,74 @@ class Designer {
   static WriteStyle(element, styleName, styleValue) {
     element.style[styleName] = styleValue
     Designer.romovePointer()
+  }
+  static drag(el) {
+    Designer.romovePointer()
+
+    if (el.style.position == 'static') return
+    const page = document.getElementById('lab-user-page')
+    el.style.transition = 'all 0.1s ease'
+
+    let elStyles = window.getComputedStyle(el)
+    let pagePos = page.getBoundingClientRect()
+    let elPos = el.getBoundingClientRect()
+
+    let scale = page.style.scale
+
+    function onMouseDown() {
+      el.style.pointerEvents = 'none'
+      page.addEventListener('mousemove', onMouseMove)
+    }
+
+    function onMouseMove({ x, y }) {
+      Designer.romovePointer()
+
+      let item = document.elementFromPoint(x, y)
+      const itemPos = item.getBoundingClientRect()
+      const windowBox = document.getElementById('lab-designBody')
+
+
+      if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
+        if (itemPos.y < y && y > (itemPos.y + itemPos.height / 5)) {
+          const hover = document.createElement('div')
+          el.style.zIndex = item.style.zIndex ? item.style.zIndex + 1 : 1
+
+          hover.className = 'escape none lab-hover-top'
+
+          if (item.style.position == 'absolute') {
+            hover.classList.add('lab-absolute')
+          }
+
+          hover.id = 'injectHover'
+          item.prepend(hover)
+          function clear() {
+            document.getElementById('injectHover').remove()
+            item.classList.contains('lab-empty-section') && item.classList.remove('lab-empty-section')
+            const copyItem = el.cloneNode(true)
+            el.remove()
+            copyItem.style.top = 'unset'
+            copyItem.style.left = 'unset'
+            copyItem.style.pointerEvents = 'unset'
+            item.prepend(copyItem)
+            item.removeEventListener('mouseup', clear)
+          }
+
+          item.addEventListener('mouseup', clear)
+        }
+      }
+
+      el.style.left = (x - pagePos.x - (elPos.width / 2)) / scale + 'px'
+      el.style.top = (y - pagePos.y - (elPos.height / 2)) / scale + 'px'
+    }
+
+    el.addEventListener('mousedown', onMouseDown)
+
+    page.addEventListener('mouseup', () => {
+      el.style.transition = elStyles.transition
+      el.style.pointerEvents = 'unset'
+      el.removeEventListener('mousedown', onMouseDown)
+      page.removeEventListener('mousemove', onMouseMove)
+    })
   }
 
   static transform(el) {
@@ -1105,7 +1176,7 @@ class DesignConstructor {
 
       const BlockOptions = {
         'copy': "Copy",
-        'move': "Move",
+        'drag': "Move",
         'transform': "Transform",
         'del': "Delete",
       }
@@ -1128,12 +1199,23 @@ class DesignConstructor {
         itemIcon.style.width = '15px'
 
         item.addEventListener('click', () => {
-          if (e == 'move') {
-            drag(element)
-          } else Designer[e](element)
+          Designer[e](element)
         })
       })
       Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
+      const rect = element.getBoundingClientRect()
+      const menuRect = menuWrap.getBoundingClientRect()
+
+      if (menuRect.left + menuRect.width > window.innerWidth) {
+        console.log(rect);
+        console.warn(menuRect);
+        console.log(window.innerWidth);
+        let options = JSON.parse(localStorage.getItem('options'))
+        let right = 0
+        if (options.sideMenu) right = 100
+        menuWrap.style.left = window.innerWidth - menuRect.width - right + 'px'
+      }
+
       menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
     }
   }
@@ -1195,7 +1277,6 @@ function Options(obj, key, value) {
 
 let contentTags = ["DIV", "SECTION"]
 
-let uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 
 let selectedItem = ''
@@ -1627,74 +1708,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
 
 
-function drag(el) {
-  Designer.romovePointer()
-
-  if (el.style.position == 'static') return
-  const page = document.getElementById('lab-user-page')
-  el.style.transition = 'all 0.1s ease'
-
-  let elStyles = window.getComputedStyle(el)
-  let pagePos = page.getBoundingClientRect()
-  let elPos = el.getBoundingClientRect()
-
-  let scale = page.style.scale
-
-  function onMouseDown() {
-    el.style.pointerEvents = 'none'
-    page.addEventListener('mousemove', onMouseMove)
-  }
-
-  function onMouseMove({ x, y }) {
-    Designer.romovePointer()
-
-    let item = document.elementFromPoint(x, y)
-    const itemPos = item.getBoundingClientRect()
-    const windowBox = document.getElementById('lab-designBody')
-
-
-    if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
-      if (itemPos.y < y && y > (itemPos.y + itemPos.height / 5)) {
-        const hover = document.createElement('div')
-        el.style.zIndex = item.style.zIndex ? item.style.zIndex + 1 : 1
-
-        hover.className = 'escape none lab-hover-top'
-
-        if (item.style.position == 'absolute') {
-          hover.classList.add('lab-absolute')
-        }
-
-        hover.id = 'injectHover'
-        item.prepend(hover)
-        function clear() {
-          document.getElementById('injectHover').remove()
-          item.classList.contains('lab-empty-section') && item.classList.remove('lab-empty-section')
-          const copyItem = el.cloneNode(true)
-          el.remove()
-          copyItem.style.top = 'unset'
-          copyItem.style.left = 'unset'
-          copyItem.style.pointerEvents = 'unset'
-          item.prepend(copyItem)
-          item.removeEventListener('mouseup', clear)
-        }
-
-        item.addEventListener('mouseup', clear)
-      }
-    }
-
-    el.style.left = (x - pagePos.x - (elPos.width / 2)) / scale + 'px'
-    el.style.top = (y - pagePos.y - (elPos.height / 2)) / scale + 'px'
-  }
-
-  el.addEventListener('mousedown', onMouseDown)
-
-  page.addEventListener('mouseup', () => {
-    el.style.transition = elStyles.transition
-    el.style.pointerEvents = 'unset'
-    el.removeEventListener('mousedown', onMouseDown)
-    page.removeEventListener('mousemove', onMouseMove)
-  })
-}
 
 
 window.addEventListener('resize', () => {
