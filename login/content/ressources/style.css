@@ -395,6 +395,7 @@ button {
 
 #lab-user-page * {
   box-sizing: border-box;
+  position: relative;
 }
 
 #lab-user-page-wrap {
@@ -408,4 +409,25 @@ button {
 
 #lab-user-page-wrap::-webkit-scrollbar {
   width: 0;
+}
+
+.dragging {
+  cursor: move;
+}
+
+
+
+#lab-injectHover {
+  position: absolute;
+  background-color: red;
+}
+
+.lab-hover-top {
+  position: absolute !important;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 30px;
+
+  background: linear-gradient(180deg, rgba(254, 208, 94, 1) 0%, rgba(254, 208, 94, 0) 100%);
 }

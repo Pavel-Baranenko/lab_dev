@@ -252,7 +252,6 @@ const styles_d = {
         justifyContent: "center",
         background: '#464c59',
         position: 'absolute',
-        cursor: "poiner",
         zIndex: '99999',
         border: "none",
         cursor: 'pointer'
@@ -523,10 +522,9 @@ const ElementsList = {
         'styles': {
           'padding': '10px 20px',
           'borderRadius': "15px",
-          'display': "flex",
-          'gap': "10px",
-          'alignItems': "center",
-          'justifyContent': "center",
+          'display': 'inline',
+          'width': "fit-content",
+          'position': "relative",
           'background': "#FED05E"
         },
         'child': [
@@ -554,7 +552,7 @@ const ElementsList = {
           }
         ]
       },
-      'paysage': {
+      'portrait': {
         'id': "lab-button",
         'tag': "button",
         'root': true,
@@ -655,6 +653,7 @@ const ElementsList = {
         'root': true,
         'styles': {
           'padding': '15px',
+          'positon': "relative",
           'borderRadius': "15px",
           'display': "flex",
           'flexDirection': "column",
@@ -672,6 +671,7 @@ const ElementsList = {
                 'padding': '10px',
                 'borderRadius': "10px",
                 'border': "none",
+                'positon': "relative",
                 'width': "100%",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
@@ -684,6 +684,7 @@ const ElementsList = {
                 'padding': '10px',
                 'borderRadius': "10px",
                 'border': "none",
+                'positon': "relative",
                 'width': "100%",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
@@ -699,6 +700,7 @@ const ElementsList = {
                 'borderRadius': "10px",
                 'border': "none",
                 'width': "100%",
+                'positon': "relative",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
               },
@@ -711,6 +713,7 @@ const ElementsList = {
                 'borderRadius': "10px",
                 'border': "none",
                 'boxSizing': "border-box",
+                'positon': "relative",
                 'width': "100%",
                 'background': "#EFEFEF"
               },
@@ -725,6 +728,7 @@ const ElementsList = {
                 'textAlign': "center",
                 'borderRadius': "15px",
                 'fontWeight': "700",
+                'positon': "relative",
                 'color': "#1C1B1F",
                 'boxSizing': "border-box",
                 'background': "#FED05E"
@@ -744,6 +748,7 @@ const ElementsList = {
                 'fontWeight': "700",
                 'color': "#1C1B1F",
                 'boxSizing': "border-box",
+                'positon': "relative",
                 'background': "#FED05E"
               },
               'text': 'Button'
@@ -752,11 +757,12 @@ const ElementsList = {
         ]
       },
       'portrait': {
-        'id': "lab-div",
+        'id': "lab-form",
         'tag': "form",
         'root': true,
         'styles': {
           'padding': '15px',
+          'positon': "relative",
           'borderRadius': "15px",
           'display': "flex",
           'flexDirection': "column",
@@ -774,6 +780,7 @@ const ElementsList = {
                 'padding': '10px',
                 'borderRadius': "10px",
                 'border': "none",
+                'positon': "relative",
                 'width': "100%",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
@@ -786,6 +793,7 @@ const ElementsList = {
                 'padding': '10px',
                 'borderRadius': "10px",
                 'border': "none",
+                'positon': "relative",
                 'width': "100%",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
@@ -801,6 +809,7 @@ const ElementsList = {
                 'borderRadius': "10px",
                 'border': "none",
                 'width': "100%",
+                'positon': "relative",
                 'boxSizing': "border-box",
                 'background': "#EFEFEF"
               },
@@ -813,6 +822,7 @@ const ElementsList = {
                 'borderRadius': "10px",
                 'border': "none",
                 'boxSizing': "border-box",
+                'positon': "relative",
                 'width': "100%",
                 'background': "#EFEFEF"
               },
@@ -827,9 +837,13 @@ const ElementsList = {
                 'textAlign': "center",
                 'borderRadius': "15px",
                 'fontWeight': "700",
+                'positon': "relative",
                 'color': "#1C1B1F",
                 'boxSizing': "border-box",
                 'background': "#FED05E"
+              },
+              'attributes': {
+                'type': "button"
               },
               'text': 'Button'
             },
@@ -843,6 +857,7 @@ const ElementsList = {
                 'fontWeight': "700",
                 'color': "#1C1B1F",
                 'boxSizing': "border-box",
+                'positon': "relative",
                 'background': "#FED05E"
               },
               'text': 'Button'
@@ -950,6 +965,7 @@ class Designer {
     if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
     if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
     if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
+    if (document.getElementById('lab-block-menu-wrap')) document.getElementById('lab-block-menu-wrap').remove()
   }
 
   static copy(element, parent) {
@@ -963,9 +979,12 @@ class Designer {
     return element.remove()
   }
 
-  static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup') {
+  static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup', moveArea = document) {
 
     function onMouseDrag({ movementX, movementY }) {
+
+      if (element.style.position == 'static' || !element.style.position) { element.style.position = 'absolute' }
+
       let getContainerStyle = window.getComputedStyle(element)
       let leftValue = parseInt(getContainerStyle.left)
       let topValue = parseInt(getContainerStyle.top)
@@ -973,14 +992,16 @@ class Designer {
       element.style.top = `${topValue + movementY}px`
     }
 
-    document.addEventListener(moveListener, onMouseDrag)
+    moveArea.addEventListener(moveListener, onMouseDrag)
 
     function removeListeners() {
-      document.removeEventListener(moveListener, onMouseDrag)
-      document.removeEventListener(endListener, removeListeners)
+      moveArea.removeEventListener(moveListener, onMouseDrag)
+      moveArea.removeEventListener(endListener, removeListeners)
       if (endFunc) endFunc(element)
     }
-    document.addEventListener(endListener, removeListeners, false)
+
+    moveArea.addEventListener(endListener, removeListeners, false)
+
   }
 
   static saveTemplate(element) {
@@ -1018,6 +1039,16 @@ class Designer {
 
   static WriteStyle(element, styleName, styleValue) {
     element.style[styleName] = styleValue
+  }
+
+  static transform(el) {
+
+    function movePos({ x, y }) {
+      const pos = el.getBoundingClientRect()
+
+    }
+
+    document.addEventListener('mousemove', movePos)
   }
 
 }
@@ -1099,7 +1130,11 @@ class DesignConstructor {
         itemIcon.setAttribute('src', `${oldSRC}${e}-icon.svg`)
         itemIcon.style.width = '15px'
 
-        item.addEventListener('click', () => Designer[e](element))
+        item.addEventListener('click', () => {
+          if (e == 'move') {
+            drag(element)
+          } else Designer[e](element)
+        })
       })
       Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
       menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
@@ -1211,6 +1246,7 @@ function design_mode() {
 
         Designer.move(copy, () => {
           list.removeChild(copy)
+
           Designer.create(e, el, page, 'paysage', true)
         })
 
@@ -1234,6 +1270,8 @@ function design_mode() {
   page.addEventListener('click', (e) => {
     StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
   })
+  let aaaa = Designer.create(ElementsList, 'button', page, 'paysage')
+
   //USER PAGE END
 
   //TOOLBAR
@@ -1257,6 +1295,7 @@ function design_mode() {
   const responsiveList = ["paysage", "portrait"]
 
   function setVpm(vpm) {
+    Designer.romovePointer()
     if (vpm == 'paysage') {
       pixelScreen.innerHTML = window.outerWidth + 'px'
       page.style.maxWidth = 'none'
@@ -1370,170 +1409,169 @@ function rgb2hex(rgb) {
 design_mode()
 
 function StylesMenu(item) {
-  const lastSelected = document.querySelector('.selectedItem')
-  const box = document.getElementById('lab-designBody')
+  const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+  if (!stopList.includes(item.id) && !item.classList.contains('lab-none')) {
+    const lastSelected = document.querySelector('.selectedItem')
+    const box = document.getElementById('lab-designBody')
 
-  item.classList.add('selectedItem')
+    item.classList.add('selectedItem')
 
-  const itemStyles = window.getComputedStyle(item)
+    const itemStyles = window.getComputedStyle(item)
 
-  const css = {
-    'font-family': itemStyles.fontFamily,
-    'text-align': itemStyles.textAlign,
-    'font-style': itemStyles.fontStyle,
-    'font-weight': itemStyles.fontWeight,
-    'font-size': itemStyles.fontSize,
-    'line-height': itemStyles.lineHeight,
-    'letter-spacing': itemStyles.letterSpacing,
-    'stroke': itemStyles.stroke,
-    'color': itemStyles.color,
-    'background': rgb2hex(itemStyles.background),
-    'stroke-width': itemStyles.strokeWidth,
-    'padding-top': itemStyles.paddingTop,
-    'padding-right': itemStyles.paddingRight,
-    'padding-bottom': itemStyles.paddingBottom,
-    'padding-left': itemStyles.paddingLeft,
-    'margin-top': itemStyles.marginTop,
-    'margin-right': itemStyles.marginRight,
-    'margin-bottom': itemStyles.marginBottom,
-    'margin-left': itemStyles.marginLeft,
-  }
-
-
-  if (lastSelected && lastSelected.id != item.id) {
-    box.removeChild(document.getElementById('lab-elementMenu'))
-    lastSelected.classList.remove('selectedItem')
-    renderMenu()
-  }
-  if (!lastSelected) renderMenu()
+    const css = {
+      'font-family': itemStyles.fontFamily,
+      'text-align': itemStyles.textAlign,
+      'font-style': itemStyles.fontStyle,
+      'font-weight': itemStyles.fontWeight,
+      'font-size': itemStyles.fontSize,
+      'line-height': itemStyles.lineHeight,
+      'letter-spacing': itemStyles.letterSpacing,
+      'stroke': itemStyles.stroke,
+      'color': itemStyles.color,
+      'background': rgb2hex(itemStyles.background),
+      'stroke-width': itemStyles.strokeWidth,
+      'padding-top': itemStyles.paddingTop,
+      'padding-right': itemStyles.paddingRight,
+      'padding-bottom': itemStyles.paddingBottom,
+      'padding-left': itemStyles.paddingLeft,
+      'margin-top': itemStyles.marginTop,
+      'margin-right': itemStyles.marginRight,
+      'margin-bottom': itemStyles.marginBottom,
+      'margin-left': itemStyles.marginLeft,
+    }
 
 
-  function renderMenu() {
-    const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
-    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
-    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
-    const menuSettings = ['general', 'additional']
-    const activeSettings = 'general'
+    if (lastSelected && lastSelected.id != item.id) {
+      box.removeChild(document.getElementById('lab-elementMenu'))
+      lastSelected.classList.remove('selectedItem')
+      renderMenu()
+    }
+    if (!lastSelected) renderMenu()
 
-    menuSettings.forEach((e) => {
-      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
-      if (e == activeSettings) {
-        btn.classList.add('active')
-        btn.style.background = '#F7F7F7'
-        StyleSection(e)
-      }
+    function renderMenu() {
+      const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
+      const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
+      const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
+      const menuSettings = ['general', 'additional']
+      const activeSettings = 'general'
 
-      btn.addEventListener('click', () => {
-        if (!btn.classList.contains('active')) {
-          let last = document.querySelector('.lab-element-menu-btn.active')
-          last.classList.remove('active')
-          last.style.background = '#E5E5E5'
-          StyleSection(e)
+      menuSettings.forEach((e) => {
+        const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+        if (e == activeSettings) {
           btn.classList.add('active')
           btn.style.background = '#F7F7F7'
+          StyleSection(e)
         }
+
+        btn.addEventListener('click', () => {
+          if (!btn.classList.contains('active')) {
+            let last = document.querySelector('.lab-element-menu-btn.active')
+            last.classList.remove('active')
+            last.style.background = '#E5E5E5'
+            StyleSection(e)
+            btn.classList.add('active')
+            btn.style.background = '#F7F7F7'
+          }
+        })
       })
-    })
 
-    function StyleSection(param) {
-      elementMenuBody.innerHTML = ''
-      if (param == 'general') {
+      function StyleSection(param) {
+        elementMenuBody.innerHTML = ''
+        if (param == 'general') {
 
-        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
-        console.log(String(item.style.display));
-
-        const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
+          const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+          const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
 
 
-        const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+          const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
 
-        const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
+          const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
 
-        const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
-        const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
-        const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
+          const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
+          const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
+          const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
 
-        const padList = ['top', 'right', 'bottom', 'left']
+          const padList = ['top', 'right', 'bottom', 'left']
 
-        padList.forEach(e => {
-          const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
-        })
+          padList.forEach(e => {
+            const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
+          })
 
-        padList.forEach(e => {
-          const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
-        })
+          padList.forEach(e => {
+            const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
+          })
 
 
 
-        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-        const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
-        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-        colorInput.setAttribute('type', 'color')
-        colorInput.setAttribute('value', css['background'])
+          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+          const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
+          const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+          colorInput.setAttribute('type', 'color')
+          colorInput.setAttribute('value', css['background'])
 
-        colorInput.addEventListener('input', () => {
-          Designer.WriteStyle(item, 'background', colorInput.value)
-        })
-      }
-      if (param == 'additional') {
-        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+          colorInput.addEventListener('input', () => {
+            Designer.WriteStyle(item, 'background', colorInput.value)
+          })
+        }
+        if (param == 'additional') {
+          const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
 
-        const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
-        tag.style.flex = '0 1 35%'
-        const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
+          const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
+          tag.style.flex = '0 1 35%'
+          const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
-        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-        const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-        const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
-        const textALignList = ['left', 'center', 'right', 'justify']
-        const textStyleList = ['italic', 'underline', 'line', 'dec']
+          const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
+          const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
+          const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+          const textALignList = ['left', 'center', 'right', 'justify']
+          const textStyleList = ['italic', 'underline', 'line', 'dec']
 
-        textALignList.forEach(e => {
-          const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
-          btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
-        })
+          textALignList.forEach(e => {
+            const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
+            btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
+          })
 
-        const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
-        const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
-        const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
-        const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
+          const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
+          const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
+          const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
+          const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
 
-        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+          const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
 
-        const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
+          const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
 
-        const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
+          const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
 
-        const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
+          const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
 
-        const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
+          const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
 
-        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-        textColorInput.setAttribute('type', 'color')
-        textColorInput.setAttribute('value', css['color'])
-        textColorInput.addEventListener('input', () => {
-          // inputStyle(textColorInput, 'color', null)
-          // Designer.WriteStyle(item, 'lineHeight', e)
-        })
+          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+          const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
+          const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+          textColorInput.setAttribute('type', 'color')
+          textColorInput.setAttribute('value', css['color'])
+          textColorInput.addEventListener('input', () => {
+            // inputStyle(textColorInput, 'color', null)
+            // Designer.WriteStyle(item, 'lineHeight', e)
+          })
 
-        const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
+          const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
 
-        const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
-        const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
+          const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
+          const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
 
-        const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
-        strokeColorInput.setAttribute('type', 'color')
-        strokeColorInput.setAttribute('value', css['stroke'])
+          const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
+          strokeColorInput.setAttribute('type', 'color')
+          strokeColorInput.setAttribute('value', css['stroke'])
+        }
+
       }
 
     }
-
   }
 
 }
-
 
 
 function lab_design_system_d(tag, id, parent, content, className, styled) {
@@ -1565,3 +1603,79 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
   return A
 }
+
+
+
+function drag(el) {
+  Designer.romovePointer()
+
+  if (el.style.position == 'static') return
+  const page = document.getElementById('lab-user-page')
+  el.style.transition = 'all 0.1s ease'
+
+  let elStyles = window.getComputedStyle(el)
+  let pagePos = page.getBoundingClientRect()
+  let elPos = el.getBoundingClientRect()
+
+  let scale = page.style.scale
+
+  function onMouseDown() {
+    el.style.pointerEvents = 'none'
+    page.addEventListener('mousemove', onMouseMove)
+  }
+
+  function onMouseMove({ x, y }) {
+    Designer.romovePointer()
+
+    let item = document.elementFromPoint(x, y)
+    const itemPos = item.getBoundingClientRect()
+    const windowBox = document.getElementById('lab-designBody')
+
+
+    if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
+      if (itemPos.y < y && y > (itemPos.y + itemPos.height / 5)) {
+        const hover = document.createElement('div')
+        el.style.zIndex = item.style.zIndex ? item.style.zIndex + 1 : 1
+
+        hover.className = 'escape none lab-hover-top'
+
+        if (item.style.position == 'absolute') {
+          hover.classList.add('lab-absolute')
+        }
+
+        hover.id = 'injectHover'
+        item.prepend(hover)
+        function clear() {
+          document.getElementById('injectHover').remove()
+          item.classList.contains('lab-empty-section') && item.classList.remove('lab-empty-section')
+          const copyItem = el.cloneNode(true)
+          el.remove()
+          copyItem.style.top = 'unset'
+          copyItem.style.left = 'unset'
+          copyItem.style.pointerEvents = 'unset'
+          item.prepend(copyItem)
+          item.removeEventListener('mouseup', clear)
+        }
+
+        item.addEventListener('mouseup', clear)
+      }
+    }
+
+    el.style.left = (x - pagePos.x - (elPos.width / 2)) / scale + 'px'
+    el.style.top = (y - pagePos.y - (elPos.height / 2)) / scale + 'px'
+  }
+
+  el.addEventListener('mousedown', onMouseDown)
+
+  page.addEventListener('mouseup', () => {
+    el.style.transition = elStyles.transition
+    el.style.pointerEvents = 'unset'
+    el.removeEventListener('mousedown', onMouseDown)
+    page.removeEventListener('mousemove', onMouseMove)
+  })
+}
+
+
+window.addEventListener('resize', () => {
+  Designer.romovePointer()
+})
