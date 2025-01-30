@@ -919,44 +919,12 @@ class Designer {
 
   static async hover(element) {
     const page = document.getElementById('lab-user-page')
-
-    async function createOptions() {
-      if (!stopList.includes(element.id)) {
-        await Designer.romovePointer()
-
-        element.classList.add('lab-active-element')
-
-        const HoverBox = lab_design_system_d('div', "HoverBox", page, 0, 0, ['design', 'HoverBox'])
-        HoverBox.style.borderRadius = element.style.borderRadius
-
-        Designer.Proportions(HoverBox, element, page, { vert: "full", hor: "full" })
-
-        const hoverMenuBtn = DesignConstructor.button(page, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
-
-        Designer.Proportions(hoverMenuBtn, element, page, { left: -42, top: 7 })
-
-        const BlockOptions = {
-          'copy': "Copy",
-          'move': "Move",
-          'transform': "Transform",
-          'del': "Delete",
-        }
-
-        hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, page, BlockOptions))
-
-      }
-
-    }
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
-
     if (!element.classList.contains('lab-none')) {
       const last = document.querySelector('.lab-active-element')
-
-      if (!last) createOptions()
-
+      if (!last) DesignConstructor.createOptions(element, page)
       else if (last.id != element.id) {
         last.classList.remove('lab-active-element')
-        createOptions()
+        DesignConstructor.createOptions(element, page)
       }
     }
   }
@@ -1039,6 +1007,7 @@ class Designer {
 
   static WriteStyle(element, styleName, styleValue) {
     element.style[styleName] = styleValue
+    Designer.romovePointer()
   }
 
   static transform(el) {
@@ -1118,6 +1087,34 @@ class DesignConstructor {
 
     return wrap
   }
+  static async createOptions(element, parent) {
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
+    if (!stopList.includes(element.id)) {
+      await Designer.romovePointer()
+
+      element.classList.add('lab-active-element')
+
+      const HoverBox = lab_design_system_d('div', "HoverBox", parent, 0, 0, ['design', 'HoverBox'])
+      HoverBox.style.borderRadius = element.style.borderRadius
+
+      Designer.Proportions(HoverBox, element, parent, { vert: "full", hor: "full" })
+
+      const hoverMenuBtn = DesignConstructor.button(parent, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
+
+      Designer.Proportions(hoverMenuBtn, element, parent, { left: -42, top: 7 })
+
+      const BlockOptions = {
+        'copy': "Copy",
+        'move': "Move",
+        'transform': "Transform",
+        'del': "Delete",
+      }
+
+      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
+
+    }
+
+  }
 
   static blockMenu(element, parent, options) {
     if (!document.getElementById('lab-block-menu')) {
@@ -1176,6 +1173,19 @@ class DesignConstructor {
     }
 
   }
+
+  static closeAll() {
+    const menu = document.getElementById('lab-side-menu')
+    const MenuBtn = document.getElementById('lab-show-side-menu')
+    const topSettins = document.getElementById('lab-top-settings')
+    const tools = document.getElementById('lab-toolbar')
+    const styleMenu = document.getElementById('lab-elementMenu')
+    DesignConstructor.addClass(menu, 'design', 'hideSide')
+    DesignConstructor.addClass(MenuBtn, 'design', 'hideMenu')
+    DesignConstructor.addClass(tools, 'design', 'hideToolbar')
+    DesignConstructor.addClass(topSettins, 'design', 'hideTop')
+    styleMenu && styleMenu.remove()
+  }
 }
 
 function Options(obj, key, value) {
@@ -1205,7 +1215,7 @@ function design_mode() {
   //SIDE MENU
 
   const menu = lab_design_system_d('div', 'side-menu', designBody, 0, 0, ['design', 'side'])
-  const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], 0, 'arrow_menu_close')
+  const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], 0, 'arrow_menu_close', '', 'show-side-menu')
 
   menuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
@@ -1362,6 +1372,7 @@ function design_mode() {
     page.style.scale = this.value / 100
   }
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'visibility')
+  view.addEventListener('click', DesignConstructor.closeAll)
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'download')
 
   const blindTop = lab_design_system_d('button', "blind-btn", topSettings, 0, 0, ['design', 'blind'])
@@ -1383,7 +1394,7 @@ function design_mode() {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
     const page = document.getElementById('lab-user-page').innerHTML
-    codeWrapper.innerText = `${page}`
+    codeWrapper.innerHTML = `${page}`
   })
 
   //CODE MENU END
@@ -1516,8 +1527,12 @@ function StylesMenu(item) {
         if (param == 'additional') {
           const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
 
-          const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName)
+          const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName, (e) => {
+            item.tagName = e
+          })
           tag.style.flex = '0 1 35%'
+
+
           const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
           const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
@@ -1567,6 +1582,12 @@ function StylesMenu(item) {
         }
 
       }
+      const page = document.getElementById('lab-user-page')
+      page.addEventListener('click', () => {
+        item.classList.remove('selectedItem')
+        if (elementMenu) elementMenu.remove()
+      })
+
 
     }
   }
