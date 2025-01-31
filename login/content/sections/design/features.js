@@ -511,7 +511,7 @@ const styles_d = {
         position: 'absolute',
         height: "7px",
         borderRadius: "20px",
-        cursor: "pointer"
+        cursor: "grab"
       }
     }
   }
@@ -1094,42 +1094,94 @@ class Designer {
 
   static transform(el) {
     const page = document.getElementById('lab-user-page')
+    let lastDir = ''
+    let mouseIsDown = false
     el.classList.add('lab-transform')
+    const elStyles = window.getComputedStyle(el)
+
+    el.style.maxHeight = el.clientHeight + 'px'
+    el.style.height = '100%'
+    el.style.minHeight = '100%'
+    el.style.transition = 'max-height 0.1s ease'
 
     function movePos({ x, y }) {
       const pos = el.getBoundingClientRect()
+      let coord = { x: x, y: y }
+      let axis = ['bottom', 'top'].includes(lastDir) ? 'y' : 'x'
+      let orientation = axis == 'x' ? 'width' : "height"
 
-      function writePointer(top, left, direction) {
+      function writePointer(direction) {
+        let top = 0
+        let left = 0
+        if (direction) {
+          lastDir = direction
+          if (direction == 'top') {
+            top = -4
+            left = -(pos.width / 2 + 12)
+          }
+          else if (direction == 'bottom') {
+            top = pos.height - 4
+            left = -(pos.width / 2 + 12)
+          }
+          else if (direction == 'left') {
+            top = (pos.height / 2 - 4)
+            left = -(pos.width + 12)
+          }
+          else if (direction == 'right') {
+            top = (pos.height / 2 - 4)
+            left = -12
+          }
+        }
+
         let last = document.getElementById('lab-pointer')
-        if (!last || !last.classList.contains(direction)) {
+        if (!last || !last.classList.contains(direction) || mouseIsDown) {
           Designer.romovePointer()
           const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
-          if (['left', 'right'].includes(direction)) {
-            pointer.style.rotate = '90deg'
-          }
+          pointer.style.transition = 'all 0.1s ease'
+
+          if (['left', 'right'].includes(direction)) pointer.style.rotate = '90deg'
+
           Designer.Proportions(pointer, el, page, { top: top, left: left })
         }
       }
 
-      if (y < (pos.y + (pos.height - (pos.height / 5))) && y > pos.y - 50) {
-        writePointer(-4, -(pos.width / 2 + 12), 'top')
+      if (y < (pos.y + 10) && y > pos.y - 50) writePointer('top')
+
+      else if (y > (pos.y + pos.height - 10) && y < (pos.y + pos.height + 50)) writePointer('bottom')
+
+      else if (x < (pos.x + 10) && x > (pos.x - 50)) writePointer('left')
+
+      else if (x > (pos.x + pos.width - 10) && x < (pos.x + pos.width + 50)) writePointer('right')
+
+      function resize() {
+        if (mouseIsDown) {
+          let a = (coord[axis] - pos[axis])
+
+          if (a <= 0) a += a * (-1) + pos[orientation]
+          el.style[`max${capitalizeFirstLetter(orientation)}`] = a + 'px'
+          el.style[orientation] = a + 'px'
+          writePointer(lastDir)
+        }
       }
 
-      if (y > (pos.y + pos.height - (pos.height / 5)) && y < (pos.y + pos.height + 50)) {
-        writePointer(pos.height - 4, -(pos.width / 2 + 12), 'bottom')
-      }
+      resize()
+      // function reject() {
+      //   mouseIsDown = !mouseIsDown
+      // }
 
-      if (x > (pos.x - 50) && x < (pos.x + (pos.width / 5))) {
-        writePointer((pos.height / 2 - 4), -(pos.width + 12), 'left')
-      }
+      document.addEventListener('mousedown', () => mouseIsDown = true)
+      document.addEventListener('mouseup', () => mouseIsDown = false)
 
-      if (x > (pos.x + pos.width - (pos.width / 5)) && x < (pos.x + pos.width + 50)) {
-        writePointer((pos.height / 2 - 4), -12, 'right')
-      }
-
+      // document.addEventListener('click', () => {
+      //   document.removeEventListener('mousemove', movePos)
+      //   // document.removeEventListener('mousedown', reject)
+      //   // document.removeEventListener('mouseup', reject)
+      //   Designer.romovePointer()
+      // })
     }
 
     document.addEventListener('mousemove', movePos)
+
   }
 
 }
@@ -1313,10 +1365,6 @@ function Options(obj, key, value) {
 let contentTags = ["DIV", "SECTION"]
 
 
-
-let selectedItem = ''
-
-
 function design_mode() {
 
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
@@ -1394,8 +1442,13 @@ function design_mode() {
     Designer.hover(p.target)
   })
   page.addEventListener('click', (e) => {
-    StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
+    let element = document.elementFromPoint(e.clientX, e.clientY)
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+      StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
+    }
   })
+
   let aaaa = Designer.create(ElementsList, 'button', page, 'paysage')
 
   //USER PAGE END
@@ -1536,178 +1589,172 @@ function rgb2hex(rgb) {
 design_mode()
 
 function StylesMenu(item) {
-  const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
-  if (!stopList.includes(item.id) && !item.classList.contains('lab-none')) {
-    const lastSelected = document.querySelector('.selectedItem')
-    const box = document.getElementById('lab-designBody')
+  const lastSelected = document.querySelector('.selectedItem')
+  const box = document.getElementById('lab-designBody')
 
-    item.classList.add('selectedItem')
+  item.classList.add('selectedItem')
 
-    const itemStyles = window.getComputedStyle(item)
+  const itemStyles = window.getComputedStyle(item)
 
-    const css = {
-      'font-family': itemStyles.fontFamily,
-      'text-align': itemStyles.textAlign,
-      'font-style': itemStyles.fontStyle,
-      'font-weight': itemStyles.fontWeight,
-      'font-size': itemStyles.fontSize,
-      'line-height': itemStyles.lineHeight,
-      'letter-spacing': itemStyles.letterSpacing,
-      'stroke': itemStyles.stroke,
-      'color': itemStyles.color,
-      'background': rgb2hex(itemStyles.background),
-      'stroke-width': itemStyles.strokeWidth,
-      'padding-top': itemStyles.paddingTop,
-      'padding-right': itemStyles.paddingRight,
-      'padding-bottom': itemStyles.paddingBottom,
-      'padding-left': itemStyles.paddingLeft,
-      'margin-top': itemStyles.marginTop,
-      'margin-right': itemStyles.marginRight,
-      'margin-bottom': itemStyles.marginBottom,
-      'margin-left': itemStyles.marginLeft,
-    }
-
-
-    if (lastSelected && lastSelected.id != item.id) {
-      box.removeChild(document.getElementById('lab-elementMenu'))
-      lastSelected.classList.remove('selectedItem')
-      renderMenu()
-    }
-    if (!lastSelected) renderMenu()
-
-    function renderMenu() {
-      const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
-      const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
-      const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
-      const menuSettings = ['general', 'additional']
-      const activeSettings = 'general'
-
-      menuSettings.forEach((e) => {
-        const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
-        if (e == activeSettings) {
-          btn.classList.add('active')
-          btn.style.background = '#F7F7F7'
-          StyleSection(e)
-        }
-
-        btn.addEventListener('click', () => {
-          if (!btn.classList.contains('active')) {
-            let last = document.querySelector('.lab-element-menu-btn.active')
-            last.classList.remove('active')
-            last.style.background = '#E5E5E5'
-            StyleSection(e)
-            btn.classList.add('active')
-            btn.style.background = '#F7F7F7'
-          }
-        })
-      })
-
-      function StyleSection(param) {
-        elementMenuBody.innerHTML = ''
-        if (param == 'general') {
-
-          const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
-          const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
-
-
-          const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
-
-          const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
-
-          const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
-          const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
-          const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
-
-          const padList = ['top', 'right', 'bottom', 'left']
-
-          padList.forEach(e => {
-            const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
-          })
-
-          padList.forEach(e => {
-            const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
-          })
-
-
-
-          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-          const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
-          const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-          colorInput.setAttribute('type', 'color')
-          colorInput.setAttribute('value', css['background'])
-
-          colorInput.addEventListener('input', () => {
-            Designer.WriteStyle(item, 'background', colorInput.value)
-          })
-        }
-        if (param == 'additional') {
-          const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
-
-          const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName, (e) => {
-            item.tagName = e
-          })
-          tag.style.flex = '0 1 35%'
-
-
-          const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
-
-          const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-          const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-          const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
-          const textALignList = ['left', 'center', 'right', 'justify']
-          const textStyleList = ['italic', 'underline', 'line', 'dec']
-
-          textALignList.forEach(e => {
-            const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
-            btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
-          })
-
-          const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
-          const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
-          const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
-          const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
-
-          const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
-
-          const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
-
-          const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
-
-          const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
-
-          const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
-
-          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-          const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-          const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
-          textColorInput.setAttribute('type', 'color')
-          textColorInput.setAttribute('value', css['color'])
-          textColorInput.addEventListener('input', () => {
-            // inputStyle(textColorInput, 'color', null)
-            // Designer.WriteStyle(item, 'lineHeight', e)
-          })
-
-          const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
-
-          const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
-          const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
-
-          const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
-          strokeColorInput.setAttribute('type', 'color')
-          strokeColorInput.setAttribute('value', css['stroke'])
-        }
-
-      }
-      const page = document.getElementById('lab-user-page')
-      page.addEventListener('click', () => {
-        item.classList.remove('selectedItem')
-        if (elementMenu) elementMenu.remove()
-      })
-
-
-    }
+  const css = {
+    'font-family': itemStyles.fontFamily,
+    'text-align': itemStyles.textAlign,
+    'font-style': itemStyles.fontStyle,
+    'font-weight': itemStyles.fontWeight,
+    'font-size': itemStyles.fontSize,
+    'line-height': itemStyles.lineHeight,
+    'letter-spacing': itemStyles.letterSpacing,
+    'stroke': itemStyles.stroke,
+    'color': itemStyles.color,
+    'background': rgb2hex(itemStyles.background),
+    'stroke-width': itemStyles.strokeWidth,
+    'padding-top': itemStyles.paddingTop,
+    'padding-right': itemStyles.paddingRight,
+    'padding-bottom': itemStyles.paddingBottom,
+    'padding-left': itemStyles.paddingLeft,
+    'margin-top': itemStyles.marginTop,
+    'margin-right': itemStyles.marginRight,
+    'margin-bottom': itemStyles.marginBottom,
+    'margin-left': itemStyles.marginLeft,
   }
 
+
+  if (lastSelected && lastSelected.id != item.id) {
+    box.removeChild(document.getElementById('lab-elementMenu'))
+    lastSelected.classList.remove('selectedItem')
+    renderMenu()
+  }
+  if (!lastSelected) renderMenu()
+
+  function renderMenu() {
+    const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
+    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
+    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
+    const menuSettings = ['general', 'additional']
+    const activeSettings = 'general'
+
+    menuSettings.forEach((e) => {
+      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+      if (e == activeSettings) {
+        btn.classList.add('active')
+        btn.style.background = '#F7F7F7'
+        StyleSection(e)
+      }
+
+      btn.addEventListener('click', () => {
+        if (!btn.classList.contains('active')) {
+          let last = document.querySelector('.lab-element-menu-btn.active')
+          last.classList.remove('active')
+          last.style.background = '#E5E5E5'
+          StyleSection(e)
+          btn.classList.add('active')
+          btn.style.background = '#F7F7F7'
+        }
+      })
+    })
+
+    function StyleSection(param) {
+      elementMenuBody.innerHTML = ''
+      if (param == 'general') {
+
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+        const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
+
+
+        const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+
+        const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
+
+        const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
+        const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
+        const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
+
+        const padList = ['top', 'right', 'bottom', 'left']
+
+        padList.forEach(e => {
+          const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
+        })
+
+        padList.forEach(e => {
+          const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
+        })
+
+
+
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+        const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
+        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        colorInput.setAttribute('type', 'color')
+        colorInput.setAttribute('value', css['background'])
+
+        colorInput.addEventListener('input', () => {
+          Designer.WriteStyle(item, 'background', colorInput.value)
+        })
+      }
+      if (param == 'additional') {
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+
+        const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName, (e) => {
+          item.tagName = e
+        })
+        tag.style.flex = '0 1 35%'
+
+
+        const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
+
+        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
+        const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
+        const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+        const textALignList = ['left', 'center', 'right', 'justify']
+        const textStyleList = ['italic', 'underline', 'line', 'dec']
+
+        textALignList.forEach(e => {
+          const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
+          btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
+        })
+
+        const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
+        const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
+        const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
+        const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
+
+        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+
+        const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
+
+        const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
+
+        const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
+
+        const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
+
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
+        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        textColorInput.setAttribute('type', 'color')
+        textColorInput.setAttribute('value', css['color'])
+        textColorInput.addEventListener('input', () => {
+          // inputStyle(textColorInput, 'color', null)
+          // Designer.WriteStyle(item, 'lineHeight', e)
+        })
+
+        const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
+
+        const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
+        const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
+
+        const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
+        strokeColorInput.setAttribute('type', 'color')
+        strokeColorInput.setAttribute('value', css['stroke'])
+      }
+
+    }
+    const page = document.getElementById('lab-user-page')
+    page.addEventListener('click', () => {
+      item.classList.remove('selectedItem')
+      if (elementMenu) elementMenu.remove()
+    })
+  }
 }
 
 
