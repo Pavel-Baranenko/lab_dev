@@ -520,6 +520,7 @@ const styles_d = {
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 let styles = styles_d
+//!paysage
 
 const ElementsList = {
   'button': {
@@ -550,6 +551,7 @@ const ElementsList = {
                 'color': "#1C1B1F",
               },
               'text': 'Button',
+
             },
             'paysage': {
               'id': "lab-button-span",
@@ -1165,9 +1167,6 @@ class Designer {
       }
 
       resize()
-      // function reject() {
-      //   mouseIsDown = !mouseIsDown
-      // }
 
       document.addEventListener('mousedown', () => mouseIsDown = true)
       document.addEventListener('mouseup', () => mouseIsDown = false)
@@ -1184,6 +1183,12 @@ class Designer {
 
   }
 
+  static mode(name) {
+    const selected = name
+    const page = document.getElementById('lab-user-page')
+
+    page.addEventListener()
+  }
 }
 
 class DesignConstructor {
@@ -1246,9 +1251,6 @@ class DesignConstructor {
       }
       else close()
     })
-
-
-
     return wrap
   }
   static async createOptions(element, parent) {
@@ -1459,7 +1461,20 @@ function design_mode() {
 
   const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'image']
 
-  tools.forEach(tool => DesignConstructor.button(toolBar, ['design', 'toolbarItem'], 0, tool))
+  tools.forEach(tool => {
+    const toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
+    toolBtn.addEventListener('click', () => {
+
+      let last = document.querySelector('.lab-toolBtn.active')
+      if (last) {
+        last.style.background = 'transparent'
+        last.classList.remove('active')
+      }
+      toolBtn.classList.add('active')
+      toolBtn.style.background = '#EBEEFF'
+
+    })
+  })
 
   const blind = lab_design_system_d('button', "blind-tools", toolBar, 0, 0, ['design', 'blindTools'])
   blind.addEventListener('click', () => {
@@ -1563,7 +1578,7 @@ function design_mode() {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
     const page = document.getElementById('lab-user-page').innerHTML
-    codeWrapper.innerHTML = `${page}`
+    codeWrapper.innerText = `${page}`
   })
 
   //CODE MENU END
