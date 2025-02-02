@@ -520,6 +520,15 @@ const styles_d = {
         border: "2px solid #fed05e"
       }
     },
+    'noneFile': {
+      'default': {
+        position: 'absolute',
+        top: '-999999999999999999px',
+        left: '-999999999999999999px',
+        width: 0,
+        height: 0
+      }
+    },
   }
 }
 
@@ -913,7 +922,34 @@ const ElementsList = {
       }
     }
   },
+  'img': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "img",
+    'template': {
+      'paysage': {
+        'id': "lab-img",
+        'tag': "img",
+        'classes': "lab-img",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      },
+      'paysage': {
+        'id': "lab-img",
+        'tag': "img",
+        'classes': "lab-img",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      }
+    }
+  }
 }
+
+let lastTool
+
 
 class Designer {
   static ID() {
@@ -1220,7 +1256,10 @@ class Designer {
 
 
   }
-  static pictureArea(el) {
+
+  static async pictureArea(el) {
+
+
     const page = document.getElementById('lab-user-page')
     const pagePos = page.getBoundingClientRect()
     let mouse = false
@@ -1262,17 +1301,18 @@ class Designer {
         item.style.left = (areaPos.x - pagePos.x) + 'px'
         item.style.width = (areaPos.width) + 'px'
         item.style.height = (areaPos.height) + 'px'
-        // if (['span'].includes(el)) {
-        //   const selection = window.getSelection()
-        //   const range = document.createRange()
 
-        //   range.selectNodeContents(item)
-        //   range.collapse(false)
-
-        //   selection.removeAllRanges()
-        //   selection.addRange(range)
-        //   item.focus();
-        // }
+        if (el == 'img') {
+          let img
+          let input = document.getElementById('lab-file-input')
+          input.click()
+          function IMG(e) {
+            const fileInfo = e.target.files[0];
+            item.setAttribute('src', URL.createObjectURL(fileInfo))
+            input.removeEventListener('change', IMG)
+          }
+          input.addEventListener('change', IMG)
+        }
 
         area.remove()
       }
@@ -1280,28 +1320,78 @@ class Designer {
 
     page.addEventListener('mousemove', write)
     page.addEventListener('click', () => mouse = false)
+
+
   }
 
 
-  static async text() {
-    Designer.pictureArea('span')
-  }
+  static async mode(modeName) {
+    const modeControl = new AbortController();
+    console.log(modeName);
 
-  static mode(modeName) {
-    const page = document.getElementById('lab-user-page')
-    let last;
+    if (lastTool && lastTool != modeName) {
+      modeControl.abort()
+      lastTool = modeName
+    }
 
-    // if (last) {
-    //   if (modeName != last) {
-    //     // page.removeEventListener('click', Designer[last])
-    //     last = modeName
-    //     Designer[modeName]()
-    //   }
-    // } Designer[modeName]()
-
-    if (modeName == 'text') { Designer.pictureArea('span') }
+    if (modeName == 'text') {
+      await Designer.pictureArea('span', modeControl.signal.aborted)
+    }
+    if (modeName == 'img') {
+      Designer.pictureArea('img')
+    }
   }
 }
+
+class Mode {
+  isRunning = false;
+  controller;
+
+  constructor() {
+    this.isRunning = false;
+  }
+
+  async modeState() {
+    console.log(this.isRunning);
+
+    if (!this.isRunning) {
+      this.isRunning = true;
+      try {
+        await performLongOperation();
+        this.isRunning = false;
+      } catch (error) {
+        this.isRunning = false;
+      }
+    } else {
+      controller?.abort();
+      this.isRunning = false;
+    }
+  }
+  async performLongOperation() {
+    this.controller = new AbortController();
+    const signal = this.controller.signal;
+
+    return new Promise((resolve, reject) => {
+
+      if (signal.aborted) {
+
+        console.log(this.isRunning);
+
+        return;
+      }
+    });
+  }
+
+
+
+}
+
+
+
+
+
+
+
 
 class DesignConstructor {
   static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
@@ -1480,7 +1570,10 @@ let contentTags = ["DIV", "SECTION"]
 
 
 function design_mode() {
+  // const State = new Mode()
+  // console.log(State);
 
+  // State.modeState()
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options')) || {
     'vpm': "paysage",
@@ -1565,7 +1658,6 @@ function design_mode() {
     }
   })
 
-  let aaaa = Designer.create(ElementsList, 'button', page, 'paysage')
 
   //USER PAGE END
 
@@ -1573,7 +1665,7 @@ function design_mode() {
 
   const toolBar = lab_design_system_d('div', "toolbar", designBody, 0, 0, ['design', 'toolbar'])
 
-  const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'image']
+  const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
 
   tools.forEach(tool => {
     const toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
@@ -1586,7 +1678,7 @@ function design_mode() {
       }
       toolBtn.classList.add('active')
       toolBtn.style.background = '#EBEEFF'
-      Designer.mode('text')
+      Designer.mode(tool)
     })
   })
 
@@ -1696,8 +1788,16 @@ function design_mode() {
   })
 
   //CODE MENU END
+  // State.modeState()
+  // State.log()
 
   DesignConstructor.BlockResize()
+
+
+
+  const fileInput = lab_design_system_d('input', 'file-input', designBody, '', '', ['design', 'noneFile'])
+  fileInput.setAttribute('type', 'file')
+
 
   lab_fade_in_recursively(designBody, 0.3)
 }
