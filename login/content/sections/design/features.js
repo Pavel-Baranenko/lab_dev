@@ -1220,17 +1220,15 @@ class Designer {
 
 
   }
-  static async text() {
+  static pictureArea(el) {
     const page = document.getElementById('lab-user-page')
     const pagePos = page.getBoundingClientRect()
     let mouse = false
     let startCoords
-    let endCoords
 
     async function write({ x, y }) {
-
       if (mouse) {
-        let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', '', ['design', 'area']) : document.getElementById('lab-area')
+        let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
 
         area.style.top = startCoords.y - pagePos.y + 'px'
         area.style.left = startCoords.x - pagePos.x + 'px'
@@ -1239,37 +1237,72 @@ class Designer {
       }
 
       function start(e) {
+        // setTimeout(() => {
         if (!mouse) {
           mouse = true
           startCoords = { x: e.clientX, y: e.clientY }
         }
-      }
-
-      function end(e) {
-        mouse = false
-        endCoords = { x: e.clientX, y: e.clientY }
+        // }, 100);
       }
 
       page.addEventListener('mousedown', start)
-      page.addEventListener('mouseup', end)
+      page.addEventListener('mouseup', CreateEl)
     }
 
-    async function CreateText(e) {
-      const span = await Designer.create(ElementsList, 'span', page, 'paysage', true)
-      console.log(span);
+    function remove(e) {
+      e.stopPropagation()
+    }
 
-      span.style.top = (e.clientY - pagePos.y) + 'px'
-      span.style.left = (e.clientX - pagePos.x) + 'px'
+    async function CreateEl() {
+      const area = document.getElementById('lab-area')
+      if (area) {
+        const areaPos = area.getBoundingClientRect()
+        mouse = false
+        startCoords = null
+        const item = await Designer.create(ElementsList, el, page, 'paysage', true)
+        item.style.position = 'absolute'
+        item.style.top = (areaPos.y - pagePos.y) + 'px'
+        item.style.left = (areaPos.x - pagePos.x) + 'px'
+        item.style.width = (areaPos.width) + 'px'
+        item.style.height = (areaPos.height) + 'px'
+        // if (['span'].includes(el)) {
+        //   const selection = window.getSelection()
+        //   const range = document.createRange()
+
+        //   range.selectNodeContents(item)
+        //   range.collapse(false)
+
+        //   selection.removeAllRanges()
+        //   selection.addRange(range)
+        //   item.focus();
+        // }
+
+        area.remove()
+      }
     }
 
     page.addEventListener('mousemove', write)
+    page.addEventListener('click', remove)
   }
 
-  static mode(name) {
-    const selected = name
-    const page = document.getElementById('lab-user-page')
 
-    page.addEventListener()
+  static async text() {
+    Designer.pictureArea('span')
+  }
+
+  static mode(modeName) {
+    const page = document.getElementById('lab-user-page')
+    let last;
+
+    // if (last) {
+    //   if (modeName != last) {
+    //     // page.removeEventListener('click', Designer[last])
+    //     last = modeName
+    //     Designer[modeName]()
+    //   }
+    // } Designer[modeName]()
+
+    if (modeName == 'text') { Designer.pictureArea('span') }
   }
 }
 
@@ -1535,7 +1568,6 @@ function design_mode() {
     }
   })
 
-  Designer.text()
   let aaaa = Designer.create(ElementsList, 'button', page, 'paysage')
 
   //USER PAGE END
@@ -1557,7 +1589,7 @@ function design_mode() {
       }
       toolBtn.classList.add('active')
       toolBtn.style.background = '#EBEEFF'
-
+      Designer.mode('text')
     })
   })
 
