@@ -513,7 +513,13 @@ const styles_d = {
         borderRadius: "20px",
         cursor: "grab"
       }
-    }
+    },
+    'area': {
+      'default': {
+        position: 'absolute',
+        border: "2px solid #fed05e"
+      }
+    },
   }
 }
 
@@ -881,6 +887,32 @@ const ElementsList = {
       }
     }
   },
+  'span': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "span",
+    'template': {
+      'paysage': {
+        'id': "lab-text",
+        'tag': "span",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'padding': '10px',
+          'position': "relative",
+        }
+      },
+      'paysage': {
+        'id': "lab-text",
+        'tag': "span",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'padding': '10px',
+          'position': "relative",
+        }
+      }
+    }
+  },
 }
 
 class Designer {
@@ -944,7 +976,7 @@ class Designer {
     if (uditableTags.includes(element.tagName)) element.contentEditable = true
   }
 
-  static async romovePointer() {
+  static async removePointer() {
     if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
     if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
     if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
@@ -959,7 +991,7 @@ class Designer {
   }
 
   static del(element) {
-    Designer.romovePointer()
+    Designer.removePointer()
     return element.remove()
   }
 
@@ -1023,10 +1055,10 @@ class Designer {
 
   static WriteStyle(element, styleName, styleValue) {
     element.style[styleName] = styleValue
-    Designer.romovePointer()
+    Designer.removePointer()
   }
   static drag(el) {
-    Designer.romovePointer()
+    Designer.removePointer()
 
     if (el.style.position == 'static') return
     const page = document.getElementById('lab-user-page')
@@ -1044,7 +1076,7 @@ class Designer {
     }
 
     function onMouseMove({ x, y }) {
-      Designer.romovePointer()
+      Designer.removePointer()
 
       let item = document.elementFromPoint(x, y)
       const itemPos = item.getBoundingClientRect()
@@ -1137,7 +1169,7 @@ class Designer {
 
         let last = document.getElementById('lab-pointer')
         if (!last || !last.classList.contains(direction) || mouseIsDown) {
-          Designer.romovePointer()
+          Designer.removePointer()
           const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
           pointer.style.transition = 'all 0.1s ease'
 
@@ -1164,6 +1196,10 @@ class Designer {
           el.style[orientation] = a + 'px'
           writePointer(lastDir)
         }
+        document.addEventListener('click', () => {
+          document.removeEventListener('mousemove', movePos)
+          Designer.removePointer()
+        })
       }
 
       resize()
@@ -1175,12 +1211,58 @@ class Designer {
       //   document.removeEventListener('mousemove', movePos)
       //   // document.removeEventListener('mousedown', reject)
       //   // document.removeEventListener('mouseup', reject)
-      //   Designer.romovePointer()
+      //   Designer.removePointer()
       // })
     }
 
     document.addEventListener('mousemove', movePos)
 
+
+
+  }
+  static async text() {
+    const page = document.getElementById('lab-user-page')
+    const pagePos = page.getBoundingClientRect()
+    let mouse = false
+    let startCoords
+    let endCoords
+
+    async function write({ x, y }) {
+
+      if (mouse) {
+        let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', '', ['design', 'area']) : document.getElementById('lab-area')
+
+        area.style.top = startCoords.y - pagePos.y + 'px'
+        area.style.left = startCoords.x - pagePos.x + 'px'
+        area.style.width = x - startCoords.x + 'px'
+        area.style.height = y - startCoords.y + 'px'
+      }
+
+      function start(e) {
+        if (!mouse) {
+          mouse = true
+          startCoords = { x: e.clientX, y: e.clientY }
+        }
+      }
+
+      function end(e) {
+        mouse = false
+        endCoords = { x: e.clientX, y: e.clientY }
+      }
+
+      page.addEventListener('mousedown', start)
+      page.addEventListener('mouseup', end)
+    }
+
+    async function CreateText(e) {
+      const span = await Designer.create(ElementsList, 'span', page, 'paysage', true)
+      console.log(span);
+
+      span.style.top = (e.clientY - pagePos.y) + 'px'
+      span.style.left = (e.clientX - pagePos.x) + 'px'
+    }
+
+    page.addEventListener('mousemove', write)
   }
 
   static mode(name) {
@@ -1256,7 +1338,7 @@ class DesignConstructor {
   static async createOptions(element, parent) {
     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
     if (!stopList.includes(element.id)) {
-      await Designer.romovePointer()
+      await Designer.removePointer()
 
       element.classList.add('lab-active-element')
 
@@ -1443,6 +1525,8 @@ function design_mode() {
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
   })
+
+
   page.addEventListener('click', (e) => {
     let element = document.elementFromPoint(e.clientX, e.clientY)
     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
@@ -1451,6 +1535,7 @@ function design_mode() {
     }
   })
 
+  Designer.text()
   let aaaa = Designer.create(ElementsList, 'button', page, 'paysage')
 
   //USER PAGE END
@@ -1489,7 +1574,7 @@ function design_mode() {
   const responsiveList = ["paysage", "portrait"]
 
   function setVpm(vpm) {
-    Designer.romovePointer()
+    Designer.removePointer()
     if (vpm == 'paysage') {
       pixelScreen.innerHTML = window.outerWidth + 'px'
       page.style.maxWidth = 'none'
@@ -1805,5 +1890,5 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
 
 window.addEventListener('resize', () => {
-  Designer.romovePointer()
+  Designer.removePointer()
 })
