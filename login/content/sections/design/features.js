@@ -1249,9 +1249,6 @@ class Designer {
       page.addEventListener('mouseup', CreateEl)
     }
 
-    function remove(e) {
-      e.stopPropagation()
-    }
 
     async function CreateEl() {
       const area = document.getElementById('lab-area')
@@ -1282,7 +1279,7 @@ class Designer {
     }
 
     page.addEventListener('mousemove', write)
-    page.addEventListener('click', remove)
+    page.addEventListener('click', () => mouse = false)
   }
 
 
