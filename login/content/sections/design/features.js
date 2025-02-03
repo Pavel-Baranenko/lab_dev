@@ -945,11 +945,37 @@ const ElementsList = {
         }
       }
     }
-  }
+  },
+  'svg': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "svg",
+    'template': {
+      'paysage': {
+        'id': "lab-svg",
+        'tag': "svg",
+        'classes': "lab-svg",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      },
+      'paysage': {
+        'id': "lab-svg",
+        'tag': "svg",
+        'classes': "lab-svg",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      }
+    }
+  },
 }
 
-let lastTool
-
+// let isRunning = false;
+// let currentPromise = null;
+// let controller = null
+let ActiveMode
 
 class Designer {
   static ID() {
@@ -1257,140 +1283,106 @@ class Designer {
 
   }
 
-  static async pictureArea(el) {
-
-
+  static async pictureArea(modeName) {
     const page = document.getElementById('lab-user-page')
     const pagePos = page.getBoundingClientRect()
     let mouse = false
     let startCoords
+    ActiveMode = modeName
+    try {
+      const types = {
+        'text': 'span',
+        'img': 'img',
+      }
 
-    async function write({ x, y }) {
-      if (mouse) {
-        let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
+      async function write({ x, y }) {
+        if (ActiveMode == modeName) {
+          if (mouse) {
+            let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
+            area.style.top = startCoords.y - pagePos.y + 'px'
+            area.style.left = startCoords.x - pagePos.x + 'px'
+            area.style.width = x - startCoords.x + 'px'
+            area.style.height = y - startCoords.y + 'px'
 
-        area.style.top = startCoords.y - pagePos.y + 'px'
-        area.style.left = startCoords.x - pagePos.x + 'px'
-        area.style.width = x - startCoords.x + 'px'
-        area.style.height = y - startCoords.y + 'px'
+            page.addEventListener('mouseup', CreateEl)
+
+          }
+          page.addEventListener('mousedown', start)
+        }
+        else {
+          page.removeEventListener('mousedown', start)
+          page.removeEventListener('mouseup', CreateEl)
+          page.removeEventListener('mousemove', write)
+          return false
+        }
       }
 
       function start(e) {
-        // setTimeout(() => {
         if (!mouse) {
           mouse = true
           startCoords = { x: e.clientX, y: e.clientY }
         }
-        // }, 100);
       }
 
-      page.addEventListener('mousedown', start)
-      page.addEventListener('mouseup', CreateEl)
-    }
+      async function CreateEl() {
+        const area = document.getElementById('lab-area')
+        if (area) {
+          const areaPos = area.getBoundingClientRect()
+          mouse = false
+          startCoords = null
+          if (!['shape'].includes(modeName)) {
+            const item = await Designer.create(ElementsList, types[modeName], page, 'paysage', true)
+            item.style.position = 'absolute'
+            item.style.top = (areaPos.y - pagePos.y) + 'px'
+            item.style.left = (areaPos.x - pagePos.x) + 'px'
+            item.style.width = (areaPos.width) + 'px'
+            item.style.height = (areaPos.height) + 'px'
 
-
-    async function CreateEl() {
-      const area = document.getElementById('lab-area')
-      if (area) {
-        const areaPos = area.getBoundingClientRect()
-        mouse = false
-        startCoords = null
-        const item = await Designer.create(ElementsList, el, page, 'paysage', true)
-        item.style.position = 'absolute'
-        item.style.top = (areaPos.y - pagePos.y) + 'px'
-        item.style.left = (areaPos.x - pagePos.x) + 'px'
-        item.style.width = (areaPos.width) + 'px'
-        item.style.height = (areaPos.height) + 'px'
-
-        if (el == 'img') {
-          let img
-          let input = document.getElementById('lab-file-input')
-          input.click()
-          function IMG(e) {
-            const fileInfo = e.target.files[0];
-            item.setAttribute('src', URL.createObjectURL(fileInfo))
-            input.removeEventListener('change', IMG)
+            if (modeName == 'img') {
+              let input = document.getElementById('lab-file-input')
+              input.click()
+              function IMG(e) {
+                const fileInfo = e.target.files[0];
+                item.setAttribute('src', URL.createObjectURL(fileInfo))
+                input.removeEventListener('change', IMG)
+              }
+              input.addEventListener('change', IMG)
+            }
           }
-          input.addEventListener('change', IMG)
+
+          if (modeName == 'shape') {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            const rect = document.createElementNS(svg.namespaceURI, "rect");
+            svg.style.position = 'absolute'
+            svg.style.width = areaPos.width + 'px'
+            svg.style.height = areaPos.height + 'px'
+            svg.style.left = (areaPos.x - pagePos.x) + 'px'
+            svg.style.top = (areaPos.y - pagePos.y) + 'px'
+            rect.setAttribute("viewBox", `0 0  ${areaPos.width} ${areaPos.height}`);
+
+            rect.setAttribute("width", areaPos.width);
+            rect.setAttribute("height", areaPos.height);
+            rect.setAttribute("fill", "#FED05E");
+            svg.appendChild(rect);
+            page.appendChild(svg);
+          }
+
+          area.remove()
         }
-
-        area.remove()
       }
+
+      page.addEventListener('mousemove', write)
+      page.addEventListener('click', () => mouse = false)
+    } catch (error) {
+      return
     }
-
-    page.addEventListener('mousemove', write)
-    page.addEventListener('click', () => mouse = false)
-
-
   }
 
 
   static async mode(modeName) {
-    const modeControl = new AbortController();
-    console.log(modeName);
-
-    if (lastTool && lastTool != modeName) {
-      modeControl.abort()
-      lastTool = modeName
-    }
-
-    if (modeName == 'text') {
-      await Designer.pictureArea('span', modeControl.signal.aborted)
-    }
-    if (modeName == 'img') {
-      Designer.pictureArea('img')
-    }
+    Designer.pictureArea(modeName)
   }
 }
-
-class Mode {
-  isRunning = false;
-  controller;
-
-  constructor() {
-    this.isRunning = false;
-  }
-
-  async modeState() {
-    console.log(this.isRunning);
-
-    if (!this.isRunning) {
-      this.isRunning = true;
-      try {
-        await performLongOperation();
-        this.isRunning = false;
-      } catch (error) {
-        this.isRunning = false;
-      }
-    } else {
-      controller?.abort();
-      this.isRunning = false;
-    }
-  }
-  async performLongOperation() {
-    this.controller = new AbortController();
-    const signal = this.controller.signal;
-
-    return new Promise((resolve, reject) => {
-
-      if (signal.aborted) {
-
-        console.log(this.isRunning);
-
-        return;
-      }
-    });
-  }
-
-
-
-}
-
-
-
-
-
-
 
 
 class DesignConstructor {
@@ -1570,10 +1562,7 @@ let contentTags = ["DIV", "SECTION"]
 
 
 function design_mode() {
-  // const State = new Mode()
-  // console.log(State);
 
-  // State.modeState()
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options')) || {
     'vpm': "paysage",
