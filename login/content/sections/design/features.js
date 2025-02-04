@@ -357,6 +357,7 @@ const styles_d = {
         width: '87%',
         backgroundColor: '#fff',
         fontSize: '12px',
+        overflow: "hidden",
         fontWeight: 500,
         lineHeight: '22px',
         borderRadius: '30px 30px 0 0',
@@ -531,6 +532,21 @@ const styles_d = {
         height: 0
       }
     },
+    'pagesList': {
+      'default': {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: '100%',
+        background: '#464C59',
+        borderRadius: "0 0 10px 10px",
+        padding: '5px',
+        display: 'flex',
+        flexDirection: "column",
+        gap: '5px',
+        zIndex: 99
+      }
+    }
   }
 }
 
@@ -1203,6 +1219,10 @@ class Designer {
           }
 
           item.addEventListener('mouseup', clear)
+          item.addEventListener('mouseleave', () => {
+            item.removeEventListener('mouseup', clear)
+            document.getElementById('injectHover').remove()
+          })
         }
       }
 
@@ -1413,7 +1433,6 @@ class Designer {
   }
 }
 
-
 class DesignConstructor {
   static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
     const btn = lab_design_system_d('button', id, parent, content, className, styles)
@@ -1508,6 +1527,7 @@ class DesignConstructor {
 
   static blockMenu(element, parent, options) {
     ActiveMode = null
+    console.log('aaaaa');
 
     if (!document.getElementById('lab-block-menu')) {
       const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
@@ -1521,6 +1541,7 @@ class DesignConstructor {
 
         item.addEventListener('click', () => {
           selected = null
+          if (e == 'transform') selected = element
           Designer[e](element)
         })
       })
@@ -1628,7 +1649,6 @@ function design_mode() {
   const elementsWrap = lab_design_system_d('div', "elements-wrap", elementsBox, 0, 0, ['design', 'templates'])
 
   function addList(e, list) {
-
     Object.keys(e).map(el => {
       const item = lab_design_system_d('div', Designer.ID(), list, 0, 0, ['design', 'template'])
       const icon = lab_design_system_d('div', Designer.ID(), item, 0, 0, ['design', 'templateIcon'])
@@ -1767,13 +1787,25 @@ function design_mode() {
 
   setVpm(options.vpm)
 
-  const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
+  const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
   pixelSettings.querySelector('img').style.width = '15px'
 
-  const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], 0, 'page-box')
+  const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box')
+
   setPage.appendChild(document.createTextNode("Main"))
-  const arrow = lab_design_system_d('img', 'page-arrow', setPage, null, "top-settings-page-arrow")
+  const arrow = lab_design_system_d('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `${oldSRC}chevron_right.svg`)
+
+  setPage.addEventListener('click', () => {
+    const pageList = ['home', 'contacts', 'profile']
+    const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
+    pageList.forEach(e => {
+      const btn = lab_design_system_d('a', `pages-list-${e}`, list, e)
+      btn.setAttribute('src', `/${e}`)
+    })
+    list.addEventListener('mouseleave', () => list.remove())
+  })
+
 
   const sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
   sizeSwitcher.setAttribute('type', "range")
@@ -1821,16 +1853,11 @@ function design_mode() {
     pageNodes.forEach(e => {
       text = text + e + '>\n       '
     })
-    // for (let index = 0; index < pageDom.length; index++) {
-    //   const element = array[index];
 
-    // }
     codeWrapper.innerText = `${text}`
   })
 
   //CODE MENU END
-  // State.modeState()
-  // State.log()
 
   DesignConstructor.BlockResize()
 
