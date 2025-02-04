@@ -1467,7 +1467,7 @@ class Designer {
           rect.classList.add('lab-none')
           rect.setAttribute("width", '100%');
           rect.setAttribute("height", '100%');
-          rect.setAttribute("fill", "#FED05E");
+          svg.setAttribute("fill", "#FED05E");
           rect.style.pointerEvents = 'none'
           svg.appendChild(rect);
           page.appendChild(svg);
@@ -2034,9 +2034,16 @@ function StylesMenu(item) {
         const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
         colorInput.setAttribute('type', 'color')
         colorInput.setAttribute('value', css['background'])
+        if (item.tagName == 'svg') {
+          colorInput.setAttribute('value', item.getAttribute('fill'))
+        }
 
         colorInput.addEventListener('input', () => {
-          Designer.WriteStyle(item, 'background', colorInput.value)
+          if (item.tagName == 'svg') {
+            Designer.WriteStyle(item, 'fill', colorInput.value)
+          } else {
+            Designer.WriteStyle(item, 'background', colorInput.value)
+          }
         })
       }
       if (param == 'additional') {
