@@ -1006,6 +1006,7 @@ const elementsToolsList = {
 
 
 let ActiveMode
+let selected
 
 class Designer {
   static ID() {
@@ -1219,15 +1220,18 @@ class Designer {
     })
   }
 
-  static transform(el) {
+  static transform(el = selected) {
+
     const page = document.getElementById('lab-user-page')
     let lastDir = ''
     let mouseIsDown = false
-    el.classList.add('lab-transform')
-    const elStyles = window.getComputedStyle(el)
     el.style.transition = 'max-height 0.1s ease'
 
     function movePos({ x, y }) {
+      if (el != selected) {
+        document.removeEventListener('mousemove', movePos)
+        return
+      }
       const pos = el.getBoundingClientRect()
       let coord = { x: x, y: y }
       let axis = ['bottom', 'top'].includes(lastDir) ? 'y' : 'x'
@@ -1295,24 +1299,28 @@ class Designer {
 
       document.addEventListener('mousedown', () => mouseIsDown = true)
       document.addEventListener('mouseup', () => mouseIsDown = false)
-
-      // document.addEventListener('click', () => {
-      //   document.removeEventListener('mousemove', movePos)
-      //   // document.removeEventListener('mousedown', reject)
-      //   // document.removeEventListener('mouseup', reject)
-      //   Designer.removePointer()
-      // })
     }
-
     document.addEventListener('mousemove', movePos)
+
   }
 
   static async mode(modeName) {
+    console.log(modeName);
+
     const page = document.getElementById('lab-user-page')
     const pagePos = page.getBoundingClientRect()
     let mouse = false
     let startCoords
     ActiveMode = modeName
+    if (['shape', 'text', 'img'].includes(modeName)) {
+      page.addEventListener('mousemove', write)
+    }
+    if (modeName == 'resize') {
+      page.addEventListener('click', (e) => {
+        selected = document.elementFromPoint(e.clientX, e.clientY)
+        this.transform(selected)
+      })
+    }
     const types = {
       'text': 'span',
       'img': 'img',
@@ -1394,7 +1402,6 @@ class Designer {
       }
     }
 
-    page.addEventListener('mousemove', write)
     page.addEventListener('click', () => mouse = false)
   }
 }
@@ -1506,6 +1513,7 @@ class DesignConstructor {
         itemIcon.style.width = '15px'
 
         item.addEventListener('click', () => {
+          selected = element
           Designer[e](element)
         })
       })
