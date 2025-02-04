@@ -1206,8 +1206,8 @@ class Designer {
         }
       }
 
-      el.style.left = (x - pagePos.x - (elPos.width / 2)) / scale + 'px'
-      el.style.top = (y - pagePos.y - (elPos.height / 2)) / scale + 'px'
+      el.style.left = ((x - pagePos.x - (elPos.width / 2)) / scale) / pagePos.width * 100 + '%'
+      el.style.top = ((y - pagePos.y - (elPos.height / 2)) / scale) / pagePos.height * 100 + '%'
     }
 
     el.addEventListener('mousedown', onMouseDown)
@@ -1316,10 +1316,17 @@ class Designer {
       page.addEventListener('mousemove', write)
     }
     if (modeName == 'resize') {
-      page.addEventListener('click', (e) => {
-        selected = document.elementFromPoint(e.clientX, e.clientY)
-        this.transform(selected)
-      })
+      selected = true
+
+      function Trans(e) {
+        if (selected) {
+          selected = document.elementFromPoint(e.clientX, e.clientY)
+          Designer.transform(selected)
+        } else {
+          page.removeEventListener('click', Trans)
+        }
+      }
+      page.addEventListener('click', Trans)
     }
     const types = {
       'text': 'span',
@@ -1330,10 +1337,10 @@ class Designer {
       if (ActiveMode == modeName) {
         if (mouse) {
           let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
-          area.style.top = startCoords.y - pagePos.y + 'px'
-          area.style.left = startCoords.x - pagePos.x + 'px'
-          area.style.width = x - startCoords.x + 'px'
-          area.style.height = y - startCoords.y + 'px'
+          area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
+          area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
+          area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
+          area.style.height = (y - startCoords.y) / pagePos.height * 100 + '%'
 
           page.addEventListener('mouseup', CreateEl)
 
@@ -1364,10 +1371,10 @@ class Designer {
         if (!['shape'].includes(modeName)) {
           const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
           item.style.position = 'absolute'
-          item.style.top = (areaPos.y - pagePos.y) + 'px'
-          item.style.left = (areaPos.x - pagePos.x) + 'px'
-          item.style.width = (areaPos.width) + 'px'
-          item.style.height = (areaPos.height) + 'px'
+          item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+          item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+          item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
 
           if (modeName == 'img') {
             let input = document.getElementById('lab-file-input')
@@ -1385,10 +1392,10 @@ class Designer {
           const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           const rect = document.createElementNS(svg.namespaceURI, "rect");
           svg.style.position = 'absolute'
-          svg.style.width = areaPos.width + 'px'
-          svg.style.height = areaPos.height + 'px'
-          svg.style.left = (areaPos.x - pagePos.x) + 'px'
-          svg.style.top = (areaPos.y - pagePos.y) + 'px'
+          svg.style.width = areaPos.width / pagePos.width * 100 + '%'
+          svg.style.height = areaPos.height / pagePos.height * 100 + '%'
+          svg.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+          svg.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
           rect.classList.add('lab-none')
           rect.setAttribute("width", '100%');
           rect.setAttribute("height", '100%');
@@ -1513,7 +1520,7 @@ class DesignConstructor {
         itemIcon.style.width = '15px'
 
         item.addEventListener('click', () => {
-          selected = element
+          selected = null
           Designer[e](element)
         })
       })
@@ -1648,8 +1655,8 @@ function design_mode() {
           const item = await Designer.create(e, el, page, 'landscape', true)
 
           if (!['form', 'div', 'section'].includes(el)) {
-            item.style.top = copyPos.y - pagePos.y + 'px'
-            item.style.left = copyPos.x - pagePos.x + 'px'
+            item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
+            item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
             item.style.position = 'absolute'
             item.style.zIndex = '1'
           }
@@ -1714,6 +1721,8 @@ function design_mode() {
 
   if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
 
+  //TOPSETTINGS
+
   const topSettings = lab_design_system_d('div', "top-settings", designBody, 0, 0, ['design', 'top'])
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
   const responsiveList = ["landscape", "portrait"]
@@ -1751,9 +1760,7 @@ function design_mode() {
         Options(options, 'vpm', e)
         setVpm(e)
       }
-
     })
-
   })
 
   const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
