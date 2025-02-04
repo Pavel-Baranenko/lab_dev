@@ -518,7 +518,7 @@ const styles_d = {
     'area': {
       'default': {
         position: 'absolute',
-        border: "2px solid #fed05e",
+        border: "2px solid rgba(36, 99, 235, 1)",
         zIndex: 999
       }
     },
@@ -537,14 +537,14 @@ const styles_d = {
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 let styles = styles_d
-//!paysage
+//!landscape
 
 const ElementsList = {
   'button': {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "button",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-button",
         'tag': "button",
         'root': true,
@@ -559,7 +559,7 @@ const ElementsList = {
         },
         'child': [
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-button-span",
               'tag': "span",
               'classes': "lab-button-span",
@@ -570,7 +570,7 @@ const ElementsList = {
               'text': 'Button',
 
             },
-            'paysage': {
+            'landscape': {
               'id': "lab-button-span",
               'tag': "span",
               'classes': "lab-button-span",
@@ -599,7 +599,7 @@ const ElementsList = {
         },
         'child': [
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-button-span",
               'tag': "span",
               'classes': "lab-button-span",
@@ -609,7 +609,7 @@ const ElementsList = {
               },
               'text': 'Button',
             },
-            'paysage': {
+            'landscape': {
               'id': "lab-button-span",
               'tag': "span",
               'classes': "lab-button-span",
@@ -628,7 +628,7 @@ const ElementsList = {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "section",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-section",
         'tag': "section",
         'classes': "lab-empty-section",
@@ -654,7 +654,7 @@ const ElementsList = {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "div",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-section",
         'tag': "section",
         'classes': "lab-empty-section",
@@ -678,7 +678,7 @@ const ElementsList = {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "form",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-form",
         'tag': "form",
         'root': true,
@@ -695,7 +695,7 @@ const ElementsList = {
         },
         'child': [
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-div-input",
               'tag': "input",
               'styles': {
@@ -723,7 +723,7 @@ const ElementsList = {
             }
           },
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-div-input",
               'tag': "input",
               'styles': {
@@ -751,7 +751,7 @@ const ElementsList = {
             }
           },
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-button",
               'tag': "button",
               'styles': {
@@ -804,7 +804,7 @@ const ElementsList = {
         },
         'child': [
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-div-input",
               'tag': "input",
               'styles': {
@@ -832,7 +832,7 @@ const ElementsList = {
             }
           },
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-div-input",
               'tag': "input",
               'styles': {
@@ -860,7 +860,7 @@ const ElementsList = {
             }
           },
           {
-            'paysage': {
+            'landscape': {
               'id': "lab-button",
               'tag': "button",
               'styles': {
@@ -898,11 +898,41 @@ const ElementsList = {
       }
     }
   },
+  'p': {
+    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'title': "p",
+    'template': {
+      'landscape': {
+        'id': "lab-text",
+        'tag': "p",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'display': 'inline-block',
+          'padding': '10px',
+          'position': "relative",
+        }
+      },
+      'landscape': {
+        'id': "lab-text",
+        'tag': "p",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'display': 'inline-block',
+          'padding': '10px',
+          'position': "relative",
+        }
+      }
+    }
+  },
+}
+const elementsToolsList = {
   'span': {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "span",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-text",
         'tag': "span",
         'classes': "lab-text",
@@ -912,7 +942,7 @@ const ElementsList = {
           'position': "relative",
         }
       },
-      'paysage': {
+      'landscape': {
         'id': "lab-text",
         'tag': "span",
         'classes': "lab-text",
@@ -928,7 +958,7 @@ const ElementsList = {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "img",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-img",
         'tag': "img",
         'classes': "lab-img",
@@ -937,7 +967,7 @@ const ElementsList = {
           'position': "relative"
         }
       },
-      'paysage': {
+      'landscape': {
         'id': "lab-img",
         'tag': "img",
         'classes': "lab-img",
@@ -952,7 +982,7 @@ const ElementsList = {
     'icon': `${oldSRC}arrow_menu_close.svg`,
     'title': "svg",
     'template': {
-      'paysage': {
+      'landscape': {
         'id': "lab-svg",
         'tag': "svg",
         'classes': "lab-svg",
@@ -961,7 +991,7 @@ const ElementsList = {
           'position': "relative"
         }
       },
-      'paysage': {
+      'landscape': {
         'id': "lab-svg",
         'tag': "svg",
         'classes': "lab-svg",
@@ -974,9 +1004,7 @@ const ElementsList = {
   },
 }
 
-// let isRunning = false;
-// let currentPromise = null;
-// let controller = null
+
 let ActiveMode
 
 class Designer {
@@ -1197,10 +1225,6 @@ class Designer {
     let mouseIsDown = false
     el.classList.add('lab-transform')
     const elStyles = window.getComputedStyle(el)
-
-    // el.style.maxHeight = el.clientHeight + 'px'
-    // el.style.height = '100%'
-    // el.style.minHeight = '100%'
     el.style.transition = 'max-height 0.1s ease'
 
     function movePos({ x, y }) {
@@ -1281,9 +1305,6 @@ class Designer {
     }
 
     document.addEventListener('mousemove', movePos)
-
-
-
   }
 
   static async mode(modeName) {
@@ -1333,7 +1354,7 @@ class Designer {
         mouse = false
         startCoords = null
         if (!['shape'].includes(modeName)) {
-          const item = await Designer.create(ElementsList, types[modeName], page, 'paysage', true)
+          const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
           item.style.position = 'absolute'
           item.style.top = (areaPos.y - pagePos.y) + 'px'
           item.style.left = (areaPos.x - pagePos.x) + 'px'
@@ -1360,11 +1381,11 @@ class Designer {
           svg.style.height = areaPos.height + 'px'
           svg.style.left = (areaPos.x - pagePos.x) + 'px'
           svg.style.top = (areaPos.y - pagePos.y) + 'px'
-          // svg.setAttribute("viewBox", `0 0  ${areaPos.width} ${areaPos.height}`);
           rect.classList.add('lab-none')
           rect.setAttribute("width", '100%');
           rect.setAttribute("height", '100%');
           rect.setAttribute("fill", "#FED05E");
+          rect.style.pointerEvents = 'none'
           svg.appendChild(rect);
           page.appendChild(svg);
         }
@@ -1562,7 +1583,7 @@ function design_mode() {
 
   const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options')) || {
-    'vpm': "paysage",
+    'vpm': "landscape",
     'zoom': 100,
     'toolBar': true,
     'settingsBar': true,
@@ -1603,18 +1624,27 @@ function design_mode() {
       const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
-
         const copy = Designer.copy(item)
+
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
 
         copy.style.left = `${coord.left}px`
         copy.style.top = `${coord.top}px`
 
-        Designer.move(copy, () => {
-          list.removeChild(copy)
+        Designer.move(copy, async () => {
+          const copyPos = copy.getBoundingClientRect()
+          const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
 
-          Designer.create(e, el, page, 'paysage', true)
+          list.removeChild(copy)
+          const item = await Designer.create(e, el, page, 'landscape', true)
+
+          if (!['form', 'div', 'section'].includes(el)) {
+            item.style.top = copyPos.y - pagePos.y + 'px'
+            item.style.left = copyPos.x - pagePos.x + 'px'
+            item.style.position = 'absolute'
+            item.style.zIndex = '1'
+          }
         })
 
       })
@@ -1678,11 +1708,11 @@ function design_mode() {
 
   const topSettings = lab_design_system_d('div', "top-settings", designBody, 0, 0, ['design', 'top'])
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
-  const responsiveList = ["paysage", "portrait"]
+  const responsiveList = ["landscape", "portrait"]
 
   function setVpm(vpm) {
     Designer.removePointer()
-    if (vpm == 'paysage') {
+    if (vpm == 'landscape') {
       pixelScreen.innerHTML = window.outerWidth + 'px'
       page.style.maxWidth = 'none'
       page.style.maxHeight = 'none'
@@ -1852,6 +1882,9 @@ function StylesMenu(item) {
   if (!lastSelected) renderMenu()
 
   function renderMenu() {
+    const last = document.getElementById('lab-elementMenu')
+    if (last) last.remove()
+
     const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
     const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
     const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
