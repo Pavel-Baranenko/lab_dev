@@ -197,6 +197,12 @@ const styles_d = {
         border: 'none'
       }
     },
+    'pageLink': {
+      'default': {
+        'color': "#fff",
+        'textDecoration': "none"
+      }
+    },
     'toolbar': {
       'default': {
         'position': 'fixed',
@@ -270,7 +276,17 @@ const styles_d = {
         flexDirection: "column",
         gap: "20px",
         padding: "30px",
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+      }
+    },
+    'pageWrap': {
+      'default': {
+        'overflowY': 'scroll',
+        'maxWidth': '100svw',
+        'minHeight': '100svh',
+        'width': '100%',
+        'paddingBottom': '50svh',
+        'boxSizing': 'border-box',
       }
     },
     'blindTools': {
@@ -545,6 +561,33 @@ const styles_d = {
         flexDirection: "column",
         gap: '5px',
         zIndex: 99
+      }
+    },
+    'styleBox': {
+      'default': {
+        'display': "flex",
+        'justifyContent': "space-between",
+        'alignItems': "center"
+      }
+    },
+    'colorInput': {
+      'default': {
+        'border': 'none',
+        borderRadius: '4px',
+        marginLeft: 'auto',
+        width: '24px !important',
+        minWidth: '24px !important',
+        height: '24px !important',
+        minHeight: '24px !important',
+        border: 'none',
+        backgroundColor: 'transparent',
+      }
+    },
+    'styleGrid': {
+      'default': {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '20px',
       }
     }
   }
@@ -1167,6 +1210,7 @@ class Designer {
     element.style[styleName] = styleValue
     Designer.removePointer()
   }
+
   static drag(el) {
     Designer.removePointer()
 
@@ -1177,6 +1221,7 @@ class Designer {
     let elStyles = window.getComputedStyle(el)
     let pagePos = page.getBoundingClientRect()
     let elPos = el.getBoundingClientRect()
+    console.log(elStyles);
 
     let scale = page.style.scale
 
@@ -1193,38 +1238,41 @@ class Designer {
       const windowBox = document.getElementById('lab-designBody')
 
 
-      if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
-        if (itemPos.y < y && y > (itemPos.y + itemPos.height / 5)) {
-          const hover = document.createElement('div')
-          el.style.zIndex = item.style.zIndex ? item.style.zIndex + 1 : 1
+      // if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
+      //   if (itemPos.y < y && y > (itemPos.y + itemPos.height / 5)) {
+      //     const hover = document.createElement('div')
+      //     el.style.zIndex = item.style.zIndex ? item.style.zIndex + 1 : 1
 
-          hover.className = 'escape none lab-hover-top'
+      //     hover.className = 'escape none lab-hover-top'
 
-          if (item.style.position == 'absolute') {
-            hover.classList.add('lab-absolute')
-          }
+      //     if (item.style.position == 'absolute') {
+      //       hover.classList.add('lab-absolute')
+      //     }
 
-          hover.id = 'injectHover'
-          item.prepend(hover)
-          function clear() {
-            document.getElementById('injectHover').remove()
-            item.classList.contains('lab-empty-section') && item.classList.remove('lab-empty-section')
-            const copyItem = el.cloneNode(true)
-            el.remove()
-            copyItem.style.top = 'unset'
-            copyItem.style.left = 'unset'
-            copyItem.style.pointerEvents = 'unset'
-            item.prepend(copyItem)
-            item.removeEventListener('mouseup', clear)
-          }
+      //     hover.id = 'injectHover'
+      //     item.prepend(hover)
+      //     function clear() {
+      //       document.getElementById('injectHover').remove()
+      //       if(contentTags.includes(contentTags)){
 
-          item.addEventListener('mouseup', clear)
-          item.addEventListener('mouseleave', () => {
-            item.removeEventListener('mouseup', clear)
-            document.getElementById('injectHover').remove()
-          })
-        }
-      }
+      //       }
+      //       item.classList.contains('lab-empty-section') && item.classList.remove('lab-empty-section')
+      //       const copyItem = el.cloneNode(true)
+      //       el.remove()
+      //       copyItem.style.top = 'unset'
+      //       copyItem.style.left = 'unset'
+      //       copyItem.style.pointerEvents = 'unset'
+      //       item.prepend(copyItem)
+      //       item.removeEventListener('mouseup', clear)
+      //     }
+
+      //     item.addEventListener('mouseup', clear)
+      //     item.addEventListener('mouseleave', () => {
+      //       item.removeEventListener('mouseup', clear)
+      //       document.getElementById('injectHover').remove()
+      //     })
+      //   }
+      // }
 
       el.style.left = ((x - pagePos.x - (elPos.width / 2)) / scale) / pagePos.width * 100 + '%'
       el.style.top = ((y - pagePos.y - (elPos.height / 2)) / scale) / pagePos.height * 100 + '%'
@@ -1692,7 +1740,7 @@ function design_mode() {
 
   //USER PAGE
 
-  const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody)
+  const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody, '', '', ['design', 'pageWrap'])
   const page = lab_design_system_d('div', "user-page", pageWrap, '', '', ['design', 'page'])
   page.classList.remove('escape')
 
@@ -1800,8 +1848,8 @@ function design_mode() {
     const pageList = ['home', 'contacts', 'profile']
     const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
     pageList.forEach(e => {
-      const btn = lab_design_system_d('a', `pages-list-${e}`, list, e)
-      btn.setAttribute('src', `/${e}`)
+      const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
+      btn.setAttribute('href', `./${e}`)
     })
     list.addEventListener('mouseleave', () => list.remove())
   })
@@ -1957,7 +2005,7 @@ function StylesMenu(item) {
       elementMenuBody.innerHTML = ''
       if (param == 'general') {
 
-        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
         const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
 
 
@@ -1981,9 +2029,9 @@ function StylesMenu(item) {
 
 
 
-        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
         const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
-        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
         colorInput.setAttribute('type', 'color')
         colorInput.setAttribute('value', css['background'])
 
@@ -1992,7 +2040,7 @@ function StylesMenu(item) {
         })
       }
       if (param == 'additional') {
-        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, null, null)
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
 
         const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName, (e) => {
           item.tagName = e
@@ -2002,9 +2050,9 @@ function StylesMenu(item) {
 
         const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
-        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, null, null)
-        const textALign = lab_design_system_d('div', "textALign", fontSettings, null, null)
-        const textStyle = lab_design_system_d('div', "textStyle", fontSettings, null, null)
+        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
+        const textALign = lab_design_system_d('div', "textALign", fontSettings)
+        const textStyle = lab_design_system_d('div', "textStyle", fontSettings)
         const textALignList = ['left', 'center', 'right', 'justify']
         const textStyleList = ['italic', 'underline', 'line', 'dec']
 
@@ -2018,7 +2066,7 @@ function StylesMenu(item) {
         const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
         const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
 
-        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, null, null)
+        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
 
         const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
 
@@ -2028,26 +2076,16 @@ function StylesMenu(item) {
 
         const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
 
-        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, null, null)
-        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color', null)
-        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, null, 'color-input')
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
+        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color')
+        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
         textColorInput.setAttribute('type', 'color')
         textColorInput.setAttribute('value', css['color'])
         textColorInput.addEventListener('input', () => {
-          // inputStyle(textColorInput, 'color', null)
-          // Designer.WriteStyle(item, 'lineHeight', e)
+          Designer.WriteStyle(item, 'color', textColorInput.value)
         })
-
-        const stroke = lab_design_system_d('span', "text-stroke", colorSettings, 'Stroke', null)
-
-        const strokeWrap = lab_design_system_d('div', "strokeWrap", colorSettings, null, null)
-        const strokeInput = DesignConstructor.input(strokeWrap, css['stroke-width'], '', '', { el: item, style: 'strokeWidth' })
-
-        const strokeColorInput = lab_design_system_d('input', "input-stroke-color", strokeWrap, null, 'color-input')
-        strokeColorInput.setAttribute('type', 'color')
-        strokeColorInput.setAttribute('value', css['stroke'])
       }
-
+      lab_fade_in_recursively(elementMenuBody, 0.2)
     }
     const page = document.getElementById('lab-user-page')
     page.addEventListener('click', () => {
