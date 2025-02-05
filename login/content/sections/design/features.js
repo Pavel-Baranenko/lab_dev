@@ -597,6 +597,7 @@ const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B",
 
 let styles = styles_d
 //!landscape
+console.log(sectionElementsObject);
 
 const ElementsList = {
   'button': {
@@ -1791,6 +1792,8 @@ function design_mode() {
 
   //TOPSETTINGS
 
+
+
   const topSettings = lab_design_system_d('div', "top-settings", designBody, 0, 0, ['design', 'top'])
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
   const responsiveList = ["landscape", "portrait"]
@@ -1840,16 +1843,22 @@ function design_mode() {
 
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box')
 
-  setPage.appendChild(document.createTextNode("Main"))
+  setPage.appendChild(document.createTextNode(sectionElementsObject.section))
   const arrow = lab_design_system_d('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `${oldSRC}chevron_right.svg`)
 
   setPage.addEventListener('click', () => {
-    const pageList = ['home', 'contacts', 'profile']
+
+    let last = document.getElementById('lab-page-list')
+    if (last) last.remove()
+
+    const pageList = sectionElementsObject.sections
     const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
     pageList.forEach(e => {
-      const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
-      btn.setAttribute('href', `./${e}`)
+      if (e != sectionElementsObject.section) {
+        const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
+        btn.setAttribute('href', `./${e}`)
+      }
     })
     list.addEventListener('mouseleave', () => list.remove())
   })
@@ -1897,7 +1906,6 @@ function design_mode() {
     const pageDom = document.getElementById('lab-user-page').innerHTML
     let text = ''
     let pageNodes = pageDom.split('>')
-    console.log(pageNodes);
     pageNodes.forEach(e => {
       text = text + e + '>\n       '
     })
