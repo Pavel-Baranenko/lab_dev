@@ -589,6 +589,12 @@ const styles_d = {
         gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '20px',
       }
+    },
+    'hover': {
+      'default': {
+        'position': 'absolute',
+        'background': 'linear-gradient(180deg, rgba(36,99,235,1) 0%, rgba(36,99,235,0) 100%)'
+      }
     }
   }
 }
@@ -596,8 +602,6 @@ const styles_d = {
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 let styles = styles_d
-//!landscape
-console.log(sectionElementsObject);
 
 const ElementsList = {
   'button': {
@@ -987,6 +991,7 @@ const ElementsList = {
     }
   },
 }
+
 const elementsToolsList = {
   'span': {
     'icon': `${oldSRC}arrow_menu_close.svg`,
@@ -1064,7 +1069,6 @@ const elementsToolsList = {
   },
 }
 
-
 let ActiveMode
 let selected
 
@@ -1135,10 +1139,9 @@ class Designer {
     if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
     if (document.getElementById('lab-block-menu-wrap')) document.getElementById('lab-block-menu-wrap').remove()
     if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
-
   }
 
-  static copy(element, parent) {
+  static copy(element) {
     const copyItem = element.cloneNode(true)
     element.after(copyItem)
     return copyItem
@@ -1150,6 +1153,8 @@ class Designer {
   }
 
   static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup', moveArea = document) {
+    const page = document.getElementById('lab-user-page')
+    const pagePos = page.getBoundingClientRect()
 
     function onMouseDrag({ movementX, movementY }) {
 
@@ -1160,6 +1165,9 @@ class Designer {
       let topValue = parseInt(getContainerStyle.top)
       element.style.left = `${leftValue + movementX}px`
       element.style.top = `${topValue + movementY}px`
+
+
+
     }
 
     moveArea.addEventListener(moveListener, onMouseDrag)
@@ -1171,7 +1179,6 @@ class Designer {
     }
 
     moveArea.addEventListener(endListener, removeListeners, false)
-
   }
 
   static saveTemplate(element) {
@@ -1212,23 +1219,21 @@ class Designer {
     Designer.removePointer()
   }
 
-  static drag(el) {
+  static drag(el, dargZone, start = 'mousedown', end = 'mouseup', endFunc = null) {
     Designer.removePointer()
-
     if (el.style.position == 'static') return
     const page = document.getElementById('lab-user-page')
     el.style.transition = 'all 0.1s ease'
+    const zone = dargZone || page
 
     let elStyles = window.getComputedStyle(el)
     let pagePos = page.getBoundingClientRect()
     let elPos = el.getBoundingClientRect()
-    console.log(elStyles);
-
     let scale = page.style.scale
 
-    function onMouseDown() {
+    function StartAction() {
       el.style.pointerEvents = 'none'
-      page.addEventListener('mousemove', onMouseMove)
+      zone.addEventListener('mousemove', onMouseMove)
     }
 
     function onMouseMove({ x, y }) {
@@ -1236,7 +1241,6 @@ class Designer {
 
       let item = document.elementFromPoint(x, y)
       const itemPos = item.getBoundingClientRect()
-      const windowBox = document.getElementById('lab-designBody')
 
 
       // if (!document.getElementById('injectHover') && item.id != 'lab-user-page') {
@@ -1275,18 +1279,72 @@ class Designer {
       //   }
       // }
 
+      let Y = y - itemPos.y
+      let X = x - itemPos.x
+
+      let checkCTRL = true
+      if (checkCTRL) {
+        let last = document.getElementById('lab-hover')
+        if (last) last.remove()
+        const top = 0 < Y && Y < 20
+        const bottom = -20 < Y - itemPos.height && Y - itemPos.height < 0
+        const left = 0 < X && X < 20
+        const right = -20 < X - itemPos.width && X - itemPos.width < 0
+
+
+        // if (contentTags.contains(item.tagName)) {
+
+        // }
+
+        console.log(X);
+        console.log(X - itemPos.width);
+
+        if (top || bottom || left || right) {
+          const hover = lab_design_system_d('div', "hover", page, '', 'none', ['design', 'hover'])
+          if (top) {
+            hover.style.height = 20 / pagePos.height * 100 + '%'
+            hover.style.width = itemPos.width / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+          if (bottom) {
+            hover.style.height = 20 / pagePos.height * 100 + '%'
+            hover.style.width = itemPos.width / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y + itemPos.height - 20) / pagePos.height * 100 + '%'
+          }
+          if (left) {
+            hover.style.height = itemPos.height / pagePos.height * 100 + '%'
+            hover.style.width = 20 / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+          if (right) {
+            hover.style.height = itemPos.height / pagePos.height * 100 + '%'
+            hover.style.width = 20 / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x + itemPos.width - 20) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+        }
+
+
+
+      }
       el.style.left = ((x - pagePos.x - (elPos.width / 2)) / scale) / pagePos.width * 100 + '%'
       el.style.top = ((y - pagePos.y - (elPos.height / 2)) / scale) / pagePos.height * 100 + '%'
     }
 
-    el.addEventListener('mousedown', onMouseDown)
+    el.addEventListener(start, StartAction)
 
-    page.addEventListener('mouseup', () => {
+    function EndAction() {
       el.style.transition = elStyles.transition
       el.style.pointerEvents = 'unset'
-      el.removeEventListener('mousedown', onMouseDown)
-      page.removeEventListener('mousemove', onMouseMove)
-    })
+      el.removeEventListener(start, StartAction)
+      zone.removeEventListener('mousemove', onMouseMove)
+      page.removeEventListener(end, EndAction)
+    }
+
+    page.addEventListener(end, EndAction)
   }
 
   static transform(el = selected) {
@@ -1506,7 +1564,6 @@ class DesignConstructor {
     placeholder && Input.setAttribute('placeholder', placeholder)
     params && Input.addEventListener('input', () => Designer.WriteStyle(params.el, params.style, Input.value)
     )
-
     return Input
   }
 
@@ -1569,16 +1626,13 @@ class DesignConstructor {
       }
 
       hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
-
     }
-
   }
 
   static blockMenu(element, parent, options) {
     ActiveMode = null
-    console.log('aaaaa');
-
-    if (!document.getElementById('lab-block-menu')) {
+    let last = document.getElementById('lab-block-menu')
+    if (!last) {
       const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
       const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
       Object.keys(options).forEach(e => {
@@ -1603,7 +1657,7 @@ class DesignConstructor {
       }
 
       menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
-    }
+    } else last.remove()
   }
 
   static toggleClass(el, styleList, usual, active) {
@@ -1663,10 +1717,8 @@ function Options(obj, key, value) {
 
 let contentTags = ["DIV", "SECTION"]
 
-
 function design_mode() {
-
-  const designBody = lab_design_system_d('div', "designBody", rootLayer, 0, 0, ['design', 'body'])
+  const designBody = lab_design_system_d('div', "designBody", rootLayer, '', '', ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options')) || {
     'vpm': "landscape",
     'zoom': 100,
@@ -1677,8 +1729,8 @@ function design_mode() {
 
   //SIDE MENU
 
-  const menu = lab_design_system_d('div', 'side-menu', designBody, 0, 0, ['design', 'side'])
-  const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], 0, 'arrow_menu_close', '', 'show-side-menu')
+  const menu = lab_design_system_d('div', 'side-menu', designBody, '', '', ['design', 'side'])
+  const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
 
   menuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
@@ -1694,35 +1746,32 @@ function design_mode() {
   const elementsBox = lab_design_system_d('div', "elements-box", menu)
   elementsBox.style.margin = "40px 0 0 0"
 
-  const elementsTitle = lab_design_system_d('span', "elements-menu-span", elementsBox, "Elements", 0, ['design', 'templatesHeading'])
-  const elementsWrap = lab_design_system_d('div', "elements-wrap", elementsBox, 0, 0, ['design', 'templates'])
+  const elementsTitle = lab_design_system_d('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
+  const elementsWrap = lab_design_system_d('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
 
   function addList(e, list) {
     Object.keys(e).map(el => {
-      const item = lab_design_system_d('div', Designer.ID(), list, 0, 0, ['design', 'template'])
-      const icon = lab_design_system_d('div', Designer.ID(), item, 0, 0, ['design', 'templateIcon'])
+      const item = lab_design_system_d('div', Designer.ID(), list, '', '', ['design', 'template'])
+      const icon = lab_design_system_d('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
       const img = lab_design_system_d('img', Designer.ID(), icon)
       img.setAttribute('src', e[el].icon)
       img.style.width = '30px'
       img.style.height = '30px'
       const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
+
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
         const copy = Designer.copy(item)
-
         copy.style.position = "absolute"
         copy.style.opacity = "0.7"
-
         copy.style.left = `${coord.left}px`
         copy.style.top = `${coord.top}px`
 
         Designer.move(copy, async () => {
           const copyPos = copy.getBoundingClientRect()
           const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
-
           list.removeChild(copy)
           const item = await Designer.create(e, el, page, 'landscape', true)
-
           if (!['form', 'div', 'section'].includes(el)) {
             item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
             item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
@@ -1730,7 +1779,6 @@ function design_mode() {
             item.style.zIndex = '1'
           }
         })
-
       })
     })
   }
@@ -1749,7 +1797,6 @@ function design_mode() {
     Designer.hover(p.target)
   })
 
-
   page.addEventListener('click', (e) => {
     let element = document.elementFromPoint(e.clientX, e.clientY)
     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
@@ -1763,7 +1810,7 @@ function design_mode() {
 
   //TOOLBAR
 
-  const toolBar = lab_design_system_d('div', "toolbar", designBody, 0, 0, ['design', 'toolbar'])
+  const toolBar = lab_design_system_d('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
 
   const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
 
@@ -1782,7 +1829,7 @@ function design_mode() {
     })
   })
 
-  const blind = lab_design_system_d('button', "blind-tools", toolBar, 0, 0, ['design', 'blindTools'])
+  const blind = lab_design_system_d('button', "blind-tools", toolBar, '', '', ['design', 'blindTools'])
   blind.addEventListener('click', () => {
     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
     Options(options, 'toolBar')
@@ -1792,10 +1839,8 @@ function design_mode() {
 
   //TOPSETTINGS
 
-
-
-  const topSettings = lab_design_system_d('div', "top-settings", designBody, 0, 0, ['design', 'top'])
-  const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'settings-white')
+  const topSettings = lab_design_system_d('div', "top-settings", designBody, '', '', ['design', 'top'])
+  const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
   const responsiveList = ["landscape", "portrait"]
 
   function setVpm(vpm) {
@@ -1816,18 +1861,20 @@ function design_mode() {
   responsiveList.map(e => {
     const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn')
 
-    if (e == options.vpm) {
+    if (e == options.vpm) activeBtn(btn)
+
+    function activeBtn(btn) {
       btn.style.background = '#6a768e'
       btn.classList.add('active')
     }
 
     btn.addEventListener('click', () => {
       if (e != options.vpm) {
-        document.querySelector('.lab-screen-btn.active').style.background = 'transparent'
-        document.querySelector('.lab-screen-btn.active').classList.remove('active')
+        let last = document.querySelector('.lab-screen-btn.active')
+        last.style.background = 'transparent'
+        last.classList.remove('active')
 
-        btn.classList.add('active')
-        btn.style.background = '#6a768e'
+        activeBtn(btn)
         Options(options, 'vpm', e)
         setVpm(e)
       }
@@ -1848,13 +1895,11 @@ function design_mode() {
   arrow.setAttribute('src', `${oldSRC}chevron_right.svg`)
 
   setPage.addEventListener('click', () => {
-
     let last = document.getElementById('lab-page-list')
     if (last) last.remove()
-
-    const pageList = sectionElementsObject.sections
     const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
-    pageList.forEach(e => {
+
+    sectionElementsObject.sections.forEach(e => {
       if (e != sectionElementsObject.section) {
         const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
         btn.setAttribute('href', `./${e}`)
@@ -1863,7 +1908,6 @@ function design_mode() {
     list.addEventListener('mouseleave', () => list.remove())
   })
 
-
   const sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('min', "1")
@@ -1871,7 +1915,7 @@ function design_mode() {
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  const size = lab_design_system_d('div', 'screen-size', topSettings, options.zoom + '%', 0, ['design', 'pixelView'])
+  const size = lab_design_system_d('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
   size.style.width = "60px"
   sizeSwitcher.value = options.zoom
   page.style.scale = options.zoom / 100
@@ -1881,11 +1925,12 @@ function design_mode() {
     Options(options, 'zoom', this.value)
     page.style.scale = this.value / 100
   }
-  const view = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'visibility')
-  view.addEventListener('click', DesignConstructor.closeAll)
-  const download = DesignConstructor.button(topSettings, ['design', 'btn'], 0, 'download')
 
-  const blindTop = lab_design_system_d('button', "blind-btn", topSettings, 0, 0, ['design', 'blind'])
+  const view = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'visibility')
+  view.addEventListener('click', DesignConstructor.closeAll)
+  const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+
+  const blindTop = lab_design_system_d('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
 
   blindTop.addEventListener('click', () => {
     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
@@ -1897,32 +1942,23 @@ function design_mode() {
   //CODE MENU
 
   const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
-  const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'message-code 1')
-  const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', "", ['design', 'codeWrapper'])
-
+  const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
+  const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
   codeMenuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
-    const pageDom = document.getElementById('lab-user-page').innerHTML
-    let text = ''
-    let pageNodes = pageDom.split('>')
-    pageNodes.forEach(e => {
-      text = text + e + '>\n       '
-    })
 
-    codeWrapper.innerText = `${text}`
+    document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
+      codeWrapper.innerText += e + '>\n            '
+    })
   })
 
   //CODE MENU END
 
-  DesignConstructor.BlockResize()
-
-
-
   const fileInput = lab_design_system_d('input', 'file-input', designBody, '', '', ['design', 'noneFile'])
   fileInput.setAttribute('type', 'file')
 
-
+  DesignConstructor.BlockResize()
   lab_fade_in_recursively(designBody, 0.3)
 }
 
@@ -1970,7 +2006,6 @@ function StylesMenu(item) {
     'margin-bottom': itemStyles.marginBottom,
     'margin-left': itemStyles.marginLeft,
   }
-
 
   if (lastSelected && lastSelected.id != item.id) {
     box.removeChild(document.getElementById('lab-elementMenu'))
