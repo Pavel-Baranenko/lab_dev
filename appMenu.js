@@ -54,601 +54,6 @@ const styles_d = {
       }
     }
   },
-  "design": {
-    'body': {
-      'default': {
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        height: 'fit-content',
-        width: "100svw",
-        height: "100svh"
-      }
-    },
-    'side': {
-      'default': {
-        'transition': 'all 0.1s linear',
-        'position': 'relative',
-        boxSizing: 'border-box',
-        boxShadow: '0px 4px 18.9px -4px #0000002E',
-        width: '100px',
-        margin: "0",
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        height: '100vh',
-        paddingTop: '63px',
-        zIndex: 9999,
-        boxShadow: '0 4px 19px - 4px rgba(0, 0, 0, 0.18)',
-        borderRadius: '0 20px 0 0',
-      }
-    },
-    'hideSide': {
-      'default': {
-        margin: "0px 0px 0px -100px"
-      }
-    },
-    'showMenu': {
-      'default': {
-        border: "4px solid #f2f3f7",
-        borderRadius: "30px 0 30px 30px",
-        boxSizing: 'border-box',
-        width: "40px",
-        height: "40px",
-        background: '#fed05e',
-        position: 'absolute',
-        right: '0px',
-        top: '-4px',
-        transform: "none",
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }
-    },
-    'hideMenu': {
-      'default': {
-        transform: "translateX(40px) rotate(-180deg)"
-      }
-    },
-    'templates': {
-      'default': {
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '15px',
-        justifyContent: 'center',
-        marginTop: '13px',
-      }
-    },
-    'templatesHeading': {
-      'default': {
-        fontWeight: 700,
-        boxSizing: 'border-box',
-        fontSize: '14px',
-        color: '#000',
-      }
-    },
-    'template': {
-      'default': {
-        display: 'flex',
-        flexDirection: 'column',
-        boxSizing: 'border-box',
-        cursor: 'pointer',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontWeight: 500,
-        fontSize: '10px',
-        boxSizing: 'border-box',
-        lineHeight: '110%',
-        textAlign: 'center',
-        color: "#000",
-        position: "relative",
-        marginTop: '6px',
-      }
-    },
-    'templateIcon': {
-      'default': {
-        width: '55px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxSizing: 'border-box',
-        height: '55px',
-        borderRadius: '19px',
-        background: '#f2f3f7',
-      }
-    },
-    'top': {
-      'default': {
-        transition: 'all 0.1s linear',
-        gap: '16px',
-        padding: '12px 40px 18px 40px',
-        display: 'flex',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        justifyContent: 'space-between',
-        backgroundColor: '#464C59',
-        position: 'fixed',
-        top: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        maxWidth: '1080px',
-        width: '100%',
-        borderRadius: '0 0 30px 30px',
-        height: '70px',
-        zIndex: 9999,
-      }
-    },
-    'hideTop': {
-      'default': {
-        transform: 'translateY(-98%) translateX(-50%)',
-      }
-    },
-    'btn': {
-      'default': {
-        backgroundColor: "transparent",
-        boxSizing: 'border-box',
-        border: "none"
-      }
-    },
-    'screenBtn': {
-      'default': {
-        backgroundColor: "transparent",
-        border: "none",
-        borderRadius: '8px',
-        width: '42px',
-        boxSizing: 'border-box',
-        height: '42px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }
-    },
-    'blind': {
-      'default': {
-        position: 'absolute',
-        bottom: '-3px',
-        backgroundColor: '#FED05E',
-        width: '96px',
-        boxSizing: 'border-box',
-        height: '6px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        borderRadius: '50px',
-        border: 'none'
-      }
-    },
-    'pixelView': {
-      'default': {
-        borderRadius: '8px',
-        height: '33px',
-        boxSizing: 'border-box',
-        background: '#f3f3f3',
-        fontWeight: '400',
-        fontSize: '13px',
-        color: '#000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '8px 12px',
-      }
-    },
-    'setPage': {
-      'default': {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        fontWeight: 600,
-        position: "relative",
-        fontSize: '18px',
-        color: '#fff',
-        background: "transparent",
-        border: 'none'
-      }
-    },
-    'pageLink': {
-      'default': {
-        'color': "#fff",
-        'textDecoration': "none"
-      }
-    },
-    'toolbar': {
-      'default': {
-        'position': 'fixed',
-        left: "50%",
-        bottom: '30px',
-        zIndex: "9999",
-        background: "#fff",
-        width: "100%",
-        borderRadius: '67px',
-        display: "flex",
-        boxSizing: "border-box",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "18px 40px",
-        maxWidth: "550px",
-        'height': "81px",
-        boxShadow: '-1px 1px 13px 0 rgba(0, 0, 0, 0.11)',
-        'transform': "translateX(-50%)"
-      }
-    },
-    'hideToolbar': {
-      'default': {
-        bottom: "-80px"
-      }
-    },
-    'toolbarItem': {
-      'default': {
-        width: "45px",
-        cursor: "pointer",
-        border: 'none',
-        background: "transparent",
-        height: "45px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: '8px'
-      }
-    },
-    'HoverBox': {
-      'default': {
-        position: 'absolute',
-        zIndex: '999',
-        pointerEvents: 'none',
-        boxShadow: '0px 0px 0px 2px rgba(36, 99, 235, 1) inset'
-      }
-    },
-    'hoverMenuBtn': {
-      'default': {
-        borderRadius: '50px',
-        width: '35px',
-        height: '17px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: "center",
-        background: '#464c59',
-        position: 'absolute',
-        zIndex: '99999',
-        border: "none",
-        cursor: 'pointer'
-      }
-    },
-    'page': {
-      'default': {
-        width: '100%',
-        maxWidth: '100svw',
-        position: 'relative',
-        minHeight: '100vh',
-        background: '#EFEFEF',
-        margin: "auto",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        padding: "30px",
-        boxSizing: 'border-box',
-      }
-    },
-    'pageWrap': {
-      'default': {
-        'overflowY': 'scroll',
-        'maxWidth': '100svw',
-        'minHeight': '100svh',
-        'width': '100%',
-        'paddingBottom': '50svh',
-        'boxSizing': 'border-box',
-      }
-    },
-    'blindTools': {
-      'default': {
-        position: "absolute",
-        background: '#FED05E',
-        width: "17.4%",
-        height: "4px",
-        top: "-2px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        borderRadius: "50px",
-        border: "none"
-      }
-    },
-    'blockMenu': {
-      'default': {
-        'display': 'flex',
-        background: "#fff",
-        maxWidth: "160px",
-        gap: '20px',
-        padding: "18px 25px",
-        boxShadow: '0px 1px 13.9px 0px #00000014',
-        borderRadius: "15px",
-        'flexDirection': "column"
-      }
-    },
-    'blockMenuItem': {
-      'default': {
-        'display': 'flex',
-        gap: '12px',
-        cursor: 'pointer'
-      }
-    },
-    'codeBox': {
-      'default': {
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'fixed',
-        transition: 'all 0.1s linear',
-        top: '0',
-        right: 0,
-        width: "clamp(320px,49svw, 950px)",
-        backgroundColor: '#464C59',
-        borderRadius: '30px 0 0 0',
-        padding: '80px 20px 0 20px',
-        minHeight: 'calc(100vh - 100px)',
-        height: '100%',
-        transform: 'translateX(100%)',
-        zIndex: 99991
-      }
-    },
-    'codeBoxActive': {
-      'default': {
-        transform: 'none',
-        top: '0'
-      }
-    },
-    'codeBoxShow': {
-      'default': {
-        position: 'absolute',
-        top: 0,
-        left: '-63px',
-        border: "none",
-        cursor: 'pointer',
-        width: '62px',
-        height: '62px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '30px 30px 0px 30px',
-        opacity: '0px',
-        backgroundColor: '#FED05E'
-      }
-    },
-    'codeBoxShowActive': {
-      'default': {
-        left: '-1px',
-        borderRadius: '30px 0px 30px 30px'
-      }
-    },
-    'codeWrapper': {
-      'default': {
-        width: '87%',
-        backgroundColor: '#fff',
-        fontSize: '12px',
-        overflow: "hidden",
-        fontWeight: 500,
-        lineHeight: '22px',
-        borderRadius: '30px 30px 0 0',
-        flex: '0 1 100%',
-        padding: '30px 35px',
-      }
-    },
-    'blockMenuWrap': {
-      'default': {
-        position: "absolute",
-        padding: '30px',
-        zIndex: 9999
-      }
-    },
-    'styleMenu': {
-      'default': {
-        position: "absolute",
-        padding: '30px',
-        zIndex: 9999
-      }
-    },
-    'elementMenu': {
-      'default': {
-        position: 'fixed',
-        right: '2px',
-        zIndex: 9999,
-        top: '50%',
-        transform: "translateY(-50%)"
-      }
-    },
-    'elementMenuBody': {
-      'default': {
-        backgroundColor: '#fff',
-        padding: '20px',
-        boxSizing: 'border-box',
-        boxShadow: '0px 1px 13.9px 0px #00000014',
-        borderRadius: '0 0 30px 30px',
-        width: '340px',
-        height: '474px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-      }
-    },
-    'StyleButtons': {
-      'default': {
-        width: '100%',
-        display: 'flex',
-        borderBottom: '1px solid #EFEFEF',
-      }
-    },
-    'StyleBtn': {
-      'default': {
-        borderRadius: '20px 20px 0 0',
-        height: '40px',
-        fontWeight: 500,
-        fontSize: '16px',
-        lineHeight: '137%',
-        textAlign: 'center',
-        cursor: 'pointer',
-        color: '#000',
-        background: '#e5e5e5',
-        textTransform: 'capitalize',
-        border: "none",
-        flex: '0 1 50%'
-      }
-    },
-    'stylesBtn': {
-      'default': {
-        background: "transparent",
-        border: "none"
-      }
-    },
-    'icon': {
-      'default': {
-        maxWidth: "100%"
-      }
-    },
-    'inputWrap': {
-      'default': {
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '9px',
-        borderRadius: '5px',
-        background: '#f4f4f5',
-        padding: '7px',
-        height: '35px',
-        boxSizing: 'border-box'
-      }
-    },
-    'input': {
-      'default': {
-        width: '100%',
-        border: 'none',
-        outline: "none",
-        backgroundColor: 'transparent'
-      }
-    },
-    'dropList': {
-      'default': {
-        width: '100%',
-        position: 'relative'
-      }
-    },
-    'dropSel': {
-      'default': {
-        width: '100%',
-        display: "flex",
-        alignItems: 'center',
-        justifyContent: "space-between",
-        borderRadius: '5px',
-        fontSize: '16px',
-        cursor: "pointer",
-        background: "#F4F4F5",
-        boxSizing: "border-box",
-        textTransform: "lowercase",
-        fontWeight: 500,
-        height: '35px',
-        padding: '7px',
-      }
-    },
-    'dropListing': {
-      'default': {
-        width: '100%',
-        position: 'absolute',
-        zIndex: 1,
-        top: 'calc(100% - 7px)',
-        left: 0,
-        height: 0,
-        background: "#F4F4F5",
-        cursor: "pointer",
-        overflow: "hidden",
-        display: "flex",
-        gap: "3px",
-        boxSizing: "border-box",
-        flexDirection: "column",
-        fontSize: '14px',
-        borderRadius: '0 0 5px 5px'
-      }
-    },
-    'grid-box': {
-      'default': {
-        display: "grid",
-        gap: '4px',
-        gridTemplateColumns: "repeat(4, 1fr)"
-      }
-    },
-    'pointer': {
-      'default': {
-        background: "#464C59",
-        width: "24px",
-        position: 'absolute',
-        height: "7px",
-        borderRadius: "20px",
-        cursor: "grab"
-      }
-    },
-    'area': {
-      'default': {
-        position: 'absolute',
-        border: "2px solid rgba(36, 99, 235, 1)",
-        zIndex: 999
-      }
-    },
-    'noneFile': {
-      'default': {
-        position: 'absolute',
-        top: '-999999999999999999px',
-        left: '-999999999999999999px',
-        width: 0,
-        height: 0
-      }
-    },
-    'pagesList': {
-      'default': {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: '100%',
-        background: '#464C59',
-        borderRadius: "0 0 10px 10px",
-        padding: '5px',
-        display: 'flex',
-        flexDirection: "column",
-        gap: '5px',
-        zIndex: 99
-      }
-    },
-    'styleBox': {
-      'default': {
-        'display': "flex",
-        'justifyContent': "space-between",
-        'alignItems': "center"
-      }
-    },
-    'colorInput': {
-      'default': {
-        'border': 'none',
-        borderRadius: '4px',
-        marginLeft: 'auto',
-        width: '24px !important',
-        minWidth: '24px !important',
-        height: '24px !important',
-        minHeight: '24px !important',
-        border: 'none',
-        backgroundColor: 'transparent',
-      }
-    },
-    'styleGrid': {
-      'default': {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '20px',
-      }
-    },
-    'hover': {
-      'default': {
-        'position': 'absolute',
-        'background': 'linear-gradient(180deg, rgba(36,99,235,1) 0%, rgba(36,99,235,0) 100%)'
-      }
-    },
-  },
   'appMenu': {
     'wrap': {
       'default': {
@@ -933,6 +338,36 @@ const styles_d = {
 
 let styles = styles_d
 
+function lab_design_system_d(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
+
 function AppMenu() {
   const userLSG = lab_local_storage_object('global')
 
@@ -974,7 +409,7 @@ function AppMenu() {
       const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
       const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
       const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
-      icon.setAttribute('src', `${oldSRC}${e}.svg`)
+      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
 
       btn.addEventListener('click', () => {
         if (activeSlide != e) {
@@ -986,12 +421,10 @@ function AppMenu() {
             let img = last.querySelector('img')
             img.setAttribute('src', img.src.replace('-white', ''))
           }
-
           btn.classList.add('app-menu-active')
           btn.style.color = '#3C4CA6'
           btn.style.background = '#fff'
-          icon.setAttribute('src', `${oldSRC}${e}-white.svg`)
-
+          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-white.svg`)
           RenderBox(e)
         }
       })
@@ -1004,9 +437,7 @@ function AppMenu() {
       if (slide == 'backup') {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
-
         const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
-
         Settings('versioning')
 
         function Settings(name) {
@@ -1060,7 +491,7 @@ function AppMenu() {
             })
           }
           else if (name == 'pages_management') {
-            const wrapBox = lab_design_system_d('div', 'app-menu-wrapBox', setWrap, '', '', ['appMenu', 'wrapper'])
+
             const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, 'Pages', '', ['appMenu', 'heading'])
             const DBList = lab_design_system_d('div', 'app-menu-db', setWrap, '', '', ['appMenu', 'DBList'])
 
@@ -1109,7 +540,7 @@ function AppMenu() {
         sectionElementsObject.mediaLists.forEach(e => {
           const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
           const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
-          icon.setAttribute('src', `${oldSRC}folder.svg`)
+          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
           const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
 
           item.addEventListener('click', () => {
@@ -1148,7 +579,7 @@ function AppMenu() {
         Object.keys(buttons).forEach(e => {
           const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
           const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
-          icon.setAttribute('src', `${oldSRC}new-folder.svg`)
+          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
           const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
           btn.addEventListener('click', () => {
             if (e == 'create') {
@@ -1300,7 +731,7 @@ function AppMenu() {
       const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
       const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
       const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
-      icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
+      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
       const listing = lab_design_system_d('div', `${id}-list`, wrap, '', '', ['appMenu', 'list'])
       console.log();
@@ -1341,7 +772,7 @@ function AppMenu() {
 
 }
 
-AppMenu()
+return AppMenu
 
 
 
@@ -1367,7 +798,7 @@ const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B",
 
 const ElementsList = {
   'button': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "button",
     'template': {
       'landscape': {
@@ -1451,7 +882,7 @@ const ElementsList = {
     }
   },
   'section': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "section",
     'template': {
       'landscape': {
@@ -1477,7 +908,7 @@ const ElementsList = {
     }
   },
   'div': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "div",
     'template': {
       'landscape': {
@@ -1501,7 +932,7 @@ const ElementsList = {
     }
   },
   'form': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "form",
     'template': {
       'landscape': {
@@ -1725,7 +1156,7 @@ const ElementsList = {
     }
   },
   'p': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "p",
     'template': {
       'landscape': {
@@ -1756,7 +1187,7 @@ const ElementsList = {
 
 const elementsToolsList = {
   'span': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "span",
     'template': {
       'landscape': {
@@ -1782,7 +1213,7 @@ const elementsToolsList = {
     }
   },
   'img': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "img",
     'template': {
       'landscape': {
@@ -1806,7 +1237,7 @@ const elementsToolsList = {
     }
   },
   'svg': {
-    'icon': `${oldSRC}arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "svg",
     'template': {
       'landscape': {
@@ -2256,7 +1687,7 @@ class DesignConstructor {
     const btn = lab_design_system_d('button', id, parent, content, className, styles)
     if (icon) {
       const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
-      btnIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
+      btnIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
     }
     return btn;
   }
@@ -2266,7 +1697,7 @@ class DesignConstructor {
 
     if (icon) {
       const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
-      innerIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
+      innerIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
     }
 
     const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
@@ -2284,7 +1715,7 @@ class DesignConstructor {
     const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
     const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
     const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
-    icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
+    icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
     const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
     list.forEach(e => {
@@ -2350,7 +1781,7 @@ class DesignConstructor {
         const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
         const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
         const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
-        itemIcon.setAttribute('src', `${oldSRC}${e}-icon.svg`)
+        itemIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
         itemIcon.style.width = '15px'
 
         item.addEventListener('click', () => {
@@ -2603,7 +2034,7 @@ function design_mode() {
 
   setPage.appendChild(document.createTextNode(sectionElementsObject.section))
   const arrow = lab_design_system_d('img', 'page-arrow', setPage)
-  arrow.setAttribute('src', `${oldSRC}chevron_right.svg`)
+  arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
 
   setPage.addEventListener('click', () => {
     let last = document.getElementById('lab-page-list')
@@ -2885,10 +2316,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
   return A
 }
-
-window.addEventListener('resize', () => {
-  Designer.removePointer()
-})
 
 
 
