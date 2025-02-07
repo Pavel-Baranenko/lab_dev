@@ -25,7 +25,6 @@ const styles_d = {
         alignItems: 'center',
         backgroundColor: '#fff',
         height: '100vh',
-        // 'overflow-y': 'scroll',
         paddingTop: '63px',
         zIndex: 9999,
         boxShadow: '0 4px 19px - 4px rgba(0, 0, 0, 0.18)',
@@ -595,13 +594,178 @@ const styles_d = {
         'position': 'absolute',
         'background': 'linear-gradient(180deg, rgba(36,99,235,1) 0%, rgba(36,99,235,0) 100%)'
       }
-    }
+    },
+  },
+  'appMenu': {
+    'wrap': {
+      'default': {
+        position: "fixed",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 99999999
+      }
+    },
+    'menu': {
+      'default': {
+        position: "fixed",
+        top: '50%',
+        left: '50%',
+        transform: "translateY(-50%) translateX(-50%)",
+        width: '100%',
+        maxWidth: "clamp(69%, 90%,1320px)",
+        minHeight: "clamp(69%, 90%,820px)",
+        display: "flex",
+        boxShadow: '0px 4px 18.9px -4px #0000002E',
+        zIndex: 99999999,
+        borderRadius: "50px"
+      }
+    },
+    'side': {
+      'default': {
+        background: "#3C4CA6",
+        borderRadius: "50px 0 0 50px",
+        width: '100%',
+        maxWidth: "clamp(9%, 10%, 110px)",
+        minHeight: "100%",
+        display: "flex",
+        flexDirection: "column",
+        padding: "30px 0 30px 18px",
+        boxSizing: "border-box"
+      }
+    },
+    'sideBtn': {
+      'default': {
+        background: "transparent",
+        borderRadius: "15px 0 0 15px",
+        padding: "15px 30px 15px 15px",
+        width: '100%',
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: '10px',
+        color: "#fff",
+        fontSize: '14px',
+        cursor: "pointer",
+        fontWeight: 500,
+        textAlign: 'center',
+        border: 'none'
+      }
+    },
+    'box': {
+      'default': {
+        background: "#fff",
+        borderRadius: " 0 50px 50px 0",
+        width: '100%',
+        minHeight: "100%",
+        padding: "45px 50px",
+        display: "flex",
+        flexDirection: "column"
+      }
+    },
+    'heading': {
+      'default': {
+        fontSize: '22px',
+        fontWeight: 700,
+        margin: '0',
+        color: "#000"
+      }
+    },
   }
 }
 
+let styles = styles_d
+
+function AppMenu() {
+  const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
+  const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+  const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
+  const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+
+  let activeSlide;
+
+
+  const sideButtons = {
+    'backup': 'Settings',
+    'css': 'CSS',
+    'js': 'Js',
+    'media': 'Media',
+    'database': 'Database',
+    'deploy': 'Deploy'
+    // 'pages': 'Pages'
+  }
+
+  Object.keys(sideButtons).forEach(e => {
+    const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
+    const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
+    const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
+    icon.setAttribute('src', `${oldSRC}${e}.svg`)
+
+    btn.addEventListener('click', () => {
+      if (activeSlide != e) {
+        const last = document.querySelector('.app-menu-active')
+        if (last) {
+          last.classList.remove('app-menu-active')
+          last.style.color = '#fff'
+          last.style.background = '#3C4CA6'
+          let img = last.querySelector('img')
+          img.setAttribute('src', img.src.replace('-white', ''))
+        }
+
+        btn.classList.add('app-menu-active')
+        btn.style.color = '#3C4CA6'
+        btn.style.background = '#fff'
+        icon.setAttribute('src', `${oldSRC}${e}-white.svg`)
+
+        RenderBox(e)
+      }
+
+    })
+
+  })
+
+
+  function RenderBox(slide = 'pages') {
+    box.innerHTML = ''
+    activeSlide = slide
+
+    if (slide == 'pages') {
+      const heading = lab_design_system_d('h6', 'app-menu-heading', box, sideButtons[slide], '', ['appMenu', 'heading'])
+
+    }
+  }
+
+  menuWrap.addEventListener('click', () => {
+    menuWrap.remove()
+    menu.remove()
+  })
+}
+
+AppMenu()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
-let styles = styles_d
 
 const ElementsList = {
   'button': {
@@ -2180,3 +2344,6 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 window.addEventListener('resize', () => {
   Designer.removePointer()
 })
+
+
+
