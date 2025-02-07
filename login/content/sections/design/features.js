@@ -712,10 +712,16 @@ const styles_d = {
         background: "#fff",
         borderRadius: " 0 50px 50px 0",
         width: '100%',
-        minHeight: "100%",
+        minHeight: "100%"
+      }
+    },
+    'wrapper': {
+      'default': {
         padding: "45px 50px",
         boxSizing: "border-box",
         display: "flex",
+        minHeight: "100%",
+        width: '100%',
         flexDirection: "column",
         gap: '20px'
       }
@@ -743,7 +749,8 @@ const styles_d = {
     'drop': {
       'default': {
         position: "relative",
-        cursor: "pointer"
+        cursor: "pointer",
+        zIndex: 10
       }
     },
     'selected': {
@@ -781,6 +788,117 @@ const styles_d = {
         maxWidth: "700px",
         justifyContent: "space-between"
       }
+    },
+    'fold': {
+      'default': {
+        display: "flex",
+        height: "100%",
+        boxSizing: 'border-box',
+        width: "100%",
+        maxWidth: "255px",
+        background: "#ECF0F9",
+        display: "flex",
+        flexDirection: "column",
+        padding: '30px 0 25px 30px'
+      }
+    },
+    'media': {
+      'default': {
+        display: "flex",
+        boxSizing: 'border-box',
+        height: "100%",
+        width: "100%"
+      }
+    },
+    'folder': {
+      'default': {
+        width: '100%',
+        boxSizing: 'border-box',
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        gap: '12px',
+        fontWeight: 500,
+        padding: '15px',
+        borderRadius: "10px 0 0 10px",
+        color: '#000'
+      }
+    },
+    'bottom': {
+      'default': {
+        width: '100%',
+        boxSizing: 'border-box',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        cursor: "pointer",
+        padding: '0 30px 0 0',
+        gap: '12px',
+        marginTop: "auto"
+      }
+    },
+    'borderBtn': {
+      'default': {
+        width: '100%',
+        boxSizing: 'border-box',
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        gap: '12px',
+        color: "#575757",
+        padding: '13px',
+        border: '1.55px dashed #000',
+        borderRadius: '8px',
+      }
+    },
+    'Input': {
+      'default': {
+        width: '100%',
+        background: '#F4F4F5',
+        boxSizing: 'border-box',
+        cursor: "pointer",
+        height: "50px",
+        padding: '5px 20px',
+        outline: 'none',
+        border: 'none',
+        textALign: 'center',
+        borderRadius: '12px',
+      }
+    },
+    'deploy': {
+      'default': {
+        width: '100%',
+        display: 'flex',
+        gap: '40px'
+      }
+    },
+    'left': {
+      'default': {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        maxWidth: '260px',
+      }
+    },
+    'leftBox': {
+      'default': {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px'
+      }
+    },
+    'right': {
+      'default': {
+        width: '100%'
+      }
+    },
+    'execute': {
+      'default': {
+        display: "flex",
+        gap: "30px"
+      }
     }
   }
 }
@@ -788,181 +906,317 @@ const styles_d = {
 let styles = styles_d
 
 function AppMenu() {
-  const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
-  const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
-  const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
-  const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+  const userLSG = lab_local_storage_object('global')
 
-  let activeSlide;
+  lab_load_language_module(userLSG.lng).then(lngData => {
 
-  const sideButtons = {
-    'backup': 'Settings',
-    'css': 'CSS',
-    'js': 'Js',
-    'media': 'Media',
-    'database': 'Database',
-    'deploy': 'Deploy'
-    // 'pages': 'Pages'
-  }
-  const settings = {
-    'versioning': "Versioning",
-    'pages_management': "Pages management",
-    'libraries': "Libraries",
-    'collaborative_mode': "Collaborative mode",
-    'svg_fragmentation': "Svg fragmentation",
-    'ephemeral_sharing': "Ephemeral sharing",
-  }
+    const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
+    const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+    const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
+    const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+    console.log(sectionElementsObject);
 
-  Object.keys(sideButtons).forEach(e => {
-    const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
-    const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
-    const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
-    icon.setAttribute('src', `${oldSRC}${e}.svg`)
+    let activeSlide;
 
-    btn.addEventListener('click', () => {
-      if (activeSlide != e) {
-        const last = document.querySelector('.app-menu-active')
-        if (last) {
-          last.classList.remove('app-menu-active')
-          last.style.color = '#fff'
-          last.style.background = '#3C4CA6'
-          let img = last.querySelector('img')
-          img.setAttribute('src', img.src.replace('-white', ''))
+    const sideButtons = {
+      'backup': 'Settings',
+      'css': 'CSS',
+      'js': 'Js',
+      'media': 'Media',
+      'database': 'Database',
+      'deploy': 'Deploy'
+      // 'pages': 'Pages'
+    }
+    const settings = {
+      'versioning': "Versioning",
+      'pages_management': "Pages management",
+      'libraries': "Libraries",
+      'collaborative_mode': "Collaborative mode",
+      'svg_fragmentation': "Svg fragmentation",
+      'ephemeral_sharing': "Ephemeral sharing",
+    }
+    const server = {
+      'lab_user_personnal_server': lngData.personnal_distant_server,
+      // 'laboranth_remote_server': lngData.laboranth_remote_server,
+      "laboranth_deploy_git": "Git",
+      "laboranth_deploy_zip": "Zip"
+    }
+    Object.keys(sideButtons).forEach(e => {
+      const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
+      const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
+      const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
+      icon.setAttribute('src', `${oldSRC}${e}.svg`)
+
+      btn.addEventListener('click', () => {
+        if (activeSlide != e) {
+          const last = document.querySelector('.app-menu-active')
+          if (last) {
+            last.classList.remove('app-menu-active')
+            last.style.color = '#fff'
+            last.style.background = '#3C4CA6'
+            let img = last.querySelector('img')
+            img.setAttribute('src', img.src.replace('-white', ''))
+          }
+
+          btn.classList.add('app-menu-active')
+          btn.style.color = '#3C4CA6'
+          btn.style.background = '#fff'
+          icon.setAttribute('src', `${oldSRC}${e}-white.svg`)
+
+          RenderBox(e)
         }
+      })
+    })
 
-        btn.classList.add('app-menu-active')
-        btn.style.color = '#3C4CA6'
-        btn.style.background = '#fff'
-        icon.setAttribute('src', `${oldSRC}${e}-white.svg`)
+    function RenderBox(slide = 'backup') {
+      box.innerHTML = ''
+      activeSlide = slide
 
-        RenderBox(e)
+      if (slide == 'backup') {
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        dropDown(settings, '', 'settings', (e) => Settings[e](wrapper), wrapper)
       }
 
-    })
+      else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
 
-  })
+      else if (slide == 'media') {
+        const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+        const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', '', ['appMenu', 'wrapper'])
+        const heading = lab_design_system_d('span', 'app-menu-fold', folders, 'Your files')
+        sectionElementsObject.mediaLists.forEach(e => {
+          const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
+          const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
+          icon.setAttribute('src', `${oldSRC}folder.svg`)
+          const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
 
-  function RenderBox(slide = 'backup') {
-    box.innerHTML = ''
-    activeSlide = slide
-
-    if (slide == 'backup') dropDown(settings, '', 'settings', (e) => Settings[e]())
-
-    else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
-
-    // lab_local_storage_object_update('global', { openedMenu: 'app_css' })
-    // socket.emit('askCSSFile', lab_local_storage_object('global'), e => {
-    //   console.log(e);
-    // })
-  }
-
-  function TextEditableBox(type) {
-    const heading = lab_design_system_d('h6', 'app-menu-heading', box, sideButtons[type], '', ['appMenu', 'heading'])
-    const wrap = lab_design_system_d('div', `app-menu-text-wrap`, box, '', '', ['appMenu', 'textBox'])
-    wrap.contentEditable = true
-    const btn = lab_design_system_d('button', `app-menu-btn`, box, 'Save', '', ['buttons', 'action'])
-    btn.style.width = 'fit-content'
-  }
-
-  class Settings {
-    static versioning() {
-      socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
-        console.log(b);
-        const heading = lab_design_system_d('h6', 'manual-backup', box, 'Manual backup', '', ['appMenu', 'heading'])
-        const row = lab_design_system_d('div', 'backup', box, '', '', ['appMenu', 'row'])
-        const create = lab_design_system_d('button', `c-backup`, row, 'Create', '', ['buttons', 'action'])
-        create.style.width = 'fit-content'
-
-        create.addEventListener('click', e => {
-          const userLSG = lab_local_storage_object('global')
-          const now = new Date(Date.now())
-          const year = now.getFullYear()
-          const month = (now.getMonth() + 1).toString().padStart(2, '0')
-          const day = now.getDate().toString().padStart(2, '0')
-          const hours = now.getHours().toString().padStart(2, '0')
-          const minutes = now.getMinutes().toString().padStart(2, '0')
-          userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
-          socket.emit("makeAppBackup", userLSG)
+          item.addEventListener('click', () => openFolder(e.files))
         })
 
+        function openFolder(list) {
+          wrapper.innerHTML = ''
+          list.forEach((e, index) => {
+            const file = lab_design_system_d('div', `file-${index}`, wrapper, e)
+          })
+        }
 
-        const text = lab_design_system_d('span', `row-text`, row, 'Upload previous version')
-
-        const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
-
-        console.log(previous);
-
-        previous.wrap.style.maxWidth = '200px'
-
-        const upload = lab_design_system_d('button', `u-backup`, row, 'Upload', '', ['buttons', 'action'])
-        upload.style.width = 'fit-content'
-
-        upload.addEventListener('click', e => {
-          const userLSG = lab_local_storage_object('global')
-          userLSG.backupDate = previous.text.innerHTML
-          socket.emit('eraseByBackup', userLSG)
+        const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+        let buttons = {
+          'import': "Import files",
+          'create': "Create folder"
+        }
+        Object.keys(buttons).forEach(e => {
+          const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
+          const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
+          icon.setAttribute('src', `${oldSRC}new-folder.svg`)
+          const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
         })
 
-        const auto = lab_design_system_d('h6', 'auto-backup', box, 'Auto backup', '', ['appMenu', 'heading'])
+      }
 
-        const autoRow = lab_design_system_d('div', 'a-backup', box, '', '', ['appMenu', 'row'])
-        const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
-        autoBack.wrap.style.maxWidth = '200px'
+      else if (slide == 'deploy') {
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', '', ['appMenu', 'deploy'])
+        const left = lab_design_system_d('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
+        const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
+        const heading = lab_design_system_d('h6', 'app-menu-heading', left, 'Deploying', '', ['appMenu', 'heading'])
+        const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
+        wrap.contentEditable = true
 
-        const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, 'Upload', '', ['buttons', 'action'])
-        uploadAuto.style.width = 'fit-content'
 
-        uploadAuto.addEventListener('click', e => {
+        const drop = dropDown(server, server.lab_user_personnal_server, 'serv', (e) => deployBox(e), left)
+        const leftBox = lab_design_system_d('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
+
+        function deployBox(e = 'lab_user_personnal_server') {
+          leftBox.innerHTML = ''
+          if (e == 'lab_user_personnal_server') {
+            const ip = Input('ip', leftBox, 'XX.XX.XXX.XX', '')
+            const ssh = Input('ssh', leftBox, lngData.username_ssh, '')
+            const pass = Input('pass', leftBox, lngData.password, '')
+            const dir = Input('dir', leftBox, lngData.remote_app_dir, '')
+            const port = Input('port', leftBox, lngData.port, '')
+            const save = lab_design_system_d('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
+            save.style.width = 'fit-content'
+
+            save.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.host = ip.value
+              userLSG.username = ssh.value
+              userLSG.password = pass.value
+              userLSG.remoteDir = dir.value
+              userLSG.port = port.value
+              socket.emit("saveSID", userLSG)
+            })
+          }
+          if (e == 'laboranth_deploy_zip') {
+            const donwload = lab_design_system_d('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
+            donwload.addEventListener('click', e => {
+              socket.emit('askAppZipFolder', lab_local_storage_object('global'), res => {
+                const blob = new Blob([res.fileData], { type: 'application/zip' })
+                const downloadUrl = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = downloadUrl
+                a.download = res.fileName
+                document.body.appendChild(a)
+                a.click()
+                document.body.removeChild(a)
+                URL.revokeObjectURL(downloadUrl)
+              })
+            })
+          }
+        }
+        const executeBox = lab_design_system_d('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
+        const command = Input('command', executeBox, 'ls')
+        const execute = lab_design_system_d('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
+        execute.style.width = 'fit-content'
+        execute.style.whiteSpace = 'nowrap'
+
+        execute.addEventListener('click', () => {
           const userLSG = lab_local_storage_object('global')
-          userLSG.auto = true
-          userLSG.day = autoBack.text.innerHTML
-          socket.emit('eraseByBackup', userLSG)
+          userLSG.command = command.value
+          command.value = ""
+          socket.emit("runRemoteCommand", userLSG)
         })
-      })
+
+        const deployBtn = lab_design_system_d('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
+        deployBtn.style.width = 'fit-content'
+
+        deployBtn.addEventListener('click', e => {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.uploadingConfig = uploadingConfig
+          socket.emit('sshDeploy', userLSG)
+        })
+
+        deployBox()
+      }
+      // lab_local_storage_object_update('global', { openedMenu: 'app_css' })
+      // socket.emit('askCSSFile', lab_local_storage_object('global'), e => {
+      //   console.log(e);
+      // })
     }
 
-  }
-
-  function dropDown(list, value, id, func, parent = box, placeholder) {
-    const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
-    const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
-    const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
-    const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
-    icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
-
-    const listing = lab_design_system_d('div', `${id}-list`, wrap, '', '', ['appMenu', 'list'])
-    console.log();
-    if (typeof list == 'array') {
-      list.forEach(e => {
-        const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
-
-        item.addEventListener('click', () => {
-          text.innerHTML = e
-          func(e)
-        })
-      })
-    } else {
-      Object.keys(list).forEach(e => {
-        const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
-
-        item.addEventListener('click', () => {
-          text.innerHTML = list[e]
-          func(e)
-        })
-      })
+    function TextEditableBox(type) {
+      const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+      const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
+      const wrap = lab_design_system_d('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
+      wrap.contentEditable = true
+      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, 'Save', '', ['buttons', 'action'])
+      btn.style.width = 'fit-content'
     }
 
-    wrap.addEventListener('click', () => {
-      listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
+
+    function Input(id, parent, placeholder = '', value = '') {
+      const input = lab_design_system_d('input', id, parent, '', '', ['appMenu', 'Input'])
+      input.setAttribute('placeholder', placeholder)
+      input.setAttribute('value', value)
+      return input
+    }
+
+
+    class Settings {
+      static versioning(parent) {
+        socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
+
+          const heading = lab_design_system_d('h6', 'manual-backup', parent, 'Manual backup', '', ['appMenu', 'heading'])
+          const row = lab_design_system_d('div', 'backup', parent, '', '', ['appMenu', 'row'])
+          row.style.position = 'relative'
+          row.style.zIndex = 2
+          const create = lab_design_system_d('button', `c-backup`, row, 'Create', '', ['buttons', 'action'])
+          create.style.width = 'fit-content'
+
+          create.addEventListener('click', e => {
+            const userLSG = lab_local_storage_object('global')
+            const now = new Date(Date.now())
+            const year = now.getFullYear()
+            const month = (now.getMonth() + 1).toString().padStart(2, '0')
+            const day = now.getDate().toString().padStart(2, '0')
+            const hours = now.getHours().toString().padStart(2, '0')
+            const minutes = now.getMinutes().toString().padStart(2, '0')
+            userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
+            socket.emit("makeAppBackup", userLSG)
+          })
+
+
+          const text = lab_design_system_d('span', `row-text`, row, 'Upload previous version')
+
+          const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
+
+          console.log(previous);
+
+          previous.wrap.style.maxWidth = '200px'
+
+          const upload = lab_design_system_d('button', `u-backup`, row, 'Upload', '', ['buttons', 'action'])
+          upload.style.width = 'fit-content'
+
+          upload.addEventListener('click', e => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.backupDate = previous.text.innerHTML
+            socket.emit('eraseByBackup', userLSG)
+          })
+
+          const auto = lab_design_system_d('h6', 'auto-backup', parent, 'Auto backup', '', ['appMenu', 'heading'])
+
+          const autoRow = lab_design_system_d('div', 'a-backup', parent, '', '', ['appMenu', 'row'])
+          const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
+          autoBack.wrap.style.maxWidth = '200px'
+
+          const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, 'Upload', '', ['buttons', 'action'])
+          uploadAuto.style.width = 'fit-content'
+
+          uploadAuto.addEventListener('click', e => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.auto = true
+            userLSG.day = autoBack.text.innerHTML
+            socket.emit('eraseByBackup', userLSG)
+          })
+        })
+      }
+
+    }
+
+    function dropDown(list, value, id, func, parent = box, placeholder) {
+      const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
+      const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
+      const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+      const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
+      icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
+
+      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', '', ['appMenu', 'list'])
+      console.log();
+      if (typeof list == 'array') {
+        list.forEach(e => {
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
+
+          item.addEventListener('click', () => {
+            text.innerHTML = e
+            func(e)
+          })
+        })
+      } else {
+        Object.keys(list).forEach(e => {
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
+
+          item.addEventListener('click', () => {
+            text.innerHTML = list[e]
+            func(e)
+          })
+        })
+      }
+
+      wrap.addEventListener('click', () => {
+        listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
+      })
+
+      return { wrap, text }
+    }
+
+    menuWrap.addEventListener('click', () => {
+      menuWrap.remove()
+      menu.remove()
     })
-
-    return { wrap, text }
-  }
-
-  menuWrap.addEventListener('click', () => {
-    menuWrap.remove()
-    menu.remove()
   })
+
+
 }
 
 AppMenu()
