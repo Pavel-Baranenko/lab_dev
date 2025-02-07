@@ -1,6 +1,59 @@
 const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
 
 const styles_d = {
+  "buttons": {
+    "yellowBtn": {
+      "default": {
+        "borderRadius": "13px",
+        "paddingTop": "clamp(2svh, 10svh, 11px)",
+        "paddingBottom": "clamp(2svh, 10svh, 11px)",
+        "paddingLeft": "clamp(5svw, 2vw, 50px)",
+        "paddingRight": "clamp(5svw, 2vw, 50px)",
+        "width": "fit-content",
+        "background": "#fed05e",
+        "fontWeight": "500",
+        "fontSize": "clamp(14px, 2vw, 20px)",
+        "textAlign": "center",
+        "marginTop": "clamp(1svh, 10svh, 40px)",
+        "border": "none"
+      },
+      "Landscape": {
+        "paddingLeft": "50px",
+        "paddingRight": "50px"
+      }
+    },
+    "action": {
+      "default": {
+        "borderRadius": "15px",
+        "paddingBottom": "clamp(2svh, 5svh, 12px)",
+        "paddingTop": "clamp(2svh, 5svh, 12px)",
+        "paddingLeft": "clamp(2svw, 5svw, 20px)",
+        "paddingRight": "clamp(2svw, 5svw, 20px)",
+        "background": "#feda31",
+        "fontWeight": "700",
+        "font-size": "clamp(10px, 14px, 18px)",
+        "color": "#000",
+        "border": "none",
+        "boxSizing": "border-box",
+        "textAlign": "center"
+      }
+    },
+    "grey": {
+      "default": {
+        "borderRadius": "15px",
+        "paddingBottom": "clamp(2svh, 5svh, 12px)",
+        "paddingTop": "clamp(2svh, 5svh, 12px)",
+        "paddingLeft": "clamp(2svw, 5svw, 20px)",
+        "paddingRight": "clamp(2svw, 5svw, 20px)",
+        "background": "#DFDFDF",
+        "fontWeight": "700",
+        "font-size": "clamp(10px, 14px, 18px)",
+        "color": "#000",
+        "border": "none",
+        "boxSizing": "border-box"
+      }
+    }
+  },
   "design": {
     'body': {
       'default': {
@@ -661,8 +714,10 @@ const styles_d = {
         width: '100%',
         minHeight: "100%",
         padding: "45px 50px",
+        boxSizing: "border-box",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        gap: '20px'
       }
     },
     'heading': {
@@ -673,6 +728,60 @@ const styles_d = {
         color: "#000"
       }
     },
+    'textBox': {
+      'default': {
+        borderRadius: "25px",
+        background: "#F7F7F7",
+        boxSizing: "border-box",
+        width: '100%',
+        height: "100%",
+        outline: "none",
+        overflowY: "scroll",
+        padding: "24px 80px 24px 24px"
+      }
+    },
+    'drop': {
+      'default': {
+        position: "relative",
+        cursor: "pointer"
+      }
+    },
+    'selected': {
+      'default': {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "space-between",
+        padding: "10px 6px",
+        background: "#F4F4F5",
+        borderRadius: "10px",
+        boxSizing: 'border-box',
+        height: "50px"
+      }
+    },
+    'list': {
+      'default': {
+        position: "absolute",
+        top: '40px',
+        left: 0,
+        right: 0,
+        display: "none",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "5px",
+        padding: "10px",
+        background: "#F4F4F5",
+        borderRadius: "0 0 10px 10px",
+        boxSizing: 'border-box'
+      }
+    },
+    'row': {
+      'default': {
+        display: "flex",
+        alignItems: "center",
+        maxWidth: "700px",
+        justifyContent: "space-between"
+      }
+    }
   }
 }
 
@@ -686,7 +795,6 @@ function AppMenu() {
 
   let activeSlide;
 
-
   const sideButtons = {
     'backup': 'Settings',
     'css': 'CSS',
@@ -695,6 +803,14 @@ function AppMenu() {
     'database': 'Database',
     'deploy': 'Deploy'
     // 'pages': 'Pages'
+  }
+  const settings = {
+    'versioning': "Versioning",
+    'pages_management': "Pages management",
+    'libraries': "Libraries",
+    'collaborative_mode': "Collaborative mode",
+    'svg_fragmentation': "Svg fragmentation",
+    'ephemeral_sharing': "Ephemeral sharing",
   }
 
   Object.keys(sideButtons).forEach(e => {
@@ -726,15 +842,121 @@ function AppMenu() {
 
   })
 
-
-  function RenderBox(slide = 'pages') {
+  function RenderBox(slide = 'backup') {
     box.innerHTML = ''
     activeSlide = slide
 
-    if (slide == 'pages') {
-      const heading = lab_design_system_d('h6', 'app-menu-heading', box, sideButtons[slide], '', ['appMenu', 'heading'])
+    if (slide == 'backup') dropDown(settings, '', 'settings', (e) => Settings[e]())
 
+    else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
+
+    // lab_local_storage_object_update('global', { openedMenu: 'app_css' })
+    // socket.emit('askCSSFile', lab_local_storage_object('global'), e => {
+    //   console.log(e);
+    // })
+  }
+
+  function TextEditableBox(type) {
+    const heading = lab_design_system_d('h6', 'app-menu-heading', box, sideButtons[type], '', ['appMenu', 'heading'])
+    const wrap = lab_design_system_d('div', `app-menu-text-wrap`, box, '', '', ['appMenu', 'textBox'])
+    wrap.contentEditable = true
+    const btn = lab_design_system_d('button', `app-menu-btn`, box, 'Save', '', ['buttons', 'action'])
+    btn.style.width = 'fit-content'
+  }
+
+  class Settings {
+    static versioning() {
+      socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
+        console.log(b);
+        const heading = lab_design_system_d('h6', 'manual-backup', box, 'Manual backup', '', ['appMenu', 'heading'])
+        const row = lab_design_system_d('div', 'backup', box, '', '', ['appMenu', 'row'])
+        const create = lab_design_system_d('button', `c-backup`, row, 'Create', '', ['buttons', 'action'])
+        create.style.width = 'fit-content'
+
+        create.addEventListener('click', e => {
+          const userLSG = lab_local_storage_object('global')
+          const now = new Date(Date.now())
+          const year = now.getFullYear()
+          const month = (now.getMonth() + 1).toString().padStart(2, '0')
+          const day = now.getDate().toString().padStart(2, '0')
+          const hours = now.getHours().toString().padStart(2, '0')
+          const minutes = now.getMinutes().toString().padStart(2, '0')
+          userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
+          socket.emit("makeAppBackup", userLSG)
+        })
+
+
+        const text = lab_design_system_d('span', `row-text`, row, 'Upload previous version')
+
+        const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
+
+        console.log(previous);
+
+        previous.wrap.style.maxWidth = '200px'
+
+        const upload = lab_design_system_d('button', `u-backup`, row, 'Upload', '', ['buttons', 'action'])
+        upload.style.width = 'fit-content'
+
+        upload.addEventListener('click', e => {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.backupDate = previous.text.innerHTML
+          socket.emit('eraseByBackup', userLSG)
+        })
+
+        const auto = lab_design_system_d('h6', 'auto-backup', box, 'Auto backup', '', ['appMenu', 'heading'])
+
+        const autoRow = lab_design_system_d('div', 'a-backup', box, '', '', ['appMenu', 'row'])
+        const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
+        autoBack.wrap.style.maxWidth = '200px'
+
+        const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, 'Upload', '', ['buttons', 'action'])
+        uploadAuto.style.width = 'fit-content'
+
+        uploadAuto.addEventListener('click', e => {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.auto = true
+          userLSG.day = autoBack.text.innerHTML
+          socket.emit('eraseByBackup', userLSG)
+        })
+      })
     }
+
+  }
+
+  function dropDown(list, value, id, func, parent = box, placeholder) {
+    const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
+    const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
+    const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+    const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
+    icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
+
+    const listing = lab_design_system_d('div', `${id}-list`, wrap, '', '', ['appMenu', 'list'])
+    console.log();
+    if (typeof list == 'array') {
+      list.forEach(e => {
+        const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
+
+        item.addEventListener('click', () => {
+          text.innerHTML = e
+          func(e)
+        })
+      })
+    } else {
+      Object.keys(list).forEach(e => {
+        const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
+
+        item.addEventListener('click', () => {
+          text.innerHTML = list[e]
+          func(e)
+        })
+      })
+    }
+
+    wrap.addEventListener('click', () => {
+      listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
+    })
+
+    return { wrap, text }
   }
 
   menuWrap.addEventListener('click', () => {
