@@ -19,15 +19,71 @@
 		{
 			"id": "background",
 			"tagName": "DIV",
+			"attributes": [],
 			"classes": "background",
 			"style": {
 				"style": {
 					"position": "absolute",
 					"width": "100svw",
 					"height": "100svh",
-					"background-color": "#91b2f2"
+					"background-color": "rgb(145, 178, 242)",
+					"border-top-width": "2px",
+					"border-right-width": "2px",
+					"border-bottom-width": "2px",
+					"border-left-width": "2px",
+					"border-top-style": "solid",
+					"border-right-style": "solid",
+					"border-bottom-style": "solid",
+					"border-left-style": "solid",
+					"border-top-color": "cyan",
+					"border-right-color": "cyan",
+					"border-bottom-color": "cyan",
+					"border-left-color": "cyan",
+					"border-image-source": "initial",
+					"border-image-slice": "initial",
+					"border-image-width": "initial",
+					"border-image-outset": "initial",
+					"border-image-repeat": "initial",
+					"stroke": "cyan"
 				},
-				"text": ""
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab_18_Vladimir-PutinContainer",
+			"tagName": "DIV",
+			"attributes": [],
+			"style": {
+				"style": {
+					"position": "absolute",
+					"opacity": "1",
+					"width": "20svw",
+					"height": "auto",
+					"z-index": "1",
+					"left": "2svw",
+					"top": "2svh"
+				},
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab_18_Vladimir-Putin",
+			"tagName": "IMG",
+			"attributes": [
+				{
+					"attributeName": "src",
+					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/home/img/lab_18_Vladimir-Putin.webp"
+				}
+			],
+			"style": {
+				"parent": "lab_18_Vladimir-PutinContainer",
+				"style": {
+					"max-height": "20svh"
+				},
+				"text": "",
+				"textArray": []
 			}
 		}
 	]

@@ -574,7 +574,7 @@ function AppMenu() {
             const file = lab_design_system_d('div', `file-${index}`, wrapper)
             const img = lab_design_system_d('img', `file-img-${index}`, file)
             const span = lab_design_system_d('span', `file-span-${index}`, file, e)
-            img.setAttribute('scr', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/sections${sectionElementsObject.section ? `/${sectionElementsObject.section}` : ""}/img/${e}`)
+            img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/${sectionElementsObject.section ? `/${sectionElementsObject.section}` : ""}/img/${e}`)
           })
         }
 

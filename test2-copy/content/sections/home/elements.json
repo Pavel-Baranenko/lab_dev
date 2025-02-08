@@ -1,0 +1,34 @@
+{
+	"portrait": [
+		{
+			"id": "background",
+			"tagName": "DIV",
+			"classes": "background",
+			"style": {
+				"style": {
+					"position": "absolute",
+					"width": "100svw",
+					"height": "100svh",
+					"background-color": "#91b2f2"
+				},
+				"text": ""
+			}
+		}
+	],
+	"paysage": [
+		{
+			"id": "background",
+			"tagName": "DIV",
+			"classes": "background",
+			"style": {
+				"style": {
+					"position": "absolute",
+					"width": "100svw",
+					"height": "100svh",
+					"background-color": "#91b2f2"
+				},
+				"text": ""
+			}
+		}
+	]
+}

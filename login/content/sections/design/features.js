@@ -927,7 +927,31 @@ const styles_d = {
         flexDirection: "column",
         gap: '10px'
       }
-    }
+    },
+    'files': {
+      'default': {
+        'display': 'flex',
+        'flexWrap': 'wrap',
+        'gap': "20px"
+      }
+    },
+    'fileImg': {
+      'default': {
+        'display': 'flex',
+        'flexDirection': "column",
+        'maxWidth': "100px",
+        'overflow': "hidden",
+        'flexWrap': 'wrap',
+        'gap': "5px"
+      }
+    },
+    'boxImg': {
+      'default': {
+        'maxWidth': "100px",
+        'aspectRatio': 1,
+        'background': "#FED05E"
+      }
+    },
   }
 }
 
@@ -1060,7 +1084,6 @@ function AppMenu() {
             })
           }
           else if (name == 'pages_management') {
-            const wrapBox = lab_design_system_d('div', 'app-menu-wrapBox', setWrap, '', '', ['appMenu', 'wrapper'])
             const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, 'Pages', '', ['appMenu', 'heading'])
             const DBList = lab_design_system_d('div', 'app-menu-db', setWrap, '', '', ['appMenu', 'DBList'])
 
@@ -1105,6 +1128,7 @@ function AppMenu() {
         const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
         const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', '', ['appMenu', 'wrapper'])
+        const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
         const heading = lab_design_system_d('span', 'app-menu-fold', folders, 'Your files')
         sectionElementsObject.mediaLists.forEach(e => {
           const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
@@ -1130,13 +1154,17 @@ function AppMenu() {
         })
 
         function openFolder(list) {
-          wrapper.innerHTML = ''
+          files.innerHTML = ''
 
-          list.forEach((e, index) => {
-            const file = lab_design_system_d('div', `file-${index}`, wrapper)
-            const img = lab_design_system_d('img', `file-img-${index}`, file)
-            const span = lab_design_system_d('span', `file-span-${index}`, file, e)
-            img.setAttribute('scr', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/sections${sectionElementsObject.section ? `/${sectionElementsObject.section}` : ""}/img/${e}`)
+          list.forEach((e, i) => {
+            const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
+            const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
+            const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
+            img.style.maxWidth = '100%'
+            img.style.aspectRatio = '1'
+            img.style.objectFit = 'cover'
+            const span = lab_design_system_d('span', `file-span-${i}`, file, e)
+            img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
           })
         }
 

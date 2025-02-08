@@ -76,149 +76,120 @@
 			}
 		},
 		{
-			"id": "lab_div_7737",
+			"id": "asContainer",
 			"tagName": "DIV",
 			"attributes": [],
 			"style": {
 				"style": {
+					"position": "absolute",
+					"opacity": "1",
+					"width": "20svw",
+					"height": "auto",
 					"z-index": "1",
-					"position": "fixed",
-					"width": "25svw",
-					"height": "10svh",
-					"top": "11svh",
-					"background-color": "rgb(252, 206, 92)",
+					"left": "2svw",
+					"top": "2svh"
+				},
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab-user-page",
+			"tagName": "DIV",
+			"attributes": [],
+			"style": {
+				"parent": "lab-user-page-wrap",
+				"style": {
+					"opacity": "1",
+					"width": "100%",
+					"max-width": "none",
+					"position": "relative",
+					"min-height": "100vh",
+					"background-image": "initial",
+					"background-position-x": "initial",
+					"background-position-y": "initial",
+					"background-size": "initial",
+					"background-repeat": "initial",
+					"background-attachment": "initial",
+					"background-origin": "initial",
+					"background-clip": "initial",
+					"background-color": "rgb(239, 239, 239)",
+					"margin-top": "auto",
+					"margin-right": "auto",
+					"margin-bottom": "auto",
+					"margin-left": "auto",
 					"display": "flex",
-					"align-items": "center",
-					"justify-content": "center",
+					"flex-direction": "column",
+					"row-gap": "20px",
+					"column-gap": "20px",
+					"padding-top": "30px",
+					"padding-right": "30px",
+					"padding-bottom": "30px",
+					"padding-left": "30px",
+					"box-sizing": "border-box",
+					"max-height": "none",
+					"scale": "1",
+					"transition-behavior": "normal",
+					"transition-duration": "0.3s",
+					"transition-timing-function": "ease-in-out",
+					"transition-delay": "0s",
+					"transition-property": "opacity",
+					"font-family": "Arial"
+				},
+				"text": "",
+				"textArray": []
+			}
+		},
+		{
+			"id": "lab_svg_20422",
+			"tagName": "svg",
+			"attributes": [
+				{
+					"attributeName": "fill",
+					"attributeValue": "#FED05E"
+				}
+			],
+			"style": {
+				"parent": "lab-user-page",
+				"style": {
+					"position": "absolute",
+					"width": "619.512px",
+					"height": "358.5px",
+					"left": "21.0533%",
+					"top": "20.9472%",
+					"transition-behavior": "normal",
+					"transition-duration": "0.1s",
+					"transition-timing-function": "ease",
+					"transition-delay": "0s",
+					"transition-property": "max-height",
+					"pointer-events": "unset",
+					"max-width": "619.512px",
+					"max-height": "358.5px",
+					"fill": "rgb(223, 78, 191)"
+				},
+				"text": ""
+			}
+		},
+		{
+			"id": "lab-element2270602f0f676e28c5fa",
+			"tagName": "BUTTON",
+			"attributes": [],
+			"classes": "lab-button",
+			"style": {
+				"parent": "lab-user-page",
+				"style": {
+					"padding-top": "10px",
+					"padding-right": "20px",
+					"padding-bottom": "10px",
+					"padding-left": "20px",
 					"border-top-left-radius": "15px",
 					"border-top-right-radius": "15px",
 					"border-bottom-right-radius": "15px",
 					"border-bottom-left-radius": "15px",
-					"left": "11svw"
-				},
-				"text": "Новый элемент",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_HEADER_95030",
-			"tagName": "HEADER",
-			"attributes": [],
-			"style": {
-				"parent": "lab-user-page",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_20635",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_HEADER_95030",
-				"style": {
-					"max-width": "1180px",
-					"width": "100%",
-					"padding-top": "10px",
-					"padding-right": "20px",
-					"padding-bottom": "10px",
-					"padding-left": "20px",
-					"margin-top": "0px",
-					"margin-right": "auto",
-					"margin-bottom": "0px",
-					"margin-left": "auto",
-					"display": "flex",
-					"align-items": "center",
-					"row-gap": "15px",
-					"column-gap": "15px"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_A_54718",
-			"tagName": "A",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_20635",
-				"style": {
-					"margin-top": "0px",
-					"margin-right": "auto",
-					"margin-bottom": "0px",
-					"margin-left": "0px"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_IMG_25935",
-			"tagName": "IMG",
-			"attributes": [
-				{
-					"attributeName": "src",
-					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/SiteLogo.png"
-				}
-			],
-			"style": {
-				"parent": "lab_A_54718",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_A_26173",
-			"tagName": "A",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_20635",
-				"style": {},
-				"text": "about",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_A_22904",
-			"tagName": "A",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_20635",
-				"style": {},
-				"text": "Pricing",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_A_910",
-			"tagName": "A",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_20635",
-				"style": {},
-				"text": "Gallery",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_BUTTON_53025",
-			"tagName": "BUTTON",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_20635",
-				"style": {
-					"padding-top": "10px",
-					"padding-right": "35px",
-					"padding-bottom": "10px",
-					"padding-left": "35px",
-					"color": "rgb(255, 255, 255)",
-					"border-top-left-radius": "30px",
-					"border-top-right-radius": "30px",
-					"border-bottom-right-radius": "30px",
-					"border-bottom-left-radius": "30px",
-					"background-image": "linear-gradient(90deg, rgb(230, 92, 0) 0%, rgb(249, 212, 35) 100%)",
+					"display": "inline",
+					"width": "fit-content",
+					"position": "absolute",
+					"background-image": "initial",
 					"background-position-x": "initial",
 					"background-position-y": "initial",
 					"background-size": "initial",
@@ -226,121 +197,42 @@
 					"background-attachment": "initial",
 					"background-origin": "initial",
 					"background-clip": "initial",
-					"background-color": "initial"
+					"background-color": "rgb(254, 208, 94)",
+					"top": "55.9924%",
+					"left": "25.2485%",
+					"z-index": "1"
 				},
-				"text": "Get started",
-				"textArray": []
+				"text": "",
+				"textArray": [
+					{
+						"node": "SPAN",
+						"pos": 0,
+						"textContent": "Button",
+						"style": "font-weight: 700; color: rgb(28, 27, 31);"
+					}
+				]
 			}
 		},
 		{
-			"id": "lab_SECTION_30516",
-			"tagName": "SECTION",
+			"id": "lab-element1942d6ce20c07e2b6115",
+			"tagName": "BUTTON",
 			"attributes": [],
+			"classes": "lab-button",
 			"style": {
 				"parent": "lab-user-page",
 				"style": {
-					"padding-top": "90px",
-					"padding-right": "0px",
-					"padding-bottom": "90px",
-					"padding-left": "0px"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_1583",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_SECTION_30516",
-				"style": {
-					"max-width": "1180px",
-					"width": "100%",
 					"padding-top": "10px",
 					"padding-right": "20px",
 					"padding-bottom": "10px",
 					"padding-left": "20px",
-					"margin-top": "0px",
-					"margin-right": "auto",
-					"margin-bottom": "0px",
-					"margin-left": "auto",
-					"display": "flex",
-					"justify-content": "space-between"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_8164",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_1583",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_H1_94452",
-			"tagName": "H1",
-			"attributes": [
-				{
-					"attributeName": "contenteditable",
-					"attributeValue": "true"
-				}
-			],
-			"style": {
-				"parent": "lab_DIV_8164",
-				"style": {
-					"color": "rgb(55, 56, 60)",
-					"font-size": "60px"
-				},
-				"text": "Connecting all your bankdfdvdving opportunities in one app",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_P_82195",
-			"tagName": "P",
-			"attributes": [
-				{
-					"attributeName": "contenteditable",
-					"attributeValue": "true"
-				}
-			],
-			"style": {
-				"parent": "lab_DIV_8164",
-				"style": {
-					"margin-top": "64px",
-					"margin-right": "0px",
-					"margin-bottom": "64px",
-					"margin-left": "0px",
-					"color": "rgb(105, 108, 115)"
-				},
-				"text": "A smart mobile applicationsdffgfgbdvsgvfbfdfccfcsfdcrd you can control your business needs",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_BUTTON_51784",
-			"tagName": "BUTTON",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_8164",
-				"style": {
-					"padding-top": "15px",
-					"padding-right": "64px",
-					"padding-bottom": "15px",
-					"padding-left": "64px",
-					"color": "rgb(255, 255, 255)",
-					"border-top-left-radius": "30px",
-					"border-top-right-radius": "30px",
-					"border-bottom-right-radius": "30px",
-					"border-bottom-left-radius": "30px",
-					"background-image": "linear-gradient(90deg, rgb(0, 210, 255) 0%, rgb(58, 123, 213) 100%)",
+					"border-top-left-radius": "15px",
+					"border-top-right-radius": "15px",
+					"border-bottom-right-radius": "15px",
+					"border-bottom-left-radius": "15px",
+					"display": "inline",
+					"width": "fit-content",
+					"position": "absolute",
+					"background-image": "initial",
 					"background-position-x": "initial",
 					"background-position-y": "initial",
 					"background-size": "initial",
@@ -348,285 +240,36 @@
 					"background-attachment": "initial",
 					"background-origin": "initial",
 					"background-clip": "initial",
-					"background-color": "initial"
+					"background-color": "rgb(254, 208, 94)",
+					"top": "53.5521%",
+					"left": "38.5624%",
+					"z-index": "1"
 				},
-				"text": "Download",
-				"textArray": []
+				"text": "",
+				"textArray": [
+					{
+						"node": "SPAN",
+						"pos": 0,
+						"textContent": "Button",
+						"style": "font-weight: 700; color: rgb(28, 27, 31);"
+					}
+				]
 			}
 		},
 		{
-			"id": "lab_IMG_8070",
+			"id": "as",
 			"tagName": "IMG",
 			"attributes": [
 				{
 					"attributeName": "src",
-					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/Samsung Galaxy S21.png"
+					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/design/img/as.webp"
 				}
 			],
 			"style": {
-				"parent": "lab_DIV_1583",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_SECTION_56711",
-			"tagName": "SECTION",
-			"attributes": [],
-			"style": {
-				"parent": "lab-user-page",
+				"parent": "asContainer",
 				"style": {
-					"padding-top": "90px",
-					"padding-right": "0px",
-					"padding-bottom": "90px",
-					"padding-left": "0px"
+					"max-height": "20svh"
 				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_43289",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_SECTION_56711",
-				"style": {
-					"max-width": "1180px",
-					"width": "100%",
-					"padding-top": "10px",
-					"padding-right": "20px",
-					"padding-bottom": "10px",
-					"padding-left": "20px",
-					"margin-top": "0px",
-					"margin-right": "auto",
-					"margin-bottom": "0px",
-					"margin-left": "auto",
-					"display": "flex",
-					"justify-content": "space-between"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_17996",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_43289",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_H1_34906",
-			"tagName": "H1",
-			"attributes": [
-				{
-					"attributeName": "contenteditable",
-					"attributeValue": "true"
-				}
-			],
-			"style": {
-				"parent": "lab_DIV_17996",
-				"style": {
-					"color": "rgb(55, 56, 60)",
-					"font-size": "60px"
-				},
-				"text": "Connecting all your ",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_P_30067",
-			"tagName": "P",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_17996",
-				"style": {
-					"margin-top": "64px",
-					"margin-right": "0px",
-					"margin-bottom": "64px",
-					"margin-left": "0px",
-					"color": "rgb(105, 108, 115)"
-				},
-				"text": "A smart mobile application you can control your business needs",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_BUTTON_16455",
-			"tagName": "BUTTON",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_17996",
-				"style": {
-					"padding-top": "15px",
-					"padding-right": "64px",
-					"padding-bottom": "15px",
-					"padding-left": "64px",
-					"color": "rgb(255, 255, 255)",
-					"border-top-left-radius": "30px",
-					"border-top-right-radius": "30px",
-					"border-bottom-right-radius": "30px",
-					"border-bottom-left-radius": "30px",
-					"background-image": "linear-gradient(90deg, rgb(0, 210, 255) 0%, rgb(58, 123, 213) 100%)",
-					"background-position-x": "initial",
-					"background-position-y": "initial",
-					"background-size": "initial",
-					"background-repeat": "initial",
-					"background-attachment": "initial",
-					"background-origin": "initial",
-					"background-clip": "initial",
-					"background-color": "initial"
-				},
-				"text": "Download",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_IMG_58827",
-			"tagName": "IMG",
-			"attributes": [
-				{
-					"attributeName": "src",
-					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/Samsung Galaxy S21.png"
-				}
-			],
-			"style": {
-				"parent": "lab_DIV_43289",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_SECTION_84427",
-			"tagName": "SECTION",
-			"attributes": [],
-			"style": {
-				"parent": "lab-user-page",
-				"style": {
-					"padding-top": "90px",
-					"padding-right": "0px",
-					"padding-bottom": "90px",
-					"padding-left": "0px"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_72689",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_SECTION_84427",
-				"style": {
-					"max-width": "1180px",
-					"width": "100%",
-					"padding-top": "10px",
-					"padding-right": "20px",
-					"padding-bottom": "10px",
-					"padding-left": "20px",
-					"margin-top": "0px",
-					"margin-right": "auto",
-					"margin-bottom": "0px",
-					"margin-left": "auto",
-					"display": "flex",
-					"justify-content": "space-between"
-				},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_DIV_59680",
-			"tagName": "DIV",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_72689",
-				"style": {},
-				"text": "",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_H1_7140",
-			"tagName": "H1",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_59680",
-				"style": {
-					"color": "rgb(55, 56, 60)",
-					"font-size": "60px"
-				},
-				"text": "Connecting all your banking opportunities in one app",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_P_19107",
-			"tagName": "P",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_59680",
-				"style": {
-					"margin-top": "64px",
-					"margin-right": "0px",
-					"margin-bottom": "64px",
-					"margin-left": "0px",
-					"color": "rgb(105, 108, 115)"
-				},
-				"text": "A smart mobile application you can control your business needs",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_BUTTON_60022",
-			"tagName": "BUTTON",
-			"attributes": [],
-			"style": {
-				"parent": "lab_DIV_59680",
-				"style": {
-					"padding-top": "15px",
-					"padding-right": "64px",
-					"padding-bottom": "15px",
-					"padding-left": "64px",
-					"color": "rgb(255, 255, 255)",
-					"border-top-left-radius": "30px",
-					"border-top-right-radius": "30px",
-					"border-bottom-right-radius": "30px",
-					"border-bottom-left-radius": "30px",
-					"background-image": "linear-gradient(90deg, rgb(0, 210, 255) 0%, rgb(58, 123, 213) 100%)",
-					"background-position-x": "initial",
-					"background-position-y": "initial",
-					"background-size": "initial",
-					"background-repeat": "initial",
-					"background-attachment": "initial",
-					"background-origin": "initial",
-					"background-clip": "initial",
-					"background-color": "initial"
-				},
-				"text": "Download",
-				"textArray": []
-			}
-		},
-		{
-			"id": "lab_IMG_27599",
-			"tagName": "IMG",
-			"attributes": [
-				{
-					"attributeName": "src",
-					"attributeValue": "/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/Samsung Galaxy S21.png"
-				}
-			],
-			"style": {
-				"parent": "lab_DIV_72689",
-				"style": {},
 				"text": "",
 				"textArray": []
 			}
