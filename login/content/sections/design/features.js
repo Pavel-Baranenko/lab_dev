@@ -1194,7 +1194,7 @@ function AppMenu() {
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
         const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
 
-        function Settings(name) {
+        function Settings(name = 'versioning') {
           setWrap.innerHTML = ''
           if (name == 'versioning') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
@@ -1256,47 +1256,57 @@ function AppMenu() {
           else if (name == 'ephemeral_sharing') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
               const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
-
               const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
-
               const text = lab_design_system_d('span', `row-text`, row, lngData.share_id)
               const id = Input('share', row)
               row.style.position = 'relative'
               row.style.zIndex = 2
-              const create = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
-              create.style.width = 'fit-content'
+              const update = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
+              update.style.width = 'fit-content'
 
-              create.addEventListener('click', e => {
-                const userLSG = lab_local_storage_object('global')
-                const now = new Date(Date.now())
-                const year = now.getFullYear()
-                const month = (now.getMonth() + 1).toString().padStart(2, '0')
-                const day = now.getDate().toString().padStart(2, '0')
-                const hours = now.getHours().toString().padStart(2, '0')
-                const minutes = now.getMinutes().toString().padStart(2, '0')
-                userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
-                socket.emit("makeAppBackup", userLSG)
+              update.addEventListener('click', e => {
+                if (id.value) {
+                  userLSG.newPublicID = id.value
+                  socket.emit('updatePublicID', userLSG)
+                }
+                else {
+                  alert(lngData.input_cannot_be_empty)
+                }
               })
 
               const list = {
                 1: '1 ' + lngData.day,
-                2: '2 ' + lngData.days,
-                3: '3 ' + lngData.days,
-                4: '4 ' + lngData.days,
-                5: '5 ' + lngData.days,
-                6: '6 ' + lngData.days,
-                7: '7 ' + lngData.days,
-                8: '8 ' + lngData.days,
-                9: '9 ' + lngData.days,
-                10: '10 ' + lngData.days
+                2: '2 ' + lngData.day,
+                3: '3 ' + lngData.day,
+                4: '4 ' + lngData.day,
+                5: '5 ' + lngData.day,
+                6: '6 ' + lngData.day,
+                7: '7 ' + lngData.day,
+                8: '8 ' + lngData.day,
+                9: '9 ' + lngData.day,
+                10: '10 ' + lngData.day
               }
 
               const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
-              const autoBack = dropDown(list, list['1'], 'previous-backup-auto', null, autoRow)
+              let duration
+              const autoBack = dropDown(list, list['1'], 'previous-backup-auto', (e) => {
+                duration = list[e]
+              }, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
-              const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
-              uploadAuto.style.width = 'fit-content'
+              const load = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              load.style.width = 'fit-content'
+
+
+              load.addEventListener('click', e => {
+                if (duration) {
+                  userLSG.duration = duration
+                  socket.emit('showUserProject', userLSG)
+                }
+                else {
+                  alert(lngData.input_cannot_be_empty)
+                }
+              })
             })
           }
           else if (name == 'svg_fragmentation') {
@@ -1407,7 +1417,7 @@ function AppMenu() {
 
           lab_fade_in_recursively(setWrap, 0.3)
         }
-        Settings('collaborative_mode')
+        Settings()
       }
 
       else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
