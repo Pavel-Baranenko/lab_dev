@@ -93,8 +93,7 @@ body::-webkit-scrollbar {
 
 .lab-scrollable::-webkit-scrollbar {
   width: 2px;
-  height: calc(100% - 60px);
-  right: 15px;
+  border-radius: 80px;
 }
 
 .lab-scrollable::-webkit-scrollbar-track {

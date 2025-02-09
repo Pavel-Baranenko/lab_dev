@@ -12,6 +12,7 @@ const styles_d = {
         "width": "fit-content",
         "background": "#fed05e",
         "fontWeight": "500",
+        cursor: "pointer",
         "fontSize": "clamp(14px, 2vw, 20px)",
         "textAlign": "center",
         "marginTop": "clamp(1svh, 10svh, 40px)",
@@ -33,6 +34,7 @@ const styles_d = {
         "fontWeight": "700",
         "font-size": "clamp(10px, 14px, 18px)",
         "color": "#000",
+        cursor: "pointer",
         "border": "none",
         "boxSizing": "border-box",
         "textAlign": "center"
@@ -788,6 +790,8 @@ const styles_d = {
         display: "none",
         flexDirection: "column",
         alignItems: "center",
+        maxHeight: "100px",
+        overflowY: "scroll",
         gap: "5px",
         padding: "10px",
         background: "#F4F4F5",
@@ -1143,7 +1147,6 @@ function AppMenu() {
         const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
         const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
-        const heading = lab_design_system_d('span', 'app-menu-fold', folders, 'Your files')
         sectionElementsObject.mediaLists.forEach(e => {
           const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
           const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
@@ -1169,7 +1172,6 @@ function AppMenu() {
 
         function openFolder(list) {
           files.innerHTML = ''
-
           list.forEach((e, i) => {
             const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
             const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
@@ -1183,10 +1185,12 @@ function AppMenu() {
         }
 
         const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+
         let buttons = {
-          'import': "Import files",
-          'create': "Create folder"
+          'import': lngData.import_files,
+          'create': lngData.new_folder
         }
+
         Object.keys(buttons).forEach(e => {
           const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
           const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
@@ -1326,14 +1330,21 @@ function AppMenu() {
       const textArea = lab_design_system_d('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
       textArea.contentEditable = true
 
-      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, 'Save', '', ['buttons', 'action'])
+      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
 
       let FileType = type == 'css' ? "CSS" : "Features"
+      let SaveFile = type == 'css' ? "CSS" : "Feature"
 
       socket.emit(`ask${FileType}File`, userLSG, e => {
         if (e.success) {
           textArea.innerText = e.data
+
+          btn.addEventListener('click', e => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.string = textArea.innerHTML
+            socket.emit(SaveFile, userLSG)
+          })
         }
       })
     }
@@ -1345,15 +1356,14 @@ function AppMenu() {
       return input
     }
 
-    function dropDown(list, value, id, func, parent = box, placeholder) {
+    function dropDown(list, value, id, func, parent = box) {
       const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
       const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
       const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
       const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
       icon.setAttribute('src', `${oldSRC}arrow_drop_down.svg`)
 
-      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', '', ['appMenu', 'list'])
-      console.log();
+      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
       if (typeof list == 'array') {
         list.forEach(e => {
           const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
