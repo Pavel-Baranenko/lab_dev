@@ -1052,10 +1052,17 @@ function AppMenu() {
       'ephemeral_sharing': lngData.ephemeral_sharing
     }
 
+    const git_settings = {
+      'credentials': lngData.credentials,
+      'delete': lngData.delete,
+      'create': lngData.create,
+      'git_push': lngData.git_push
+    }
+
     const server = {
       'lab_user_personnal_server': lngData.personnal_distant_server,
       // 'laboranth_remote_server': lngData.laboranth_remote_server,
-      "laboranth_deploy_git": "Git",
+      // "laboranth_deploy_git": "Git",
       "laboranth_deploy_zip": "Zip"
     }
 
@@ -1098,7 +1105,15 @@ function AppMenu() {
     }
 
     function SQL(value, type) {
+      if (['newSqlTable', 'sqlTableDel'].includes(type)) {
+        let info
+        if (type == 'sqlTableDel') info == 'tableToDel'
+        else info == 'newTable'
 
+        userLSG[info] = value
+
+        socket.emit(type, userLSG)
+      }
     }
 
     function ActionListing(parent, array, head, func, list, btnVal) {
@@ -1161,10 +1176,7 @@ function AppMenu() {
       if (slide == 'backup') {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
-
         const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
-
-        Settings('versioning')
 
         function Settings(name) {
           setWrap.innerHTML = ''
@@ -1281,7 +1293,10 @@ function AppMenu() {
               document.querySelector('#lab-file-input').click()
             })
           }
+
+          lab_fade_in_recursively(setWrap, 0.3)
         }
+        Settings('versioning')
       }
 
       else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
@@ -1336,7 +1351,7 @@ function AppMenu() {
           } else {
             files.innerHTML = lngData.zero_media_list_files
           }
-
+          lab_fade_in_recursively(files, 0.3)
         }
 
         const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
@@ -1422,7 +1437,39 @@ function AppMenu() {
               })
             })
           }
+          if (e == 'laboranth_deploy_git') {
+            const drop = dropDown(git_settings, git_settings.credentials, 'git', (e) => subBox(git, e), left)
+            const git = lab_design_system_d('div', 'app-sub-box', leftBox, '', '', ['appMenu', 'leftBox'])
+
+          }
+          lab_fade_in_recursively(leftBox, 0.3)
         }
+
+        function subBox(parent, e) {
+          parent.innerHTML = ''
+
+          if (e == 'credentials') {
+            const username = Input('ssh', subBox, lngData.username, '')
+            const email = Input('pass', subBox, lngData.email, '')
+            const dir = Input('dir', subBox, lngData.remote_app_dir, '')
+            const port = Input('port', subBox, lngData.port, '')
+            const save = lab_design_system_d('button', `save`, subBox, lngData.save, '', ['buttons', 'action'])
+            save.style.width = 'fit-content'
+
+            save.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.host = ip.value
+              userLSG.username = ssh.value
+              userLSG.password = pass.value
+              userLSG.remoteDir = dir.value
+              userLSG.port = port.value
+              socket.emit("saveSID", userLSG)
+            })
+          }
+
+        }
+
+
         const executeBox = lab_design_system_d('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
         const command = Input('command', executeBox, 'ls')
         const execute = lab_design_system_d('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
@@ -1452,15 +1499,12 @@ function AppMenu() {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
 
         ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
-          'removeSection': "delete",
-          'open': "open"
+          'sqlTableDel': "delete"
         }, 'newSqlTable')
       }
 
       lab_fade_in_recursively(box, 0.3)
-
     }
-
     RenderBox()
 
     function moreBtn(parent, id, list, el, func) {
@@ -1524,7 +1568,6 @@ function AppMenu() {
       if (typeof list == 'array') {
         list.forEach(e => {
           const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
-
           item.addEventListener('click', () => {
             text.innerHTML = e
             func(e)
@@ -1540,11 +1583,9 @@ function AppMenu() {
           })
         })
       }
-
       wrap.addEventListener('click', () => {
         listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
       })
-
       return { wrap, text }
     }
 
@@ -2118,16 +2159,15 @@ class Designer {
 
     function onMouseDrag({ movementX, movementY }) {
 
-      if (element.style.position == 'static' || !element.style.position) { element.style.position = 'absolute' }
+      if (element.style.position == 'static' || !element.style.position) {
+        element.style.position = 'absolute'
+      }
 
       let getContainerStyle = window.getComputedStyle(element)
       let leftValue = parseInt(getContainerStyle.left)
       let topValue = parseInt(getContainerStyle.top)
       element.style.left = `${leftValue + movementX}px`
       element.style.top = `${topValue + movementY}px`
-
-
-
     }
 
     moveArea.addEventListener(moveListener, onMouseDrag)
