@@ -882,7 +882,7 @@ const styles_d = {
         background: '#F4F4F5',
         boxSizing: 'border-box',
         cursor: "pointer",
-        height: "50px",
+        height: "clamp(30px, 10vw, 50px)",
         padding: '5px 20px',
         outline: 'none',
         border: 'none',
@@ -995,6 +995,7 @@ const styles_d = {
         position: "relative",
         background: "transparent",
         border: "none",
+        height: "29px",
         padding: 0,
         cursor: 'pointer'
       }
@@ -1011,7 +1012,6 @@ const styles_d = {
         padding: '10px',
         right: 0,
         zIndex: 99,
-        paddingBottom: '100px',
         top: '25px'
       }
     },
@@ -1025,14 +1025,10 @@ function AppMenu() {
   const userLSG = lab_local_storage_object('global')
 
   lab_load_language_module(userLSG.lng).then(lngData => {
-
     const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
     const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
     const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
     const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
-
-
-    console.log(sectionElementsObject);
 
     let activeSlide;
 
@@ -1219,6 +1215,62 @@ function AppMenu() {
           else if (name == 'libraries') {
             ActionListing(setWrap, sectionElementsObject.configuration.scripts, lngData.libraries, Libs, { 'delete': "delete" }, 'fetch')
           }
+          if (name == 'ephemeral_sharing') {
+            socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
+              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
+
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+
+              const text = lab_design_system_d('span', `row-text`, row, lngData.share_id)
+              const id = Input('share', row)
+              row.style.position = 'relative'
+              row.style.zIndex = 2
+              const create = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
+              create.style.width = 'fit-content'
+
+              create.addEventListener('click', e => {
+                const userLSG = lab_local_storage_object('global')
+                const now = new Date(Date.now())
+                const year = now.getFullYear()
+                const month = (now.getMonth() + 1).toString().padStart(2, '0')
+                const day = now.getDate().toString().padStart(2, '0')
+                const hours = now.getHours().toString().padStart(2, '0')
+                const minutes = now.getMinutes().toString().padStart(2, '0')
+                userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
+                socket.emit("makeAppBackup", userLSG)
+              })
+
+              const list = {
+                1: '1 ' + lngData.day,
+                2: '2 ' + lngData.days,
+                3: '3 ' + lngData.days,
+                4: '4 ' + lngData.days,
+                5: '5 ' + lngData.days,
+                6: '6 ' + lngData.days,
+                7: '7 ' + lngData.days,
+                8: '8 ' + lngData.days,
+                9: '9 ' + lngData.days,
+                10: '10 ' + lngData.days
+              }
+
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const autoBack = dropDown(list, list['1'], 'previous-backup-auto', null, autoRow)
+              autoBack.wrap.style.maxWidth = '200px'
+
+              const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              uploadAuto.style.width = 'fit-content'
+            })
+          }
+          else if (name == 'svg_fragmentation') {
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
+            const importSvg = lab_design_system_d('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
+            importSvg.style.width = 'fit-content'
+
+            importSvg.addEventListener('click', () => {
+              getFile('svg', "lab-file-input")
+              document.querySelector('#lab-file-input').click()
+            })
+          }
         }
       }
 
@@ -1235,6 +1287,8 @@ function AppMenu() {
           const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
           icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
           const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
+          text.style.marginRight = 'auto'
+          moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, null)
 
           item.addEventListener('click', () => {
             if (e.listName != selectedFolder) {
@@ -1306,10 +1360,7 @@ function AppMenu() {
         const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
         const heading = lab_design_system_d('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
         const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
-
-
         wrap.contentEditable = true
-
 
         const drop = dropDown(server, server.lab_user_personnal_server, 'serv', (e) => deployBox(e), left)
         const leftBox = lab_design_system_d('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
@@ -2358,7 +2409,7 @@ class Designer {
           item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
 
           if (modeName == 'img') {
-            let input = document.getElementById('lab-file-input')
+            let input = document.getElementById('lab-img-input')
             input.click()
             function IMG(e) {
               const fileInfo = e.target.files[0];
@@ -2809,7 +2860,7 @@ function design_mode() {
 
   //CODE MENU END
 
-  const fileInput = lab_design_system_d('input', 'file-input', designBody, '', '', ['design', 'noneFile'])
+  const fileInput = lab_design_system_d('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
   fileInput.setAttribute('type', 'file')
 
   DesignConstructor.BlockResize()
