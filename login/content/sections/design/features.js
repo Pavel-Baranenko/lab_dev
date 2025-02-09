@@ -26,15 +26,14 @@ const styles_d = {
     "action": {
       "default": {
         "borderRadius": "15px",
-        "paddingBottom": "clamp(2svh, 5svh, 12px)",
-        "paddingTop": "clamp(2svh, 5svh, 12px)",
         "paddingLeft": "clamp(2svw, 5svw, 20px)",
         "paddingRight": "clamp(2svw, 5svw, 20px)",
+        "height": "clamp(30px, 10vw, 50px)",
         "background": "#feda31",
         "fontWeight": "700",
         "font-size": "clamp(10px, 14px, 18px)",
         "color": "#000",
-        cursor: "pointer",
+        "cursor": "pointer",
         "border": "none",
         "boxSizing": "border-box",
         "textAlign": "center"
@@ -215,6 +214,7 @@ const styles_d = {
         bottom: '-3px',
         backgroundColor: '#FED05E',
         width: '96px',
+        cursor: "pointer",
         boxSizing: 'border-box',
         height: '6px',
         left: '50%',
@@ -349,6 +349,7 @@ const styles_d = {
         background: '#FED05E',
         width: "17.4%",
         height: "4px",
+        cursor: "pointer",
         top: "-2px",
         left: "50%",
         transform: "translateX(-50%)",
@@ -781,11 +782,11 @@ const styles_d = {
         display: "flex",
         alignItems: 'center',
         justifyContent: "space-between",
-        padding: "10px 6px",
+        padding: "10px",
+        "height": "clamp(30px, 10vw, 50px)",
         background: "#F4F4F5",
         borderRadius: "10px",
         boxSizing: 'border-box',
-        height: "50px"
       }
     },
     'list': {
@@ -796,7 +797,7 @@ const styles_d = {
         right: 0,
         display: "none",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         maxHeight: "100px",
         overflowY: "scroll",
         gap: "5px",
@@ -922,6 +923,7 @@ const styles_d = {
     'execute': {
       'default': {
         display: "flex",
+        alignItems: "center",
         gap: "30px"
       }
     },
@@ -1086,6 +1088,15 @@ function AppMenu() {
       if (type == 'fetch')
         fetchLibrary(value)
     }
+
+    function Folders(value, type) {
+      if (type == 'delete') {
+        const userLSG = lab_local_storage_object('global')
+        userLSG.mediaListToRemove = value
+        socket.emit('deleteMediaList', userLSG)
+      }
+    }
+
     function SQL(value, type) {
 
     }
@@ -1103,12 +1114,12 @@ function AppMenu() {
 
       const bottom = lab_design_system_d('div', `bottom`, parent, '', '', ['appMenu', 'execute'])
       const input = Input('act-name', bottom)
-      input.style.maxWidth = '220px'
-
+      input.style.minWidth = '220px'
+      input.style.width = 'fit-content'
       const btn = lab_design_system_d('button', 'act-btn', bottom, lngData.add, '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
-
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault()
         const regex = /^[A-Za-z0-9-._~]+$/
         if (input.value && regex.test(input.value)) {
           func(input.value, btnVal)
@@ -1133,12 +1144,6 @@ function AppMenu() {
             let img = last.querySelector('img')
             img.setAttribute('src', img.src.replace('-white', ''))
           }
-
-          btn.classList.add('app-menu-active')
-          btn.style.color = '#3C4CA6'
-          btn.style.background = '#fff'
-          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-white.svg`)
-
           RenderBox(e)
         }
       })
@@ -1147,6 +1152,11 @@ function AppMenu() {
     function RenderBox(slide = 'backup') {
       box.innerHTML = ''
       activeSlide = slide
+      let btn = document.getElementById(`lab-app-menu-btn-${slide}`)
+      btn.classList.add('app-menu-active')
+      btn.style.color = '#3C4CA6'
+      btn.style.background = '#fff'
+      btn.querySelector('img').setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${slide}-white.svg`)
 
       if (slide == 'backup') {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
@@ -1161,7 +1171,7 @@ function AppMenu() {
           if (name == 'versioning') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
               const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
-              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'row'])
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
               row.style.position = 'relative'
               row.style.zIndex = 2
               const create = lab_design_system_d('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
@@ -1191,7 +1201,7 @@ function AppMenu() {
               })
 
               const auto = lab_design_system_d('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
-              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'row'])
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
               const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
@@ -1282,43 +1292,51 @@ function AppMenu() {
         const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
         const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
-        sectionElementsObject.mediaLists.forEach(e => {
-          const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
-          const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
-          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
-          const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
-          text.style.marginRight = 'auto'
-          moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, null)
+        if (sectionElementsObject.mediaLists.length > 0) {
+          sectionElementsObject.mediaLists.forEach(e => {
+            const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
+            const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
+            icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
+            const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
+            text.style.marginRight = 'auto'
+            moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
 
-          item.addEventListener('click', () => {
-            if (e.listName != selectedFolder) {
-              let last = document.querySelector('.selected-folder')
-              if (last) {
-                last.style.background = 'transparent'
-                last.classList.remove('selected-folder')
+            item.addEventListener('click', () => {
+              if (e.listName != selectedFolder) {
+                let last = document.querySelector('.selected-folder')
+                if (last) {
+                  last.style.background = 'transparent'
+                  last.classList.remove('selected-folder')
+                }
+                item.classList.add('selected-folder')
+                item.style.background = '#fff'
+
+                selectedFolder = e.listName
+                openFolder(e.files)
               }
-              item.classList.add('selected-folder')
-              item.style.background = '#fff'
 
-              selectedFolder = e.listName
-              openFolder(e.files)
-            }
-
+            })
           })
-        })
+        }
+        else folders.innerHTML = lngData.zero_media_list
 
         function openFolder(list) {
           files.innerHTML = ''
-          list.forEach((e, i) => {
-            const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
-            const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
-            const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
-            img.style.maxWidth = '100%'
-            img.style.aspectRatio = '1'
-            img.style.objectFit = 'cover'
-            const span = lab_design_system_d('span', `file-span-${i}`, file, e)
-            img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
-          })
+          if (list.length > 0) {
+            list.forEach((e, i) => {
+              const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
+              const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
+              const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
+              img.style.maxWidth = '100%'
+              img.style.aspectRatio = '1'
+              img.style.objectFit = 'cover'
+              const span = lab_design_system_d('span', `file-span-${i}`, file, e)
+              img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
+            })
+          } else {
+            files.innerHTML = lngData.zero_media_list_files
+          }
+
         }
 
         const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
@@ -1333,7 +1351,8 @@ function AppMenu() {
           const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
           icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
           const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
-          btn.addEventListener('click', () => {
+          btn.addEventListener('click', (ev) => {
+            ev.preventDefault()
             if (e == 'create') {
               let input = document.getElementById('lab-new-folder-name')
               if (input) {
@@ -1360,7 +1379,8 @@ function AppMenu() {
         const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
         const heading = lab_design_system_d('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
         const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
-        wrap.contentEditable = true
+        wrap.style.height = '100%'
+        wrap.style.maxHeight = '100%'
 
         const drop = dropDown(server, server.lab_user_personnal_server, 'serv', (e) => deployBox(e), left)
         const leftBox = lab_design_system_d('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
@@ -1436,6 +1456,9 @@ function AppMenu() {
           'open': "open"
         }, 'newSqlTable')
       }
+
+      lab_fade_in_recursively(box, 0.3)
+
     }
 
     RenderBox()
@@ -1536,25 +1559,6 @@ function AppMenu() {
 }
 
 AppMenu()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -2194,10 +2198,8 @@ class Designer {
 
     function onMouseMove({ x, y }) {
       Designer.removePointer()
-
       let item = document.elementFromPoint(x, y)
       const itemPos = item.getBoundingClientRect()
-
       let Y = y - itemPos.y
       let X = x - itemPos.x
 
@@ -2256,7 +2258,6 @@ class Designer {
   }
 
   static transform(el = selected) {
-
     const page = document.getElementById('lab-user-page')
     let lastDir = ''
     let mouseIsDown = false
