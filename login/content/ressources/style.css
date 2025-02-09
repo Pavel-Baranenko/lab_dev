@@ -88,3 +88,21 @@ body::-webkit-scrollbar {
 #lab-user-page-wrap::-webkit-scrollbar {
   width: 0;
 }
+
+
+
+.lab-scrollable::-webkit-scrollbar {
+  width: 2px;
+  height: calc(100% - 60px);
+  right: 15px;
+}
+
+.lab-scrollable::-webkit-scrollbar-track {
+  background-color: #D9D9D9;
+  border-radius: 80px;
+}
+
+.lab-scrollable::-webkit-scrollbar-thumb {
+  background-color: #FED05E;
+  border-radius: 80px;
+}

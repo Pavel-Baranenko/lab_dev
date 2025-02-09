@@ -668,7 +668,8 @@ const styles_d = {
         transform: "translateY(-50%) translateX(-50%)",
         width: '100%',
         maxWidth: "clamp(69%, 90%,1320px)",
-        minHeight: "clamp(69%, 90%,820px)",
+        maxHeight: "clamp(69%, 90%,820px)",
+        height: "100%",
         display: "flex",
         boxShadow: '0px 4px 18.9px -4px #0000002E',
         zIndex: 99999999,
@@ -684,6 +685,7 @@ const styles_d = {
         minHeight: "100%",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-evenly",
         padding: "30px 0 30px 18px",
         boxSizing: "border-box"
       }
@@ -712,6 +714,9 @@ const styles_d = {
         background: "#fff",
         borderRadius: " 0 50px 50px 0",
         width: '100%',
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
         minHeight: "100%"
       }
     },
@@ -720,7 +725,7 @@ const styles_d = {
         padding: "45px 50px",
         boxSizing: "border-box",
         display: "flex",
-        minHeight: "100%",
+        maxHeight: "100%",
         width: '100%',
         flexDirection: "column",
         gap: '20px'
@@ -740,10 +745,19 @@ const styles_d = {
         background: "#F7F7F7",
         boxSizing: "border-box",
         width: '100%',
-        height: "100%",
+        flex: '0 1 100%',
+        display: 'flex',
+        flexDirection: "column",
+        padding: "25px",
+        maxHeight: "calc(100% - 100px)",
+      }
+    },
+    'textArea': {
+      'default': {
+        width: '100%',
+        maxHeight: "550px",
         outline: "none",
         overflowY: "scroll",
-        padding: "24px 80px 24px 24px"
       }
     },
     'drop': {
@@ -981,7 +995,7 @@ function AppMenu() {
     const settings = {
       'versioning': "Versioning",
       'pages_management': "Pages management",
-      // 'libraries': "Libraries",
+      'libraries': "Libraries",
       'collaborative_mode': "Collaborative mode",
       'svg_fragmentation': "Svg fragmentation",
       'ephemeral_sharing': "Ephemeral sharing",
@@ -1026,7 +1040,7 @@ function AppMenu() {
       activeSlide = slide
 
       if (slide == 'backup') {
-        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
 
         const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
@@ -1127,7 +1141,7 @@ function AppMenu() {
         let selectedFolder;
         const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
         const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
-        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', '', ['appMenu', 'wrapper'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
         const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
         const heading = lab_design_system_d('span', 'app-menu-fold', folders, 'Your files')
         sectionElementsObject.mediaLists.forEach(e => {
@@ -1200,11 +1214,13 @@ function AppMenu() {
 
       else if (slide == 'deploy') {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', '', ['appMenu', 'deploy'])
+        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
         const left = lab_design_system_d('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
         const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
         const heading = lab_design_system_d('h6', 'app-menu-heading', left, 'Deploying', '', ['appMenu', 'heading'])
         const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
+
+
         wrap.contentEditable = true
 
 
@@ -1299,10 +1315,6 @@ function AppMenu() {
           } else alertUser(lngData.column_name_cannot_be_empty)
         })
       }
-      // lab_local_storage_object_update('global', { openedMenu: 'app_css' })
-      // socket.emit('askCSSFile', lab_local_storage_object('global'), e => {
-      //   console.log(e);
-      // })
     }
 
     RenderBox()
@@ -1311,9 +1323,19 @@ function AppMenu() {
       const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
       const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
       const wrap = lab_design_system_d('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
-      wrap.contentEditable = true
+      const textArea = lab_design_system_d('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
+      textArea.contentEditable = true
+
       const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, 'Save', '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
+
+      let FileType = type == 'css' ? "CSS" : "Features"
+
+      socket.emit(`ask${FileType}File`, userLSG, e => {
+        if (e.success) {
+          textArea.innerText = e.data
+        }
+      })
     }
 
     function Input(id, parent, placeholder = '', value = '') {
