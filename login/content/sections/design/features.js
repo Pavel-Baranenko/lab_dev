@@ -72,17 +72,23 @@ const styles_d = {
         'position': 'relative',
         boxSizing: 'border-box',
         boxShadow: '0px 4px 18.9px -4px #0000002E',
-        width: '100px',
         margin: "0",
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: '#fff',
         height: '100vh',
-        paddingTop: '63px',
+        padding: '60px 0 20px 20px',
         zIndex: 9999,
         boxShadow: '0 4px 19px - 4px rgba(0, 0, 0, 0.18)',
         borderRadius: '0 20px 0 0',
+      }
+    },
+    'elementsBox': {
+      "default": {
+        overflowY: "scroll",
+        margin: "40px 0 0 0",
+        padding: '0 25px 0 0',
       }
     },
     'hideSide': {
@@ -264,8 +270,8 @@ const styles_d = {
         bottom: '30px',
         zIndex: "9999",
         background: "#fff",
-        width: "100%",
         borderRadius: '67px',
+        gap: '30px',
         display: "flex",
         boxSizing: "border-box",
         alignItems: "center",
@@ -412,7 +418,7 @@ const styles_d = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: '30px 30px 0px 30px',
+        borderRadius: '30px 0px 30px 30px',
         opacity: '0px',
         backgroundColor: '#FED05E'
       }
@@ -420,7 +426,6 @@ const styles_d = {
     'codeBoxShowActive': {
       'default': {
         left: '-1px',
-        borderRadius: '30px 0px 30px 30px'
       }
     },
     'codeWrapper': {
@@ -462,12 +467,9 @@ const styles_d = {
     'elementMenuBody': {
       'default': {
         backgroundColor: '#fff',
-        padding: '20px',
+        padding: '15px',
         boxSizing: 'border-box',
-        boxShadow: '0px 1px 13.9px 0px #00000014',
-        borderRadius: '0 0 30px 30px',
-        width: '340px',
-        height: '474px',
+        width: '300px',
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
@@ -651,6 +653,32 @@ const styles_d = {
         'background': 'linear-gradient(180deg, rgba(36,99,235,1) 0%, rgba(36,99,235,0) 100%)'
       }
     },
+    'styleWrapper': {
+      'default': {
+        'position': "relative",
+        padding: "75px 0 0 0",
+        boxSizing: "border-box",
+        background: "#fff",
+        boxShadow: '0px 1px 13.9px 0px #00000014',
+      }
+    },
+    'hideStyles': {
+      'default': {
+        position: 'absolute',
+        left: '-10px',
+        top: '50%',
+        transform: "translateY(-50%) rotate(180deg)",
+        width: "20px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "4px",
+        background: "#FED05E",
+        borderRadius: "8px",
+        cursor: "pointer",
+        border: "2px solid #F2F3F7"
+      }
+    }
   },
   'appMenu': {
     'link': {
@@ -1723,7 +1751,7 @@ function AppMenu() {
 
 }
 
-AppMenu()
+// AppMenu()
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -2799,7 +2827,7 @@ function design_mode() {
 
   //SIDE MENU
 
-  const menu = lab_design_system_d('div', 'side-menu', designBody, '', '', ['design', 'side'])
+  const menu = lab_design_system_d('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
 
   menuButton.addEventListener('click', () => {
@@ -2813,8 +2841,7 @@ function design_mode() {
     DesignConstructor.addClass(menuButton, 'design', 'hideMenu')
   }
 
-  const elementsBox = lab_design_system_d('div', "elements-box", menu)
-  elementsBox.style.margin = "40px 0 0 0"
+  const elementsBox = lab_design_system_d('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
 
   const elementsTitle = lab_design_system_d('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
   const elementsWrap = lab_design_system_d('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
@@ -2882,7 +2909,8 @@ function design_mode() {
 
   const toolBar = lab_design_system_d('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
 
-  const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
+  // const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
+  const tools = ['cursor', 'resize', 'shape', 'text', 'img']
 
   tools.forEach(tool => {
     const toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
@@ -3009,6 +3037,15 @@ function design_mode() {
 
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
+
+  const styleMenu = lab_design_system_d('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
+
+  const styleHide = lab_design_system_d('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
+  const styleHideIcon = lab_design_system_d('img', 'style-hide-icon', styleHide, '', 'none')
+  styleHideIcon.setAttribute('src', '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/new/img/hide.svg')
+  styleHideIcon.style.maxWidth = '100%'
+  styleHideIcon.style.marginLeft = '-4px'
+
   //CODE MENU
 
   const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
@@ -3049,10 +3086,7 @@ design_mode()
 
 function StylesMenu(item) {
   const lastSelected = document.querySelector('.selectedItem')
-  const box = document.getElementById('lab-designBody')
-
-  item.classList.add('selectedItem')
-
+  const box = document.getElementById('lab-style-box')
   const itemStyles = window.getComputedStyle(item)
 
   const css = {
@@ -3077,20 +3111,18 @@ function StylesMenu(item) {
     'margin-left': itemStyles.marginLeft,
   }
 
-  if (lastSelected && lastSelected.id != item.id) {
-    box.removeChild(document.getElementById('lab-elementMenu'))
+  if (lastSelected) {
+    box.innerHTML = ''
     lastSelected.classList.remove('selectedItem')
     renderMenu()
   }
   if (!lastSelected) renderMenu()
 
   function renderMenu() {
-    const last = document.getElementById('lab-elementMenu')
-    if (last) last.remove()
+    item.classList.add('selectedItem')
 
-    const elementMenu = lab_design_system_d('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
-    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
-    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
+    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
+    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
     const menuSettings = ['general', 'additional']
     const activeSettings = 'general'
 
@@ -3207,11 +3239,8 @@ function StylesMenu(item) {
       }
       lab_fade_in_recursively(elementMenuBody, 0.2)
     }
-    const page = document.getElementById('lab-user-page')
-    page.addEventListener('click', () => {
-      item.classList.remove('selectedItem')
-      if (elementMenu) elementMenu.remove()
-    })
+
+    lab_fade_in_recursively(box, 0.3)
   }
 }
 
