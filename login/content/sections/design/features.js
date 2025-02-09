@@ -1017,7 +1017,23 @@ const styles_d = {
         top: '25px'
       }
     },
-
+    'collaborators': {
+      'default': {
+        flex: "0 1 50%",
+        display: "flex",
+        flexDirection: 'column',
+        alignItems: "flex-start",
+        gap: "30px"
+      }
+    },
+    "checkbox": {
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #8D8D8D",
+        "cursor": "pointer"
+      }
+    },
   }
 }
 
@@ -1237,7 +1253,7 @@ function AppMenu() {
           else if (name == 'libraries') {
             ActionListing(setWrap, sectionElementsObject.configuration.scripts, lngData.libraries, Libs, { 'delete': "delete" }, 'fetch')
           }
-          if (name == 'ephemeral_sharing') {
+          else if (name == 'ephemeral_sharing') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
               const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
 
@@ -1293,10 +1309,105 @@ function AppMenu() {
               document.querySelector('#lab-file-input').click()
             })
           }
+          else if (name == 'collaborative_mode') {
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
+            const content = lab_design_system_d('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
+            const collaborators = lab_design_system_d('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
+            const rights = lab_design_system_d('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
+            const collabText = lab_design_system_d('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
+            const rightsText = lab_design_system_d('span', 'rights-text', rights, lngData.collaborators_rights)
+
+            let collabs = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.collaborator_email)
+
+
+            const collRow = lab_design_system_d('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
+            collRow.style.width = '100%'
+            let selectedCol = collabs[0]
+
+            function select(index) {
+              selectedCol = collabs[index]
+            }
+
+            const list = dropDown(collabs, selectedCol, 'collabs', select, collRow)
+            list.wrap.style.width = '60%'
+
+            const del = lab_design_system_d('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
+            del.style.width = '30%'
+
+            del.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.collaborator_email = selectedCol
+              socket.emit('removeCollaboratorFromProject', userLSG, res => {
+
+              })
+            })
+
+            const row = lab_design_system_d('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
+            row.style.width = '100%'
+
+            const newCollaborator = Input('collab', row)
+            newCollaborator.style.width = '60%'
+
+            const add = lab_design_system_d('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
+            add.style.width = '30%'
+
+            add.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.collaborator_email = newCollaborator.value
+              socket.emit('addCollaboratorToProject', userLSG, res => {
+                if (res.success) {
+                  const userLSG = lab_local_storage_object('global')
+                  userLSG.message = userLSG.app
+                  userLSG.recipient = collaborator_email
+                  userLSG.under_review = true
+                  userLSG.review_type = "access_granted"
+                  socket.emit('sendMessage', userLSG, sended => {
+
+                  })
+                }
+              })
+            })
+
+            const rightArr = ['designer', 'developer', 'administrator', 'custom']
+            let collabRights = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.rights.preset)
+            let selected = collabs[0]
+            const rightsRow = lab_design_system_d('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
+            const rightsCollabs = dropDown(collabs, selected, 'collabs-rights', writeCollab, rightsRow)
+
+            const pointers = lab_design_system_d('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
+
+            function writeCollab(index = 0) {
+              selected = collabs[index]
+              const rightsTypes = dropDown(rightArr, collabRights[index], 'rights-type', selcetRights, rightsRow)
+              let checkInputs = ['sftpAccess', 'ephemeralSharing', 'deployment', 'dbModelisation', 'collaboratorsRights']
+
+              let checkRights = {
+                'designer': [false, true, false, false, false],
+                'developer': [true, true, true, false, false],
+                'administrator': [true, true, true, true, true],
+                'custom': []
+              }
+
+              function selcetRights(a = 0) {
+                pointers.innerHTML = ''
+                checkInputs.forEach((e, i) => {
+                  const row = lab_design_system_d('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
+                  const text = lab_design_system_d('span', `${e}-text`, row, e)
+                  const check = lab_design_system_d('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
+                  check.setAttribute('type', 'checkbox')
+                  check.checked = checkRights[rightArr[a]][i]
+                  if (rightArr[a] != 'custom') check.disabled = true
+                })
+              }
+
+              selcetRights()
+            }
+            writeCollab()
+          }
 
           lab_fade_in_recursively(setWrap, 0.3)
         }
-        Settings('versioning')
+        Settings('collaborative_mode')
       }
 
       else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
@@ -1497,7 +1608,6 @@ function AppMenu() {
 
       else if (slide == 'database') {
         const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-
         ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
           'sqlTableDel': "delete"
         }, 'newSqlTable')
@@ -1576,13 +1686,17 @@ function AppMenu() {
       } else {
         Object.keys(list).forEach(e => {
           const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
-
           item.addEventListener('click', () => {
             text.innerHTML = list[e]
             func(e)
           })
         })
       }
+
+      listing.addEventListener('mouseleave', () => {
+        listing.style.display = 'none'
+      })
+
       wrap.addEventListener('click', () => {
         listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
       })
