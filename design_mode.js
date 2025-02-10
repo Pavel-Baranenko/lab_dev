@@ -1,12 +1,11 @@
-const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/profile/img/'
-
+let ActiveMode
+let selected
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
-
 const ElementsList = {
   'button': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
     'title': "button",
     'template': {
       'landscape': {
@@ -90,7 +89,7 @@ const ElementsList = {
     }
   },
   'section': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
     'title': "section",
     'template': {
       'landscape': {
@@ -116,7 +115,7 @@ const ElementsList = {
     }
   },
   'div': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
     'title': "div",
     'template': {
       'landscape': {
@@ -140,7 +139,7 @@ const ElementsList = {
     }
   },
   'form': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
     'title': "form",
     'template': {
       'landscape': {
@@ -362,35 +361,7 @@ const ElementsList = {
         ]
       }
     }
-  },
-  'p': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
-    'title': "p",
-    'template': {
-      'landscape': {
-        'id': "lab-text",
-        'tag': "p",
-        'classes': "lab-text",
-        'root': true,
-        'styles': {
-          'display': 'inline-block',
-          'padding': '10px',
-          'position': "relative",
-        }
-      },
-      'landscape': {
-        'id': "lab-text",
-        'tag': "p",
-        'classes': "lab-text",
-        'root': true,
-        'styles': {
-          'display': 'inline-block',
-          'padding': '10px',
-          'position': "relative",
-        }
-      }
-    }
-  },
+  }
 }
 
 const elementsToolsList = {
@@ -469,9 +440,6 @@ const elementsToolsList = {
     }
   },
 }
-
-let ActiveMode
-let selected
 
 class Designer {
   static ID() {
@@ -559,16 +527,15 @@ class Designer {
 
     function onMouseDrag({ movementX, movementY }) {
 
-      if (element.style.position == 'static' || !element.style.position) { element.style.position = 'absolute' }
+      if (element.style.position == 'static' || !element.style.position) {
+        element.style.position = 'absolute'
+      }
 
       let getContainerStyle = window.getComputedStyle(element)
       let leftValue = parseInt(getContainerStyle.left)
       let topValue = parseInt(getContainerStyle.top)
       element.style.left = `${leftValue + movementX}px`
       element.style.top = `${topValue + movementY}px`
-
-
-
     }
 
     moveArea.addEventListener(moveListener, onMouseDrag)
@@ -639,10 +606,8 @@ class Designer {
 
     function onMouseMove({ x, y }) {
       Designer.removePointer()
-
       let item = document.elementFromPoint(x, y)
       const itemPos = item.getBoundingClientRect()
-
       let Y = y - itemPos.y
       let X = x - itemPos.x
 
@@ -701,7 +666,6 @@ class Designer {
   }
 
   static transform(el = selected) {
-
     const page = document.getElementById('lab-user-page')
     let lastDir = ''
     let mouseIsDown = false
@@ -854,7 +818,7 @@ class Designer {
           item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
 
           if (modeName == 'img') {
-            let input = document.getElementById('lab-file-input')
+            let input = document.getElementById('lab-img-input')
             input.click()
             function IMG(e) {
               const fileInfo = e.target.files[0];
@@ -881,7 +845,6 @@ class Designer {
           svg.appendChild(rect);
           page.appendChild(svg);
         }
-
         area.remove()
       }
     }
@@ -1076,10 +1039,12 @@ function design_mode() {
     'settingsBar': true,
     'sideMenu': true,
   }
+  // lab_save_section(options.vpm)
+
 
   //SIDE MENU
 
-  const menu = lab_design_system('div', 'side-menu', designBody, '', '', ['design', 'side'])
+  const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
 
   menuButton.addEventListener('click', () => {
@@ -1093,8 +1058,7 @@ function design_mode() {
     DesignConstructor.addClass(menuButton, 'design', 'hideMenu')
   }
 
-  const elementsBox = lab_design_system('div', "elements-box", menu)
-  elementsBox.style.margin = "40px 0 0 0"
+  const elementsBox = lab_design_system('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
 
   const elementsTitle = lab_design_system('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
   const elementsWrap = lab_design_system('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
@@ -1155,14 +1119,14 @@ function design_mode() {
     }
   })
 
-
   //USER PAGE END
 
   //TOOLBAR
 
   const toolBar = lab_design_system('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
 
-  const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
+  // const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
+  const tools = ['cursor', 'resize', 'shape', 'text', 'img']
 
   tools.forEach(tool => {
     const toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
@@ -1192,9 +1156,7 @@ function design_mode() {
   const topSettings = lab_design_system('div', "top-settings", designBody, '', '', ['design', 'top'])
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
   const responsiveList = ["landscape", "portrait"]
-  settingsBtn.addEventListener('click', () => {
-    lab_load_component('/D/C/UI/GLOB/lab_app_menu.js')
-  })
+
   function setVpm(vpm) {
     Designer.removePointer()
     if (vpm == 'landscape') {
@@ -1204,7 +1166,7 @@ function design_mode() {
     }
 
     if (vpm == 'portrait') {
-      pixelScreen.innerHTML = '414px'
+      pixelScreen.innerHTML = '414px '
       page.style.maxWidth = '414px'
       page.style.maxHeight = '896px'
     }
@@ -1234,7 +1196,7 @@ function design_mode() {
   })
 
   const pixelScreen = lab_design_system('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
-
+  pixelScreen.style.width = '65px'
   setVpm(options.vpm)
 
   const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
@@ -1291,6 +1253,20 @@ function design_mode() {
 
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
+  const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
+  const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none')
+
+  const styleHide = lab_design_system('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
+  const styleHideIcon = lab_design_system('img', 'style-hide-icon', styleHide, '', 'none')
+  styleHideIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/hide.svg`)
+  styleHideIcon.style.maxWidth = '100%'
+  styleHideIcon.style.marginLeft = '-4px'
+
+  styleHide.addEventListener('click', () => {
+    styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
+  })
+
+  StylesMenu(page)
   //CODE MENU
 
   const codeMenu = lab_design_system('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
@@ -1299,7 +1275,6 @@ function design_mode() {
   codeMenuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
-
     document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
       codeWrapper.innerText += e + '>\n            '
     })
@@ -1307,11 +1282,15 @@ function design_mode() {
 
   //CODE MENU END
 
-  const fileInput = lab_design_system('input', 'file-input', designBody, '', '', ['design', 'noneFile'])
+  const fileInput = lab_design_system('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
   fileInput.setAttribute('type', 'file')
 
   DesignConstructor.BlockResize()
   lab_fade_in_recursively(designBody, 0.3)
+
+  window.addEventListener('resize', () => {
+    Designer.removePointer()
+  })
 }
 
 function capitalizeFirstLetter(val) {
@@ -1327,14 +1306,9 @@ function rgb2hex(rgb) {
     ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
 };
 
-design_mode()
-
 function StylesMenu(item) {
   const lastSelected = document.querySelector('.selectedItem')
-  const box = document.getElementById('lab-designBody')
-
-  item.classList.add('selectedItem')
-
+  const box = document.getElementById('lab-style-wrap')
   const itemStyles = window.getComputedStyle(item)
 
   const css = {
@@ -1359,20 +1333,18 @@ function StylesMenu(item) {
     'margin-left': itemStyles.marginLeft,
   }
 
-  if (lastSelected && lastSelected.id != item.id) {
-    box.removeChild(document.getElementById('lab-elementMenu'))
+  if (lastSelected) {
+    box.innerHTML = ''
     lastSelected.classList.remove('selectedItem')
     renderMenu()
   }
   if (!lastSelected) renderMenu()
 
   function renderMenu() {
-    const last = document.getElementById('lab-elementMenu')
-    if (last) last.remove()
+    item.classList.add('selectedItem')
 
-    const elementMenu = lab_design_system('div', "elementMenu", box, '', '', ['design', 'elementMenu'])
-    const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", elementMenu, '', '', ['design', 'StyleButtons'])
-    const elementMenuBody = lab_design_system('div', "elementMenuBody", elementMenu, '', '', ['design', 'elementMenuBody'])
+    const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
+    const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
     const menuSettings = ['general', 'additional']
     const activeSettings = 'general'
 
@@ -1489,18 +1461,10 @@ function StylesMenu(item) {
       }
       lab_fade_in_recursively(elementMenuBody, 0.2)
     }
-    const page = document.getElementById('lab-user-page')
-    page.addEventListener('click', () => {
-      item.classList.remove('selectedItem')
-      if (elementMenu) elementMenu.remove()
-    })
+
+    lab_fade_in_recursively(box, 0.3)
   }
 }
 
 
-window.addEventListener('resize', () => {
-  Designer.removePointer()
-})
-
-
-
+return design_mode
