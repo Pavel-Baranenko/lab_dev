@@ -182,7 +182,7 @@ const styles_d = {
         top: 0,
         left: '50%',
         transform: 'translateX(-50%)',
-        maxWidth: '1080px',
+        maxWidth: '56%',
         width: '100%',
         borderRadius: '0 0 30px 30px',
         height: '70px',
@@ -448,28 +448,14 @@ const styles_d = {
         zIndex: 9999
       }
     },
-    'styleMenu': {
-      'default': {
-        position: "absolute",
-        padding: '30px',
-        zIndex: 9999
-      }
-    },
-    'elementMenu': {
-      'default': {
-        position: 'fixed',
-        right: '2px',
-        zIndex: 9999,
-        top: '50%',
-        transform: "translateY(-50%)"
-      }
-    },
+
     'elementMenuBody': {
       'default': {
         backgroundColor: '#fff',
         padding: '15px',
         boxSizing: 'border-box',
-        width: '300px',
+        maxWidth: '300px',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
@@ -656,6 +642,7 @@ const styles_d = {
     'styleWrapper': {
       'default': {
         'position': "relative",
+        maxWidth: "25%",
         padding: "75px 0 0 0",
         boxSizing: "border-box",
         background: "#fff",
@@ -2950,7 +2937,7 @@ function design_mode() {
     }
 
     if (vpm == 'portrait') {
-      pixelScreen.innerHTML = '414px'
+      pixelScreen.innerHTML = '414px '
       page.style.maxWidth = '414px'
       page.style.maxHeight = '896px'
     }
@@ -2980,7 +2967,7 @@ function design_mode() {
   })
 
   const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
-
+  pixelScreen.style.width = '65px'
   setVpm(options.vpm)
 
   const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
@@ -3039,6 +3026,7 @@ function design_mode() {
 
 
   const styleMenu = lab_design_system_d('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
+  const styleWrap = lab_design_system_d('div', 'style-wrap', styleMenu, '', 'none')
 
   const styleHide = lab_design_system_d('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
   const styleHideIcon = lab_design_system_d('img', 'style-hide-icon', styleHide, '', 'none')
@@ -3046,6 +3034,11 @@ function design_mode() {
   styleHideIcon.style.maxWidth = '100%'
   styleHideIcon.style.marginLeft = '-4px'
 
+  styleHide.addEventListener('click', () => {
+    styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
+  })
+
+  StylesMenu(page)
   //CODE MENU
 
   const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
@@ -3086,7 +3079,7 @@ design_mode()
 
 function StylesMenu(item) {
   const lastSelected = document.querySelector('.selectedItem')
-  const box = document.getElementById('lab-style-box')
+  const box = document.getElementById('lab-style-wrap')
   const itemStyles = window.getComputedStyle(item)
 
   const css = {
