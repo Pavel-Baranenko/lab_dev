@@ -684,6 +684,9 @@ function AppMenu(dashObj) {
 
     const fileInput = lab_design_system('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
     fileInput.setAttribute('type', 'file')
+
+
+    lab_fade_in_recursively(menu, 0.3)
   })
 }
 
