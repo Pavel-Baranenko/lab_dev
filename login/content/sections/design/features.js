@@ -1988,6 +1988,7 @@ const styles_d = {
         "width": "100%",
         "padding": "75px 0 0 0",
         "boxSizing": "border-box",
+        "zIndex": 9999,
         "background": "#fff",
         "boxShadow": "0px 1px 13.9px 0px #00000014"
       }
@@ -2967,15 +2968,24 @@ function design_mode() {
     }
 
     static async hover(element) {
-      const page = document.getElementById('lab-user-page')
-      if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
-        const last = document.querySelector('.lab-active-element')
-        if (!last) DesignConstructor.createOptions(element, page)
-        else if (last.id != element.id) {
-          last.classList.remove('lab-active-element')
-          DesignConstructor.createOptions(element, page)
+      if (!labIsElementDragging) {
+        const page = document.getElementById('lab-user-page')
+        if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
+          const last = document.querySelector('.lab-active-element')
+          if (!last) DesignConstructor.createOptions(element, page)
+          else if (last.id != element.id) {
+            last.classList.remove('lab-active-element')
+            DesignConstructor.createOptions(element, page)
+          }
+          if (uditableTags.includes(element.tagName)) element.contentEditable = true
         }
-        if (uditableTags.includes(element.tagName)) element.contentEditable = true
+      } else {
+        let last = document.querySelector('#lab-HoverBox')
+        if (last) {
+          last.remove()
+          document.querySelector('#lab-HoverBoxbtn').remove()
+        }
+
       }
     }
 
@@ -3830,7 +3840,7 @@ function design_mode() {
     const lastSelected = document.querySelector('.selectedItem')
     const box = document.getElementById('lab-style-wrap')
     const itemStyles = window.getComputedStyle(item)
-
+    selectedElementChangeId = item
     const css = {
       'font-family': itemStyles.fontFamily,
       'text-align': itemStyles.textAlign,
@@ -3990,10 +4000,17 @@ function design_mode() {
 design_mode()
 
 function selectTool(toolName) {
+  selectedShape = null
   console.log(toolName);
   if (toolName == 'pen') {
     selectedShape = 'feather'
     elementDragging = false
+  }
+  if (toolName == 'move') {
+    labIsElementDragging = true
+  }
+  if (toolName == 'resize') {
+    labResizeElements()
   }
 }
 
@@ -5252,8 +5269,11 @@ function indexElementsDown() {
 
 // RESIZE
 function labResizeElements(event) {
+
   xResize++
   if (xResize === 1) {
+    console.log(selectedElementChangeId);
+
     if (selectedElementChangeId) {
       labIsElementDragging = false
       // Vérifier si l'élément est un canvas
@@ -5573,7 +5593,7 @@ function initializeSVG() {
     featherSVG.style.zIndex = 1
     featherSVG.setAttribute("width", "100%")
     featherSVG.setAttribute("height", "100%")
-    featherSVG.style.position = 'fixed'
+    featherSVG.style.position = 'absolute'
     featherSVG.style.top = '0'
     document.body.appendChild(featherSVG);
   }
@@ -5721,8 +5741,7 @@ function displayPreviewCurves(event) {
 function createFinalForm(event) {
   const userLSG = lab_local_storage_object('global')
   if (userLSG.ctx === "Applications" && userLSG.mode === "Designer") {
-    const designers_bar = document.getElementById('lab-designers-bar')
-    if (designers_bar.contains(event.target) && [...rootLayer.children].length > 0) return
+    if (event.target.classList.contains('escape')) return
     if (selectedShape != 'feather') return
     if (!featherSVG) return
 
