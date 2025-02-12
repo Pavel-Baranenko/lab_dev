@@ -2042,7 +2042,7 @@ const styles_d = {
         "cursor": "pointer",
         "padding": "5px",
         "borderRadius": "10px",
-        "background": "#fff"
+        "background": "#F2F3F7"
       }
     },
   },
@@ -2434,6 +2434,10 @@ const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/new/img/'
 let styles = styles_d
 let lab_ui_styles_d = styles_d
 
+let ActiveMode
+let selected
+
+const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 function lab_design_system_d(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
@@ -2464,7 +2468,670 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
   return A
 }
+class Designer {
+  static ID() {
+    const S4 = function () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return ('lab-element' + S4() + S4() + S4() + S4() + S4());
+  }
 
+  static async create(TemplatesList, template_id, parent, vpm, random) {
+    const T = TemplatesList[template_id].template
+    let A
+
+    function readObject(temt, child) {
+      const obj = temt[vpm]
+      const element = document.createElement(obj.tag)
+
+      if (obj.root) {
+        parent.appendChild(element)
+        A = element
+      }
+
+      element.id = (random ? Designer.ID() : obj.id)
+
+      if (obj.classes) {
+        const classes = obj.classes.split(' ')
+        element.classList.add(...classes)
+      }
+
+      obj.attributes && Object.keys(obj.attributes).forEach(e => {
+        element.setAttribute(e, obj.attributes[e])
+      })
+      obj.styles && Object.keys(obj.styles).forEach(e => {
+        element.style[e] = obj.styles[e]
+      })
+
+      element.style.opacity = ''
+
+      obj.text && element.appendChild(document.createTextNode(obj.text))
+
+      obj.child && obj.child.forEach((e) => {
+        element.appendChild(readObject(e, true))
+      })
+
+      if (child) return element
+    }
+
+    readObject(T)
+
+    return A
+  }
+
+  static async hover(element) {
+    if (!labIsElementDragging) {
+      const page = document.getElementById('lab-user-page')
+      if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
+        const last = document.querySelector('.lab-active-element')
+        if (!last) DesignConstructor.createOptions(element, page)
+        else if (last.id != element.id) {
+          last.classList.remove('lab-active-element')
+          DesignConstructor.createOptions(element, page)
+        }
+        if (uditableTags.includes(element.tagName)) element.contentEditable = true
+      }
+    } else {
+      let last = document.querySelector('#lab-HoverBox')
+      if (last) {
+        last.remove()
+        document.querySelector('#lab-HoverBoxbtn').remove()
+      }
+
+    }
+  }
+
+  static async removePointer() {
+    if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
+    if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
+    if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
+  }
+
+  static copy(element) {
+    const copyItem = element.cloneNode(true)
+    element.after(copyItem)
+    return copyItem
+  }
+
+  static del(element) {
+    Designer.removePointer()
+    return element.remove()
+  }
+
+  static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup', moveArea = document) {
+    const page = document.getElementById('lab-user-page')
+    const pagePos = page.getBoundingClientRect()
+
+    function onMouseDrag({ movementX, movementY }) {
+
+      if (element.style.position == 'static' || !element.style.position) {
+        element.style.position = 'absolute'
+      }
+
+      let getContainerStyle = window.getComputedStyle(element)
+      let leftValue = parseInt(getContainerStyle.left)
+      let topValue = parseInt(getContainerStyle.top)
+      element.style.left = `${leftValue + movementX}px`
+      element.style.top = `${topValue + movementY}px`
+    }
+
+    moveArea.addEventListener(moveListener, onMouseDrag)
+
+    function removeListeners() {
+      moveArea.removeEventListener(moveListener, onMouseDrag)
+      moveArea.removeEventListener(endListener, removeListeners)
+      if (endFunc) endFunc(element)
+    }
+
+    moveArea.addEventListener(endListener, removeListeners, false)
+  }
+
+  static saveTemplate(element) {
+    let tamlpateObj = {
+      'title': "button",
+      'template': {
+
+      }
+    }
+  }
+
+  static Proportions(element, child, parent, alignment) {
+    const parentPos = parent.getBoundingClientRect();
+    const elementPos = child.getBoundingClientRect();
+
+    if (alignment.vert && alignment.vert == 'full') {
+      element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
+      element.style.width = elementPos.width / parentPos.width * 100 + '%'
+    }
+    if (alignment.hor == 'full') {
+      element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
+      element.style.height = elementPos.height / parentPos.height * 100 + '%'
+    }
+
+    Object.keys(alignment).forEach(e => {
+      if (['left', 'top'].includes(e)) {
+        const orientation = ['left'].includes(e) ? 'width' : 'height'
+        const axis = ['left'].includes(e) ? 'x' : 'y'
+
+        element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
+      }
+    })
+
+  }
+
+  static WriteStyle(element, styleName, styleValue) {
+    element.style[styleName] = styleValue
+    Designer.removePointer()
+  }
+
+  static drag(el, dargZone, start = 'mousedown', end = 'mouseup', endFunc = null) {
+    Designer.removePointer()
+    if (el.style.position == 'static') return
+    const page = document.getElementById('lab-user-page')
+    el.style.transition = 'all 0.1s ease'
+    const zone = dargZone || page
+
+    let elStyles = window.getComputedStyle(el)
+    let pagePos = page.getBoundingClientRect()
+    let elPos = el.getBoundingClientRect()
+    let scale = page.style.scale
+
+    function StartAction() {
+      el.style.pointerEvents = 'none'
+      zone.addEventListener('mousemove', onMouseMove)
+    }
+
+    function onMouseMove({ x, y }) {
+      Designer.removePointer()
+      let item = document.elementFromPoint(x, y)
+      const itemPos = item.getBoundingClientRect()
+      let Y = y - itemPos.y
+      let X = x - itemPos.x
+
+      let checkCTRL = false
+      if (checkCTRL) {
+        let last = document.getElementById('lab-hover')
+        if (last) last.remove()
+        const top = 0 < Y && Y < 20
+        const bottom = -20 < Y - itemPos.height && Y - itemPos.height < 0
+        const left = 0 < X && X < 20
+        const right = -20 < X - itemPos.width && X - itemPos.width < 0
+        if (top || bottom || left || right) {
+          const hover = lab_design_system_d('div', "hover", page, '', 'none', ['design', 'hover'])
+          if (top) {
+            hover.style.height = 20 / pagePos.height * 100 + '%'
+            hover.style.width = itemPos.width / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+          if (bottom) {
+            hover.style.height = 20 / pagePos.height * 100 + '%'
+            hover.style.width = itemPos.width / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y + itemPos.height - 20) / pagePos.height * 100 + '%'
+          }
+          if (left) {
+            hover.style.height = itemPos.height / pagePos.height * 100 + '%'
+            hover.style.width = 20 / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+          if (right) {
+            hover.style.height = itemPos.height / pagePos.height * 100 + '%'
+            hover.style.width = 20 / pagePos.width * 100 + '%'
+            hover.style.left = (itemPos.x - pagePos.x + itemPos.width - 20) / pagePos.width * 100 + '%'
+            hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          }
+        }
+      }
+
+      el.style.left = ((x - pagePos.x - (elPos.width / 2)) / scale) / pagePos.width * 100 + '%'
+      el.style.top = ((y - pagePos.y - (elPos.height / 2)) / scale) / pagePos.height * 100 + '%'
+    }
+
+    el.addEventListener(start, StartAction)
+
+    function EndAction() {
+      el.style.transition = elStyles.transition
+      el.style.pointerEvents = 'unset'
+      el.removeEventListener(start, StartAction)
+      zone.removeEventListener('mousemove', onMouseMove)
+      page.removeEventListener(end, EndAction)
+    }
+
+    page.addEventListener(end, EndAction)
+  }
+
+  static transform(el = selected) {
+    if (["lab-user-page-wrap", "lab-user-page"].includes(el.id)) {
+      return
+    }
+    const page = document.getElementById('lab-user-page')
+    let lastDir = ''
+    let mouseIsDown = false
+    el.style.transition = 'max-height 0.1s ease'
+
+    function movePos({ x, y }) {
+      if (el != selected) {
+        document.removeEventListener('mousemove', movePos)
+        return
+      }
+      const pos = el.getBoundingClientRect()
+      let coord = { x: x, y: y }
+      let axis = ['bottom', 'top'].includes(lastDir) ? 'y' : 'x'
+      let orientation = axis == 'x' ? 'width' : "height"
+
+      function writePointer(direction) {
+        let top = 0
+        let left = 0
+        if (direction) {
+          lastDir = direction
+          if (direction == 'bottom') {
+            top = pos.height - 4
+            left = -(pos.width / 2 + 12)
+          } else if (direction == 'right') {
+            top = (pos.height / 2 - 4)
+            left = -12
+          }
+        }
+
+        let last = document.getElementById('lab-pointer')
+        if (!last || !last.classList.contains(direction) || mouseIsDown) {
+          Designer.removePointer()
+          const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
+          pointer.style.opacity = 1
+          pointer.style.transition = 'all 0.1s ease'
+
+          if (['left', 'right'].includes(direction)) pointer.style.rotate = '90deg'
+
+          Designer.Proportions(pointer, el, page, { top: top, left: left })
+        }
+      }
+
+      if (y > (pos.y + pos.height - 10) && y < (pos.y + pos.height + 50)) writePointer('bottom')
+
+      else if (x > (pos.x + pos.width - 10) && x < (pos.x + pos.width + 50)) writePointer('right')
+
+      function resize() {
+        if (mouseIsDown) {
+          let a = (coord[axis] - pos[axis])
+
+          if (a <= 0) a += a * (-1) + pos[orientation]
+          el.style[`max${capitalizeFirstLetter(orientation)}`] = a + 'px'
+          el.style[orientation] = a + 'px'
+          writePointer(lastDir)
+        }
+        document.addEventListener('click', () => {
+          document.removeEventListener('mousemove', movePos)
+          Designer.removePointer()
+        })
+      }
+
+      resize()
+
+      document.addEventListener('mousedown', () => mouseIsDown = true)
+      document.addEventListener('mouseup', () => mouseIsDown = false)
+    }
+    document.addEventListener('mousemove', movePos)
+  }
+
+  static async mode(modeName) {
+    const page = document.getElementById('lab-user-page')
+    const pagePos = page.getBoundingClientRect()
+    let mouse = false
+    let startCoords
+    selectedShape = modeName
+    if (['shape', 'text', 'img'].includes(modeName)) {
+      page.addEventListener('mousemove', write)
+    }
+    if (modeName == 'resize') {
+      selected = true
+
+      function Trans(e) {
+        if (selected) {
+          selected = document.elementFromPoint(e.clientX, e.clientY)
+          Designer.transform(selected)
+        } else {
+          page.removeEventListener('click', Trans)
+        }
+      }
+      page.addEventListener('click', Trans)
+    }
+    const types = {
+      'text': 'span',
+      'img': 'img',
+    }
+
+    async function write({ x, y }) {
+      if (selectedShape == modeName) {
+        if (mouse) {
+          let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
+          area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
+          area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
+          area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
+          area.style.height = (y - startCoords.y) / pagePos.height * 100 + '%'
+
+          page.addEventListener('mouseup', CreateEl)
+
+        }
+        page.addEventListener('mousedown', start)
+      }
+      else {
+        page.removeEventListener('mousedown', start)
+        page.removeEventListener('mouseup', CreateEl)
+        page.removeEventListener('mousemove', write)
+        return false
+      }
+    }
+
+    function start(e) {
+      if (!mouse) {
+        mouse = true
+        startCoords = { x: e.clientX, y: e.clientY }
+      }
+    }
+
+    async function CreateEl() {
+      const area = document.getElementById('lab-area')
+      if (area) {
+        const areaPos = area.getBoundingClientRect()
+        mouse = false
+        startCoords = null
+        if (!['shape'].includes(modeName)) {
+          const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
+          item.style.position = 'absolute'
+          item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+          item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+          item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+          item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
+
+          if (modeName == 'img') {
+            let input = document.getElementById('lab-img-input')
+            input.click()
+            function IMG(e) {
+              const fileInfo = e.target.files[0];
+              item.setAttribute('src', URL.createObjectURL(fileInfo))
+              input.removeEventListener('change', IMG)
+            }
+            input.addEventListener('change', IMG)
+          }
+        }
+
+        // if (modeName == 'shape') {
+        //   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        //   const rect = document.createElementNS(svg.namespaceURI, "rect");
+        //   svg.style.position = 'absolute'
+        //   svg.style.width = areaPos.width / pagePos.width * 100 + '%'
+        //   svg.style.height = areaPos.height / pagePos.height * 100 + '%'
+        //   svg.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+        //   svg.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+        //   rect.classList.add('lab-none')
+        //   rect.setAttribute("width", '100%');
+        //   rect.setAttribute("height", '100%');
+        //   svg.setAttribute("fill", "#FED05E");
+        //   rect.style.pointerEvents = 'none'
+        //   svg.appendChild(rect);
+        //   page.appendChild(svg);
+        // }
+        area.remove()
+      }
+    }
+
+    page.addEventListener('click', () => mouse = false)
+  }
+}
+class DesignConstructor {
+  static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
+    const btn = lab_design_system_d('button', id, parent, content, className, styles)
+    if (icon) {
+      const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
+      btnIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
+    }
+    return btn;
+  }
+
+  static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
+
+
+    if (icon) {
+      const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
+      innerIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
+    }
+
+    const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
+
+    value && Input.setAttribute('value', value)
+    placeholder && Input.setAttribute('placeholder', placeholder)
+    params && Input.addEventListener('input', () => Designer.WriteStyle(params.el, params.style, Input.value)
+    )
+    return Input
+  }
+
+  static dropList(parent, list, value, func) {
+    let id = Designer.ID()
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'dropList'])
+    const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
+    const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
+    const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
+    icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
+
+    const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
+    list.forEach(e => {
+      const item = lab_design_system_d('span', Designer.ID(), listing, e)
+      item.addEventListener('click', () => {
+        text.innerHTML = e
+        func && func(e)
+        close()
+      })
+    })
+
+    function close() {
+      listing.style.height = 0
+      listing.style.padding = 0
+      listing.classList.remove('active')
+    }
+
+    selected.addEventListener('click', () => {
+      if (!listing.classList.contains('active')) {
+        listing.classList.add('active')
+        listing.style.height = 'auto'
+        listing.style.padding = '7px'
+      }
+      else close()
+    })
+    return wrap
+  }
+
+  static async createOptions(element, parent) {
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
+    if (!stopList.includes(element.id)) {
+      await Designer.removePointer()
+
+      element.classList.add('lab-active-element')
+
+      const HoverBox = lab_design_system_d('div', "HoverBox", parent, 0, 0, ['design', 'HoverBox'])
+      HoverBox.style.borderRadius = element.style.borderRadius
+
+      Designer.Proportions(HoverBox, element, parent, { vert: "full", hor: "full" })
+
+      const hoverMenuBtn = DesignConstructor.button(parent, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
+
+      Designer.Proportions(hoverMenuBtn, element, parent, { left: -42, top: 7 })
+
+      const BlockOptions = {
+        'copy': "Copy",
+        'drag': "Move",
+        'transform': "Transform",
+        'del': "Delete",
+      }
+
+      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
+      lab_fade_in_recursively(parent, 0.3)
+    }
+  }
+
+  static blockMenu(element, parent, options) {
+    ActiveMode = null
+    let last = document.getElementById('lab-block-menu')
+    if (last) {
+      last.remove()
+    }
+    const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
+    console.log(menuWrap);
+
+    const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
+    Object.keys(options).forEach(e => {
+      const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
+      const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
+      const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
+      itemIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
+      itemIcon.style.width = '15px'
+
+      item.addEventListener('click', () => {
+        menuWrap.remove()
+        selected = null
+        if (e == 'transform') selected = element
+        Designer[e](element)
+      })
+    })
+    Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
+    const menuRect = menuWrap.getBoundingClientRect()
+
+    if (menuRect.left + menuRect.width > window.innerWidth) {
+      let options = JSON.parse(localStorage.getItem('options'))
+      menuWrap.style.left = window.innerWidth - menuRect.width - (options.sideMenu ? 100 : 0) + 'px'
+    }
+
+    menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
+    lab_fade_in_recursively(menuWrap, 0.3)
+  }
+
+  static toggleClass(el, styleList, usual, active) {
+    Object.keys(lab_ui_styles_d[styleList][active].default).forEach(e => {
+      if (el.style[e] == lab_ui_styles_d[styleList][active].default[e]) {
+        el.style[e] = lab_ui_styles_d[styleList][usual].default[e]
+      } else {
+        el.style[e] = lab_ui_styles_d[styleList][active].default[e]
+      }
+    })
+  }
+
+  static addClass(el, styleList, className) {
+    Object.keys(lab_ui_styles_d[styleList][className].default).forEach(e => {
+      el.style[e] = lab_ui_styles_d[styleList][className].default[e]
+    })
+  }
+
+  static BlockResize() {
+    document.addEventListener("wheel", preventZoom, { passive: false });
+    document.addEventListener("keydown", preventZoomKey, false);
+
+    function preventZoom(e) {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+      }
+    }
+
+    function preventZoomKey(e) {
+      if ((e.ctrlKey || e.metaKey) &&
+        (e.key === '+' || e.key === '=' || e.key === 'equal') ||
+        (e.key === '-' || e.key === '_')) {
+        e.preventDefault();
+      }
+    }
+
+  }
+
+  static closeAll() {
+    const menu = document.getElementById('lab-side-menu')
+    const MenuBtn = document.getElementById('lab-show-side-menu')
+    const topSettins = document.getElementById('lab-top-settings')
+    const tools = document.getElementById('lab-toolbar')
+    const styleMenu = document.getElementById('lab-elementMenu')
+    DesignConstructor.addClass(menu, 'design', 'hideSide')
+    DesignConstructor.addClass(MenuBtn, 'design', 'hideMenu')
+    DesignConstructor.addClass(tools, 'design', 'hideToolbar')
+    DesignConstructor.addClass(topSettins, 'design', 'hideTop')
+    styleMenu && styleMenu.remove()
+  }
+}
+const elementsToolsList = {
+  'span': {
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'title': "span",
+    'template': {
+      'landscape': {
+        'id': "lab-text",
+        'tag': "span",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'padding': '10px',
+          'position': "relative",
+        }
+      },
+      'landscape': {
+        'id': "lab-text",
+        'tag': "span",
+        'classes': "lab-text",
+        'root': true,
+        'styles': {
+          'padding': '10px',
+          'position': "relative",
+        }
+      }
+    }
+  },
+  'img': {
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'title': "img",
+    'template': {
+      'landscape': {
+        'id': "lab-img",
+        'tag': "img",
+        'classes': "lab-img",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      },
+      'landscape': {
+        'id': "lab-img",
+        'tag': "img",
+        'classes': "lab-img",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      }
+    }
+  },
+  'svg': {
+    'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
+    'title': "svg",
+    'template': {
+      'landscape': {
+        'id': "lab-svg",
+        'tag': "svg",
+        'classes': "lab-svg",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      },
+      'landscape': {
+        'id': "lab-svg",
+        'tag': "svg",
+        'classes': "lab-svg",
+        'root': true,
+        'styles': {
+          'position': "relative"
+        }
+      }
+    }
+  },
+}
 function design_mode() {
   const labBody = document.querySelector('body')
   labBody.style.position = "relative"
@@ -2472,11 +3139,6 @@ function design_mode() {
   labBody.style.display = "flex"
   labBody.style.width = "100svw"
   labBody.style.height = "100svh"
-
-  let ActiveMode
-  let selected
-
-  const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
   const ElementsList = {
     'button': {
@@ -2595,7 +3257,7 @@ function design_mode() {
       'template': {
         'landscape': {
           'id': "lab-section",
-          'tag': "section",
+          'tag': "div",
           'classes': "lab-empty-section",
           'root': true,
           'styles': {
@@ -2604,7 +3266,7 @@ function design_mode() {
         },
         'portrait': {
           'id': "lab-section",
-          'tag': "section",
+          'tag': "div",
           'classes': "lab-empty-section",
           'root': true,
           'styles': {
@@ -2839,676 +3501,6 @@ function design_mode() {
     }
   }
 
-  const elementsToolsList = {
-    'span': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
-      'title': "span",
-      'template': {
-        'landscape': {
-          'id': "lab-text",
-          'tag': "span",
-          'classes': "lab-text",
-          'root': true,
-          'styles': {
-            'padding': '10px',
-            'position': "relative",
-          }
-        },
-        'landscape': {
-          'id': "lab-text",
-          'tag': "span",
-          'classes': "lab-text",
-          'root': true,
-          'styles': {
-            'padding': '10px',
-            'position': "relative",
-          }
-        }
-      }
-    },
-    'img': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
-      'title': "img",
-      'template': {
-        'landscape': {
-          'id': "lab-img",
-          'tag': "img",
-          'classes': "lab-img",
-          'root': true,
-          'styles': {
-            'position': "relative"
-          }
-        },
-        'landscape': {
-          'id': "lab-img",
-          'tag': "img",
-          'classes': "lab-img",
-          'root': true,
-          'styles': {
-            'position': "relative"
-          }
-        }
-      }
-    },
-    'svg': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
-      'title': "svg",
-      'template': {
-        'landscape': {
-          'id': "lab-svg",
-          'tag': "svg",
-          'classes': "lab-svg",
-          'root': true,
-          'styles': {
-            'position': "relative"
-          }
-        },
-        'landscape': {
-          'id': "lab-svg",
-          'tag': "svg",
-          'classes': "lab-svg",
-          'root': true,
-          'styles': {
-            'position': "relative"
-          }
-        }
-      }
-    },
-  }
-
-  class Designer {
-    static ID() {
-      const S4 = function () {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-      };
-      return ('lab-element' + S4() + S4() + S4() + S4() + S4());
-    }
-
-    static async create(TemplatesList, template_id, parent, vpm, random) {
-      const T = TemplatesList[template_id].template
-      let A
-
-      function readObject(temt, child) {
-        const obj = temt[vpm]
-        const element = document.createElement(obj.tag)
-
-        if (obj.root) {
-          parent.appendChild(element)
-          A = element
-        }
-
-        element.id = (random ? Designer.ID() : obj.id)
-
-        if (obj.classes) {
-          const classes = obj.classes.split(' ')
-          element.classList.add(...classes)
-        }
-
-        obj.attributes && Object.keys(obj.attributes).forEach(e => {
-          element.setAttribute(e, obj.attributes[e])
-        })
-        obj.styles && Object.keys(obj.styles).forEach(e => {
-          element.style[e] = obj.styles[e]
-        })
-
-        element.style.opacity = ''
-
-        obj.text && element.appendChild(document.createTextNode(obj.text))
-
-        obj.child && obj.child.forEach((e) => {
-          element.appendChild(readObject(e, true))
-        })
-
-        if (child) return element
-      }
-
-      readObject(T)
-
-      return A
-    }
-
-    static async hover(element) {
-      if (!labIsElementDragging) {
-        const page = document.getElementById('lab-user-page')
-        if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
-          const last = document.querySelector('.lab-active-element')
-          if (!last) DesignConstructor.createOptions(element, page)
-          else if (last.id != element.id) {
-            last.classList.remove('lab-active-element')
-            DesignConstructor.createOptions(element, page)
-          }
-          if (uditableTags.includes(element.tagName)) element.contentEditable = true
-        }
-      } else {
-        let last = document.querySelector('#lab-HoverBox')
-        if (last) {
-          last.remove()
-          document.querySelector('#lab-HoverBoxbtn').remove()
-        }
-
-      }
-    }
-
-    static async removePointer() {
-      if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
-      if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
-      if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
-    }
-
-    static copy(element) {
-      const copyItem = element.cloneNode(true)
-      element.after(copyItem)
-      return copyItem
-    }
-
-    static del(element) {
-      Designer.removePointer()
-      return element.remove()
-    }
-
-    static move(element, endFunc = null, moveListener = 'mousemove', endListener = 'mouseup', moveArea = document) {
-      const page = document.getElementById('lab-user-page')
-      const pagePos = page.getBoundingClientRect()
-
-      function onMouseDrag({ movementX, movementY }) {
-
-        if (element.style.position == 'static' || !element.style.position) {
-          element.style.position = 'absolute'
-        }
-
-        let getContainerStyle = window.getComputedStyle(element)
-        let leftValue = parseInt(getContainerStyle.left)
-        let topValue = parseInt(getContainerStyle.top)
-        element.style.left = `${leftValue + movementX}px`
-        element.style.top = `${topValue + movementY}px`
-      }
-
-      moveArea.addEventListener(moveListener, onMouseDrag)
-
-      function removeListeners() {
-        moveArea.removeEventListener(moveListener, onMouseDrag)
-        moveArea.removeEventListener(endListener, removeListeners)
-        if (endFunc) endFunc(element)
-      }
-
-      moveArea.addEventListener(endListener, removeListeners, false)
-    }
-
-    static saveTemplate(element) {
-      let tamlpateObj = {
-        'title': "button",
-        'template': {
-
-        }
-      }
-    }
-
-    static Proportions(element, child, parent, alignment) {
-      const parentPos = parent.getBoundingClientRect();
-      const elementPos = child.getBoundingClientRect();
-
-      if (alignment.vert && alignment.vert == 'full') {
-        element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
-        element.style.width = elementPos.width / parentPos.width * 100 + '%'
-      }
-      if (alignment.hor == 'full') {
-        element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
-        element.style.height = elementPos.height / parentPos.height * 100 + '%'
-      }
-
-      Object.keys(alignment).forEach(e => {
-        if (['left', 'top'].includes(e)) {
-          const orientation = ['left'].includes(e) ? 'width' : 'height'
-          const axis = ['left'].includes(e) ? 'x' : 'y'
-
-          element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
-        }
-      })
-
-    }
-
-    static WriteStyle(element, styleName, styleValue) {
-      element.style[styleName] = styleValue
-      Designer.removePointer()
-    }
-
-    static drag(el, dargZone, start = 'mousedown', end = 'mouseup', endFunc = null) {
-      Designer.removePointer()
-      if (el.style.position == 'static') return
-      const page = document.getElementById('lab-user-page')
-      el.style.transition = 'all 0.1s ease'
-      const zone = dargZone || page
-
-      let elStyles = window.getComputedStyle(el)
-      let pagePos = page.getBoundingClientRect()
-      let elPos = el.getBoundingClientRect()
-      let scale = page.style.scale
-
-      function StartAction() {
-        el.style.pointerEvents = 'none'
-        zone.addEventListener('mousemove', onMouseMove)
-      }
-
-      function onMouseMove({ x, y }) {
-        Designer.removePointer()
-        let item = document.elementFromPoint(x, y)
-        const itemPos = item.getBoundingClientRect()
-        let Y = y - itemPos.y
-        let X = x - itemPos.x
-
-        let checkCTRL = false
-        if (checkCTRL) {
-          let last = document.getElementById('lab-hover')
-          if (last) last.remove()
-          const top = 0 < Y && Y < 20
-          const bottom = -20 < Y - itemPos.height && Y - itemPos.height < 0
-          const left = 0 < X && X < 20
-          const right = -20 < X - itemPos.width && X - itemPos.width < 0
-          if (top || bottom || left || right) {
-            const hover = lab_design_system_d('div', "hover", page, '', 'none', ['design', 'hover'])
-            if (top) {
-              hover.style.height = 20 / pagePos.height * 100 + '%'
-              hover.style.width = itemPos.width / pagePos.width * 100 + '%'
-              hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
-              hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            }
-            if (bottom) {
-              hover.style.height = 20 / pagePos.height * 100 + '%'
-              hover.style.width = itemPos.width / pagePos.width * 100 + '%'
-              hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
-              hover.style.top = (itemPos.y - pagePos.y + itemPos.height - 20) / pagePos.height * 100 + '%'
-            }
-            if (left) {
-              hover.style.height = itemPos.height / pagePos.height * 100 + '%'
-              hover.style.width = 20 / pagePos.width * 100 + '%'
-              hover.style.left = (itemPos.x - pagePos.x) / pagePos.width * 100 + '%'
-              hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            }
-            if (right) {
-              hover.style.height = itemPos.height / pagePos.height * 100 + '%'
-              hover.style.width = 20 / pagePos.width * 100 + '%'
-              hover.style.left = (itemPos.x - pagePos.x + itemPos.width - 20) / pagePos.width * 100 + '%'
-              hover.style.top = (itemPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            }
-          }
-        }
-
-        el.style.left = ((x - pagePos.x - (elPos.width / 2)) / scale) / pagePos.width * 100 + '%'
-        el.style.top = ((y - pagePos.y - (elPos.height / 2)) / scale) / pagePos.height * 100 + '%'
-      }
-
-      el.addEventListener(start, StartAction)
-
-      function EndAction() {
-        el.style.transition = elStyles.transition
-        el.style.pointerEvents = 'unset'
-        el.removeEventListener(start, StartAction)
-        zone.removeEventListener('mousemove', onMouseMove)
-        page.removeEventListener(end, EndAction)
-      }
-
-      page.addEventListener(end, EndAction)
-    }
-
-    static transform(el = selected) {
-      if (["lab-user-page-wrap", "lab-user-page"].includes(el.id)) {
-        return
-      }
-      const page = document.getElementById('lab-user-page')
-      let lastDir = ''
-      let mouseIsDown = false
-      el.style.transition = 'max-height 0.1s ease'
-
-      function movePos({ x, y }) {
-        if (el != selected) {
-          document.removeEventListener('mousemove', movePos)
-          return
-        }
-        const pos = el.getBoundingClientRect()
-        let coord = { x: x, y: y }
-        let axis = ['bottom', 'top'].includes(lastDir) ? 'y' : 'x'
-        let orientation = axis == 'x' ? 'width' : "height"
-
-        function writePointer(direction) {
-          let top = 0
-          let left = 0
-          if (direction) {
-            lastDir = direction
-            if (direction == 'bottom') {
-              top = pos.height - 4
-              left = -(pos.width / 2 + 12)
-            } else if (direction == 'right') {
-              top = (pos.height / 2 - 4)
-              left = -12
-            }
-          }
-
-          let last = document.getElementById('lab-pointer')
-          if (!last || !last.classList.contains(direction) || mouseIsDown) {
-            Designer.removePointer()
-            const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
-            pointer.style.opacity = 1
-            pointer.style.transition = 'all 0.1s ease'
-
-            if (['left', 'right'].includes(direction)) pointer.style.rotate = '90deg'
-
-            Designer.Proportions(pointer, el, page, { top: top, left: left })
-          }
-        }
-
-        if (y > (pos.y + pos.height - 10) && y < (pos.y + pos.height + 50)) writePointer('bottom')
-
-        else if (x > (pos.x + pos.width - 10) && x < (pos.x + pos.width + 50)) writePointer('right')
-
-        function resize() {
-          if (mouseIsDown) {
-            let a = (coord[axis] - pos[axis])
-
-            if (a <= 0) a += a * (-1) + pos[orientation]
-            el.style[`max${capitalizeFirstLetter(orientation)}`] = a + 'px'
-            el.style[orientation] = a + 'px'
-            writePointer(lastDir)
-          }
-          document.addEventListener('click', () => {
-            document.removeEventListener('mousemove', movePos)
-            Designer.removePointer()
-          })
-        }
-
-        resize()
-
-        document.addEventListener('mousedown', () => mouseIsDown = true)
-        document.addEventListener('mouseup', () => mouseIsDown = false)
-      }
-      document.addEventListener('mousemove', movePos)
-    }
-
-    // static async mode(modeName) {
-    //   const page = document.getElementById('lab-user-page')
-    //   const pagePos = page.getBoundingClientRect()
-    //   let mouse = false
-    //   let startCoords
-    //   ActiveMode = modeName
-    //   if (['shape', 'text', 'img'].includes(modeName)) {
-    //     page.addEventListener('mousemove', write)
-    //   }
-    //   if (modeName == 'resize') {
-    //     selected = true
-
-    //     function Trans(e) {
-    //       if (selected) {
-    //         selected = document.elementFromPoint(e.clientX, e.clientY)
-    //         Designer.transform(selected)
-    //       } else {
-    //         page.removeEventListener('click', Trans)
-    //       }
-    //     }
-    //     page.addEventListener('click', Trans)
-    //   }
-    //   if (modeName == 'pen') {
-    //     activateFeather()
-    //   }
-    //   const types = {
-    //     'text': 'span',
-    //     'img': 'img',
-    //   }
-
-    //   async function write({ x, y }) {
-    //     if (ActiveMode == modeName) {
-    //       if (mouse) {
-    //         let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
-    //         area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
-    //         area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
-    //         area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
-    //         area.style.height = (y - startCoords.y) / pagePos.height * 100 + '%'
-
-    //         page.addEventListener('mouseup', CreateEl)
-
-    //       }
-    //       page.addEventListener('mousedown', start)
-    //     }
-    //     else {
-    //       page.removeEventListener('mousedown', start)
-    //       page.removeEventListener('mouseup', CreateEl)
-    //       page.removeEventListener('mousemove', write)
-    //       return false
-    //     }
-    //   }
-
-    //   function start(e) {
-    //     if (!mouse) {
-    //       mouse = true
-    //       startCoords = { x: e.clientX, y: e.clientY }
-    //     }
-    //   }
-
-    //   async function CreateEl() {
-    //     const area = document.getElementById('lab-area')
-    //     if (area) {
-    //       const areaPos = area.getBoundingClientRect()
-    //       mouse = false
-    //       startCoords = null
-    //       if (!['shape'].includes(modeName)) {
-    //         const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
-    //         item.style.position = 'absolute'
-    //         item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-    //         item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-    //         item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
-    //         item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
-
-    //         if (modeName == 'img') {
-    //           let input = document.getElementById('lab-img-input')
-    //           input.click()
-    //           function IMG(e) {
-    //             const fileInfo = e.target.files[0];
-    //             item.setAttribute('src', URL.createObjectURL(fileInfo))
-    //             input.removeEventListener('change', IMG)
-    //           }
-    //           input.addEventListener('change', IMG)
-    //         }
-    //       }
-
-    //       if (modeName == 'shape') {
-    //         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    //         const rect = document.createElementNS(svg.namespaceURI, "rect");
-    //         svg.style.position = 'absolute'
-    //         svg.style.width = areaPos.width / pagePos.width * 100 + '%'
-    //         svg.style.height = areaPos.height / pagePos.height * 100 + '%'
-    //         svg.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-    //         svg.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-    //         rect.classList.add('lab-none')
-    //         rect.setAttribute("width", '100%');
-    //         rect.setAttribute("height", '100%');
-    //         svg.setAttribute("fill", "#FED05E");
-    //         rect.style.pointerEvents = 'none'
-    //         svg.appendChild(rect);
-    //         page.appendChild(svg);
-    //       }
-    //       area.remove()
-    //     }
-    //   }
-
-    //   page.addEventListener('click', () => mouse = false)
-    // }
-  }
-
-  class DesignConstructor {
-    static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
-      const btn = lab_design_system_d('button', id, parent, content, className, styles)
-      if (icon) {
-        const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
-        btnIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
-      }
-      return btn;
-    }
-
-    static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
-      const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
-
-
-      if (icon) {
-        const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
-        innerIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
-      }
-
-      const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
-
-      value && Input.setAttribute('value', value)
-      placeholder && Input.setAttribute('placeholder', placeholder)
-      params && Input.addEventListener('input', () => Designer.WriteStyle(params.el, params.style, Input.value)
-      )
-      return Input
-    }
-
-    static dropList(parent, list, value, func) {
-      let id = Designer.ID()
-      const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'dropList'])
-      const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
-      const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
-      const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
-      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
-
-      const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
-      list.forEach(e => {
-        const item = lab_design_system_d('span', Designer.ID(), listing, e)
-        item.addEventListener('click', () => {
-          text.innerHTML = e
-          func && func(e)
-          close()
-        })
-      })
-
-      function close() {
-        listing.style.height = 0
-        listing.style.padding = 0
-        listing.classList.remove('active')
-      }
-
-      selected.addEventListener('click', () => {
-        if (!listing.classList.contains('active')) {
-          listing.classList.add('active')
-          listing.style.height = 'auto'
-          listing.style.padding = '7px'
-        }
-        else close()
-      })
-      return wrap
-    }
-
-    static async createOptions(element, parent) {
-      const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
-      if (!stopList.includes(element.id)) {
-        await Designer.removePointer()
-
-        element.classList.add('lab-active-element')
-
-        const HoverBox = lab_design_system_d('div', "HoverBox", parent, 0, 0, ['design', 'HoverBox'])
-        HoverBox.style.borderRadius = element.style.borderRadius
-
-        Designer.Proportions(HoverBox, element, parent, { vert: "full", hor: "full" })
-
-        const hoverMenuBtn = DesignConstructor.button(parent, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
-
-        Designer.Proportions(hoverMenuBtn, element, parent, { left: -42, top: 7 })
-
-        const BlockOptions = {
-          'copy': "Copy",
-          'drag': "Move",
-          'transform': "Transform",
-          'del': "Delete",
-        }
-
-        hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
-        lab_fade_in_recursively(parent, 0.3)
-      }
-    }
-
-    static blockMenu(element, parent, options) {
-      ActiveMode = null
-      let last = document.getElementById('lab-block-menu')
-      if (last) {
-        last.remove()
-      }
-      const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
-      console.log(menuWrap);
-
-      const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
-      Object.keys(options).forEach(e => {
-        const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
-        const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
-        const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
-        itemIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
-        itemIcon.style.width = '15px'
-
-        item.addEventListener('click', () => {
-          menuWrap.remove()
-          selected = null
-          if (e == 'transform') selected = element
-          Designer[e](element)
-        })
-      })
-      Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
-      const menuRect = menuWrap.getBoundingClientRect()
-
-      if (menuRect.left + menuRect.width > window.innerWidth) {
-        let options = JSON.parse(localStorage.getItem('options'))
-        menuWrap.style.left = window.innerWidth - menuRect.width - (options.sideMenu ? 100 : 0) + 'px'
-      }
-
-      menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
-      lab_fade_in_recursively(menuWrap, 0.3)
-    }
-
-    static toggleClass(el, styleList, usual, active) {
-      Object.keys(lab_ui_styles_d[styleList][active].default).forEach(e => {
-        if (el.style[e] == lab_ui_styles_d[styleList][active].default[e]) {
-          el.style[e] = lab_ui_styles_d[styleList][usual].default[e]
-        } else {
-          el.style[e] = lab_ui_styles_d[styleList][active].default[e]
-        }
-      })
-    }
-
-    static addClass(el, styleList, className) {
-      Object.keys(lab_ui_styles_d[styleList][className].default).forEach(e => {
-        el.style[e] = lab_ui_styles_d[styleList][className].default[e]
-      })
-    }
-
-    static BlockResize() {
-      document.addEventListener("wheel", preventZoom, { passive: false });
-      document.addEventListener("keydown", preventZoomKey, false);
-
-      function preventZoom(e) {
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault();
-        }
-      }
-
-      function preventZoomKey(e) {
-        if ((e.ctrlKey || e.metaKey) &&
-          (e.key === '+' || e.key === '=' || e.key === 'equal') ||
-          (e.key === '-' || e.key === '_')) {
-          e.preventDefault();
-        }
-      }
-
-    }
-
-    static closeAll() {
-      const menu = document.getElementById('lab-side-menu')
-      const MenuBtn = document.getElementById('lab-show-side-menu')
-      const topSettins = document.getElementById('lab-top-settings')
-      const tools = document.getElementById('lab-toolbar')
-      const styleMenu = document.getElementById('lab-elementMenu')
-      DesignConstructor.addClass(menu, 'design', 'hideSide')
-      DesignConstructor.addClass(MenuBtn, 'design', 'hideMenu')
-      DesignConstructor.addClass(tools, 'design', 'hideToolbar')
-      DesignConstructor.addClass(topSettins, 'design', 'hideTop')
-      styleMenu && styleMenu.remove()
-    }
-  }
-
   function Options(obj, key, value) {
     obj[key] = value ? value : !obj[key]
     localStorage.setItem('options', JSON.stringify(obj))
@@ -3622,11 +3614,33 @@ function design_mode() {
   const toolBar = lab_design_system_d('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
 
   const tools = {
-    'cursor': ['cursor', 'cursor'],
+    'cursor': [{
+      value: 'cursor',
+      icon: `${oldSRC}cursor.svg`
+    },
+    {
+      value: 'group',
+      icon: `${oldSRC}cursor.svg`
+    }],
     'rotate': "rotate",
     'move': "move",
     'resize': "resize",
-    'shape': ['shape', 'circle', 'triangle'],
+    'shape': [{
+      value: 'shape',
+      icon: `${oldSRC}shape.svg`
+    },
+    {
+      value: 'circle',
+      icon: `${oldSRC}Ellipse.svg`
+    },
+    {
+      value: 'triangle',
+      icon: `${oldSRC}triangle.svg`
+    },
+    {
+      value: 'formPath',
+      icon: `https://laboranth.tech/D/R/IMG/LAB/designer_mode/labIconFormPathShape.svg`
+    }],
     'pen': "pen",
     'text': 'text',
     'img': "img"
@@ -3644,9 +3658,15 @@ function design_mode() {
 
       const list = lab_design_system_d('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
       tools[tool].forEach(e => {
-        let btn = DesignConstructor.button(list, ['design', 'toolbarItem'], '', e, 'toolBtn')
+        let btn = lab_design_system_d('button', `${e.value}-wrap-btn`, list,
+          '', '', ['design', 'toolbarItem'])
+
+        const icon = lab_design_system_d('img', `${e.value}-wrap-icon`, btn,
+          '', '', ['design', 'icon'])
+        icon.setAttribute('src', e.icon)
         btn.addEventListener('click', () => {
-          toolBtn.setAttribute('data-tool', e)
+          toolBtn.setAttribute('data-tool', e.value)
+          toolBtn.querySelector('img').setAttribute('src', e.icon)
         })
       })
 
@@ -3793,6 +3813,7 @@ function design_mode() {
   styleHideIcon.style.marginLeft = '-4px'
 
   styleHide.addEventListener('click', () => {
+    Designer.removePointer()
     styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
   })
 
@@ -3823,9 +3844,6 @@ function design_mode() {
     Designer.removePointer()
   })
 
-  function capitalizeFirstLetter(val) {
-    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-  }
 
   function rgb2hex(rgb) {
     var rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
@@ -3872,6 +3890,7 @@ function design_mode() {
 
     function renderMenu() {
       item.classList.add('selectedItem')
+      box.innerHTML = ''
 
       const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
       const elementMenuBody = lab_design_system_d('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
@@ -4001,18 +4020,56 @@ design_mode()
 
 function selectTool(toolName) {
   selectedShape = null
-  console.log(toolName);
+  elementDragging = false
   if (toolName == 'pen') {
     selectedShape = 'feather'
-    elementDragging = false
   }
-  if (toolName == 'move') {
+  else if (toolName == 'move') {
     labIsElementDragging = true
   }
-  if (toolName == 'resize') {
+  else if (toolName == 'resize') {
     labResizeElements()
   }
+  else if (toolName == 'rotate') {
+    activeRotateElement()
+  }
+  else if (toolName == 'text') {
+    Designer.mode('text')
+  }
+  else if (toolName == 'img') {
+    Designer.mode('img')
+  }
+  else if (toolName == 'resize') {
+    Designer.mode('resize')
+  }
+  else if (toolName == 'shape') {
+    isControlEnabled = false
+    selectedShape = 'square'
+    elementDragging = false
+
+    // window.addEventListener('mousedown', startDrawing)
+  }
+  else if (toolName == 'circle') {
+    isControlEnabled = false
+    selectedShape = 'circle'
+    elementDragging = false
+  }
+  else if (toolName == 'triangle') {
+    isControlEnabled = false
+    selectedShape = 'triangle'
+    elementDragging = false
+  }
+  else if (toolName == 'formPath') {
+    isControlEnabled = false
+    selectedShape = 'formPath'
+    elementDragging = false
+  }
 }
+
+function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
 
 //FUNCTIONS
 
@@ -4382,7 +4439,6 @@ function activeRotateElement() {
 
   if (xrotate === 1) {
     document.removeEventListener('click', addBorderElement)
-    console.log(selectedElementChangeId.tagName)
 
     if (selectedElementChangeId.tagName === 'SVG' || selectedElementChangeId.tagName === 'svg') {
       createSvgHandle({ cx: '0', cy: '0' })
@@ -4491,6 +4547,8 @@ function activeRotateElement() {
 
       updateHandlePositions()
     } else {
+
+
       const rotateTopLeft = document.createElement('div')
       const rotateTopRight = document.createElement('div')
       const rotateBottomLeft = document.createElement('div')
@@ -4500,6 +4558,12 @@ function activeRotateElement() {
       rotateTopRight.setAttribute('class', 'escape')
       rotateBottomLeft.setAttribute('class', 'escape')
       rotateBottomRight.setAttribute('class', 'escape')
+
+      rotateTopLeft.style.zIndex = '99'
+      rotateTopRight.style.zIndex = '99'
+      rotateBottomLeft.style.zIndex = '99'
+      rotateBottomRight.style.zIndex = '99'
+
 
       rotateTopLeft.setAttribute('id', 'lab-rotate-top-left')
       rotateTopRight.setAttribute('id', 'lab-rotate-top-right')
@@ -4929,6 +4993,7 @@ function stopDrawing(e) {
 
 function createTempShape(x1, y1, x2, y2) {
   const shape = document.createElement('div')
+  shape.style.zIndex = '99'
   shape.style.position = 'absolute'
   updateTempShape(shape, x1, y1, x2, y2)
   document.body.appendChild(shape)
@@ -5049,8 +5114,9 @@ function drawCircle(x1, y1, x2, y2) {
     circle.style.borderRadius = '50%'
   }
 
-  circle.style.backgroundColor = 'red'
+  circle.style.backgroundColor = '#FED05E'
   circle.style.position = 'absolute'
+  circle.style.zIndex = '2'
   document.body.appendChild(circle)
   allElements = Array.from(document.querySelectorAll('body *')).filter(child =>
     child.tagName.toLowerCase() !== 'script' &&
@@ -5085,7 +5151,8 @@ function drawSquare(x1, y1, x2, y2, shiftKeyPressed) {
     square.style.height = height + 'px'
   }
 
-  square.style.backgroundColor = 'red'
+  square.style.backgroundColor = '#FED05E'
+  square.style.zIndex = '2'
   document.body.appendChild(square)
   allElements = Array.from(document.querySelectorAll('body *')).filter(child =>
     child.tagName.toLowerCase() !== 'script' &&
@@ -5136,7 +5203,9 @@ function drawTriangle(x1, y1, x2, y2) {
 
   const clipPath = `polygon(${points.map(point => `${point.x}px ${point.y}px`).join(', ')})`
   triangle.style.clipPath = clipPath
-  triangle.style.backgroundColor = 'red'
+  triangle.style.backgroundColor = '#FED05E'
+  triangle.style.zIndex = '2'
+
   triangle.style.left = Math.min(x1, x2) + 'px'
   triangle.style.top = Math.min(y1, y2) + 'px'
   triangle.style.width = width + 'px'
@@ -5272,7 +5341,6 @@ function labResizeElements(event) {
 
   xResize++
   if (xResize === 1) {
-    console.log(selectedElementChangeId);
 
     if (selectedElementChangeId) {
       labIsElementDragging = false
@@ -5626,10 +5694,11 @@ displayFinalCurves()
 
 function createControlPoint(event) {
   const userLSG = lab_local_storage_object('global')
-  if (userLSG && userLSG.ctx === "Applications" && userLSG.mode === "Designer") {
-    console.log(selectedShape);
+  console.log(event.target.classList);
 
-    if (event.target.classList.contains('escape')) return
+  if (event.target.classList.value == 'escape') return
+
+  if (userLSG && userLSG.ctx === "Applications" && userLSG.mode === "Designer") {
 
     if (selectedShape != 'feather') return
 
@@ -5643,10 +5712,7 @@ function createControlPoint(event) {
       const x = inputEvent.clientX - rect.left
       const y = inputEvent.clientY - rect.top
 
-      points.push({
-        x,
-        y
-      })
+      points.push({ x, y })
 
       const circle = document.createElementNS(svgNamespace, "circle")
       circle.setAttribute("cx", x)
@@ -5671,10 +5737,7 @@ function createControlPoint(event) {
         lines.push(line)
       }
       if (points.length === 1) {
-        firstPoint = {
-          x,
-          y
-        }
+        firstPoint = { x, y }
       }
     }
   }
