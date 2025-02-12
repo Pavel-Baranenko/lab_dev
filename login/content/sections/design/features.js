@@ -2429,7 +2429,8 @@ const styles_d = {
     }
   }
 }
-const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/new/img/'
+// const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/new/img/'
+const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
 
 let styles = styles_d
 let lab_ui_styles_d = styles_d
@@ -2520,7 +2521,7 @@ class Designer {
   }
 
   static async hover(element) {
-    if (!labIsElementDragging) {
+    if (!labIsElementDragging && !isDragging) {
       const page = document.getElementById('lab-user-page')
       if (!element.classList.contains('lab-none') && !element.classList.contains('lab-transform')) {
         const last = document.querySelector('.lab-active-element')
@@ -3651,7 +3652,7 @@ function design_mode() {
 
     if (typeof tools[tool] == 'object') {
       const toolWrap = lab_design_system_d('div', `${tool}-wrap`, toolBar, '', '', ['design', 'toolbarItemWrap'])
-      toolBtn = DesignConstructor.button(toolWrap, ['design', 'toolbarItem'], '', tool, 'toolBtn')
+      toolBtn = DesignConstructor.button(toolWrap, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-btn`)
       const arrow = DesignConstructor.button(toolWrap, ['design', 'toolArrow'], '', `keyboard_arrow_down`)
       toolBtn.setAttribute('data-tool', tool)
 
@@ -3676,7 +3677,7 @@ function design_mode() {
       })
     }
     else {
-      toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
+      toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-tool`)
       toolBtn.setAttribute('data-tool', tool)
     }
 
@@ -4031,6 +4032,7 @@ function selectTool(toolName) {
     labResizeElements()
   }
   else if (toolName == 'rotate') {
+    selectedShape = 'rotate'
     activeRotateElement()
   }
   else if (toolName == 'text') {
@@ -4371,13 +4373,14 @@ function rotateElement(event) {
 
 document.addEventListener('click', (event) => {
   const isTargetNewDiv = newDivs.some(div => div === event.target)
+  console.log(xResize);
 
   if (xrotate === 1) {
     if (event.target !== selectedElementChangeId && !isTargetNewDiv) {
       activeRotateElement()
     }
   } else {
-    if (event.target === document.querySelector('#lab-rotate-tools') || event.target === document.querySelector('#lab-rotate-icon')) {
+    if (event.target.id = 'lab-rotate-tool') {
       activeRotateElement()
     }
   }
@@ -4424,6 +4427,7 @@ function createSvgHandle(positionAttributes) {
 }
 
 function activeRotateElement() {
+
   if (selectedElementChangeId.style.position === '') {
     selectedElementChangeId.style.position = 'relative'
   }
@@ -4554,10 +4558,10 @@ function activeRotateElement() {
       const rotateBottomLeft = document.createElement('div')
       const rotateBottomRight = document.createElement('div')
 
-      rotateTopLeft.setAttribute('class', 'escape')
-      rotateTopRight.setAttribute('class', 'escape')
-      rotateBottomLeft.setAttribute('class', 'escape')
-      rotateBottomRight.setAttribute('class', 'escape')
+      rotateTopLeft.setAttribute('class', 'escape lab-none')
+      rotateTopRight.setAttribute('class', 'escape lab-none')
+      rotateBottomLeft.setAttribute('class', 'escape lab-none')
+      rotateBottomRight.setAttribute('class', 'escape lab-none')
 
       rotateTopLeft.style.zIndex = '99'
       rotateTopRight.style.zIndex = '99'
@@ -4580,10 +4584,16 @@ function activeRotateElement() {
       selectedElementChangeId.appendChild(rotateBottomLeft)
       selectedElementChangeId.appendChild(rotateBottomRight)
 
+      console.log(selectedElementChangeId);
+      console.log(rotateTopLeft);
+
+
+
       newDivs.push(rotateTopLeft)
       newDivs.push(rotateTopRight)
       newDivs.push(rotateBottomLeft)
       newDivs.push(rotateBottomRight)
+      console.log(newDivs);
 
       rotateTopLeft.addEventListener('mousedown', startRotate)
       rotateTopLeft.addEventListener('touchstart', startRotate)
@@ -5382,6 +5392,7 @@ function labResizeElements(event) {
       }
 
       resizeDiv = document.createElement('div')
+      resizeDiv.style.zIndex = '2'
       resizeDiv.setAttribute('class', 'escape')
       resizeDiv.style.width = '0.7svw'
       resizeDiv.style.height = '0.7svw'
@@ -5467,7 +5478,7 @@ document.addEventListener('click', (event) => {
     if (xResize === 1 && resizeDiv !== null && !resizeDiv.contains(event.target)) {
       labResizeElements()
     } else {
-      if (event.target === document.querySelector('#lab-resize-tools') || event.target === document.querySelector('#lab-resize-icon')) {
+      if (event.target.id == 'lab-resize-tool') {
         labResizeElements()
       }
     }
