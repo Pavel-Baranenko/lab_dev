@@ -1,3 +1,5 @@
+
+
 const styles_d = {
   "inputs": {
     "standard": {
@@ -3627,11 +3629,15 @@ function design_mode() {
       const toolWrap = lab_design_system_d('div', `${tool}-wrap`, toolBar, '', '', ['design', 'toolbarItemWrap'])
       toolBtn = DesignConstructor.button(toolWrap, ['design', 'toolbarItem'], '', tool, 'toolBtn')
       const arrow = DesignConstructor.button(toolWrap, ['design', 'toolArrow'], '', `keyboard_arrow_down`)
+      toolBtn.setAttribute('data-tool', tool)
 
 
       const list = lab_design_system_d('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
       tools[tool].forEach(e => {
         let btn = DesignConstructor.button(list, ['design', 'toolbarItem'], '', e, 'toolBtn')
+        btn.addEventListener('click', () => {
+          toolBtn.setAttribute('data-tool', e)
+        })
       })
 
       arrow.addEventListener('click', () => {
@@ -3641,6 +3647,7 @@ function design_mode() {
     }
     else {
       toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn')
+      toolBtn.setAttribute('data-tool', tool)
     }
 
     toolBtn.addEventListener('click', () => {
@@ -3649,6 +3656,7 @@ function design_mode() {
         last.style.background = 'transparent'
         last.classList.remove('active')
       }
+      selectTool(toolBtn.getAttribute('data-tool'))
       toolBtn.classList.add('active')
       toolBtn.style.background = '#EBEEFF'
       // Designer.mode(tool)
@@ -3981,7 +3989,13 @@ function design_mode() {
 
 design_mode()
 
-
+function selectTool(toolName) {
+  console.log(toolName);
+  if (toolName == 'pen') {
+    selectedShape = 'feather'
+    elementDragging = false
+  }
+}
 
 //FUNCTIONS
 
@@ -4240,7 +4254,7 @@ function removeBorders(element) {
 
 function startRotate(event) {
   isRotating = true
-  rotationstartAngleNew = getrotationAngleNew(selectedElementChangeId)
+  rotationStartAngle = getRotationAngle(selectedElementChangeId)
   const { clientX, clientY } = getClientCoordinates(event)
   const elementRect = selectedElementChangeId.getBoundingClientRect()
   const centerX = elementRect.left + elementRect.width / 2
@@ -4276,7 +4290,7 @@ function rotateElement(event) {
     const centerY = elementRect.top + elementRect.height / 2
     const newAngle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI)
     const rotationDelta = newAngle - initialAngle
-    currentAngle = rotationstartAngleNew + rotationDelta
+    currentAngle = rotationStartAngle + rotationDelta
     selectedElementChangeId.style.transform = `rotate(${currentAngle}deg)`
   }
 }
@@ -4304,7 +4318,7 @@ function getClientCoordinates(event) {
   return { clientX: 0, clientY: 0 }
 }
 
-function getrotationAngleNew(element) {
+function getRotationAngle(element) {
   const style = window.getComputedStyle(element)
   const transform = style.getPropertyValue('transform')
   let matrix = transform.match(/^matrix\((.+)\)$/)
@@ -4334,12 +4348,6 @@ function createSvgHandle(positionAttributes) {
   newCircle.addEventListener('mousedown', startRotate)
   newCircle.addEventListener('touchstart', startRotate)
 }
-
-
-
-let rotationAngleNew = 0 // Rotation en radians
-let isDraggingNew = false // Pour savoir si on est en train de faire tourner
-let startAngleNew = 0 // Angle de départ lors du drag
 
 function activeRotateElement() {
   if (selectedElementChangeId.style.position === '') {
@@ -4446,22 +4454,22 @@ function activeRotateElement() {
       // Détecter quand l'utilisateur commence à faire tourner
       container.addEventListener('mousedown', (event) => {
         if (event.target.dataset.position) {
-          isDraggingNew = true
-          startAngleNew = calculateAngle(event.clientX, event.clientY) - rotationAngleNew
+          isDragging = true
+          startAngle = calculateAngle(event.clientX, event.clientY) - rotationAngle
         }
       })
 
       window.addEventListener('mousemove', (event) => {
-        if (isDraggingNew) {
+        if (isDragging) {
           const currentAngle = calculateAngle(event.clientX, event.clientY)
-          rotationAngleNew = currentAngle - startAngleNew
-          container.style.transform = `rotate(${rotationAngleNew}rad)`
+          rotationAngle = currentAngle - startAngle
+          container.style.transform = `rotate(${rotationAngle}rad)`
         }
       })
 
       // Terminer la rotation lorsque la souris est relâchée
       window.addEventListener('mouseup', () => {
-        isDraggingNew = false
+        isDragging = false
       })
 
       updateHandlePositions()
@@ -5562,6 +5570,7 @@ function mergeSelectedElements() {
 function initializeSVG() {
   if (!featherSVG && selectedShape === 'feather') {
     featherSVG = document.createElementNS(svgNamespace, "svg")
+    featherSVG.style.zIndex = 1
     featherSVG.setAttribute("width", "100%")
     featherSVG.setAttribute("height", "100%")
     featherSVG.style.position = 'fixed'
@@ -5594,16 +5603,13 @@ function displayFinalCurves() {
 
 displayFinalCurves()
 
-function activateFeather(event) {
-  selectedShape = 'feather'
-  elementDragging = false
-}
 
 function createControlPoint(event) {
   const userLSG = lab_local_storage_object('global')
   if (userLSG && userLSG.ctx === "Applications" && userLSG.mode === "Designer") {
-    const designers_bar = document.getElementById('lab-designers-bar')
-    if (designers_bar.contains(event.target)) return
+    console.log(selectedShape);
+
+    if (event.target.classList.contains('escape')) return
 
     if (selectedShape != 'feather') return
 
@@ -5629,6 +5635,7 @@ function createControlPoint(event) {
       circle.setAttribute("fill", "black")
       featherSVG.appendChild(circle)
       circles.push(circle)
+      console.log(circles);
 
       if (points.length > 1) {
         const previousPoint = points[points.length - 2]
@@ -5796,7 +5803,5 @@ document.addEventListener("touchstart", createControlPoint)
 document.addEventListener("touchmove", createCurve)
 document.addEventListener("touchend", displayPreviewCurves)
 document.addEventListener("touchstart", createFinalForm)
-
-
 
 
