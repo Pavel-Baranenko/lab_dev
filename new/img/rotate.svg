@@ -1,1 +1,7 @@
-<?xml version="1.0" ?><svg data-name="Layer 2" id="faf628b7-c2cc-4c3d-b8cc-cecdf83625de" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg"><polygon points="12.231 37.448 22.858 37.448 12.231 26.822 12.231 37.448"/><polygon points="12.231 0.552 22.858 0.552 12.231 11.178 12.231 0.552"/><path d="M18.74,33.9,16.963,32.14,21,28.053a11.989,11.989,0,0,0,.005-16.961L16.1,6.167,17.868,4.4l4.909,4.924a14.491,14.491,0,0,1,0,20.491Z"/></svg>
+<?xml version="1.0" ?>
+<svg height="32" id="icon" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M14,28V16a2.0023,2.0023,0,0,1,2-2H28a2.0023,2.0023,0,0,1,2,2V28a2.0023,2.0023,0,0,1-2,2H16A2.0023,2.0023,0,0,1,14,28Zm2-12-.0012,12H28V16Z" transform="translate(0 0)"  fill="#6E6E6E"/>
+<path d="M2,15l1.41-1.41L6,16.17V11a7.0078,7.0078,0,0,1,7-7h5V6H13a5.0057,5.0057,0,0,0-5,5v5.17l2.59-2.58L12,15,7,20Z" transform="translate(0 0)" fill="#6E6E6E"/>
+<rect  height="32" id="_Transparent_Rectangle_" width="32"  fill="none"/>
+</svg>

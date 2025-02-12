@@ -1,5 +1,3081 @@
-let ActiveMode
-let selected
+const oldSRC = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/new/img/'
+
+const styles_d = {
+  "inputs": {
+    "standard": {
+      "default": {
+        "boxSizing": "border-box",
+        "borderRadius": "18px",
+        "padding": "0 15px",
+        "outline": "none !important",
+        "width": "90%",
+        "maxWidth": "350px",
+        "height": "clamp(5svh, 15vh, 70px)",
+        "background": "#f4f4f5",
+        "backgroundColor": "white",
+        "marginBottom": "clamp(1svh, 15vw, 20px)",
+        "border": "none"
+      }
+    }
+  },
+  "pages": {
+    "login": {
+      "default": {
+        "position": "absolute",
+        "top": 0,
+        "left": 0,
+        "width": "100svw",
+        "height": "100svh",
+        "background": "#EFEFEF",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "fontFamily": "Petrona"
+      },
+      "Portrait": {
+        "justifyContent": "center"
+      }
+    },
+    "dash": {
+      "default": {
+        "background": "rgb(239, 239, 239)",
+        "display": "flex",
+        "flexDirection": "column",
+        "minHeight": "100vh",
+        "overflowY": "auto"
+      }
+    }
+  },
+  "labels": {
+    "h6": {
+      "default": {
+        "width": "90%",
+        "color": "#808080",
+        "fontWeight": "700",
+        "fontSize": "clamp(20px, 2vw, 40px)",
+        "marginBottom": "clamp(5px, 10svh, 44px)",
+        "textAlign": "center"
+      }
+    }
+  },
+  "links": {
+    "underline": {
+      "default": {
+        "fontWeight": "300",
+        "fontSize": "clamp(12px, 2vw, 20px)",
+        "textDecoration": "underline",
+        "textAlign": "center",
+        "color": "#808080"
+      }
+    },
+    "legal": {
+      "default": {
+        "fontWeight": "400",
+        "fontSize": "14px",
+        "textDecoration": "underline",
+        "textAlign": "left",
+        "color": "#fff",
+        "marginRight": "20px"
+      },
+      "Portrait": {
+        "marginRight": "0"
+      }
+    },
+    "contact": {
+      "default": {
+        "fontWeight": "700",
+        "fontSize": "14px",
+        "textDecoration": "underline",
+        "textAlign": "left",
+        "color": "#fff",
+        "marginLeft": "auto"
+      },
+      "Portrait": {
+        "marginLeft": "0"
+      }
+    }
+  },
+  "logo": {
+    "medium": {
+      "default": {
+        "marginTop": "clamp(10px, 2vw, 60px)",
+        "marginBottom": "clamp(10px, 2vw, 60px)",
+        "width": "clamp(50px, 15svh, 101px)"
+      }
+    },
+    "small": {
+      "default": {
+        "width": "clamp(40px, 2svw,67px)",
+        "height": "clamp(45px, 2svw,75px)"
+      }
+    }
+  },
+  "search": {
+    "box": {
+      "default": {
+        "background": "#fff",
+        "height": "clamp(35px, 5svh, 50px)",
+        "boxSizing": "border-box",
+        "borderRadius": "40px",
+        "cursor": "pointer",
+        "display": "flex",
+        "alignItems": "center",
+        "position": "relative",
+        "padding": "0 15px"
+      },
+      "Portrait": {
+        "order": "98",
+        "width": "100%"
+      },
+      "Landscape": {
+        "width": "clamp(20svw, 50svw, 500px)",
+        "margin": "0 auto 0 0"
+      }
+    },
+    "input": {
+      "default": {
+        "width": "100%",
+        "padding": "0 10px 0 5px",
+        "border": "none",
+        "outline": "none"
+      }
+    },
+    "result": {
+      "default": {
+        "zIndex": "-1",
+        "position": "absolute",
+        "top": "calc(100% - 20px)",
+        "width": "100%",
+        "left": "0",
+        "borderRadius": "0 0 15px 15px",
+        "overFlow": "hidden",
+        "fontSize": "14px",
+        "background": "#fff"
+      }
+    },
+    "item": {
+      "default": {
+        "padding": "5px 50px",
+        "display": "block",
+        "textDecoration": "none",
+        "color": "#000"
+      }
+    },
+    "first": {
+      "default": {
+        "padding": "20px 50px 5px 50px",
+        "display": "block",
+        "textDecoration": "none",
+        "color": "#000"
+      }
+    }
+  },
+  "containers": {
+    "header": {
+      "default": {
+        "display": "flex",
+        "boxSizing": "border-box",
+        "alignItems": "center",
+        "paddingTop": "clamp(2svh, 12svh, 30px)",
+        "paddingBottom": "clamp(0, 0, 30px)",
+        "paddingLeft": "clamp(2svw, 5svw, 60px)",
+        "paddingRight": "clamp(2svw, 5svw, 60px)",
+        "position": "relative",
+        "zIndex": "9999",
+        "width": "100%"
+      },
+      "Portrait": {
+        "justifyContent": "space-between",
+        "flexWrap": "wrap",
+        "gap": "20px 8px"
+      }
+    },
+    "headerWrap": {
+      "default": {
+        "display": "none"
+      },
+      "Portrait": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "gap": "8px",
+        "order": 99,
+        "alignItems": "center",
+        "width": "100%"
+      }
+    },
+    "footer": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "color": "#fff",
+        "boxSizing": "border-box",
+        "marginTop": "auto",
+        "flexWrap": "wrap",
+        "background": "#464C59",
+        "paddingTop": "clamp(2svh, 12svh, 30px)",
+        "paddingBottom": "clamp(2svh, 12svh, 30px)",
+        "paddingLeft": "clamp(2svw, 5svw, 60px)",
+        "paddingRight": "clamp(2svw, 12svw, 60px)"
+      },
+      "Portrait": {
+        "justifyContent": "center",
+        "gap": "8px"
+      }
+    }
+  },
+  "elements": {
+    "showPass": {
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translateY(-50%)",
+        "right": "10px",
+        "opacity": "0",
+        "pointerIvents": "none",
+        "cursor": "pointer",
+        "zIndex": "99",
+        "width": "25px"
+      }
+    },
+    "avatar": {
+      "default": {
+        "position": "relative",
+        "cursor": "pointer",
+        "border": "none",
+        "background": "#FFFFFF",
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "borderRadius": "50%",
+        "width": "clamp(35px, 5svh, 50px)",
+        "height": "clamp(35px, 5svh, 50px)",
+        "boxSizing": "border-box"
+      },
+      "Landscape": {
+        "marginLeft": "40px"
+      }
+    },
+    "avatarIcon": {
+      "default": {
+        "max-height": "50%",
+        "height": "100%",
+        "width": "auto"
+      }
+    },
+    "date": {
+      "default": {
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "19.1px",
+        "textAlign": "left"
+      },
+      "Landscape": {
+        "marginRight": "45px"
+      }
+    },
+    "theme": {
+      "default": {
+        "border": "2px solid #585858",
+        "cursor": "pointer",
+        "width": "40px",
+        "height": "20px",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "alignItems": "center",
+        "borderRadius": "10px",
+        "padding": "0 2px"
+      }
+    },
+    "lightTheme": {
+      "default": {
+        "background": "rgb(252, 206, 92)",
+        "width": "10px",
+        "height": "10px",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "borderRadius": "10px",
+        "alignItems": "center",
+        "justifyContent": "start"
+      }
+    },
+    "gridSwitch": {
+      "default": {
+        "background": "#E2E2E2",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "height": "clamp(35px, 5svh, 50px)"
+      },
+      "Landscape": {
+        "padding": "5px",
+        "borderRadius": "50px",
+        "marginRight": "5svw",
+        "width": "110px"
+      },
+      "Portrait": {
+        "padding": "3.5px",
+        "width": "85px",
+        "borderRadius": "35px",
+        "order": "99"
+      }
+    },
+    "gridBtn": {
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "boxSizing": "border-box",
+        "borderRadius": "50%",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "height": "100%",
+        "padding": "5px",
+        "aspectRatio": "1"
+      }
+    },
+    "share": {
+      "default": {
+        "border": "none",
+        "borderRadius": "50%",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "width": "clamp(35px, 5svh, 50px)",
+        "height": "clamp(35px, 5svh, 50px)",
+        "padding": "9px",
+        "background": "#fff",
+        "margin": "0 10px 0 auto",
+        "boxSizing": "border-box",
+        "transition": "all 0.3s linear"
+      },
+      "Portrait": {
+        "order": "1",
+        "margin": "0",
+        "minWidth": "clamp(35px, 5svh, 50px)"
+      }
+    },
+    "chatsBtn": {
+      "default": {
+        "border": "none",
+        "background": "transparent",
+        "width": "30px",
+        "height": "30px"
+      },
+      "Landscape": {
+        "marginLeft": "30px"
+      }
+    },
+    "checkBox": {
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #000"
+      }
+    },
+    "avatarBox": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "width": "60px",
+        "height": "60px"
+      }
+    }
+  },
+  "header": {
+    "menu": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "zIndex": "25",
+        "gap": "30px",
+        "fontSize": "18px",
+        "fontWeight": "600",
+        "lineHeight": "24.55px",
+        "textAlign": "left",
+        "position": "absolute",
+        "top": "calc(100% + 9px)",
+        "right": "0",
+        "boxShadow": "0px 1px 13.9px 0px #00000014",
+        "padding": "32px 25px",
+        "borderRadius": "15px",
+        "backgroundColor": "#fff",
+        "opacity": "0"
+      }
+    },
+    "link": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "flexDirection": "row-reverse",
+        "gap": "12px",
+        "justifyContent": "flex-end",
+        "color": "#000",
+        "textDecoration": "none",
+        "border": "none"
+      }
+    }
+  },
+  "apps": {
+    "list": {
+      "default": {
+        "position": "relative",
+        "display": "flex",
+        "flexWrap": "wrap",
+        "gap": "20px 0",
+        "boxSizing": "border-box",
+        "justifyContent": "space-between",
+        "paddingTop": "clamp(2svh, 30px, 50px)",
+        "paddingBottom": "clamp(2svh, 12svh, 50px)",
+        "paddingLeft": "clamp(2svw, 5svw, 60px)",
+        "paddingRight": "clamp(2svw, 5svw, 60px)"
+      }
+    },
+    "row": {
+      "default": {
+        "flex": "0 1 24%",
+        "boxshadow": "2px 4px 30px 1px rgba(0, 0, 0, 0.09)",
+        "background": "#fff",
+        "borderRadius": "20px",
+        "height": "clamp(100px,28svh, 310px)",
+        "display": "flex",
+        "flexDirection": "column",
+        "cursor": "pointer",
+        "position": "relative",
+        "boxSizing": "border-box",
+        "zIndex": "0"
+      },
+      "Portrait": {
+        "flex": "0 1 100%"
+      }
+    },
+    "column": {
+      "default": {
+        "flex": "0 1 100%",
+        "background": "#fff",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "cursor": "pointer",
+        "position": "relative",
+        "boxSizing": "border-box",
+        "zIndex": "0",
+        "borderRadius": "10px"
+      }
+    },
+    "preview": {
+      "default": {
+        "height": "calc(100% - 40px)",
+        "backgroundColor": "#fff",
+        "borderRadius": "20px 20px 0 0",
+        "backgroundRepeat": "no-repeat",
+        "backgroundPosition": "center",
+        "backgroundSize": "26%",
+        "backgroundImage": "url(`https://laboranth.tech/D/R/IMG/logoAlt.svg`)"
+      }
+    },
+    "wrap-row": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "height": "40px",
+        "backgroundColor": "#fff",
+        "padding": "10px 10px 10px 30px",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "color": "#000",
+        "borderRadius": "0 0 20px 20px"
+      }
+    },
+    "wrap-column": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "height": "40px",
+        "width": "100%",
+        "padding": "10px 10px 10px 30px",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "color": "#000"
+      }
+    },
+    "box": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "20px",
+        "paddingRight": "12px"
+      }
+    },
+    "menu": {
+      "default": {
+        "position": "absolute",
+        "top": "calc(100% - 40px)",
+        "backgroundColor": "#fff",
+        "boxShadow": "0px 1px 13.9px 0px #00000014",
+        "right": 0,
+        "display": "flex",
+        "opacity": 0,
+        "flexDirection": "column",
+        "padding": "11px 11px 27px 27px",
+        "borderRadius": "15px",
+        "gap": "10px",
+        "zIndex": "26"
+      }
+    },
+    "settings": {
+      "default": {
+        "background": "transparent",
+        "display": "flex",
+        "flexDirection": "row-reverse",
+        "justifyContent": "flex-end",
+        "alignItems": "center",
+        "gap": "12px",
+        "textTransform": "capitalize",
+        "border": "none"
+      }
+    },
+    "more": {
+      "default": {
+        "width": "25px",
+        "marginLeft": "auto"
+      }
+    }
+  },
+  "parameters": {
+    "popup": {
+      "default": {
+        "display": "flex",
+        "opacity": "1",
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": "40px",
+        "overflow": "hidden",
+        "maxWidth": "1080px",
+        "width": "100%",
+        "minHeight": "clamp(90%, 50%, 600px)",
+        "transform": "translateY(-50%) translateX(-50%)",
+        "position": "fixed",
+        "zIndex": "9999",
+        "left": "50%",
+        "top": "50%",
+        "transition": "all 0.7s linear"
+      }
+    },
+    "wrapper": {
+      "default": {
+        "position": "fixed",
+        "zIndex": "9999",
+        "left": "0",
+        "right": "0",
+        "top": "0",
+        "bottom": "0"
+      }
+    },
+    "side": {
+      "default": {
+        "backgroundColor": "#3C4CA6",
+        "color": "#fff",
+        "padding": "clamp(15px, 2vw, 24px) 0 clamp(5px, 2vw, 24px) clamp(15px, 2vw, 24px)",
+        "minHeight": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "position": "relative"
+      }
+    },
+    "box": {
+      "default": {
+        "boxSizing": "border-box",
+        "paddingTop": "clamp(5px, 35px, 60px)",
+        "paddingBottom": "clamp(5px, 35px, 60px)",
+        "paddingRight": "clamp(5px, 35px, 120px)",
+        "paddingLeft": "clamp(5px, 35px, 60px)",
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "clamp(2svw, 5svw, 32px)"
+      },
+      "Portrait": {
+        "padding": "clamp(1svw, 3svw, 25px)"
+      }
+    },
+    "btn": {
+      "default": {
+        "display": "flex",
+        "width": "100%",
+        "color": "#fff",
+        "background-color": "transparent",
+        "border": "none",
+        "padding": "10px",
+        "paddingRight": "3svw",
+        "borderRadius": "10px 0 0 10px",
+        "gap": "15px",
+        "flexDirection": "row-reverse",
+        "justifyContent": "flex-end",
+        "fontSize": "clamp(12px, 2vw,18px)",
+        "height": "45px",
+        "fontWeight": "600",
+        "lineHeight": "24.55px",
+        "textAlign": "left",
+        "zIndex": "1",
+        "position": "relative"
+      }
+    },
+    "white": {
+      "default": {
+        "width": "100%",
+        "background-color": "#fff",
+        "borderRadius": "10px 0 0 10px",
+        "height": "45px",
+        "position": "absolute",
+        "top": 0,
+        "right": 0,
+        "zIndex": "1",
+        "transition": "all 0.1s ease"
+      }
+    },
+    "line": {
+      "default": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "fontSize": "18px",
+        "fontWeight": "500",
+        "textAlign": "left"
+      },
+      "Portrait": {
+        "flexDirection": "column",
+        "gap": "10px"
+      }
+    },
+    "confirm": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px"
+      }
+    },
+    "buttons": {
+      "default": {
+        "display": "flex",
+        "gap": "26px"
+      },
+      "Portrait": {
+        "flexDirection": "column",
+        "gap": "10px"
+      }
+    }
+  },
+  "select": {
+    "box": {
+      "default": {
+        "cursor": "pointer",
+        "width": "clamp(120px, 15svw, 160px)",
+        "position": "relative"
+      }
+    },
+    "top": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "width": "100%",
+        "boxSizing": "border-box",
+        "height": "40px",
+        "fontSize": "16px",
+        "fontWeight": "500",
+        "textAlign": "center",
+        "padding": "10px 0 10px 20px",
+        "backgroundColor": "#F4F4F5",
+        "borderRadius": "10px"
+      }
+    },
+    "list": {
+      "default": {
+        "display": "none",
+        "position": "absolute",
+        "top": "calc(100% - 10px)",
+        "flexDirection": "column",
+        "gap": "4px",
+        "boxSizing": "border-box",
+        "backgroundColor": "#F4F4F5",
+        "padding": "10px",
+        "borderRadius": "0 0 10px 10px",
+        "width": "100%"
+      }
+    }
+  },
+  "input": {
+    "box": {
+      "default": {
+        "outline": "none",
+        "width": "clamp(120px, 15svw,200px)",
+        "height": "40px",
+        "textAlign": "center",
+        "backgroundColor": "#F4F4F5",
+        "borderRadius": "10px",
+        "border": "none"
+      }
+    }
+  },
+  "popup": {
+    "box": {
+      "default": {
+        "position": "fixed",
+        "top": "20%",
+        "cursor": "pointer",
+        "width": "clamp(120px, 80svw, 1100px)",
+        "background": "#E4E4E4",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "zIndex": "99",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "paddingTop": "clamp(2svh, 5svh, 40px)",
+        "paddingBottom": "clamp(2svh, 5svh, 40px)",
+        "borderRadius": "30px"
+      }
+    },
+    "wrap": {
+      "default": {
+        "position": "fixed",
+        "top": "0",
+        "right": 0,
+        "left": 0,
+        "bottom": 0,
+        "zIndex": "99"
+      }
+    },
+    "content": {
+      "default": {
+        "width": "clamp(60%, 60%, 80%)",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "height": "90%",
+        "gap": "25px"
+      }
+    },
+    "title": {
+      "default": {
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "lineHeight": "38.58px",
+        "textAlign": "center",
+        "color": "#000",
+        "marginBottom": "15px"
+      }
+    },
+    "input": {
+      "default": {
+        "outline": "none",
+        "height": "40px",
+        "textAlign": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": "10px",
+        "border": "none"
+      }
+    }
+  },
+  "alert": {
+    "wrap": {
+      "default": {
+        "max-width": "250px",
+        "position": "fixed",
+        "top": "120px",
+        "right": "0",
+        "background": "#6F6E6E",
+        "padding": "10px 16px",
+        "borderRadius": "10px 0px 0px 10px",
+        "zIndex": "9999",
+        "color": "#fff",
+        "opacity": "0",
+        "transition": "all 0.3s linear",
+        "transform": "translateX(100%)"
+      }
+    }
+  },
+  "plans": {
+    "wrap": {
+      "default": {
+        "display": "flex",
+        "boxSizing": "border-box",
+        "justifyContent": "space-between",
+        "paddingTop": "clamp(2svh, 30px, 50px)",
+        "paddingBottom": "clamp(2svh, 12svh, 50px)",
+        "paddingLeft": "clamp(2svw, 5svw, 60px)",
+        "paddingRight": "clamp(2svw, 5svw, 60px)",
+        "gap": "clamp(10px,2vw,50px)"
+      },
+      "Portrait": {
+        "flexDirection": "column"
+      }
+    },
+    "plan": {
+      "default": {
+        "display": "flex",
+        "position": "relative",
+        "height": "fit-content",
+        "flexDirection": "column",
+        "padding": "34px 20px",
+        "borderRadius": "45px",
+        "background": "#fff",
+        "boxShadow": "0 6px 33px 0 rgba(0, 0, 0, 0.11)"
+      },
+      "Landscape": {
+        "flex": "0 1 21%"
+      }
+    },
+    "angle": {
+      "default": {
+        "position": "absolute",
+        "top": 0,
+        "right": 0
+      }
+    },
+    "close": {
+      "default": {
+        "fontSize": "18px",
+        "background": "#FED05E",
+        "width": "35px",
+        "height": "35px",
+        "borderRadius": "50%",
+        "border": "none",
+        "position": "absolute",
+        "bottom": "12px",
+        "left": "clamp(2svw, 5svw, 60px)",
+        "fontWeight": 700
+      }
+    },
+    "title": {
+      "default": {
+        "fontSize": "24px",
+        "marginLeft": "12px",
+        "fontWeight": 700,
+        "marginBottom": "15px"
+      }
+    },
+    "description": {
+      "default": {
+        "fontSize": "14px",
+        "fontStyle": "italic",
+        "marginLeft": "12px",
+        "fontWeight": 600,
+        "marginBottom": "20px"
+      }
+    },
+    "box": {
+      "default": {
+        "display": "flex",
+        "alignItems": "end",
+        "marginLeft": "12px",
+        "fontSize": "15px",
+        "marginBottom": "20px",
+        "gap": "4px"
+      }
+    },
+    "price": {
+      "default": {
+        "fontSize": "40px",
+        "fontWeight": 800
+      }
+    },
+    "point": {
+      "default": {
+        "display": "flex",
+        "alignItems": "flex-start",
+        "gap": "7px",
+        "lineHeight": "1",
+        "fontSize": "14px",
+        "color": "#000"
+      }
+    },
+    "points": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "20px",
+        "padding": "20px",
+        "borderRadius": "25px",
+        "marginBottom": "20px",
+        "background": "#f0f0f0"
+      }
+    },
+    "heading": {
+      "default": {
+        "fontWeight": 700,
+        "fontSize": "clamp(20px,2vw,40px)",
+        "marginBottom": "20px",
+        "marginLeft": "12px",
+        "color": "#000"
+      }
+    },
+    "bold": {
+      "default": {
+        "fontWeight": 700
+      }
+    },
+    "top": {
+      "default": {
+        "position": "relative",
+        "textAlign": "center",
+        "marginTop": "clamp(35px,2vh,70px)"
+      }
+    },
+    "text": {
+      "default": {
+        "fontWeight": 600,
+        "fontStyle": "italic",
+        "fontSize": "clamp(14px,2vw,16px)",
+        "textAlign": "center",
+        "color": "#000",
+        "maxWidth": "clamp(90%,50vw,800px)",
+        "margin": "14px auto 0 auto"
+      }
+    },
+    "btn": {
+      "default": {
+        "fontWeight": 700,
+        "fontSize": "18px",
+        "textAlign": "center",
+        "color": "#fff",
+        "padding": "12px 35px",
+        "borderRadius": "15px",
+        "margin": "0 auto",
+        "border": "none",
+        "cursor": "pointer"
+      }
+    },
+    "switcher": {
+      "default": {
+        "display": "flex",
+        "fontSize": "18px",
+        "borderRadius": "80px",
+        "maxWidth": "clamp(200px,2vw,267px)",
+        "backgroundColor": "#fff",
+        "padding": "7px",
+        "margin": "45px auto 0 auto"
+      }
+    },
+    "switcherBtn": {
+      "default": {
+        "border": "none",
+        "flex": "0 1 50%",
+        "cursor": "pointer",
+        "fontWeight": "500",
+        "fontSize": "15px",
+        "borderRadius": "80px",
+        "backgroundColor": "transparent",
+        "color": "#000",
+        "padding": "clamp(8px,2vw,10px)"
+      }
+    }
+  },
+  "chat": {
+    "wrap": {
+      "default": {
+        "position": "fixed",
+        "right": 0,
+        "zIndex": 99999,
+        "backgroundColor": "#464C59",
+        "padding": "5svh 3svw 3svh 3svw",
+        "width": "clamp(42svw,85svw,810px)",
+        "height": "75svh",
+        "display": "flex",
+        "top": "11svh",
+        "borderRadius": "30px 0px 0px 30px",
+        "gap": "3svw"
+      }
+    },
+    "close": {
+      "default": {
+        "position": "absolute",
+        "left": 0,
+        "top": 0,
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "width": "40px",
+        "height": "40px",
+        "borderRadius": "30px 30px 30px 0px",
+        "background": "#FED05E",
+        "border": "none"
+      }
+    },
+    "body": {
+      "default": {
+        "flex": "0 1 100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "2svw"
+      }
+    },
+    "users": {
+      "default": {
+        "flex": "0 1 3.125svw",
+        "display": "flex",
+        "gap": "10px",
+        "flexDirection": "column"
+      }
+    },
+    "add": {
+      "default": {
+        "borderRadius": "50%",
+        "background": "#FED05E",
+        "width": "100%",
+        "aspectRatio": 1,
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "border": "none"
+      }
+    },
+    "room": {
+      "default": {
+        "background": "#F7F7F7",
+        "flex": "0 1 100%",
+        "padding": "2.3svh 1svw",
+        "borderRadius": "20px",
+        "overflowY": "scroll",
+        "overflowX": "hidden"
+      }
+    },
+    "top": {
+      "default": {
+        "textAlign": "center",
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "color": "#464C59",
+        "paddingBottom": "2svh",
+        "borderBottom": "1px solid #D0D0D0"
+      }
+    },
+    "bottom": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "width": "100%",
+        "gap": "1svw"
+      }
+    },
+    "input": {
+      "default": {
+        "border": "none",
+        "flex": "0 1 93%",
+        "outline": "none",
+        "width": "93%",
+        "height": "calmp(15px,6svh,40px)",
+        "borderRadius": "60px",
+        "padding": "clamp(1svh,2svh,5px) 15px",
+        "background": "#fff",
+        "boxSizing": "border-box"
+      }
+    },
+    "send": {
+      "default": {
+        "border": "none",
+        "with": "clamp(15px, 3svh,25px)",
+        "height": "clamp(15px, 3svh,25px)",
+        "background": "transparent"
+      }
+    },
+    "new": {
+      "default": {
+        "background": "#fff",
+        "padding": "3svh",
+        "borderRadius": "30px"
+      }
+    },
+    "heading": {
+      "default": {
+        "textAlign": "center",
+        "fontSize": "clamp(10px,2svw,20px)",
+        "fontWeight": 500,
+        "marginBottom": "4svh"
+      }
+    },
+    "box": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "10px",
+        "boxSizing": "border-box"
+      }
+    },
+    "contact": {
+      "default": {
+        "display": "flex",
+        "position": "relative",
+        "alignItems": "center",
+        "gap": "10px",
+        "boxSizing": "border-box",
+        "flexDirection": "column",
+        "cursor": "pointer"
+      }
+    },
+    "label": {
+      "default": {
+        "position": "absolute",
+        "width": "fit-content",
+        "minWidth": "16px",
+        "height": "16px",
+        "top": "4px",
+        "left": "4px",
+        "background": "#FC3F1D",
+        "borderRadius": "50%",
+        "color": "#fff",
+        "fontWeight": "500",
+        "fontSize": "14px",
+        "lineHeight": "16px",
+        "textAlign": "center"
+      }
+    },
+    "email": {
+      "default": {
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "color": "#fff",
+        "maxWidth": "65px",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    },
+    "boxInput": {
+      "default": {
+        "border": "none",
+        "outline": "none",
+        "width": "100%",
+        "height": "clamp(15px,5svh,50px)",
+        "borderRadius": "40px",
+        "padding": "clamp(1svh,1svh,5px) 15px",
+        "background": "#E1E1E1",
+        "boxSizing": "border-box"
+      }
+    },
+    "boxBtn": {
+      "default": {
+        "border": "none",
+        "height": "clamp(15px,5svh,50px)",
+        "boxSizing": "border-box",
+        "width": "19%",
+        "fontWeight": 500,
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "borderRadius": "40px",
+        "background": "#FED05E"
+      }
+    },
+    "messages": {
+      "default": {
+        "display": "flex",
+        "margin": "10px 0",
+        "gap": "4px",
+        "flexDirection": "column"
+      }
+    },
+    "myMessage": {
+      "default": {
+        "color": "#000",
+        "padding": "11px 15px",
+        "background": "#FED05E",
+        "marginRight": "auto",
+        "borderRadius": "8px 8px 8px 0",
+        "maxWidth": "90%",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    },
+    "message": {
+      "default": {
+        "color": "#000",
+        "padding": "11px 15px",
+        "background": "#EBEEFF",
+        "marginLeft": "auto",
+        "borderRadius": "8px 8px 0 8px",
+        "maxWidth": "90%",
+        "overflow": "hidden",
+        "textOverflow": "ellipsis"
+      }
+    }
+  },
+  "steps": {
+    "wrap": {
+      "default": {
+        "width": "clamp(56%, 90%, 1080px)",
+        "minHeight": "56%",
+        "background": "#fff",
+        "borderRadius": "40px",
+        "position": "fixed",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "top": "15%",
+        "zIndex": "99999"
+      }
+    },
+    "closeWrapper": {
+      "default": {
+        "position": "fixed",
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0,
+        "background": "ffff",
+        "zIndex": 9999
+      }
+    },
+    "top": {
+      "default": {
+        "background": "#3C4CA6",
+        "color": "#fff",
+        "textAlign": "center",
+        "padding": "33px",
+        "borderRadius": "40px 40px 0px 0px ",
+        "fontSize": "24px",
+        "fontWeight": "700"
+      }
+    },
+    "box": {
+      "default": {
+        "width": "clamp(56%, 90%, 532px)",
+        "display": "flex",
+        "margin": "48px auto 0 auto",
+        "flexDirection": "column",
+        "paddingBottom": "80px"
+      }
+    },
+    "items": {
+      "default": {
+        "display": "flex",
+        "justifyContent": "space-between"
+      }
+    },
+    "item": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "whiteSpace": "nowrap",
+        "fontSize": "16px",
+        "gap": "10px"
+      }
+    },
+    "mark": {
+      "default": {
+        "width": "20px",
+        "height": "20px",
+        "borderRadius": "50%",
+        "boxSizing": "border-box",
+        "border": "2px solid #FED05E"
+      }
+    },
+    "line": {
+      "default": {
+        "width": "100%",
+        "margin": "10px",
+        "borderTop": "1px dashed #FED05E"
+      }
+    },
+    "form": {
+      "default": {
+        "marginTop": "60px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "flexWrap": "wrap",
+        "gap": "20px"
+      }
+    },
+    "input": {
+      "default": {
+        "width": "calc(50% - 10px)",
+        "padding": "10px 32px",
+        "borderRadius": "40px",
+        "background": "#F4F4F5",
+        "border": "none",
+        "height": "50px",
+        "boxSizing": "border-box",
+        "outline": "none"
+      }
+    },
+    "check": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "10px",
+        "color": "#5A5A5A",
+        "fontSize": "14px",
+        "fontWeight": "500"
+      }
+    },
+    "checkbox": {
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #8D8D8D",
+        "cursor": "pointer"
+      }
+    },
+    "btn": {
+      "default": {
+        "width": "140px",
+        "height": "40px",
+        "color": "#000000",
+        "background": "#FED05E",
+        "borderRadius": "10px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "fontWeight": "700",
+        "border": "none"
+      }
+    },
+    "heading": {
+      "default": {
+        "fontSize": "14px",
+        "color": "#5A5A5A",
+        "textAlign": "center"
+      }
+    }
+  },
+  "buttons": {
+    "yellowBtn": {
+      "default": {
+        "borderRadius": "13px",
+        "paddingTop": "clamp(2svh, 10svh, 11px)",
+        "paddingBottom": "clamp(2svh, 10svh, 11px)",
+        "paddingLeft": "clamp(5svw, 2vw, 50px)",
+        "paddingRight": "clamp(5svw, 2vw, 50px)",
+        "width": "fit-content",
+        "background": "#fed05e",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "fontSize": "clamp(14px, 2vw, 20px)",
+        "textAlign": "center",
+        "marginTop": "clamp(1svh, 10svh, 40px)",
+        "border": "none"
+      },
+      "Landscape": {
+        "paddingLeft": "50px",
+        "paddingRight": "50px"
+      }
+    },
+    "action": {
+      "default": {
+        "borderRadius": "15px",
+        "paddingLeft": "clamp(2svw, 5svw, 20px)",
+        "paddingRight": "clamp(2svw, 5svw, 20px)",
+        "height": "clamp(30px, 10vw, 50px)",
+        "background": "#feda31",
+        "fontWeight": "700",
+        "font-size": "clamp(10px, 14px, 18px)",
+        "color": "#000",
+        "cursor": "pointer",
+        "border": "none",
+        "boxSizing": "border-box",
+        "textAlign": "center"
+      }
+    },
+    "grey": {
+      "default": {
+        "borderRadius": "15px",
+        "paddingBottom": "clamp(2svh, 5svh, 12px)",
+        "paddingTop": "clamp(2svh, 5svh, 12px)",
+        "paddingLeft": "clamp(2svw, 5svw, 20px)",
+        "paddingRight": "clamp(2svw, 5svw, 20px)",
+        "background": "#DFDFDF",
+        "fontWeight": "700",
+        "font-size": "clamp(10px, 14px, 18px)",
+        "color": "#000",
+        "border": "none",
+        "boxSizing": "border-box"
+      }
+    }
+  },
+  "design": {
+    "body": {
+      "default": {
+        "position": "relative",
+        "overflow": "hidden",
+        "display": "flex",
+        "width": "100svw",
+        "height": "100svh"
+      }
+    },
+    "side": {
+      "default": {
+        "transition": "all 0.1s linear",
+        "position": "relative",
+        "boxSizing": "border-box",
+        "margin": "0",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "height": "100vh",
+        "padding": "60px 0 20px 20px",
+        "zIndex": 9999,
+        "boxShadow": "0 4px 19px - 4px rgba(0, 0, 0, 0.18)",
+        "borderRadius": "0 20px 0 0"
+      }
+    },
+    "elementsBox": {
+      "default": {
+        "overflowY": "scroll",
+        "margin": "40px 0 0 0",
+        "padding": "0 25px 0 0"
+      }
+    },
+    "hideSide": {
+      "default": {
+        "margin": "0px 0px 0px -100px"
+      }
+    },
+    "showMenu": {
+      "default": {
+        "border": "4px solid #f2f3f7",
+        "borderRadius": "30px 0 30px 30px",
+        "boxSizing": "border-box",
+        "width": "40px",
+        "height": "40px",
+        "background": "#fed05e",
+        "position": "absolute",
+        "right": "0px",
+        "top": "-4px",
+        "transform": "none",
+        "cursor": "pointer",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center"
+      }
+    },
+    "hideMenu": {
+      "default": {
+        "transform": "translateX(40px) rotate(-180deg)"
+      }
+    },
+    "templates": {
+      "default": {
+        "boxSizing": "border-box",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "15px",
+        "justifyContent": "center",
+        "marginTop": "13px"
+      }
+    },
+    "templatesHeading": {
+      "default": {
+        "fontWeight": 700,
+        "boxSizing": "border-box",
+        "fontSize": "14px",
+        "color": "#000"
+      }
+    },
+    "template": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "boxSizing": "border-box",
+        "cursor": "pointer",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "fontWeight": 500,
+        "fontSize": "10px",
+        "lineHeight": "110%",
+        "textAlign": "center",
+        "color": "#000",
+        "position": "relative",
+        "marginTop": "6px"
+      }
+    },
+    "templateIcon": {
+      "default": {
+        "width": "55px",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "boxSizing": "border-box",
+        "height": "55px",
+        "borderRadius": "19px",
+        "background": "#f2f3f7"
+      }
+    },
+    "top": {
+      "default": {
+        "transition": "all 0.1s linear",
+        "gap": "16px",
+        "padding": "12px 40px 18px 40px",
+        "display": "flex",
+        "alignItems": "center",
+        "boxSizing": "border-box",
+        "justifyContent": "space-between",
+        "backgroundColor": "#464C59",
+        "position": "fixed",
+        "top": 0,
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "maxWidth": "56%",
+        "width": "100%",
+        "borderRadius": "0 0 30px 30px",
+        "height": "70px",
+        "zIndex": 9999
+      }
+    },
+    "hideTop": {
+      "default": {
+        "transform": "translateY(-98%) translateX(-50%)"
+      }
+    },
+    "btn": {
+      "default": {
+        "backgroundColor": "transparent",
+        "boxSizing": "border-box",
+        "border": "none"
+      }
+    },
+    "screenBtn": {
+      "default": {
+        "backgroundColor": "transparent",
+        "border": "none",
+        "borderRadius": "8px",
+        "width": "42px",
+        "boxSizing": "border-box",
+        "height": "42px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center"
+      }
+    },
+    "blind": {
+      "default": {
+        "position": "absolute",
+        "bottom": "-3px",
+        "backgroundColor": "#FED05E",
+        "width": "96px",
+        "cursor": "pointer",
+        "boxSizing": "border-box",
+        "height": "6px",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "borderRadius": "50px",
+        "border": "none"
+      }
+    },
+    "pixelView": {
+      "default": {
+        "borderRadius": "8px",
+        "height": "33px",
+        "boxSizing": "border-box",
+        "background": "#f3f3f3",
+        "fontWeight": "400",
+        "fontSize": "13px",
+        "color": "#000",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": "8px 12px"
+      }
+    },
+    "setPage": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "8px",
+        "fontWeight": 600,
+        "position": "relative",
+        "fontSize": "18px",
+        "color": "#fff",
+        "background": "transparent",
+        "border": "none"
+      }
+    },
+    "pageLink": {
+      "default": {
+        "color": "#fff",
+        "textDecoration": "none"
+      }
+    },
+    "toolbar": {
+      "default": {
+        "position": "fixed",
+        "left": "50%",
+        "bottom": "30px",
+        "zIndex": "9999",
+        "background": "#fff",
+        "borderRadius": "67px",
+        "gap": "30px",
+        "display": "flex",
+        "boxSizing": "border-box",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "padding": "18px 40px",
+        "maxWidth": "550px",
+        "height": "81px",
+        "boxShadow": "-1px 1px 13px 0 rgba(0,0,0,0.11)",
+        "transform": "translateX(-50%)"
+      }
+    },
+    "hideToolbar": {
+      "default": {
+        "bottom": "-80px"
+      }
+    },
+    "toolbarItem": {
+      "default": {
+        "width": "45px",
+        "cursor": "pointer",
+        "border": "none",
+        "background": "transparent",
+        "height": "45px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "borderRadius": "8px"
+      }
+    },
+    "HoverBox": {
+      "default": {
+        "position": "absolute",
+        "zIndex": "999",
+        "pointerEvents": "none",
+        "boxShadow": "0px 0px 0px 2px rgba(36,99,235,1) inset"
+      }
+    },
+    "hoverMenuBtn": {
+      "default": {
+        "borderRadius": "50px",
+        "width": "35px",
+        "height": "17px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "background": "#464c59",
+        "position": "absolute",
+        "zIndex": "99999",
+        "border": "none",
+        "cursor": "pointer"
+      }
+    },
+    "page": {
+      "default": {
+        "width": "100%",
+        "maxWidth": "100svw",
+        "position": "relative",
+        "minHeight": "100vh",
+        "background": "#EFEFEF",
+        "margin": "auto",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "20px",
+        "padding": "30px",
+        "boxSizing": "border-box"
+      }
+    },
+    "pageWrap": {
+      "default": {
+        "overflowY": "scroll",
+        "maxWidth": "100svw",
+        "minHeight": "100svh",
+        "width": "100%",
+        "paddingBottom": "50svh",
+        "boxSizing": "border-box"
+      }
+    },
+    "blindTools": {
+      "default": {
+        "position": "absolute",
+        "background": "#FED05E",
+        "width": "17.4%",
+        "height": "4px",
+        "cursor": "pointer",
+        "top": "-2px",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "borderRadius": "50px",
+        "border": "none"
+      }
+    },
+    "blockMenu": {
+      "default": {
+        "display": "flex",
+        "background": "#fff",
+        "maxWidth": "160px",
+        "gap": "20px",
+        "padding": "18px 25px",
+        "boxShadow": "0px 1px 13.9px 0px #00000014",
+        "borderRadius": "15px",
+        "flexDirection": "column"
+      }
+    },
+    "blockMenuItem": {
+      "default": {
+        "display": "flex",
+        "gap": "12px",
+        "cursor": "pointer"
+      }
+    },
+    "codeBox": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "position": "fixed",
+        "transition": "all 0.1s linear",
+        "top": "0",
+        "right": 0,
+        "width": "clamp(320px,49svw, 950px)",
+        "backgroundColor": "#464C59",
+        "borderRadius": "30px 0 0 0",
+        "padding": "80px 20px 0 20px",
+        "minHeight": "calc(100vh - 100px)",
+        "height": "100%",
+        "transform": "translateX(100%)",
+        "zIndex": 99991
+      }
+    },
+    "codeBoxActive": {
+      "default": {
+        "transform": "none",
+        "top": "0"
+      }
+    },
+    "codeBoxShow": {
+      "default": {
+        "position": "absolute",
+        "top": 0,
+        "left": "-63px",
+        "border": "none",
+        "cursor": "pointer",
+        "width": "62px",
+        "height": "62px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "borderRadius": "30px 0px 30px 30px",
+        "opacity": "0px",
+        "backgroundColor": "#FED05E"
+      }
+    },
+    "codeBoxShowActive": {
+      "default": {
+        "left": "-1px"
+      }
+    },
+    "codeWrapper": {
+      "default": {
+        "width": "87%",
+        "backgroundColor": "#fff",
+        "fontSize": "12px",
+        "overflow": "hidden",
+        "fontWeight": 500,
+        "lineHeight": "22px",
+        "borderRadius": "30px 30px 0 0",
+        "flex": "0 1 100%",
+        "padding": "30px 35px"
+      }
+    },
+    "blockMenuWrap": {
+      "default": {
+        "position": "absolute",
+        "padding": "30px",
+        "zIndex": 9999
+      }
+    },
+    "elementMenuBody": {
+      "default": {
+        "backgroundColor": "#fff",
+        "padding": "15px",
+        "boxSizing": "border-box",
+        "maxWidth": "300px",
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "20px"
+      }
+    },
+    "StyleButtons": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "borderBottom": "1px solid #EFEFEF"
+      }
+    },
+    "StyleBtn": {
+      "default": {
+        "borderRadius": "20px 20px 0 0",
+        "height": "40px",
+        "fontWeight": 500,
+        "fontSize": "16px",
+        "lineHeight": "137%",
+        "textAlign": "center",
+        "cursor": "pointer",
+        "color": "#000",
+        "background": "#e5e5e5",
+        "textTransform": "capitalize",
+        "border": "none",
+        "flex": "0 1 50%"
+      }
+    },
+    "stylesBtn": {
+      "default": {
+        "background": "transparent",
+        "border": "none"
+      }
+    },
+    "icon": {
+      "default": {
+        "maxWidth": "100%"
+      }
+    },
+    "inputWrap": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "9px",
+        "borderRadius": "5px",
+        "background": "#f4f4f5",
+        "padding": "7px",
+        "height": "35px",
+        "boxSizing": "border-box"
+      }
+    },
+    "input": {
+      "default": {
+        "width": "100%",
+        "border": "none",
+        "outline": "none",
+        "backgroundColor": "transparent"
+      }
+    },
+    "dropList": {
+      "default": {
+        "width": "100%",
+        "position": "relative"
+      }
+    },
+    "dropSel": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "borderRadius": "5px",
+        "fontSize": "16px",
+        "cursor": "pointer",
+        "background": "#F4F4F5",
+        "boxSizing": "border-box",
+        "textTransform": "lowercase",
+        "fontWeight": 500,
+        "height": "35px",
+        "padding": "7px"
+      }
+    },
+    "dropListing": {
+      "default": {
+        "width": "100%",
+        "position": "absolute",
+        "zIndex": 1,
+        "top": "calc(100% - 7px)",
+        "left": 0,
+        "height": 0,
+        "background": "#F4F4F5",
+        "cursor": "pointer",
+        "overflow": "hidden",
+        "display": "flex",
+        "gap": "3px",
+        "boxSizing": "border-box",
+        "flexDirection": "column",
+        "fontSize": "14px",
+        "borderRadius": "0 0 5px 5px"
+      }
+    },
+    "grid-box": {
+      "default": {
+        "display": "grid",
+        "gap": "4px",
+        "gridTemplateColumns": "repeat(4, 1fr)"
+      }
+    },
+    "pointer": {
+      "default": {
+        "background": "#464C59",
+        "width": "24px",
+        "position": "absolute",
+        "height": "7px",
+        "borderRadius": "20px",
+        "cursor": "grab"
+      }
+    },
+    "area": {
+      "default": {
+        "position": "absolute",
+        "border": "2px solid rgba(36, 99, 235, 1)",
+        "zIndex": 999
+      }
+    },
+    "noneFile": {
+      "default": {
+        "position": "absolute",
+        "top": "-999999999999999999px",
+        "left": "-999999999999999999px",
+        "width": 0,
+        "height": 0
+      }
+    },
+    "pagesList": {
+      "default": {
+        "position": "absolute",
+        "left": 0,
+        "right": 0,
+        "top": "100%",
+        "background": "#464C59",
+        "borderRadius": "0 0 10px 10px",
+        "padding": "5px",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "5px",
+        "zIndex": 99
+      }
+    },
+    "styleBox": {
+      "default": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "alignItems": "center"
+      }
+    },
+    "colorInput": {
+      "default": {
+        "border": "none",
+        "borderRadius": "4px",
+        "marginLeft": "auto",
+        "width": "24px !important",
+        "minWidth": "24px !important",
+        "height": "24px !important",
+        "minHeight": "24px !important",
+        "backgroundColor": "transparent"
+      }
+    },
+    "styleGrid": {
+      "default": {
+        "display": "grid",
+        "gridTemplateColumns": "repeat(2,1fr)",
+        "gap": "20px"
+      }
+    },
+    "hover": {
+      "default": {
+        "position": "absolute",
+        "background": "linear-gradient(180deg, rgba(36,99,235,1) 0%, rgba(36,99,235,0) 100%)"
+      }
+    },
+    "styleWrapper": {
+      "default": {
+        "position": "relative",
+        "maxWidth": "300px",
+        "width": "100%",
+        "padding": "75px 0 0 0",
+        "boxSizing": "border-box",
+        "background": "#fff",
+        "boxShadow": "0px 1px 13.9px 0px #00000014"
+      }
+    },
+    "hideStyles": {
+      "default": {
+        "position": "absolute",
+        "left": "-10px",
+        "top": "50%",
+        "transform": "translateY(-50%) rotate(180deg)",
+        "width": "20px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": "4px",
+        "background": "#FED05E",
+        "borderRadius": "8px",
+        "cursor": "pointer",
+        "border": "2px solid #F2F3F7"
+      }
+    }
+  },
+  "appMenu": {
+    "link": {
+      "default": {
+        "color": "inherit",
+        "textDecoration": "none"
+      }
+    },
+    "wrap": {
+      "default": {
+        "position": "fixed",
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0,
+        "zIndex": 99999999
+      }
+    },
+    "menu": {
+      "default": {
+        "position": "fixed",
+        "top": "50%",
+        "left": "50%",
+        "transform": "translateY(-50%) translateX(-50%)",
+        "width": "100%",
+        "maxWidth": "clamp(69%, 90%, 1320px)",
+        "maxHeight": "clamp(69%, 90%, 820px)",
+        "height": "100%",
+        "display": "flex",
+        "boxShadow": "0px 4px 18.9px -4px #0000002E",
+        "zIndex": 99999999,
+        "borderRadius": "50px"
+      }
+    },
+    "side": {
+      "default": {
+        "background": "#3C4CA6",
+        "borderRadius": "50px 0 0 50px",
+        "width": "100%",
+        "maxWidth": "clamp(9%, 10%, 110px)",
+        "minHeight": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "space-evenly",
+        "padding": "30px 0 30px 18px",
+        "boxSizing": "border-box"
+      }
+    },
+    "sideBtn": {
+      "default": {
+        "background": "transparent",
+        "borderRadius": "15px 0 0 15px",
+        "padding": "15px 30px 15px 15px",
+        "width": "100%",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "gap": "10px",
+        "color": "#fff",
+        "fontSize": "14px",
+        "cursor": "pointer",
+        "fontWeight": 500,
+        "textAlign": "center",
+        "border": "none"
+      }
+    },
+    "box": {
+      "default": {
+        "background": "#fff",
+        "borderRadius": " 0 50px 50px 0",
+        "width": "100%",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "flexDirection": "column",
+        "minHeight": "100%"
+      }
+    },
+    "wrapper": {
+      "default": {
+        "padding": "45px 50px",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "maxHeight": "100%",
+        "height": "100%",
+        "width": "100%",
+        "flexDirection": "column",
+        "gap": "20px"
+      }
+    },
+    "heading": {
+      "default": {
+        "fontSize": "22px",
+        "fontWeight": 700,
+        "margin": "0",
+        "color": "#000"
+      }
+    },
+    "textBox": {
+      "default": {
+        "borderRadius": "25px",
+        "background": "#F7F7F7",
+        "boxSizing": "border-box",
+        "width": "100%",
+        "flex": "0 1 100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "padding": "25px",
+        "maxHeight": "calc(100% - 100px)"
+      }
+    },
+    "textArea": {
+      "default": {
+        "width": "100%",
+        "maxHeight": "550px",
+        "outline": "none",
+        "overflowY": "scroll"
+      }
+    },
+    "drop": {
+      "default": {
+        "position": "relative",
+        "cursor": "pointer",
+        "zIndex": 10
+      }
+    },
+    "selected": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "padding": "10px",
+        "height": "clamp(30px, 10vw, 50px)",
+        "background": "#F4F4F5",
+        "borderRadius": "10px",
+        "boxSizing": "border-box"
+      }
+    },
+    "list": {
+      "default": {
+        "position": "absolute",
+        "top": "40px",
+        "left": 0,
+        "right": 0,
+        "display": "none",
+        "flexDirection": "column",
+        "alignItems": "flex-start",
+        "maxHeight": "100px",
+        "overflowY": "scroll",
+        "gap": "5px",
+        "padding": "10px",
+        "background": "#F4F4F5",
+        "borderRadius": "0 0 10px 10px",
+        "boxSizing": "border-box"
+      }
+    },
+    "row": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "maxWidth": "700px",
+        "justifyContent": "space-between"
+      }
+    },
+    "fold": {
+      "default": {
+        "display": "flex",
+        "height": "100%",
+        "boxSizing": "border-box",
+        "width": "100%",
+        "maxWidth": "255px",
+        "background": "#ECF0F9",
+        "flexDirection": "column",
+        "padding": "30px 0 25px 30px"
+      }
+    },
+    "media": {
+      "default": {
+        "display": "flex",
+        "boxSizing": "border-box",
+        "height": "100%",
+        "width": "100%"
+      }
+    },
+    "folder": {
+      "default": {
+        "width": "100%",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "alignItems": "center",
+        "cursor": "pointer",
+        "gap": "12px",
+        "fontWeight": 500,
+        "padding": "15px",
+        "borderRadius": "10px 0 0 10px",
+        "color": "#000"
+      }
+    },
+    "bottom": {
+      "default": {
+        "width": "100%",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "cursor": "pointer",
+        "padding": "0 30px 0 0",
+        "gap": "12px",
+        "marginTop": "auto"
+      }
+    },
+    "borderBtn": {
+      "default": {
+        "width": "100%",
+        "boxSizing": "border-box",
+        "display": "flex",
+        "alignItems": "center",
+        "cursor": "pointer",
+        "gap": "12px",
+        "color": "#575757",
+        "padding": "13px",
+        "border": "1.55px dashed #000",
+        "borderRadius": "8px"
+      }
+    },
+    "Input": {
+      "default": {
+        "width": "100%",
+        "background": "#F4F4F5",
+        "boxSizing": "border-box",
+        "cursor": "pointer",
+        "height": "clamp(30px, 10vw, 50px)",
+        "padding": "5px 20px",
+        "outline": "none",
+        "border": "none",
+        "textAlign": "center",
+        "borderRadius": "12px"
+      }
+    },
+    "deploy": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "gap": "40px"
+      }
+    },
+    "left": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "20px",
+        "maxWidth": "260px"
+      }
+    },
+    "leftBox": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px"
+      }
+    },
+    "right": {
+      "default": {
+        "width": "100%"
+      }
+    },
+    "execute": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "30px"
+      }
+    },
+    "DBList": {
+      "default": {
+        "width": "100%",
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+        "maxWidth": "770px"
+      }
+    },
+    "db": {
+      "default": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "space-between",
+        "fontWeight": 500,
+        "lineHeight": "34.81px",
+        "padding": " 7px 0 7px 20px",
+        "background": "#F7F7F7",
+        "color": "#000",
+        "borderRadius": "12px"
+      }
+    },
+    "setWrap": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+        "maxHeight": "100%",
+        "flex": "0 1 100%"
+      }
+    },
+    "scrollList": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "flex": "0 1 auto",
+        "maxHeight": "calc(100% - 170px)",
+        "gap": "10px",
+        "overflowY": "scroll"
+      }
+    },
+    "files": {
+      "default": {
+        "display": "flex",
+        "flexWrap": "wrap",
+        "gap": "20px"
+      }
+    },
+    "fileImg": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "maxWidth": "100px",
+        "overflow": "hidden",
+        "flexWrap": "wrap",
+        "gap": "5px"
+      }
+    },
+    "boxImg": {
+      "default": {
+        "maxWidth": "100px",
+        "aspectRatio": 1,
+        "background": "#FED05E"
+      }
+    },
+    "more": {
+      "default": {
+        "position": "relative",
+        "background": "transparent",
+        "border": "none",
+        "height": "29px",
+        "padding": 0,
+        "cursor": "pointer"
+      }
+    },
+    "moreList": {
+      "default": {
+        "position": "absolute",
+        "background": "#fff",
+        "borderRadius": "10px",
+        "display": "flex",
+        "alignItems": "flex-start",
+        "flexDirection": "column",
+        "gap": "10px",
+        "padding": "10px",
+        "right": 0,
+        "zIndex": 99,
+        "top": "25px"
+      }
+    },
+    "collaborators": {
+      "default": {
+        "flex": "0 1 50%",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "flex-start",
+        "gap": "30px"
+      }
+    },
+    "checkbox": {
+      "default": {
+        "width": "16px",
+        "height": "16px",
+        "border": "1px solid #8D8D8D",
+        "cursor": "pointer"
+      }
+    }
+  }
+}
+
+let styles = styles_d
+
+function AppMenu() {
+  const userLSG = lab_local_storage_object('global')
+
+  lab_load_language_module(userLSG.lng).then(lngData => {
+    const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
+    const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+    const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
+    const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+
+    let activeSlide;
+
+    const sideButtons = {
+      'backup': lngData.settings,
+      'css': 'CSS',
+      'js': 'Js',
+      'media': lngData.mediatheque,
+      'database': lngData.sql_databases,
+      'deploy': lngData.deployment
+    }
+
+    const settings = {
+      'versioning': lngData.versioning,
+      'pages_management': lngData.pages_management,
+      'libraries': lngData.libraries,
+      'collaborative_mode': lngData.collaborative_mode,
+      'svg_fragmentation': lngData.svg_fragmentation,
+      'ephemeral_sharing': lngData.ephemeral_sharing
+    }
+
+    const git_settings = {
+      'credentials': lngData.credentials,
+      'delete': lngData.delete,
+      'create': lngData.create,
+      'git_push': lngData.git_push
+    }
+
+    const server = {
+      'lab_user_personnal_server': lngData.personnal_distant_server,
+      // 'laboranth_remote_server': lngData.laboranth_remote_server,
+      // "laboranth_deploy_git": "Git",
+      "laboranth_deploy_zip": "Zip"
+    }
+
+    function Pages(name, type) {
+      if (['addNewSection', 'removeSection'].includes(type)) {
+
+        let sectionObj = {
+          app: sectionElementsObject.app,
+          uid: sectionElementsObject.uid,
+          lng: sectionElementsObject.lng,
+        }
+
+        if (type == 'removeSection') sectionObj.removingSection = name
+        else sectionObj.addingSection = name
+
+        socket.emit(type, sectionObj)
+      }
+      else if (type == 'open') {
+        lab_local_storage_object_update('global', { "section": name })
+        window.open(window.location.protocol + "//" + window.location.host + "/" + lab_local_storage_object('global').app + "/" + name, "_self")
+      }
+    }
+
+    function Libs(value, type) {
+      if (type == 'delete') {
+        let globalCtx = lab_local_storage_object("global")
+        globalCtx.scriptToDelete = value
+        socket.emit('deleteLib', globalCtx)
+      }
+      if (type == 'fetch')
+        fetchLibrary(value)
+    }
+
+    function Folders(value, type) {
+      if (type == 'delete') {
+        const userLSG = lab_local_storage_object('global')
+        userLSG.mediaListToRemove = value
+        socket.emit('deleteMediaList', userLSG)
+      }
+    }
+
+    function SQL(value, type) {
+      if (['newSqlTable', 'sqlTableDel'].includes(type)) {
+        let info
+        if (type == 'sqlTableDel') info == 'tableToDel'
+        else info == 'newTable'
+
+        userLSG[info] = value
+
+        socket.emit(type, userLSG)
+      }
+    }
+
+    function ActionListing(parent, array, head, func, list, btnVal) {
+      const heading = lab_design_system_d('h6', 'app-menu-heading', parent, head, '', ['appMenu', 'heading'])
+      const scrollList = lab_design_system_d('div', 'scrollList', parent, '', 'scrollable', ['appMenu', 'scrollList'])
+      const pList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
+
+      array.forEach((e, index) => {
+        const db = lab_design_system_d('div', `actions-${index}`, pList, '', '', ['appMenu', 'db'])
+        const name = lab_design_system_d('span', `actions-name-${index}`, db, e, '', ['appMenu', 'link'])
+        moreBtn(db, `actions-item-${index}`, list, e, func)
+      })
+
+      const bottom = lab_design_system_d('div', `bottom`, parent, '', '', ['appMenu', 'execute'])
+      const input = Input('act-name', bottom)
+      input.style.minWidth = '220px'
+      input.style.width = 'fit-content'
+      const btn = lab_design_system_d('button', 'act-btn', bottom, lngData.add, '', ['buttons', 'action'])
+      btn.style.width = 'fit-content'
+      btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        const regex = /^[A-Za-z0-9-._~]+$/
+        if (input.value && regex.test(input.value)) {
+          func(input.value, btnVal)
+        } else alertUser(lngData.column_name_cannot_be_empty)
+      })
+
+    }
+
+    Object.keys(sideButtons).forEach(e => {
+      const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
+      const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
+      const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
+      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
+
+      btn.addEventListener('click', () => {
+        if (activeSlide != e) {
+          const last = document.querySelector('.app-menu-active')
+          if (last) {
+            last.classList.remove('app-menu-active')
+            last.style.color = '#fff'
+            last.style.background = '#3C4CA6'
+            let img = last.querySelector('img')
+            img.setAttribute('src', img.src.replace('-white', ''))
+          }
+          RenderBox(e)
+        }
+      })
+    })
+
+    function RenderBox(slide = 'backup') {
+      box.innerHTML = ''
+      activeSlide = slide
+      let btn = document.getElementById(`lab-app-menu-btn-${slide}`)
+      btn.classList.add('app-menu-active')
+      btn.style.color = '#3C4CA6'
+      btn.style.background = '#fff'
+      btn.querySelector('img').setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${slide}-white.svg`)
+
+      if (slide == 'backup') {
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
+        dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
+        const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
+
+        function Settings(name = 'versioning') {
+          setWrap.innerHTML = ''
+          if (name == 'versioning') {
+            socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
+              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              row.style.position = 'relative'
+              row.style.zIndex = 2
+              const create = lab_design_system_d('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
+              create.style.width = 'fit-content'
+
+              create.addEventListener('click', e => {
+                const userLSG = lab_local_storage_object('global')
+                const now = new Date(Date.now())
+                const year = now.getFullYear()
+                const month = (now.getMonth() + 1).toString().padStart(2, '0')
+                const day = now.getDate().toString().padStart(2, '0')
+                const hours = now.getHours().toString().padStart(2, '0')
+                const minutes = now.getMinutes().toString().padStart(2, '0')
+                userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
+                socket.emit("makeAppBackup", userLSG)
+              })
+
+              const text = lab_design_system_d('span', `row-text`, row, lngData.load_a_previous_version)
+              const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
+              previous.wrap.style.maxWidth = '200px'
+              const upload = lab_design_system_d('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
+              upload.style.width = 'fit-content'
+              upload.addEventListener('click', e => {
+                const userLSG = lab_local_storage_object('global')
+                userLSG.backupDate = previous.text.innerHTML
+                socket.emit('eraseByBackup', userLSG)
+              })
+
+              const auto = lab_design_system_d('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
+              autoBack.wrap.style.maxWidth = '200px'
+
+              const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              uploadAuto.style.width = 'fit-content'
+
+              uploadAuto.addEventListener('click', e => {
+                const userLSG = lab_local_storage_object('global')
+                userLSG.auto = true
+                userLSG.day = autoBack.text.innerHTML
+                socket.emit('eraseByBackup', userLSG)
+              })
+            })
+          }
+          else if (name == 'pages_management') {
+            ActionListing(setWrap, sectionElementsObject.sections, lngData.pages_management, Pages, {
+              'removeSection': "delete",
+              'open': "open"
+            }, 'addNewSection')
+          }
+          else if (name == 'libraries') {
+            ActionListing(setWrap, sectionElementsObject.configuration.scripts, lngData.libraries, Libs, { 'delete': "delete" }, 'fetch')
+          }
+          else if (name == 'ephemeral_sharing') {
+            socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
+              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              const text = lab_design_system_d('span', `row-text`, row, lngData.share_id)
+              const id = Input('share', row)
+              row.style.position = 'relative'
+              row.style.zIndex = 2
+              const update = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
+              update.style.width = 'fit-content'
+
+              update.addEventListener('click', e => {
+                if (id.value) {
+                  userLSG.newPublicID = id.value
+                  socket.emit('updatePublicID', userLSG)
+                }
+                else {
+                  alert(lngData.input_cannot_be_empty)
+                }
+              })
+
+              const list = {
+                1: '1 ' + lngData.day,
+                2: '2 ' + lngData.day,
+                3: '3 ' + lngData.day,
+                4: '4 ' + lngData.day,
+                5: '5 ' + lngData.day,
+                6: '6 ' + lngData.day,
+                7: '7 ' + lngData.day,
+                8: '8 ' + lngData.day,
+                9: '9 ' + lngData.day,
+                10: '10 ' + lngData.day
+              }
+
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              let duration
+              const autoBack = dropDown(list, list['1'], 'previous-backup-auto', (e) => {
+                duration = list[e]
+              }, autoRow)
+              autoBack.wrap.style.maxWidth = '200px'
+
+              const load = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              load.style.width = 'fit-content'
+
+
+              load.addEventListener('click', e => {
+                if (duration) {
+                  userLSG.duration = duration
+                  socket.emit('showUserProject', userLSG)
+                }
+                else {
+                  alert(lngData.input_cannot_be_empty)
+                }
+              })
+            })
+          }
+          else if (name == 'svg_fragmentation') {
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
+            const importSvg = lab_design_system_d('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
+            importSvg.style.width = 'fit-content'
+
+            importSvg.addEventListener('click', () => {
+              getFile('svg', "lab-file-input")
+              document.querySelector('#lab-file-input').click()
+            })
+          }
+          else if (name == 'collaborative_mode') {
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
+            const content = lab_design_system_d('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
+            const collaborators = lab_design_system_d('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
+            const rights = lab_design_system_d('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
+            const collabText = lab_design_system_d('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
+            const rightsText = lab_design_system_d('span', 'rights-text', rights, lngData.collaborators_rights)
+
+            let collabs = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.collaborator_email)
+
+
+            const collRow = lab_design_system_d('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
+            collRow.style.width = '100%'
+            let selectedCol = collabs[0]
+
+            function select(index) {
+              selectedCol = collabs[index]
+            }
+
+            const list = dropDown(collabs, selectedCol, 'collabs', select, collRow)
+            list.wrap.style.width = '60%'
+
+            const del = lab_design_system_d('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
+            del.style.width = '30%'
+
+            del.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.collaborator_email = selectedCol
+              socket.emit('removeCollaboratorFromProject', userLSG, res => {
+
+              })
+            })
+
+            const row = lab_design_system_d('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
+            row.style.width = '100%'
+
+            const newCollaborator = Input('collab', row)
+            newCollaborator.style.width = '60%'
+
+            const add = lab_design_system_d('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
+            add.style.width = '30%'
+
+            add.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.collaborator_email = newCollaborator.value
+              socket.emit('addCollaboratorToProject', userLSG, res => {
+                if (res.success) {
+                  const userLSG = lab_local_storage_object('global')
+                  userLSG.message = userLSG.app
+                  userLSG.recipient = collaborator_email
+                  userLSG.under_review = true
+                  userLSG.review_type = "access_granted"
+                  socket.emit('sendMessage', userLSG, sended => {
+
+                  })
+                }
+              })
+            })
+
+            const rightArr = ['designer', 'developer', 'administrator', 'custom']
+            let collabRights = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.rights.preset)
+            let selected = collabs[0]
+            const rightsRow = lab_design_system_d('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
+            const rightsCollabs = dropDown(collabs, selected, 'collabs-rights', writeCollab, rightsRow)
+
+            const pointers = lab_design_system_d('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
+
+            function writeCollab(index = 0) {
+              selected = collabs[index]
+              const rightsTypes = dropDown(rightArr, collabRights[index], 'rights-type', selcetRights, rightsRow)
+              let checkInputs = ['sftpAccess', 'ephemeralSharing', 'deployment', 'dbModelisation', 'collaboratorsRights']
+
+              let checkRights = {
+                'designer': [false, true, false, false, false],
+                'developer': [true, true, true, false, false],
+                'administrator': [true, true, true, true, true],
+                'custom': []
+              }
+
+              function selcetRights(a = 0) {
+                pointers.innerHTML = ''
+                checkInputs.forEach((e, i) => {
+                  const row = lab_design_system_d('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
+                  const text = lab_design_system_d('span', `${e}-text`, row, e)
+                  const check = lab_design_system_d('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
+                  check.setAttribute('type', 'checkbox')
+                  check.checked = checkRights[rightArr[a]][i]
+                  if (rightArr[a] != 'custom') check.disabled = true
+                })
+              }
+
+              selcetRights()
+            }
+            writeCollab()
+          }
+
+          lab_fade_in_recursively(setWrap, 0.3)
+        }
+        Settings()
+      }
+
+      else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
+
+      else if (slide == 'media') {
+        let selectedFolder;
+        const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+        const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+        const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
+        if (sectionElementsObject.mediaLists.length > 0) {
+          sectionElementsObject.mediaLists.forEach(e => {
+            const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
+            const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
+            icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
+            const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
+            text.style.marginRight = 'auto'
+            moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
+
+            item.addEventListener('click', () => {
+              if (e.listName != selectedFolder) {
+                let last = document.querySelector('.selected-folder')
+                if (last) {
+                  last.style.background = 'transparent'
+                  last.classList.remove('selected-folder')
+                }
+                item.classList.add('selected-folder')
+                item.style.background = '#fff'
+
+                selectedFolder = e.listName
+                openFolder(e.files)
+              }
+
+            })
+          })
+        }
+        else folders.innerHTML = lngData.zero_media_list
+
+        function openFolder(list) {
+          files.innerHTML = ''
+          if (list.length > 0) {
+            list.forEach((e, i) => {
+              const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
+              const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
+              const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
+              img.style.maxWidth = '100%'
+              img.style.aspectRatio = '1'
+              img.style.objectFit = 'cover'
+              const span = lab_design_system_d('span', `file-span-${i}`, file, e)
+              img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
+            })
+          } else {
+            files.innerHTML = lngData.zero_media_list_files
+          }
+          lab_fade_in_recursively(files, 0.3)
+        }
+
+        const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+
+        let buttons = {
+          'import': lngData.import_files,
+          'create': lngData.new_folder
+        }
+
+        Object.keys(buttons).forEach(e => {
+          const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
+          const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
+          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
+          const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
+          btn.addEventListener('click', (ev) => {
+            ev.preventDefault()
+            if (e == 'create') {
+              let input = document.getElementById('lab-new-folder-name')
+              if (input) {
+                userLSG.addedMediaList = input.value
+                socket.emit('addNewMediaList', userLSG)
+              } else Input('new-folder-name', bottom)
+            } else {
+              let input = document.getElementById('lab-file-input')
+              if (selectedFolder) {
+                getMediaFilesFile(input.id, selectedFolder)
+                input.click()
+              }
+            }
+          })
+
+        })
+
+      }
+
+      else if (slide == 'deploy') {
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
+        const left = lab_design_system_d('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
+        const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
+        const heading = lab_design_system_d('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
+        const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
+        wrap.style.height = '100%'
+        wrap.style.maxHeight = '100%'
+
+        const drop = dropDown(server, server.lab_user_personnal_server, 'serv', (e) => deployBox(e), left)
+        const leftBox = lab_design_system_d('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
+
+        function deployBox(e = 'lab_user_personnal_server') {
+          leftBox.innerHTML = ''
+          if (e == 'lab_user_personnal_server') {
+            const ip = Input('ip', leftBox, 'XX.XX.XXX.XX', '')
+            const ssh = Input('ssh', leftBox, lngData.username_ssh, '')
+            const pass = Input('pass', leftBox, lngData.password, '')
+            const dir = Input('dir', leftBox, lngData.remote_app_dir, '')
+            const port = Input('port', leftBox, lngData.port, '')
+            const save = lab_design_system_d('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
+            save.style.width = 'fit-content'
+
+            save.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.host = ip.value
+              userLSG.username = ssh.value
+              userLSG.password = pass.value
+              userLSG.remoteDir = dir.value
+              userLSG.port = port.value
+              socket.emit("saveSID", userLSG)
+            })
+          }
+          if (e == 'laboranth_deploy_zip') {
+            const donwload = lab_design_system_d('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
+            donwload.addEventListener('click', e => {
+              socket.emit('askAppZipFolder', lab_local_storage_object('global'), res => {
+                const blob = new Blob([res.fileData], { type: 'application/zip' })
+                const downloadUrl = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = downloadUrl
+                a.download = res.fileName
+                document.body.appendChild(a)
+                a.click()
+                document.body.removeChild(a)
+                URL.revokeObjectURL(downloadUrl)
+              })
+            })
+          }
+          if (e == 'laboranth_deploy_git') {
+            const drop = dropDown(git_settings, git_settings.credentials, 'git', (e) => subBox(git, e), left)
+            const git = lab_design_system_d('div', 'app-sub-box', leftBox, '', '', ['appMenu', 'leftBox'])
+
+          }
+          lab_fade_in_recursively(leftBox, 0.3)
+        }
+
+        function subBox(parent, e) {
+          parent.innerHTML = ''
+
+          if (e == 'credentials') {
+            const username = Input('ssh', subBox, lngData.username, '')
+            const email = Input('pass', subBox, lngData.email, '')
+            const dir = Input('dir', subBox, lngData.remote_app_dir, '')
+            const port = Input('port', subBox, lngData.port, '')
+            const save = lab_design_system_d('button', `save`, subBox, lngData.save, '', ['buttons', 'action'])
+            save.style.width = 'fit-content'
+
+            save.addEventListener('click', () => {
+              const userLSG = lab_local_storage_object('global')
+              userLSG.host = ip.value
+              userLSG.username = ssh.value
+              userLSG.password = pass.value
+              userLSG.remoteDir = dir.value
+              userLSG.port = port.value
+              socket.emit("saveSID", userLSG)
+            })
+          }
+
+        }
+
+
+        const executeBox = lab_design_system_d('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
+        const command = Input('command', executeBox, 'ls')
+        const execute = lab_design_system_d('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
+        execute.style.width = 'fit-content'
+        execute.style.whiteSpace = 'nowrap'
+
+        execute.addEventListener('click', () => {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.command = command.value
+          command.value = ""
+          socket.emit("runRemoteCommand", userLSG)
+        })
+
+        const deployBtn = lab_design_system_d('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
+        deployBtn.style.width = 'fit-content'
+
+        deployBtn.addEventListener('click', e => {
+          const userLSG = lab_local_storage_object('global')
+          userLSG.uploadingConfig = uploadingConfig
+          socket.emit('sshDeploy', userLSG)
+        })
+
+        deployBox()
+      }
+
+      else if (slide == 'database') {
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
+          'sqlTableDel': "delete"
+        }, 'newSqlTable')
+      }
+
+      lab_fade_in_recursively(box, 0.3)
+    }
+    RenderBox()
+
+    function moreBtn(parent, id, list, el, func) {
+      const more = lab_design_system_d('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
+      const icon = lab_design_system_d('img', `more-btn-${id}-icon`, more)
+      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/more_vert.svg`)
+      icon.style.transform = 'rotate(90deg)'
+
+      more.addEventListener('click', () => {
+        const listing = lab_design_system_d('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
+
+        Object.keys(list).forEach((e, i) => {
+          const item = lab_design_system_d('div', `more-list-${i}`, listing, list[e])
+          item.addEventListener('click', () => func(el, e))
+        })
+
+        listing.addEventListener('mouseleave', () => listing.remove())
+      })
+    }
+
+    function TextEditableBox(type) {
+      const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+      const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
+      const wrap = lab_design_system_d('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
+      const textArea = lab_design_system_d('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
+      textArea.contentEditable = true
+
+      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
+      btn.style.width = 'fit-content'
+
+      let FileType = type == 'css' ? "CSS" : "Features"
+      let SaveFile = type == 'css' ? "CSS" : "Feature"
+
+      socket.emit(`ask${FileType}File`, userLSG, e => {
+        if (e.success) {
+          textArea.innerText = e.data
+          btn.addEventListener('click', e => {
+            const userLSG = lab_local_storage_object('global')
+            userLSG.string = textArea.innerHTML
+            socket.emit(SaveFile, userLSG)
+          })
+        }
+      })
+    }
+
+    function Input(id, parent, placeholder = '', value = '') {
+      const input = lab_design_system_d('input', id, parent, '', '', ['appMenu', 'Input'])
+      input.setAttribute('placeholder', placeholder)
+      input.setAttribute('value', value)
+      return input
+    }
+
+    function dropDown(list, value, id, func, parent = box) {
+      const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
+      const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
+      const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+      const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
+      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
+
+      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
+      if (typeof list == 'array') {
+        list.forEach(e => {
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
+          item.addEventListener('click', () => {
+            text.innerHTML = e
+            func(e)
+          })
+        })
+      } else {
+        Object.keys(list).forEach(e => {
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
+          item.addEventListener('click', () => {
+            text.innerHTML = list[e]
+            func(e)
+          })
+        })
+      }
+
+      listing.addEventListener('mouseleave', () => {
+        listing.style.display = 'none'
+      })
+
+      wrap.addEventListener('click', () => {
+        listing.style.display = listing.style.display == 'flex' ? 'none' : 'flex'
+      })
+      return { wrap, text }
+    }
+
+    menuWrap.addEventListener('click', () => {
+      menuWrap.remove()
+      menu.remove()
+    })
+  })
+  const fileInput = lab_design_system_d('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
+  fileInput.setAttribute('type', 'file')
+
+}
+
+// AppMenu()
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -89,7 +3165,7 @@ const ElementsList = {
     }
   },
   'section': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+    'icon': `${oldSRC}grid.svg`,
     'title': "section",
     'template': {
       'landscape': {
@@ -115,7 +3191,7 @@ const ElementsList = {
     }
   },
   'div': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+    'icon': `${oldSRC}grid.svg`,
     'title': "div",
     'template': {
       'landscape': {
@@ -139,7 +3215,7 @@ const ElementsList = {
     }
   },
   'form': {
-    'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
+    'icon': `${oldSRC}form.svg`,
     'title': "form",
     'template': {
       'landscape': {
@@ -441,6 +3517,9 @@ const elementsToolsList = {
   },
 }
 
+let ActiveMode
+let selected
+
 class Designer {
   static ID() {
     const S4 = function () {
@@ -498,15 +3577,15 @@ class Designer {
         last.classList.remove('lab-active-element')
         DesignConstructor.createOptions(element, page)
       }
+      if (uditableTags.includes(element.tagName)) element.contentEditable = true
     }
-    if (uditableTags.includes(element.tagName)) element.contentEditable = true
   }
 
   static async removePointer() {
     if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
     if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
-    if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
-    if (document.getElementById('lab-block-menu-wrap')) document.getElementById('lab-block-menu-wrap').remove()
+    // if (document.getElementById('lab-block-menu')) document.getElementById('lab-block-menu').remove()
+    // if (document.getElementById('lab-block-menu-wrap')) document.getElementById('lab-block-menu-wrap').remove()
     if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
   }
 
@@ -620,7 +3699,7 @@ class Designer {
         const left = 0 < X && X < 20
         const right = -20 < X - itemPos.width && X - itemPos.width < 0
         if (top || bottom || left || right) {
-          const hover = lab_design_system('div', "hover", page, '', 'none', ['design', 'hover'])
+          const hover = lab_design_system_d('div', "hover", page, '', 'none', ['design', 'hover'])
           if (top) {
             hover.style.height = 20 / pagePos.height * 100 + '%'
             hover.style.width = itemPos.width / pagePos.width * 100 + '%'
@@ -707,8 +3786,9 @@ class Designer {
         let last = document.getElementById('lab-pointer')
         if (!last || !last.classList.contains(direction) || mouseIsDown) {
           Designer.removePointer()
-          const pointer = lab_design_system('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
+          const pointer = lab_design_system_d('div', 'pointer', page, '', `none ${direction}`, ['design', 'pointer'])
           pointer.style.transition = 'all 0.1s ease'
+          pointer.style.opacity = '1'
 
           if (['left', 'right'].includes(direction)) pointer.style.rotate = '90deg'
 
@@ -777,7 +3857,7 @@ class Designer {
     async function write({ x, y }) {
       if (ActiveMode == modeName) {
         if (mouse) {
-          let area = !document.getElementById('lab-area') ? lab_design_system('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
+          let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
           area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
           area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
           area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
@@ -855,23 +3935,23 @@ class Designer {
 
 class DesignConstructor {
   static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
-    const btn = lab_design_system('button', id, parent, content, className, styles)
+    const btn = lab_design_system_d('button', id, parent, content, className, styles)
     if (icon) {
-      const btnIcon = lab_design_system('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
+      const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
       btnIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
     }
     return btn;
   }
 
   static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
-    const wrap = lab_design_system('div', id, parent, '', '', ['design', 'inputWrap'])
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
 
     if (icon) {
-      const innerIcon = lab_design_system('img', id, wrap, '', '', ['design', 'icon'])
+      const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
       innerIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
     }
 
-    const Input = lab_design_system('input', `input-${id}`, wrap, '', '', ['design', 'input'])
+    const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
 
     value && Input.setAttribute('value', value)
     placeholder && Input.setAttribute('placeholder', placeholder)
@@ -882,15 +3962,15 @@ class DesignConstructor {
 
   static dropList(parent, list, value, func) {
     let id = Designer.ID()
-    const wrap = lab_design_system('div', id, parent, '', '', ['design', 'dropList'])
-    const selected = lab_design_system('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
-    const text = lab_design_system('span', Designer.ID(), selected, value.replace(/"/gi, ''))
-    const icon = lab_design_system('img', id + '-icon', selected, '', '', ['design', 'icon'])
+    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'dropList'])
+    const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
+    const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
+    const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
     icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
-    const listing = lab_design_system('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
+    const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
     list.forEach(e => {
-      const item = lab_design_system('span', Designer.ID(), listing, e)
+      const item = lab_design_system_d('span', Designer.ID(), listing, e)
       item.addEventListener('click', () => {
         text.innerHTML = e
         func && func(e)
@@ -922,7 +4002,7 @@ class DesignConstructor {
 
       element.classList.add('lab-active-element')
 
-      const HoverBox = lab_design_system('div', "HoverBox", parent, 0, 0, ['design', 'HoverBox'])
+      const HoverBox = lab_design_system_d('div', "HoverBox", parent, 0, 0, ['design', 'HoverBox'])
       HoverBox.style.borderRadius = element.style.borderRadius
 
       Designer.Proportions(HoverBox, element, parent, { vert: "full", hor: "full" })
@@ -945,13 +4025,16 @@ class DesignConstructor {
   static blockMenu(element, parent, options) {
     ActiveMode = null
     let last = document.getElementById('lab-block-menu')
+    console.log('AAAAAAAAAA');
+
     if (!last) {
-      const menuWrap = lab_design_system('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
-      const menu = lab_design_system('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
+      console.warn('AAAAAAAAAA');
+      const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
+      const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
       Object.keys(options).forEach(e => {
-        const item = lab_design_system('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
-        const itemIcon = lab_design_system('img', Designer.ID(), item, '0', 'none')
-        const itemText = lab_design_system('span', Designer.ID(), item, options[e], 'none')
+        const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
+        const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
+        const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
         itemIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
         itemIcon.style.width = '15px'
 
@@ -1031,7 +4114,7 @@ function Options(obj, key, value) {
 let contentTags = ["DIV", "SECTION"]
 
 function design_mode() {
-  const designBody = lab_design_system('div', "designBody", rootLayer, '', '', ['design', 'body'])
+  const designBody = lab_design_system_d('div', "designBody", rootLayer, '', '', ['design', 'body'])
   let options = JSON.parse(localStorage.getItem('options')) || {
     'vpm': "landscape",
     'zoom': 100,
@@ -1039,12 +4122,13 @@ function design_mode() {
     'settingsBar': true,
     'sideMenu': true,
   }
+
   // lab_save_section(options.vpm)
 
 
   //SIDE MENU
 
-  const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
+  const menu = lab_design_system_d('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
 
   menuButton.addEventListener('click', () => {
@@ -1058,20 +4142,20 @@ function design_mode() {
     DesignConstructor.addClass(menuButton, 'design', 'hideMenu')
   }
 
-  const elementsBox = lab_design_system('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
+  const elementsBox = lab_design_system_d('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
 
-  const elementsTitle = lab_design_system('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
-  const elementsWrap = lab_design_system('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
+  const elementsTitle = lab_design_system_d('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
+  const elementsWrap = lab_design_system_d('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
 
   function addList(e, list) {
     Object.keys(e).map(el => {
-      const item = lab_design_system('div', Designer.ID(), list, '', '', ['design', 'template'])
-      const icon = lab_design_system('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
-      const img = lab_design_system('img', Designer.ID(), icon)
+      const item = lab_design_system_d('div', Designer.ID(), list, '', '', ['design', 'template'])
+      const icon = lab_design_system_d('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
+      const img = lab_design_system_d('img', Designer.ID(), icon)
       img.setAttribute('src', e[el].icon)
       img.style.width = '30px'
       img.style.height = '30px'
-      const text = lab_design_system('span', Designer.ID(), item, e[el].title)
+      const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
 
       item.addEventListener('click', () => {
         const coord = item.getBoundingClientRect()
@@ -1103,8 +4187,8 @@ function design_mode() {
 
   //USER PAGE
 
-  const pageWrap = lab_design_system('div', "user-page-wrap", designBody, '', '', ['design', 'pageWrap'])
-  const page = lab_design_system('div', "user-page", pageWrap, '', '', ['design', 'page'])
+  const pageWrap = lab_design_system_d('div', "user-page-wrap", designBody, '', '', ['design', 'pageWrap'])
+  const page = lab_design_system_d('div', "user-page", pageWrap, '', '', ['design', 'page'])
   page.classList.remove('escape')
 
   page.addEventListener('mouseover', (p) => {
@@ -1119,11 +4203,12 @@ function design_mode() {
     }
   })
 
+
   //USER PAGE END
 
   //TOOLBAR
 
-  const toolBar = lab_design_system('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
+  const toolBar = lab_design_system_d('div', "toolbar", designBody, '', '', ['design', 'toolbar'])
 
   // const tools = ['cursor', 'resize', 'shape', 'pen', 'text', 'actions', 'img']
   const tools = ['cursor', 'resize', 'shape', 'text', 'img']
@@ -1143,7 +4228,7 @@ function design_mode() {
     })
   })
 
-  const blind = lab_design_system('button', "blind-tools", toolBar, '', '', ['design', 'blindTools'])
+  const blind = lab_design_system_d('button', "blind-tools", toolBar, '', '', ['design', 'blindTools'])
   blind.addEventListener('click', () => {
     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
     Options(options, 'toolBar')
@@ -1153,7 +4238,7 @@ function design_mode() {
 
   //TOPSETTINGS
 
-  const topSettings = lab_design_system('div', "top-settings", designBody, '', '', ['design', 'top'])
+  const topSettings = lab_design_system_d('div', "top-settings", designBody, '', '', ['design', 'top'])
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
   const responsiveList = ["landscape", "portrait"]
 
@@ -1195,7 +4280,7 @@ function design_mode() {
     })
   })
 
-  const pixelScreen = lab_design_system('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
+  const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
   pixelScreen.style.width = '65px'
   setVpm(options.vpm)
 
@@ -1205,31 +4290,31 @@ function design_mode() {
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box')
 
   setPage.appendChild(document.createTextNode(sectionElementsObject.section))
-  const arrow = lab_design_system('img', 'page-arrow', setPage)
+  const arrow = lab_design_system_d('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
 
   setPage.addEventListener('click', () => {
     let last = document.getElementById('lab-page-list')
     if (last) last.remove()
-    const list = lab_design_system('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
+    const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
 
     sectionElementsObject.sections.forEach(e => {
       if (e != sectionElementsObject.section) {
-        const btn = lab_design_system('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
+        const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
         btn.setAttribute('href', `./${e}`)
       }
     })
     list.addEventListener('mouseleave', () => list.remove())
   })
 
-  const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
+  const sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('min', "1")
   sizeSwitcher.setAttribute('max', "100")
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
+  const size = lab_design_system_d('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
   size.style.width = "60px"
   sizeSwitcher.value = options.zoom
   page.style.scale = options.zoom / 100
@@ -1244,7 +4329,7 @@ function design_mode() {
   view.addEventListener('click', DesignConstructor.closeAll)
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
 
-  const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
+  const blindTop = lab_design_system_d('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
 
   blindTop.addEventListener('click', () => {
     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
@@ -1253,12 +4338,13 @@ function design_mode() {
 
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
-  const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
-  const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none')
 
-  const styleHide = lab_design_system('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
-  const styleHideIcon = lab_design_system('img', 'style-hide-icon', styleHide, '', 'none')
-  styleHideIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/hide.svg`)
+  const styleMenu = lab_design_system_d('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
+  const styleWrap = lab_design_system_d('div', 'style-wrap', styleMenu, '', 'none')
+
+  const styleHide = lab_design_system_d('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
+  const styleHideIcon = lab_design_system_d('img', 'style-hide-icon', styleHide, '', 'none')
+  styleHideIcon.setAttribute('src', `${oldSRC}hide.svg`)
   styleHideIcon.style.maxWidth = '100%'
   styleHideIcon.style.marginLeft = '-4px'
 
@@ -1269,12 +4355,13 @@ function design_mode() {
   StylesMenu(page)
   //CODE MENU
 
-  const codeMenu = lab_design_system('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
+  const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
   const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
-  const codeWrapper = lab_design_system('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
+  const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
   codeMenuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
+
     document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
       codeWrapper.innerText += e + '>\n            '
     })
@@ -1282,15 +4369,11 @@ function design_mode() {
 
   //CODE MENU END
 
-  const fileInput = lab_design_system('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
+  const fileInput = lab_design_system_d('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
   fileInput.setAttribute('type', 'file')
 
   DesignConstructor.BlockResize()
   lab_fade_in_recursively(designBody, 0.3)
-
-  window.addEventListener('resize', () => {
-    Designer.removePointer()
-  })
 }
 
 function capitalizeFirstLetter(val) {
@@ -1305,6 +4388,8 @@ function rgb2hex(rgb) {
     ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
     ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
 };
+
+design_mode()
 
 function StylesMenu(item) {
   const lastSelected = document.querySelector('.selectedItem')
@@ -1343,13 +4428,13 @@ function StylesMenu(item) {
   function renderMenu() {
     item.classList.add('selectedItem')
 
-    const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
-    const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
+    const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
+    const elementMenuBody = lab_design_system_d('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
     const menuSettings = ['general', 'additional']
     const activeSettings = 'general'
 
     menuSettings.forEach((e) => {
-      const btn = lab_design_system('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+      const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
       if (e == activeSettings) {
         btn.classList.add('active')
         btn.style.background = '#F7F7F7'
@@ -1372,17 +4457,17 @@ function StylesMenu(item) {
       elementMenuBody.innerHTML = ''
       if (param == 'general') {
 
-        const settings = lab_design_system('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
         const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
 
 
         const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
 
-        const padding = lab_design_system('span', Designer.ID(), elementMenuBody, 'padding')
+        const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
 
-        const paddingBox = lab_design_system('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
-        const margin = lab_design_system('span', Designer.ID(), elementMenuBody, 'margin')
-        const marginBox = lab_design_system('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
+        const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
+        const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
+        const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
 
         const padList = ['top', 'right', 'bottom', 'left']
 
@@ -1396,9 +4481,9 @@ function StylesMenu(item) {
 
 
 
-        const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
-        const textColor = lab_design_system('span', Designer.ID(), colorSettings, 'background')
-        const colorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
+        const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
+        const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
         colorInput.setAttribute('type', 'color')
         colorInput.setAttribute('value', css['background'])
         if (item.tagName == 'svg') {
@@ -1414,7 +4499,7 @@ function StylesMenu(item) {
         })
       }
       if (param == 'additional') {
-        const settings = lab_design_system('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
+        const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
 
         const tag = DesignConstructor.dropList(settings, ['div', 'span', 'h1'], item.tagName, (e) => {
           item.tagName = e
@@ -1424,9 +4509,9 @@ function StylesMenu(item) {
 
         const fontFamily = DesignConstructor.dropList(settings, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
-        const fontSettings = lab_design_system('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
-        const textALign = lab_design_system('div', "textALign", fontSettings)
-        const textStyle = lab_design_system('div', "textStyle", fontSettings)
+        const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
+        const textALign = lab_design_system_d('div', "textALign", fontSettings)
+        const textStyle = lab_design_system_d('div', "textStyle", fontSettings)
         const textALignList = ['left', 'center', 'right', 'justify']
         const textStyleList = ['italic', 'underline', 'line', 'dec']
 
@@ -1440,7 +4525,7 @@ function StylesMenu(item) {
         const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
         const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
 
-        const textSettings = lab_design_system('div', "textSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
+        const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
 
         const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
 
@@ -1450,9 +4535,9 @@ function StylesMenu(item) {
 
         const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
 
-        const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
-        const textColor = lab_design_system('span', "text-color", colorSettings, 'Text color')
-        const textColorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
+        const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
+        const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color')
+        const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
         textColorInput.setAttribute('type', 'color')
         textColorInput.setAttribute('value', css['color'])
         textColorInput.addEventListener('input', () => {
@@ -1466,5 +4551,38 @@ function StylesMenu(item) {
   }
 }
 
+function lab_design_system_d(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
 
-return design_mode
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
+
+window.addEventListener('resize', () => {
+  Designer.removePointer()
+})
+
+

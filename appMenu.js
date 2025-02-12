@@ -392,7 +392,7 @@ function AppMenu(dashObj) {
         const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
         const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
         const files = lab_design_system('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
-        if (sectionElementsObject.mediaLists.length > 0) {
+        if (sectionElementsObject.mediaLists) {
           sectionElementsObject.mediaLists.forEach(e => {
             const item = lab_design_system('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
             const icon = lab_design_system('img', `forder-${e.listName}-icon`, item)
@@ -684,7 +684,6 @@ function AppMenu(dashObj) {
 
     const fileInput = lab_design_system('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
     fileInput.setAttribute('type', 'file')
-
 
     lab_fade_in_recursively(menu, 0.3)
   })
