@@ -47,9 +47,6 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
-.selectedItem {
-  border: 1px solid #fed05e !important;
-}
 
 #background {
   display: none;
@@ -104,4 +101,12 @@ body::-webkit-scrollbar {
 .lab-scrollable::-webkit-scrollbar-thumb {
   background-color: #FED05E;
   border-radius: 80px;
+}
+
+.lab-active-element {
+  border: 2px solid #2463EB;
+}
+
+.selectedItem {
+  border: 2px solid #2463EB !important;
 }

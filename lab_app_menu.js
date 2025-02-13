@@ -5,12 +5,12 @@ function AppMenu(dashObj) {
   userLSG.section = 'home'
 
   socket.emit('getAppData', userLSG, res => {
-    sectionElementsObject = res
 
-    const menuWrap = lab_design_system('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
-    const menu = lab_design_system('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
-    const side = lab_design_system('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
-    const box = lab_design_system('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+
+    const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
+    const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+    const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
+    const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
 
     let activeSlide;
 
@@ -96,22 +96,29 @@ function AppMenu(dashObj) {
       }
     }
 
-    function ActionListing(parent, array, head, func, list, btnVal) {
-      const heading = lab_design_system('h6', 'app-menu-heading', parent, head, '', ['appMenu', 'heading'])
-      const scrollList = lab_design_system('div', 'scrollList', parent, '', 'scrollable', ['appMenu', 'scrollList'])
-      const pList = lab_design_system('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
+    function ActionListing(parent, array, head, func, list, btnVal, onCLick) {
+      const heading = lab_design_system_d('h6', 'app-menu-heading', parent, head, '', ['appMenu', 'heading'])
+      const scrollList = lab_design_system_d('div', 'scrollList', parent, '', 'scrollable', ['appMenu', 'scrollList'])
+      const pList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
 
       array.forEach((e, index) => {
-        const db = lab_design_system('div', `actions-${index}`, pList, '', '', ['appMenu', 'db'])
-        const name = lab_design_system('span', `actions-name-${index}`, db, e, '', ['appMenu', 'link'])
+        const db = lab_design_system_d('div', `actions-${index}`, pList, '', '', ['appMenu', 'db'])
+        const name = lab_design_system_d('span', `actions-name-${index}`, db, e, '', ['appMenu', 'link'])
+        name.style.width = '100%'
+        name.style.cursor = 'pointer'
+        if (onCLick) {
+          name.addEventListener('click', () => {
+            onCLick(e)
+          })
+        }
         moreBtn(db, `actions-item-${index}`, list, e, func)
       })
 
-      const bottom = lab_design_system('div', `bottom`, parent, '', '', ['appMenu', 'execute'])
+      const bottom = lab_design_system_d('div', `bottom`, parent, '', '', ['appMenu', 'execute'])
       const input = Input('act-name', bottom)
       input.style.minWidth = '220px'
       input.style.width = 'fit-content'
-      const btn = lab_design_system('button', 'act-btn', bottom, lngData.add, '', ['buttons', 'action'])
+      const btn = lab_design_system_d('button', 'act-btn', bottom, lngData.add, '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
       btn.addEventListener('click', (e) => {
         e.preventDefault()
@@ -124,9 +131,9 @@ function AppMenu(dashObj) {
     }
 
     Object.keys(sideButtons).forEach(e => {
-      const btn = lab_design_system('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
-      const icon = lab_design_system('img', `app-menu-btn-icon-${e}`, btn)
-      const span = lab_design_system('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
+      const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
+      const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
+      const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
 
       btn.addEventListener('click', () => {
@@ -154,19 +161,19 @@ function AppMenu(dashObj) {
       btn.querySelector('img').setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${slide}-white.svg`)
 
       if (slide == 'backup') {
-        const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
-        const setWrap = lab_design_system('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
+        const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
 
         function Settings(name = 'versioning') {
           setWrap.innerHTML = ''
           if (name == 'versioning') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
-              const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
-              const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
               row.style.position = 'relative'
               row.style.zIndex = 2
-              const create = lab_design_system('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
+              const create = lab_design_system_d('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
               create.style.width = 'fit-content'
 
               create.addEventListener('click', e => {
@@ -181,10 +188,10 @@ function AppMenu(dashObj) {
                 socket.emit("makeAppBackup", userLSG)
               })
 
-              const text = lab_design_system('span', `row-text`, row, lngData.load_a_previous_version)
+              const text = lab_design_system_d('span', `row-text`, row, lngData.load_a_previous_version)
               const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
               previous.wrap.style.maxWidth = '200px'
-              const upload = lab_design_system('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
+              const upload = lab_design_system_d('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
               upload.style.width = 'fit-content'
               upload.addEventListener('click', e => {
                 const userLSG = lab_local_storage_object('global')
@@ -192,12 +199,12 @@ function AppMenu(dashObj) {
                 socket.emit('eraseByBackup', userLSG)
               })
 
-              const auto = lab_design_system('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
-              const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const auto = lab_design_system_d('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
               const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
-              const uploadAuto = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
               uploadAuto.style.width = 'fit-content'
 
               uploadAuto.addEventListener('click', e => {
@@ -219,13 +226,13 @@ function AppMenu(dashObj) {
           }
           else if (name == 'ephemeral_sharing') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
-              const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
-              const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
-              const text = lab_design_system('span', `row-text`, row, lngData.share_id)
+              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
+              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              const text = lab_design_system_d('span', `row-text`, row, lngData.share_id)
               const id = Input('share', row)
               row.style.position = 'relative'
               row.style.zIndex = 2
-              const update = lab_design_system('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
+              const update = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
               update.style.width = 'fit-content'
 
               update.addEventListener('click', e => {
@@ -251,14 +258,14 @@ function AppMenu(dashObj) {
                 10: '10 ' + lngData.day
               }
 
-              const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
               let duration
               const autoBack = dropDown(list, list['1'], 'previous-backup-auto', (e) => {
                 duration = list[e]
               }, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
-              const load = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              const load = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
               load.style.width = 'fit-content'
 
 
@@ -274,8 +281,8 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'svg_fragmentation') {
-            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
-            const importSvg = lab_design_system('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
+            const importSvg = lab_design_system_d('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
             importSvg.style.width = 'fit-content'
 
             importSvg.addEventListener('click', () => {
@@ -284,17 +291,17 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'collaborative_mode') {
-            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
-            const content = lab_design_system('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
-            const collaborators = lab_design_system('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
-            const rights = lab_design_system('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
-            const collabText = lab_design_system('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
-            const rightsText = lab_design_system('span', 'rights-text', rights, lngData.collaborators_rights)
+            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
+            const content = lab_design_system_d('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
+            const collaborators = lab_design_system_d('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
+            const rights = lab_design_system_d('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
+            const collabText = lab_design_system_d('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
+            const rightsText = lab_design_system_d('span', 'rights-text', rights, lngData.collaborators_rights)
 
             let collabs = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.collaborator_email)
 
 
-            const collRow = lab_design_system('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
+            const collRow = lab_design_system_d('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
             collRow.style.width = '100%'
             let selectedCol = collabs[0]
 
@@ -305,7 +312,7 @@ function AppMenu(dashObj) {
             const list = dropDown(collabs, selectedCol, 'collabs', select, collRow)
             list.wrap.style.width = '60%'
 
-            const del = lab_design_system('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
+            const del = lab_design_system_d('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
             del.style.width = '30%'
 
             del.addEventListener('click', () => {
@@ -316,13 +323,13 @@ function AppMenu(dashObj) {
               })
             })
 
-            const row = lab_design_system('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
+            const row = lab_design_system_d('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
             row.style.width = '100%'
 
             const newCollaborator = Input('collab', row)
             newCollaborator.style.width = '60%'
 
-            const add = lab_design_system('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
+            const add = lab_design_system_d('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
             add.style.width = '30%'
 
             add.addEventListener('click', () => {
@@ -345,10 +352,10 @@ function AppMenu(dashObj) {
             const rightArr = ['designer', 'developer', 'administrator', 'custom']
             let collabRights = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.rights.preset)
             let selected = collabs[0]
-            const rightsRow = lab_design_system('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
+            const rightsRow = lab_design_system_d('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
             const rightsCollabs = dropDown(collabs, selected, 'collabs-rights', writeCollab, rightsRow)
 
-            const pointers = lab_design_system('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
+            const pointers = lab_design_system_d('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
 
             function writeCollab(index = 0) {
               selected = collabs[index]
@@ -365,9 +372,9 @@ function AppMenu(dashObj) {
               function selcetRights(a = 0) {
                 pointers.innerHTML = ''
                 checkInputs.forEach((e, i) => {
-                  const row = lab_design_system('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
-                  const text = lab_design_system('span', `${e}-text`, row, e)
-                  const check = lab_design_system('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
+                  const row = lab_design_system_d('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
+                  const text = lab_design_system_d('span', `${e}-text`, row, e)
+                  const check = lab_design_system_d('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
                   check.setAttribute('type', 'checkbox')
                   check.checked = checkRights[rightArr[a]][i]
                   if (rightArr[a] != 'custom') check.disabled = true
@@ -388,16 +395,16 @@ function AppMenu(dashObj) {
 
       else if (slide == 'media') {
         let selectedFolder;
-        const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
-        const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
-        const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
-        const files = lab_design_system('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
-        if (sectionElementsObject.mediaLists.length > 0) {
+        const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+        const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+        const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
+        if (sectionElementsObject.mediaLists && sectionElementsObject.mediaLists.length > 0) {
           sectionElementsObject.mediaLists.forEach(e => {
-            const item = lab_design_system('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
-            const icon = lab_design_system('img', `forder-${e.listName}-icon`, item)
+            const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
+            const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
             icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
-            const text = lab_design_system('div', `forder-${e.listName}-name`, item, e.listName)
+            const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
             text.style.marginRight = 'auto'
             moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
 
@@ -424,13 +431,13 @@ function AppMenu(dashObj) {
           files.innerHTML = ''
           if (list.length > 0) {
             list.forEach((e, i) => {
-              const file = lab_design_system('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
-              const fileImg = lab_design_system('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
-              const img = lab_design_system('img', `file-img-${i}`, fileImg)
+              const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
+              const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
+              const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
               img.style.maxWidth = '100%'
               img.style.aspectRatio = '1'
               img.style.objectFit = 'cover'
-              const span = lab_design_system('span', `file-span-${i}`, file, e)
+              const span = lab_design_system_d('span', `file-span-${i}`, file, e)
               img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
             })
           } else {
@@ -439,7 +446,7 @@ function AppMenu(dashObj) {
           lab_fade_in_recursively(files, 0.3)
         }
 
-        const bottom = lab_design_system('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+        const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
 
         let buttons = {
           'import': lngData.import_files,
@@ -447,10 +454,10 @@ function AppMenu(dashObj) {
         }
 
         Object.keys(buttons).forEach(e => {
-          const btn = lab_design_system('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
-          const icon = lab_design_system('img', `forder-${e}-icon`, btn)
+          const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
+          const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
           icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
-          const text = lab_design_system('div', `forder-${e}-name`, btn, buttons[e])
+          const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
           btn.addEventListener('click', (ev) => {
             ev.preventDefault()
             if (e == 'create') {
@@ -473,17 +480,17 @@ function AppMenu(dashObj) {
       }
 
       else if (slide == 'deploy') {
-        const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-        const deploy = lab_design_system('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
-        const left = lab_design_system('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
-        const right = lab_design_system('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
-        const heading = lab_design_system('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
-        const wrap = lab_design_system('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
+        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
+        const left = lab_design_system_d('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
+        const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
+        const heading = lab_design_system_d('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
+        const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
         wrap.style.height = '100%'
         wrap.style.maxHeight = '100%'
 
         const drop = dropDown(server, server.lab_user_personnal_server, 'serv', (e) => deployBox(e), left)
-        const leftBox = lab_design_system('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
+        const leftBox = lab_design_system_d('div', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
 
         function deployBox(e = 'lab_user_personnal_server') {
           leftBox.innerHTML = ''
@@ -493,7 +500,7 @@ function AppMenu(dashObj) {
             const pass = Input('pass', leftBox, lngData.password, '')
             const dir = Input('dir', leftBox, lngData.remote_app_dir, '')
             const port = Input('port', leftBox, lngData.port, '')
-            const save = lab_design_system('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
+            const save = lab_design_system_d('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
             save.style.width = 'fit-content'
 
             save.addEventListener('click', () => {
@@ -507,7 +514,7 @@ function AppMenu(dashObj) {
             })
           }
           if (e == 'laboranth_deploy_zip') {
-            const donwload = lab_design_system('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
+            const donwload = lab_design_system_d('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
             donwload.addEventListener('click', e => {
               socket.emit('askAppZipFolder', lab_local_storage_object('global'), res => {
                 const blob = new Blob([res.fileData], { type: 'application/zip' })
@@ -524,7 +531,7 @@ function AppMenu(dashObj) {
           }
           if (e == 'laboranth_deploy_git') {
             const drop = dropDown(git_settings, git_settings.credentials, 'git', (e) => subBox(git, e), left)
-            const git = lab_design_system('div', 'app-sub-box', leftBox, '', '', ['appMenu', 'leftBox'])
+            const git = lab_design_system_d('div', 'app-sub-box', leftBox, '', '', ['appMenu', 'leftBox'])
 
           }
           lab_fade_in_recursively(leftBox, 0.3)
@@ -538,7 +545,7 @@ function AppMenu(dashObj) {
             const email = Input('pass', subBox, lngData.email, '')
             const dir = Input('dir', subBox, lngData.remote_app_dir, '')
             const port = Input('port', subBox, lngData.port, '')
-            const save = lab_design_system('button', `save`, subBox, lngData.save, '', ['buttons', 'action'])
+            const save = lab_design_system_d('button', `save`, subBox, lngData.save, '', ['buttons', 'action'])
             save.style.width = 'fit-content'
 
             save.addEventListener('click', () => {
@@ -555,9 +562,9 @@ function AppMenu(dashObj) {
         }
 
 
-        const executeBox = lab_design_system('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
+        const executeBox = lab_design_system_d('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
         const command = Input('command', executeBox, 'ls')
-        const execute = lab_design_system('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
+        const execute = lab_design_system_d('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
         execute.style.width = 'fit-content'
         execute.style.whiteSpace = 'nowrap'
 
@@ -568,7 +575,7 @@ function AppMenu(dashObj) {
           socket.emit("runRemoteCommand", userLSG)
         })
 
-        const deployBtn = lab_design_system('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
+        const deployBtn = lab_design_system_d('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
         deployBtn.style.width = 'fit-content'
 
         deployBtn.addEventListener('click', e => {
@@ -581,10 +588,148 @@ function AppMenu(dashObj) {
       }
 
       else if (slide == 'database') {
-        const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-        ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
-          'sqlTableDel': "delete"
-        }, 'newSqlTable')
+        function DBLists() {
+          box.innerHTML = ''
+          const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+          ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
+            'sqlTableDel': "delete"
+          }, 'newSqlTable', OpenDB)
+        }
+        DBLists()
+
+        function OpenDB(dbName) {
+          box.innerHTML = ''
+          const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+          const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+          const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+          const columns = lab_design_system_d('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
+          const top = lab_design_system_d('div', 'top', columns, '', '', ['appMenu', 'column'])
+          top.style.background = '#3C4CA6'
+          top.style.borderRadius = '10px 10px 0 0'
+          const name = lab_design_system_d('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
+          const type = lab_design_system_d('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
+          const notNull = lab_design_system_d('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
+          const unique = lab_design_system_d('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
+          //COLUMN
+          const column = lab_design_system_d('div', 'column', columns, '', '', ['appMenu', 'column'])
+          const Cname = lab_design_system_d('div', 'c-name', column, 'name', '', ['appMenu', 'columnBox'])
+          Cname.setAttribute('data-column', 'name')
+          const Ctype = lab_design_system_d('div', 'c-type', column, 'type', '', ['appMenu', 'columnBox'])
+          Ctype.setAttribute('data-column', 'type')
+          const CnotNull = lab_design_system_d('div', 'c-notNull', column, 'notNull', '', ['appMenu', 'columnBox'])
+          CnotNull.setAttribute('data-column', 'notNull')
+          const Cunique = lab_design_system_d('div', 'c-unique', column, 'unique', '', ['appMenu', 'columnBox'])
+          Cunique.setAttribute('data-column', 'unique')
+
+          column.addEventListener('click', (e) => {
+            column.classList.add('active-column')
+            column.style.background = '#ECF0F9'
+            if (e.target.getAttribute('data-column')) {
+              ColumnSettings(e.target.getAttribute('data-column'))
+            }
+          })
+
+          function ColumnSettings(field) {
+            let last = document.getElementById('lab-column-setting')
+            if (last) last.remove()
+            const columnSetting = lab_design_system_d('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
+            const del = lab_design_system_d('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
+            del.style.width = 'fit-content'
+            del.style.marginRight = 'auto'
+
+
+            let action
+            if (field == 'name') {
+              let input = Input('column-name', columnSetting, 'name')
+              input.style.maxWidth = '220px'
+
+              action = lab_design_system_d('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
+            }
+            if (field == 'type') {
+              let types = {
+                'integer': "integer",
+                'text': "text",
+                'blob': "blob",
+                'real': "real"
+              }
+              let drop = dropDown(types, 'integer', 'column-type', null, columnSetting)
+              drop.wrap.style.maxWidth = '220px'
+              drop.wrap.style.width = '100%'
+              action = lab_design_system_d('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
+            }
+            if (field == 'notNull') {
+              // change_true_to_false
+              // change_false_to_true
+              action = lab_design_system_d('div', 'action', columnSetting, lngData.change_true_to_false, '', ['buttons', 'action'])
+            }
+            if (field == 'unique') {
+              action = lab_design_system_d('div', 'action', columnSetting, lngData.change_true_to_false, '', ['buttons', 'action'])
+            }
+
+            action.style.width = 'fit-content'
+          }
+
+
+
+
+          if (sectionElementsObject.databases && sectionElementsObject.databases.length > 0) {
+            sectionElementsObject.databases.forEach(e => {
+              const item = lab_design_system_d('div', `table-${e.split('.')[0]}`, folders, '', '', ['appMenu', 'folder'])
+              const text = lab_design_system_d('div', `table-${e.split('.')[0]}-name`, item, e)
+              text.style.marginRight = 'auto'
+              // moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
+
+              // item.addEventListener('click', () => {
+              //   if (e.listName != selectedFolder) {
+              //     let last = document.querySelector('.selected-folder')
+              //     if (last) {
+              //       last.style.background = 'transparent'
+              //       last.classList.remove('selected-folder')
+              //     }
+              //     item.classList.add('selected-folder')
+              //     item.style.background = '#fff'
+
+              //     selectedFolder = e.listName
+              //     openFolder(e.files)
+              //   }
+
+              // })
+            })
+          }
+
+          const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+
+          const NewTable = lab_design_system_d('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
+          const icon = lab_design_system_d('img', `new-table-icon`, NewTable)
+          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
+          const text = lab_design_system_d('div', `new-table-name`, NewTable, lngData.new_table)
+
+          // btn.addEventListener('click', (ev) => {
+          //   ev.preventDefault()
+          //   if (e == 'create') {
+          //     let input = document.getElementById('lab-new-folder-name')
+          //     if (input) {
+          //       userLSG.addedMediaList = input.value
+          //       socket.emit('addNewMediaList', userLSG)
+          //     } else Input('new-folder-name', bottom)
+          //   } else {
+          //     let input = document.getElementById('lab-file-input')
+          //     if (selectedFolder) {
+          //       getMediaFilesFile(input.id, selectedFolder)
+          //       input.click()
+          //     }
+          //   }
+          // })
+
+
+
+          userLSG.sqlDB = dbName
+          lab_local_storage_object_update('global', { openedSqlTable: "" })
+          socket.emit('getSqlTables', userLSG, res => {
+            console.log(res);
+          })
+        }
+
       }
 
       lab_fade_in_recursively(box, 0.3)
@@ -592,16 +737,16 @@ function AppMenu(dashObj) {
     RenderBox()
 
     function moreBtn(parent, id, list, el, func) {
-      const more = lab_design_system('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
-      const icon = lab_design_system('img', `more-btn-${id}-icon`, more)
+      const more = lab_design_system_d('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
+      const icon = lab_design_system_d('img', `more-btn-${id}-icon`, more)
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/more_vert.svg`)
       icon.style.transform = 'rotate(90deg)'
 
       more.addEventListener('click', () => {
-        const listing = lab_design_system('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
+        const listing = lab_design_system_d('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
 
         Object.keys(list).forEach((e, i) => {
-          const item = lab_design_system('div', `more-list-${i}`, listing, list[e])
+          const item = lab_design_system_d('div', `more-list-${i}`, listing, list[e])
           item.addEventListener('click', () => func(el, e))
         })
 
@@ -610,13 +755,13 @@ function AppMenu(dashObj) {
     }
 
     function TextEditableBox(type) {
-      const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-      const heading = lab_design_system('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
-      const wrap = lab_design_system('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
-      const textArea = lab_design_system('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
+      const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+      const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
+      const wrap = lab_design_system_d('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
+      const textArea = lab_design_system_d('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
       textArea.contentEditable = true
 
-      const btn = lab_design_system('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
+      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
 
       let FileType = type == 'css' ? "CSS" : "Features"
@@ -635,23 +780,23 @@ function AppMenu(dashObj) {
     }
 
     function Input(id, parent, placeholder = '', value = '') {
-      const input = lab_design_system('input', id, parent, '', '', ['appMenu', 'Input'])
+      const input = lab_design_system_d('input', id, parent, '', '', ['appMenu', 'Input'])
       input.setAttribute('placeholder', placeholder)
       input.setAttribute('value', value)
       return input
     }
 
     function dropDown(list, value, id, func, parent = box) {
-      const wrap = lab_design_system('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
-      const selected = lab_design_system('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
-      const text = lab_design_system('span', `${id}-text`, selected, value.replace(/"/gi, ''))
-      const icon = lab_design_system('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
+      const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
+      const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
+      const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+      const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
-      const listing = lab_design_system('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
+      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
       if (typeof list == 'array') {
         list.forEach(e => {
-          const item = lab_design_system('div', `${id}-list-${e}`, listing, e)
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
           item.addEventListener('click', () => {
             text.innerHTML = e
             func(e)
@@ -659,7 +804,7 @@ function AppMenu(dashObj) {
         })
       } else {
         Object.keys(list).forEach(e => {
-          const item = lab_design_system('div', `${id}-list-${e}`, listing, list[e])
+          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
           item.addEventListener('click', () => {
             text.innerHTML = list[e]
             func(e)
@@ -682,9 +827,7 @@ function AppMenu(dashObj) {
       menu.remove()
     })
 
-    const fileInput = lab_design_system('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
+    const fileInput = lab_design_system_d('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
     fileInput.setAttribute('type', 'file')
   })
 }
-
-return AppMenu

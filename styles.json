@@ -1365,6 +1365,8 @@
     },
     "action": {
       "default": {
+        "display": "flex",
+        "alignItems": "center",
         "borderRadius": "15px",
         "paddingLeft": "clamp(2svw, 5svw, 20px)",
         "paddingRight": "clamp(2svw, 5svw, 20px)",
@@ -1798,7 +1800,7 @@
         "width": "100%",
         "display": "flex",
         "flexDirection": "column",
-        "gap": "20px"
+        "gap": "10px"
       }
     },
     "StyleButtons": {
@@ -2045,6 +2047,52 @@
     }
   },
   "appMenu": {
+    "columns": {
+      "default": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+        "width": "100%"
+      }
+    },
+    "columnBox": {
+      "default": {
+        "display": "flex",
+        "background": "#F4F4F5",
+        "borderRadius": "10px",
+        "flex": "0 1 calc(100% - 7.5px)",
+        "cursor": "pointer",
+        "padding": "15px",
+        "justifyContent": "center",
+        "alignItems": "center"
+      }
+    },
+    "columnHead": {
+      "default": {
+        "display": "flex",
+        "flex": "0 1 calc(100% - 7.5px)",
+        "padding": "5px",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "fontWeight": 700,
+        "color": "#FFF"
+      }
+    },
+    "column": {
+      "default": {
+        "display": "flex",
+        "gap": "10px",
+        "width": "100%"
+      }
+    },
+    "columnSetting": {
+      "default": {
+        "marginTop": "auto",
+        "display": "flex",
+        "gap": "20px",
+        "width": "100%"
+      }
+    },
     "link": {
       "default": {
         "color": "inherit",
