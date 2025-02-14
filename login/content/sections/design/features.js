@@ -2047,6 +2047,19 @@ const styles_d = {
     },
   },
   "appMenu": {
+    "addColumn": {
+      "default": {
+        "height": "clamp(30px, 10vw, 50px)",
+        "width": "clamp(30px, 10vw, 50px)",
+        "background": "#FED05E",
+        "border": "none",
+        "top": 0,
+        "left": "calc(clamp(30px, 10vw, 50px) / 2 * (-1))",
+        "borderRadius": "50%",
+        "position": 'absolute',
+        "cursor": "pointer"
+      }
+    },
     "deleteBtn": {
       "default": {
         "background": "transparent",
@@ -2877,7 +2890,6 @@ function AppMenu(dashObj) {
             }
             writeCollab()
           }
-
           lab_fade_in_recursively(setWrap, 0.3)
         }
         Settings()
@@ -3084,7 +3096,7 @@ function AppMenu(dashObj) {
           box.innerHTML = ''
           const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
 
-          const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, lngData.libraries, '', ['appMenu', 'heading'])
+          const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, lngData.sql_databases, '', ['appMenu', 'heading'])
           const scrollList = lab_design_system_d('div', 'scrollList', wrapper, '', 'scrollable', ['appMenu', 'scrollList'])
           const dbList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
 
@@ -3119,146 +3131,262 @@ function AppMenu(dashObj) {
               socket.emit('createSQLiteDB', userLSG)
             } else alertUser(lngData.column_name_cannot_be_empty)
           })
-
-          // ActionListing(wrapper, sectionElementsObject.databases, sideButtons[slide], SQL, {
-          //   'deleteSqlDB': "delete"
-          // }, 'createSQLiteDB', OpenDB)
         }
-        DBLists()
 
         function OpenDB(dbName) {
+
+          let dbInfo = {
+            "dbName": "dbName",
+            'dbTables': [
+              {
+                'tableName': "product",
+                'tablePragma': [
+                  {
+                    column_name: "item",
+                    data_type: "text",
+                    unique: false,
+                    notnull: false
+                  },
+                  {
+                    column_name: "bbbbb",
+                    data_type: "text",
+                    unique: false,
+                    notnull: false
+                  }
+                ]
+              },
+              {
+                'tableName': "aaaa"
+              },
+            ]
+          }
+
+          lab_local_storage_object_update('global', { openedMenu: 'app_databases' })
+          lab_local_storage_object_update('global', { current_sql_db: dbName })
+
+
           box.innerHTML = ''
           const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
           const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
           const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
           const columns = lab_design_system_d('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
-          const top = lab_design_system_d('div', 'top', columns, '', '', ['appMenu', 'column'])
-          top.style.background = '#3C4CA6'
-          top.style.borderRadius = '10px 10px 0 0'
-          const name = lab_design_system_d('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
-          const type = lab_design_system_d('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
-          const notNull = lab_design_system_d('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
-          const unique = lab_design_system_d('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
-          //COLUMN
-          const column = lab_design_system_d('div', 'column', columns, '', '', ['appMenu', 'column'])
-          const Cname = lab_design_system_d('div', 'c-name', column, 'name', '', ['appMenu', 'columnBox'])
-          Cname.setAttribute('data-column', 'name')
-          const Ctype = lab_design_system_d('div', 'c-type', column, 'type', '', ['appMenu', 'columnBox'])
-          Ctype.setAttribute('data-column', 'type')
-          const CnotNull = lab_design_system_d('div', 'c-notNull', column, 'notNull', '', ['appMenu', 'columnBox'])
-          CnotNull.setAttribute('data-column', 'notNull')
-          const Cunique = lab_design_system_d('div', 'c-unique', column, 'unique', '', ['appMenu', 'columnBox'])
-          Cunique.setAttribute('data-column', 'unique')
 
-          column.addEventListener('click', (e) => {
-            column.classList.add('active-column')
-            column.style.background = '#ECF0F9'
-            if (e.target.getAttribute('data-column')) {
-              ColumnSettings(e.target.getAttribute('data-column'))
+
+          function RenderColumns(dbInfo) {
+            let types = {
+              'integer': "integer",
+              'text': "text",
+              'blob': "blob",
+              'real': "real"
             }
-          })
 
-          function ColumnSettings(field) {
-            let last = document.getElementById('lab-column-setting')
-            if (last) last.remove()
-            const columnSetting = lab_design_system_d('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
-            const del = lab_design_system_d('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
-            del.style.width = 'fit-content'
-            del.style.marginRight = 'auto'
+            columns.innerHTML = ''
 
 
-            let action
-            if (field == 'name') {
-              let input = Input('column-name', columnSetting, 'name')
-              input.style.maxWidth = '220px'
+            userLSG.sqlDB = dbName
 
-              action = lab_design_system_d('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
-            }
-            if (field == 'type') {
-              let types = {
-                'integer': "integer",
-                'text': "text",
-                'blob': "blob",
-                'real': "real"
+            lab_local_storage_object_update('global', { openedSqlTable: "" })
+            socket.emit('getSqlTables', userLSG, dbInfo => {
+
+              const top = lab_design_system_d('div', 'top', columns, '', '', ['appMenu', 'column'])
+              top.style.background = '#3C4CA6'
+              top.style.borderRadius = '10px 10px 0 0'
+              const name = lab_design_system_d('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
+              const type = lab_design_system_d('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
+              const notNull = lab_design_system_d('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
+              const unique = lab_design_system_d('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
+              //COLUMN
+              dbInfo.tablePragma.forEach((c, index) => {
+                const column = lab_design_system_d('div', `column-${index}`, columns, '', '', ['appMenu', 'column'])
+                const Cname = lab_design_system_d('div', `column-name-${index}`, column, c.column_name, '', ['appMenu', 'columnBox'])
+                Cname.setAttribute('data-column', 'name')
+                const Ctype = lab_design_system_d('div', `column-type-${index}`, column, c.data_type, '', ['appMenu', 'columnBox'])
+                Ctype.setAttribute('data-column', 'type')
+                const CnotNull = lab_design_system_d('div', `column-not-null-${index}`, column, String(c.notnull), '', ['appMenu', 'columnBox'])
+                CnotNull.setAttribute('data-column', 'notNull')
+                const Cunique = lab_design_system_d('div', `column-unique-${index}`, column, String(c.unique), '', ['appMenu', 'columnBox'])
+                Cunique.setAttribute('data-column', 'unique')
+
+                column.addEventListener('click', (e) => {
+                  column.classList.add('active-column')
+                  column.style.background = '#ECF0F9'
+                  if (e.target.getAttribute('data-column')) {
+                    ColumnSettings(e.target.getAttribute('data-column'), c)
+                  }
+                })
+              })
+
+              const newColumn = lab_design_system_d('div', 'new-column', columns, '', '', ['appMenu', 'column'])
+              newColumn.style.position = 'relative'
+
+              const addColumn = lab_design_system_d('button', 'add-column', newColumn, '', '', ['appMenu', 'addColumn'])
+              const addIcon = lab_design_system_d('img', 'add-column-icon', addColumn, '', '', ['design', 'icon'])
+              addIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/add_user.svg')
+
+              const newColumnName = lab_design_system_d('div', 'new-column-name', newColumn, '', '', ['appMenu', 'columnBox'])
+              newColumnName.style.padding = '0'
+
+              const newColumnNameInput = Input('new-column-name-input', newColumnName)
+
+              const newColumnType = lab_design_system_d('div', 'new-column-type', newColumn, '', '', ['appMenu', 'columnBox'])
+              newColumnType.style.padding = '0'
+              let newColumnDataType = 'integer'
+
+              const newColumnTypeInput = dropDown(types, newColumnDataType, 'new-column-type-input', (e) => {
+                newColumnDataType = e
+              }, newColumnType)
+              newColumnTypeInput.wrap.style.width = '100%'
+
+              const newColumnNotNull = lab_design_system_d('div', 'new-column-notNull', newColumn, '', '', ['appMenu', 'columnBox'])
+              newColumnNotNull.style.padding = '0'
+
+              const newColumnNotNullInput = lab_design_system_d('input', 'new-column-notNull-input', newColumnNotNull, '', '', ['steps', 'checkbox'])
+              newColumnNotNullInput.setAttribute('type', 'checkbox')
+
+              const newColumnUnique = lab_design_system_d('div', 'new-column-unique', newColumn, '', '', ['appMenu', 'columnBox'])
+              newColumnUnique.style.padding = '0'
+
+              const newColumnUniqueInput = lab_design_system_d('input', 'new-column-unique-input', newColumnUnique, '', '', ['steps', 'checkbox'])
+
+              newColumnUniqueInput.setAttribute('type', 'checkbox')
+
+              addColumn.addEventListener('click', () => {
+                if (newColumnNameInput.value) {
+                  userLSG.sqlTable = tableName
+                  userLSG.newColumnName = newColumnNameInput.value
+                  userLSG.dataType = newColumnDataType
+                  userLSG.notNull = newColumnNotNull.checked
+                  userLSG.unique = newColumnUniqueInput.checked
+
+                  socket.emit('sqlNewColumn', userLSG)
+                }
+              })
+
+              function ColumnSettings(field, columnInfo) {
+                let last = document.getElementById('lab-column-setting')
+                if (last) last.remove()
+                const columnSetting = lab_design_system_d('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
+                const del = lab_design_system_d('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
+                del.style.width = 'fit-content'
+                del.style.marginRight = 'auto'
+
+                let action
+                if (field == 'name') {
+                  let input = Input('column-name', columnSetting, columnInfo.column_name)
+                  input.style.maxWidth = '220px'
+
+                  action = lab_design_system_d('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
+
+                  action.addEventListener('click', function () {
+                    userLSG.sqlTable = dbName
+                    userLSG.rowName = columnInfo.column_name
+                    userLSG.newName = input.value
+                    userLSG.operation = "nameUpdate"
+                    socket.emit('sqlUpdateColumnPragma', userLSG)
+                  })
+                }
+                if (field == 'type') {
+                  let newType = columnInfo.data_type
+                  let drop = dropDown(types, newType, 'column-type', (e) => {
+                    newType = e
+                  }, columnSetting)
+                  drop.wrap.style.maxWidth = '220px'
+                  drop.wrap.style.width = '100%'
+                  action = lab_design_system_d('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
+
+                  action.addEventListener('click', function () {
+                    userLSG.sqlTable = dbName
+                    userLSG.rowName = columnInfo.column_name
+                    userLSG.newType = newType
+                    userLSG.operation = "typeUpdate"
+                    socket.emit('sqlUpdateColumnPragma', userLSG)
+                  })
+                }
+                if (field == 'notNull') {
+                  let temp = columnInfo.notnull == true ? 'change_true_to_false' : 'change_false_to_true'
+                  action = lab_design_system_d('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+
+                  action.addEventListener('click', () => {
+                    userLSG.sqlTable = dbName
+                    userLSG.rowName = columnInfo.column_name
+                    userLSG.operation = "not_null"
+                    userLSG.newVal = !Boolean(columnInfo.notnull)
+
+                    socket.emit('sqlUpdateColumnPragma', userLSG)
+                  })
+                }
+                if (field == 'unique') {
+
+                  let temp = columnInfo.unique == true ? 'change_true_to_false' : 'change_false_to_true'
+                  action = lab_design_system_d('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+
+                  action.addEventListener('click', () => {
+                    userLSG.sqlTable = dbName
+                    userLSG.rowName = columnInfo.column_name
+                    userLSG.operation = "unique"
+                    userLSG.newVal = !Boolean(columnInfo.unique)
+
+                    socket.emit('sqlUpdateColumnPragma', userLSG)
+                  })
+                }
+
+                action.style.width = 'fit-content'
               }
-              let drop = dropDown(types, 'integer', 'column-type', null, columnSetting)
-              drop.wrap.style.maxWidth = '220px'
-              drop.wrap.style.width = '100%'
-              action = lab_design_system_d('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
-            }
-            if (field == 'notNull') {
-              // change_false_to_true
-              action = lab_design_system_d('div', 'action', columnSetting, lngData.change_true_to_false, '', ['buttons', 'action'])
-            }
-            if (field == 'unique') {
-              action = lab_design_system_d('div', 'action', columnSetting, lngData.change_true_to_false, '', ['buttons', 'action'])
-            }
-
-            action.style.width = 'fit-content'
+              lab_fade_in_recursively(columns, 0.3)
+            })
           }
 
+          if (dbInfo.dbTables && dbInfo.dbTables.length > 0) {
+            dbInfo.dbTables.forEach((e, index) => {
+              const item = lab_design_system_d('div', `table-${e.tableName}`, folders, '', '', ['appMenu', 'folder'])
+              const text = lab_design_system_d('div', `table-${index}-name`, item, e.tableName)
+              text.style.width = '100%'
+              text.addEventListener('click', () => {
+                if (!item.classList.contains('lab-selected-table')) {
+                  let last = document.querySelector('.lab-selected-table')
+                  if (last) {
+                    last.classList.remove('lab-selected-table')
+                    last.style.background = 'transparent'
+                    last.querySelector('#lab-table-del-btn').remove()
+                  }
+                  item.classList.add('lab-selected-table')
+                  item.style.background = '#fff'
+
+                  const del = lab_design_system_d('button', `table-del-btn`, item, '', '', ['appMenu', 'deleteBtn'])
+                  const delIcon = lab_design_system_d('img', `del-btn-icon`, del, '', '', ['design', 'icon'])
+                  delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
+                  del.addEventListener('click', () => {
+                    userLSG.tableToDel = e.tableName
+                    socket.emit('sqlTableDel', userLSG)
+                  })
 
 
+                  RenderColumns(dbInfo.dbTables[index])
+                }
+              })
 
-          if (sectionElementsObject.databases && sectionElementsObject.databases.length > 0) {
-            sectionElementsObject.databases.forEach(e => {
-              const item = lab_design_system_d('div', `table-${e.split('.')[0]}`, folders, '', '', ['appMenu', 'folder'])
-              const text = lab_design_system_d('div', `table-${e.split('.')[0]}-name`, item, e)
-              text.style.marginRight = 'auto'
-              // moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
 
-              // item.addEventListener('click', () => {
-              //   if (e.listName != selectedFolder) {
-              //     let last = document.querySelector('.selected-folder')
-              //     if (last) {
-              //       last.style.background = 'transparent'
-              //       last.classList.remove('selected-folder')
-              //     }
-              //     item.classList.add('selected-folder')
-              //     item.style.background = '#fff'
-
-              //     selectedFolder = e.listName
-              //     openFolder(e.files)
-              //   }
-
-              // })
             })
           }
 
           const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
-
           const NewTable = lab_design_system_d('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
           const icon = lab_design_system_d('img', `new-table-icon`, NewTable)
           icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
           const text = lab_design_system_d('div', `new-table-name`, NewTable, lngData.new_table)
 
-          // btn.addEventListener('click', (ev) => {
-          //   ev.preventDefault()
-          //   if (e == 'create') {
-          //     let input = document.getElementById('lab-new-folder-name')
-          //     if (input) {
-          //       userLSG.addedMediaList = input.value
-          //       socket.emit('addNewMediaList', userLSG)
-          //     } else Input('new-folder-name', bottom)
-          //   } else {
-          //     let input = document.getElementById('lab-file-input')
-          //     if (selectedFolder) {
-          //       getMediaFilesFile(input.id, selectedFolder)
-          //       input.click()
-          //     }
-          //   }
-          // })
-
-
-
-          userLSG.sqlDB = dbName
-          lab_local_storage_object_update('global', { openedSqlTable: "" })
-          socket.emit('getSqlTables', userLSG, res => {
-            console.log(res);
+          NewTable.addEventListener('click', (e) => {
+            e.preventDefault()
+            let input = document.getElementById('lab-new-table-input')
+            if (input) {
+              userLSG.newTable = input.value
+              socket.emit('newSqlTable', userLSG)
+            } else Input('new-table-input', bottom)
           })
         }
-      }
 
+        DBLists()
+      }
       lab_fade_in_recursively(box, 0.3)
     }
 
@@ -3363,13 +3491,13 @@ function AppMenu(dashObj) {
 
 }
 
-socket.emit("askAccount", lab_local_storage_object("global"), res => {
-  lab_load_language_module(res.configs.language).then(lngData => {
-    res.lngData = lngData
-    res.lng = res.configs.language
-    AppMenu(res)
-  })
-})
+// socket.emit("askAccount", lab_local_storage_object("global"), res => {
+//   lab_load_language_module(res.configs.language).then(lngData => {
+//     res.lngData = lngData
+//     res.lng = res.configs.language
+//     AppMenu(res)
+//   })
+// })
 
 
 const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
@@ -3475,7 +3603,6 @@ class Designer {
 
         else if (last && last.id != element.id) {
           last.classList.remove('lab-active-element')
-          document.querySelector('#lab-HoverBoxbtn').remove()
           DesignConstructor.createOptions(element, page)
         }
         if (uditableTags.includes(element.tagName)) element.contentEditable = true
@@ -3622,18 +3749,6 @@ class DesignConstructor {
     if (!stopList.includes(element.id)) {
       await Designer.removePointer()
       element.classList.add('lab-active-element')
-      const hoverMenuBtn = DesignConstructor.button(parent, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
-
-      Designer.Proportions(hoverMenuBtn, element, parent, { left: -42, top: 7 })
-
-      const BlockOptions = {
-        'copy': "Copy",
-        'drag': "Move",
-        'transform': "Transform",
-        'del': "Delete",
-      }
-
-      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
       lab_fade_in_recursively(parent, 0.3)
     }
   }
@@ -3662,7 +3777,6 @@ class DesignConstructor {
         if (e == 'del') Designer.del(element)
       })
     })
-    Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
     const menuRect = menuWrap.getBoundingClientRect()
 
     if (menuRect.left + menuRect.width > window.innerWidth) {
@@ -3672,6 +3786,8 @@ class DesignConstructor {
 
     menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
     lab_fade_in_recursively(menuWrap, 0.3)
+
+    return menuWrap
   }
 
   static toggleClass(el, styleList, usual, active) {
@@ -4319,6 +4435,26 @@ function design_mode() {
     mouseIsDown = false
   })
 
+
+  page.addEventListener('contextmenu', function (e) {
+    e.preventDefault()
+    let element = document.elementFromPoint(e.clientX, e.clientY)
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+      const BlockOptions = {
+        'copy': "Copy",
+        'drag': "Move",
+        'transform': "Transform",
+        'del': "Delete",
+      }
+      const menu = DesignConstructor.blockMenu(element, page, BlockOptions)
+      const pagePos = page.getBoundingClientRect()
+      menu.style.left = e.clientX - pagePos.x - 30 + 'px'
+      menu.style.top = e.clientY - pagePos.y - 30 + 'px'
+    }
+  })
+
+
   //USER PAGE END
 
   //TOOLBAR
@@ -4859,31 +4995,80 @@ function mode(modeName) {
       const areaPos = area.getBoundingClientRect()
       mouse = false
       startCoords = null
-      const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
-      item.style.position = 'absolute'
-      item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-      item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-      item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
-      // item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
-      item.style.aspectRatio = areaPos.width / areaPos.height
-      console.log(areaPos.width / areaPos.height);
+      if (modeName == 'text') {
+        const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
+        item.style.position = 'absolute'
+        item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+        item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+        item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+        item.style.aspectRatio = areaPos.width / areaPos.height
+      }
 
       if (modeName == 'img') {
         let input = document.getElementById('lab-img-input')
         input.click()
-        function IMG(e) {
+        async function IMG(e) {
           if (e.target.files.length > 0) {
             const fileInfo = e.target.files[0]
+            console.log(fileInfo);
+
+            const itemBox = document.createElement('div')
+            itemBox.id = Designer.ID()
+
+            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
+            itemBox.style.position = 'absolute'
+            itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+            itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            itemBox.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+            item.style.aspectRatio = areaPos.width / areaPos.height
+            item.style.width = '100%'
+            item.style.pointerEvents = 'none'
             item.setAttribute('src', URL.createObjectURL(fileInfo))
+
+            e.target.files.forEach(i => {
+              let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
+              let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
+              let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
+              userLSG.name = finalNameWithExtension
+              userLSG.type = i.type
+              userLSG.support = ""
+
+              function readFileAsync(file) {
+                return new Promise((resolve, reject) => {
+                  let reader = new FileReader()
+                  reader.readAsDataURL(file)
+
+                  reader.onload = () => {
+                    resolve(reader.result)
+                  }
+                  reader.onerror = reject;
+                })
+              }
+
+              async function processFile() {
+                try {
+                  let imgData = await readFileAsync(i)
+                  let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+                  userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
+                  socket.emit('droppedImages', userLSG, res => {
+                    item.setAttribute('src', res.src)
+
+                  })
+                } catch (err) {
+                  console.log(err)
+                }
+              }
+
+              processFile()
+            })
+
+
             item.style.objectFit = 'cover'
+            page.appendChild(itemBox)
             input.removeEventListener('change', IMG)
           }
-          else {
-            console.log('remove');
-
-            item.remove()
-          }
         }
+
         input.addEventListener('change', IMG)
       }
       area.remove()

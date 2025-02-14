@@ -1,8 +1,41 @@
+
 const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
+
 
 let ActiveMode
 let selected
 let mouseIsDown = false
+let styles = styles_d
+
+function lab_design_system(tag, id, parent, content, className, styled) {
+  const elementToAppend = document.createElement(tag)
+  elementToAppend.setAttribute("id", "lab-" + id)
+  parent.appendChild(elementToAppend)
+
+  const A = document.querySelector("#" + "lab-" + id)
+  A.setAttribute("class", "escape")
+  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
+
+  if (content && typeof content == "string") {
+    A.innerText = content
+  }
+  A.style.opacity = 1
+  if (styled) {
+    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
+
+    Object.keys(elementStyles.default).forEach(e => {
+      A.style[e] = elementStyles.default[e]
+    })
+
+    if (elementStyles[lab_orientation]) {
+      Object.keys(elementStyles[lab_orientation]).forEach(e => {
+        A.style[e] = elementStyles[lab_orientation][e]
+      })
+    }
+  }
+
+  return A
+}
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -68,7 +101,6 @@ class Designer {
 
         else if (last && last.id != element.id) {
           last.classList.remove('lab-active-element')
-          document.querySelector('#lab-HoverBoxbtn').remove()
           DesignConstructor.createOptions(element, page)
         }
         if (uditableTags.includes(element.tagName)) element.contentEditable = true
@@ -215,18 +247,6 @@ class DesignConstructor {
     if (!stopList.includes(element.id)) {
       await Designer.removePointer()
       element.classList.add('lab-active-element')
-      const hoverMenuBtn = DesignConstructor.button(parent, ['design', 'hoverMenuBtn'], 0, 'more_vert_white', '', 'HoverBoxbtn')
-
-      Designer.Proportions(hoverMenuBtn, element, parent, { left: -42, top: 7 })
-
-      const BlockOptions = {
-        'copy': "Copy",
-        'drag': "Move",
-        'transform': "Transform",
-        'del': "Delete",
-      }
-
-      hoverMenuBtn.addEventListener('click', () => DesignConstructor.blockMenu(element, parent, BlockOptions))
       lab_fade_in_recursively(parent, 0.3)
     }
   }
@@ -255,7 +275,6 @@ class DesignConstructor {
         if (e == 'del') Designer.del(element)
       })
     })
-    Designer.Proportions(menuWrap, element, parent, { top: -23, left: -42 })
     const menuRect = menuWrap.getBoundingClientRect()
 
     if (menuRect.left + menuRect.width > window.innerWidth) {
@@ -265,21 +284,23 @@ class DesignConstructor {
 
     menuWrap.addEventListener('mouseleave', () => menuWrap.remove())
     lab_fade_in_recursively(menuWrap, 0.3)
+
+    return menuWrap
   }
 
   static toggleClass(el, styleList, usual, active) {
-    Object.keys(lab_ui_styles[styleList][active].default).forEach(e => {
-      if (el.style[e] == lab_ui_styles[styleList][active].default[e]) {
-        el.style[e] = lab_ui_styles[styleList][usual].default[e]
+    Object.keys(styles[styleList][active].default).forEach(e => {
+      if (el.style[e] == styles[styleList][active].default[e]) {
+        el.style[e] = styles[styleList][usual].default[e]
       } else {
-        el.style[e] = lab_ui_styles[styleList][active].default[e]
+        el.style[e] = styles[styleList][active].default[e]
       }
     })
   }
 
   static addClass(el, styleList, className) {
-    Object.keys(lab_ui_styles[styleList][className].default).forEach(e => {
-      el.style[e] = lab_ui_styles[styleList][className].default[e]
+    Object.keys(styles[styleList][className].default).forEach(e => {
+      el.style[e] = styles[styleList][className].default[e]
     })
   }
 
@@ -912,6 +933,26 @@ function design_mode() {
     mouseIsDown = false
   })
 
+
+  page.addEventListener('contextmenu', function (e) {
+    e.preventDefault()
+    let element = document.elementFromPoint(e.clientX, e.clientY)
+    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+      const BlockOptions = {
+        'copy': "Copy",
+        'drag': "Move",
+        'transform': "Transform",
+        'del': "Delete",
+      }
+      const menu = DesignConstructor.blockMenu(element, page, BlockOptions)
+      const pagePos = page.getBoundingClientRect()
+      menu.style.left = e.clientX - pagePos.x - 30 + 'px'
+      menu.style.top = e.clientY - pagePos.y - 30 + 'px'
+    }
+  })
+
+
   //USER PAGE END
 
   //TOOLBAR
@@ -1400,6 +1441,7 @@ function capitalizeFirstLetter(val) {
 }
 
 function mode(modeName) {
+  console.log(modeName);
 
   const page = document.getElementById('lab-user-page')
   const pagePos = page.getBoundingClientRect()
@@ -1451,31 +1493,80 @@ function mode(modeName) {
       const areaPos = area.getBoundingClientRect()
       mouse = false
       startCoords = null
-      const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
-      item.style.position = 'absolute'
-      item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-      item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-      item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
-      // item.style.height = (areaPos.height) / pagePos.height * 100 + '%'
-      item.style.aspectRatio = areaPos.width / areaPos.height
-      console.log(areaPos.width / areaPos.height);
+      if (modeName == 'text') {
+        const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
+        item.style.position = 'absolute'
+        item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+        item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+        item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+        item.style.aspectRatio = areaPos.width / areaPos.height
+      }
 
       if (modeName == 'img') {
         let input = document.getElementById('lab-img-input')
         input.click()
-        function IMG(e) {
+        async function IMG(e) {
           if (e.target.files.length > 0) {
             const fileInfo = e.target.files[0]
+            console.log(fileInfo);
+
+            const itemBox = document.createElement('div')
+            itemBox.id = Designer.ID()
+
+            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
+            itemBox.style.position = 'absolute'
+            itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+            itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            itemBox.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+            item.style.aspectRatio = areaPos.width / areaPos.height
+            item.style.width = '100%'
+            item.style.pointerEvents = 'none'
             item.setAttribute('src', URL.createObjectURL(fileInfo))
+
+            e.target.files.forEach(i => {
+              let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
+              let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
+              let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
+              userLSG.name = finalNameWithExtension
+              userLSG.type = i.type
+              userLSG.support = ""
+
+              function readFileAsync(file) {
+                return new Promise((resolve, reject) => {
+                  let reader = new FileReader()
+                  reader.readAsDataURL(file)
+
+                  reader.onload = () => {
+                    resolve(reader.result)
+                  }
+                  reader.onerror = reject;
+                })
+              }
+
+              async function processFile() {
+                try {
+                  let imgData = await readFileAsync(i)
+                  let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+                  userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
+                  socket.emit('droppedImages', userLSG, res => {
+                    item.setAttribute('src', res.src)
+
+                  })
+                } catch (err) {
+                  console.log(err)
+                }
+              }
+
+              processFile()
+            })
+
+
             item.style.objectFit = 'cover'
+            page.appendChild(itemBox)
             input.removeEventListener('change', IMG)
           }
-          else {
-            console.log('remove');
-
-            item.remove()
-          }
         }
+
         input.addEventListener('change', IMG)
       }
       area.remove()

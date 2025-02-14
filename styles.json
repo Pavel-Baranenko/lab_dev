@@ -2047,6 +2047,26 @@
     }
   },
   "appMenu": {
+    "addColumn": {
+      "default": {
+        "height": "clamp(30px, 10vw, 50px)",
+        "width": "clamp(30px, 10vw, 50px)",
+        "background": "#FED05E",
+        "border": "none",
+        "top": 0,
+        "left": "calc(clamp(30px, 10vw, 50px) / 2 * (-1))",
+        "borderRadius": "50%",
+        "position": "absolute",
+        "cursor": "pointer"
+      }
+    },
+    "deleteBtn": {
+      "default": {
+        "background": "transparent",
+        "border": "none",
+        "cursor": "pointer"
+      }
+    },
     "columns": {
       "default": {
         "display": "flex",
@@ -2382,7 +2402,7 @@
         "justifyContent": "space-between",
         "fontWeight": 500,
         "lineHeight": "34.81px",
-        "padding": " 7px 0 7px 20px",
+        "padding": " 7px 20px",
         "background": "#F7F7F7",
         "color": "#000",
         "borderRadius": "12px"
