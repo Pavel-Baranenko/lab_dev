@@ -290,6 +290,7 @@ function AppMenu(dashObj) {
               document.querySelector('#lab-file-input').click()
             })
           }
+
           else if (name == 'collaborative_mode') {
             const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
             const content = lab_design_system_d('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
