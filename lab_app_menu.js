@@ -635,254 +635,233 @@ function AppMenu(dashObj) {
 
         function OpenDB(dbName) {
 
-          let dbInfo = {
-            "dbName": "dbName",
-            'dbTables': [
-              {
-                'tableName': "product",
-                'tablePragma': [
-                  {
-                    column_name: "item",
-                    data_type: "text",
-                    unique: false,
-                    notnull: false
-                  },
-                  {
-                    column_name: "bbbbb",
-                    data_type: "text",
-                    unique: false,
-                    notnull: false
-                  }
-                ]
-              },
-              {
-                'tableName': "aaaa"
-              },
-            ]
-          }
-
           lab_local_storage_object_update('global', { openedMenu: 'app_databases' })
           lab_local_storage_object_update('global', { current_sql_db: dbName })
 
 
           box.innerHTML = ''
-          const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
-          const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
-          const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
-          const columns = lab_design_system('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
+          userLSG.sqlDB = dbName
+
+          lab_local_storage_object_update('global', { openedSqlTable: "" })
+          socket.emit('getSqlTables', userLSG, dbInfo => {
+            if (dbInfo) {
+
+              const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+              const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+              const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+              const columns = lab_design_system('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
 
 
-          function RenderColumns(dbInfo) {
-            let types = {
-              'integer': "integer",
-              'text': "text",
-              'blob': "blob",
-              'real': "real"
-            }
+              function RenderColumns(dbInfo) {
+                let types = {
+                  'integer': "integer",
+                  'text': "text",
+                  'blob': "blob",
+                  'real': "real"
+                }
 
-            columns.innerHTML = ''
+                columns.innerHTML = ''
 
 
-            userLSG.sqlDB = dbName
 
-            lab_local_storage_object_update('global', { openedSqlTable: "" })
-            socket.emit('getSqlTables', userLSG, dbInfo => {
 
-              const top = lab_design_system('div', 'top', columns, '', '', ['appMenu', 'column'])
-              top.style.background = '#3C4CA6'
-              top.style.borderRadius = '10px 10px 0 0'
-              const name = lab_design_system('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
-              const type = lab_design_system('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
-              const notNull = lab_design_system('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
-              const unique = lab_design_system('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
-              //COLUMN
-              dbInfo.tablePragma.forEach((c, index) => {
-                const column = lab_design_system('div', `column-${index}`, columns, '', '', ['appMenu', 'column'])
-                const Cname = lab_design_system('div', `column-name-${index}`, column, c.column_name, '', ['appMenu', 'columnBox'])
-                Cname.setAttribute('data-column', 'name')
-                const Ctype = lab_design_system('div', `column-type-${index}`, column, c.data_type, '', ['appMenu', 'columnBox'])
-                Ctype.setAttribute('data-column', 'type')
-                const CnotNull = lab_design_system('div', `column-not-null-${index}`, column, String(c.notnull), '', ['appMenu', 'columnBox'])
-                CnotNull.setAttribute('data-column', 'notNull')
-                const Cunique = lab_design_system('div', `column-unique-${index}`, column, String(c.unique), '', ['appMenu', 'columnBox'])
-                Cunique.setAttribute('data-column', 'unique')
+                const top = lab_design_system('div', 'top', columns, '', '', ['appMenu', 'column'])
+                top.style.background = '#3C4CA6'
+                top.style.borderRadius = '10px 10px 0 0'
+                const name = lab_design_system('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
+                const type = lab_design_system('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
+                const notNull = lab_design_system('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
+                const unique = lab_design_system('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
+                //COLUMN
+                dbInfo.tablePragma.forEach((c, index) => {
+                  const column = lab_design_system('div', `column-${index}`, columns, '', '', ['appMenu', 'column'])
+                  const Cname = lab_design_system('div', `column-name-${index}`, column, c.column_name, '', ['appMenu', 'columnBox'])
+                  Cname.setAttribute('data-column', 'name')
+                  const Ctype = lab_design_system('div', `column-type-${index}`, column, c.data_type, '', ['appMenu', 'columnBox'])
+                  Ctype.setAttribute('data-column', 'type')
+                  const CnotNull = lab_design_system('div', `column-not-null-${index}`, column, String(c.notnull), '', ['appMenu', 'columnBox'])
+                  CnotNull.setAttribute('data-column', 'notNull')
+                  const Cunique = lab_design_system('div', `column-unique-${index}`, column, String(c.unique), '', ['appMenu', 'columnBox'])
+                  Cunique.setAttribute('data-column', 'unique')
 
-                column.addEventListener('click', (e) => {
-                  column.classList.add('active-column')
-                  column.style.background = '#ECF0F9'
-                  if (e.target.getAttribute('data-column')) {
-                    ColumnSettings(e.target.getAttribute('data-column'), c)
+                  column.addEventListener('click', (e) => {
+                    column.classList.add('active-column')
+                    column.style.background = '#ECF0F9'
+                    if (e.target.getAttribute('data-column')) {
+                      ColumnSettings(e.target.getAttribute('data-column'), c)
+                    }
+                  })
+                })
+
+                const newColumn = lab_design_system('div', 'new-column', columns, '', '', ['appMenu', 'column'])
+                newColumn.style.position = 'relative'
+
+                const addColumn = lab_design_system('button', 'add-column', newColumn, '', '', ['appMenu', 'addColumn'])
+                const addIcon = lab_design_system('img', 'add-column-icon', addColumn, '', '', ['design', 'icon'])
+                addIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/add_user.svg')
+
+                const newColumnName = lab_design_system('div', 'new-column-name', newColumn, '', '', ['appMenu', 'columnBox'])
+                newColumnName.style.padding = '0'
+
+                const newColumnNameInput = Input('new-column-name-input', newColumnName)
+
+                const newColumnType = lab_design_system('div', 'new-column-type', newColumn, '', '', ['appMenu', 'columnBox'])
+                newColumnType.style.padding = '0'
+                let newColumnDataType = 'integer'
+
+                const newColumnTypeInput = dropDown(types, newColumnDataType, 'new-column-type-input', (e) => {
+                  newColumnDataType = e
+                }, newColumnType)
+                newColumnTypeInput.wrap.style.width = '100%'
+
+                const newColumnNotNull = lab_design_system('div', 'new-column-notNull', newColumn, '', '', ['appMenu', 'columnBox'])
+                newColumnNotNull.style.padding = '0'
+
+                const newColumnNotNullInput = lab_design_system('input', 'new-column-notNull-input', newColumnNotNull, '', '', ['steps', 'checkbox'])
+                newColumnNotNullInput.setAttribute('type', 'checkbox')
+
+                const newColumnUnique = lab_design_system('div', 'new-column-unique', newColumn, '', '', ['appMenu', 'columnBox'])
+                newColumnUnique.style.padding = '0'
+
+                const newColumnUniqueInput = lab_design_system('input', 'new-column-unique-input', newColumnUnique, '', '', ['steps', 'checkbox'])
+
+                newColumnUniqueInput.setAttribute('type', 'checkbox')
+
+                addColumn.addEventListener('click', () => {
+                  if (newColumnNameInput.value) {
+                    userLSG.sqlTable = tableName
+                    userLSG.newColumnName = newColumnNameInput.value
+                    userLSG.dataType = newColumnDataType
+                    userLSG.notNull = newColumnNotNull.checked
+                    userLSG.unique = newColumnUniqueInput.checked
+
+                    socket.emit('sqlNewColumn', userLSG)
                   }
                 })
-              })
 
-              const newColumn = lab_design_system('div', 'new-column', columns, '', '', ['appMenu', 'column'])
-              newColumn.style.position = 'relative'
+                function ColumnSettings(field, columnInfo) {
+                  let last = document.getElementById('lab-column-setting')
+                  if (last) last.remove()
+                  const columnSetting = lab_design_system('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
+                  const del = lab_design_system('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
+                  del.style.width = 'fit-content'
+                  del.style.marginRight = 'auto'
 
-              const addColumn = lab_design_system('button', 'add-column', newColumn, '', '', ['appMenu', 'addColumn'])
-              const addIcon = lab_design_system('img', 'add-column-icon', addColumn, '', '', ['design', 'icon'])
-              addIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/add_user.svg')
+                  let action
+                  if (field == 'name') {
+                    let input = Input('column-name', columnSetting, columnInfo.column_name)
+                    input.style.maxWidth = '220px'
 
-              const newColumnName = lab_design_system('div', 'new-column-name', newColumn, '', '', ['appMenu', 'columnBox'])
-              newColumnName.style.padding = '0'
+                    action = lab_design_system('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
 
-              const newColumnNameInput = Input('new-column-name-input', newColumnName)
-
-              const newColumnType = lab_design_system('div', 'new-column-type', newColumn, '', '', ['appMenu', 'columnBox'])
-              newColumnType.style.padding = '0'
-              let newColumnDataType = 'integer'
-
-              const newColumnTypeInput = dropDown(types, newColumnDataType, 'new-column-type-input', (e) => {
-                newColumnDataType = e
-              }, newColumnType)
-              newColumnTypeInput.wrap.style.width = '100%'
-
-              const newColumnNotNull = lab_design_system('div', 'new-column-notNull', newColumn, '', '', ['appMenu', 'columnBox'])
-              newColumnNotNull.style.padding = '0'
-
-              const newColumnNotNullInput = lab_design_system('input', 'new-column-notNull-input', newColumnNotNull, '', '', ['steps', 'checkbox'])
-              newColumnNotNullInput.setAttribute('type', 'checkbox')
-
-              const newColumnUnique = lab_design_system('div', 'new-column-unique', newColumn, '', '', ['appMenu', 'columnBox'])
-              newColumnUnique.style.padding = '0'
-
-              const newColumnUniqueInput = lab_design_system('input', 'new-column-unique-input', newColumnUnique, '', '', ['steps', 'checkbox'])
-
-              newColumnUniqueInput.setAttribute('type', 'checkbox')
-
-              addColumn.addEventListener('click', () => {
-                if (newColumnNameInput.value) {
-                  userLSG.sqlTable = tableName
-                  userLSG.newColumnName = newColumnNameInput.value
-                  userLSG.dataType = newColumnDataType
-                  userLSG.notNull = newColumnNotNull.checked
-                  userLSG.unique = newColumnUniqueInput.checked
-
-                  socket.emit('sqlNewColumn', userLSG)
-                }
-              })
-
-              function ColumnSettings(field, columnInfo) {
-                let last = document.getElementById('lab-column-setting')
-                if (last) last.remove()
-                const columnSetting = lab_design_system('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
-                const del = lab_design_system('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
-                del.style.width = 'fit-content'
-                del.style.marginRight = 'auto'
-
-                let action
-                if (field == 'name') {
-                  let input = Input('column-name', columnSetting, columnInfo.column_name)
-                  input.style.maxWidth = '220px'
-
-                  action = lab_design_system('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
-
-                  action.addEventListener('click', function () {
-                    userLSG.sqlTable = dbName
-                    userLSG.rowName = columnInfo.column_name
-                    userLSG.newName = input.value
-                    userLSG.operation = "nameUpdate"
-                    socket.emit('sqlUpdateColumnPragma', userLSG)
-                  })
-                }
-                if (field == 'type') {
-                  let newType = columnInfo.data_type
-                  let drop = dropDown(types, newType, 'column-type', (e) => {
-                    newType = e
-                  }, columnSetting)
-                  drop.wrap.style.maxWidth = '220px'
-                  drop.wrap.style.width = '100%'
-                  action = lab_design_system('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
-
-                  action.addEventListener('click', function () {
-                    userLSG.sqlTable = dbName
-                    userLSG.rowName = columnInfo.column_name
-                    userLSG.newType = newType
-                    userLSG.operation = "typeUpdate"
-                    socket.emit('sqlUpdateColumnPragma', userLSG)
-                  })
-                }
-                if (field == 'notNull') {
-                  let temp = columnInfo.notnull == true ? 'change_true_to_false' : 'change_false_to_true'
-                  action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
-
-                  action.addEventListener('click', () => {
-                    userLSG.sqlTable = dbName
-                    userLSG.rowName = columnInfo.column_name
-                    userLSG.operation = "not_null"
-                    userLSG.newVal = !Boolean(columnInfo.notnull)
-
-                    socket.emit('sqlUpdateColumnPragma', userLSG)
-                  })
-                }
-                if (field == 'unique') {
-
-                  let temp = columnInfo.unique == true ? 'change_true_to_false' : 'change_false_to_true'
-                  action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
-
-                  action.addEventListener('click', () => {
-                    userLSG.sqlTable = dbName
-                    userLSG.rowName = columnInfo.column_name
-                    userLSG.operation = "unique"
-                    userLSG.newVal = !Boolean(columnInfo.unique)
-
-                    socket.emit('sqlUpdateColumnPragma', userLSG)
-                  })
-                }
-
-                action.style.width = 'fit-content'
-              }
-              lab_fade_in_recursively(columns, 0.3)
-            })
-          }
-
-          if (dbInfo.dbTables && dbInfo.dbTables.length > 0) {
-            dbInfo.dbTables.forEach((e, index) => {
-              const item = lab_design_system('div', `table-${e.tableName}`, folders, '', '', ['appMenu', 'folder'])
-              const text = lab_design_system('div', `table-${index}-name`, item, e.tableName)
-              text.style.width = '100%'
-              text.addEventListener('click', () => {
-                if (!item.classList.contains('lab-selected-table')) {
-                  let last = document.querySelector('.lab-selected-table')
-                  if (last) {
-                    last.classList.remove('lab-selected-table')
-                    last.style.background = 'transparent'
-                    last.querySelector('#lab-table-del-btn').remove()
+                    action.addEventListener('click', function () {
+                      userLSG.sqlTable = dbName
+                      userLSG.rowName = columnInfo.column_name
+                      userLSG.newName = input.value
+                      userLSG.operation = "nameUpdate"
+                      socket.emit('sqlUpdateColumnPragma', userLSG)
+                    })
                   }
-                  item.classList.add('lab-selected-table')
-                  item.style.background = '#fff'
+                  if (field == 'type') {
+                    let newType = columnInfo.data_type
+                    let drop = dropDown(types, newType, 'column-type', (e) => {
+                      newType = e
+                    }, columnSetting)
+                    drop.wrap.style.maxWidth = '220px'
+                    drop.wrap.style.width = '100%'
+                    action = lab_design_system('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
 
-                  const del = lab_design_system('button', `table-del-btn`, item, '', '', ['appMenu', 'deleteBtn'])
-                  const delIcon = lab_design_system('img', `del-btn-icon`, del, '', '', ['design', 'icon'])
-                  delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
-                  del.addEventListener('click', () => {
-                    userLSG.tableToDel = e.tableName
-                    socket.emit('sqlTableDel', userLSG)
+                    action.addEventListener('click', function () {
+                      userLSG.sqlTable = dbName
+                      userLSG.rowName = columnInfo.column_name
+                      userLSG.newType = newType
+                      userLSG.operation = "typeUpdate"
+                      socket.emit('sqlUpdateColumnPragma', userLSG)
+                    })
+                  }
+                  if (field == 'notNull') {
+                    let temp = columnInfo.notnull == true ? 'change_true_to_false' : 'change_false_to_true'
+                    action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+
+                    action.addEventListener('click', () => {
+                      userLSG.sqlTable = dbName
+                      userLSG.rowName = columnInfo.column_name
+                      userLSG.operation = "not_null"
+                      userLSG.newVal = !Boolean(columnInfo.notnull)
+
+                      socket.emit('sqlUpdateColumnPragma', userLSG)
+                    })
+                  }
+                  if (field == 'unique') {
+
+                    let temp = columnInfo.unique == true ? 'change_true_to_false' : 'change_false_to_true'
+                    action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+
+                    action.addEventListener('click', () => {
+                      userLSG.sqlTable = dbName
+                      userLSG.rowName = columnInfo.column_name
+                      userLSG.operation = "unique"
+                      userLSG.newVal = !Boolean(columnInfo.unique)
+
+                      socket.emit('sqlUpdateColumnPragma', userLSG)
+                    })
+                  }
+
+                  action.style.width = 'fit-content'
+                }
+                lab_fade_in_recursively(columns, 0.3)
+              }
+
+              if (dbInfo.dbTables && dbInfo.dbTables.length > 0) {
+                dbInfo.dbTables.forEach((e, index) => {
+                  const item = lab_design_system('div', `table-${e.tableName}`, folders, '', '', ['appMenu', 'folder'])
+                  const text = lab_design_system('div', `table-${index}-name`, item, e.tableName)
+                  text.style.width = '100%'
+                  text.addEventListener('click', () => {
+                    if (!item.classList.contains('lab-selected-table')) {
+                      let last = document.querySelector('.lab-selected-table')
+                      if (last) {
+                        last.classList.remove('lab-selected-table')
+                        last.style.background = 'transparent'
+                        last.querySelector('#lab-table-del-btn').remove()
+                      }
+                      item.classList.add('lab-selected-table')
+                      item.style.background = '#fff'
+
+                      const del = lab_design_system('button', `table-del-btn`, item, '', '', ['appMenu', 'deleteBtn'])
+                      const delIcon = lab_design_system('img', `del-btn-icon`, del, '', '', ['design', 'icon'])
+                      delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
+                      del.addEventListener('click', () => {
+                        userLSG.tableToDel = e.tableName
+                        socket.emit('sqlTableDel', userLSG)
+                      })
+
+
+                      RenderColumns(dbInfo.dbTables[index])
+                    }
                   })
 
 
-                  RenderColumns(dbInfo.dbTables[index])
-                }
+                })
+              }
+
+              const bottom = lab_design_system('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+              const NewTable = lab_design_system('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
+              const icon = lab_design_system('img', `new-table-icon`, NewTable)
+              icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
+              const text = lab_design_system('div', `new-table-name`, NewTable, lngData.new_table)
+
+              NewTable.addEventListener('click', (e) => {
+                e.preventDefault()
+                let input = document.getElementById('lab-new-table-input')
+                if (input) {
+                  userLSG.newTable = input.value
+                  socket.emit('newSqlTable', userLSG)
+                } else Input('new-table-input', bottom)
               })
-
-
-            })
-          }
-
-          const bottom = lab_design_system('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
-          const NewTable = lab_design_system('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
-          const icon = lab_design_system('img', `new-table-icon`, NewTable)
-          icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
-          const text = lab_design_system('div', `new-table-name`, NewTable, lngData.new_table)
-
-          NewTable.addEventListener('click', (e) => {
-            e.preventDefault()
-            let input = document.getElementById('lab-new-table-input')
-            if (input) {
-              userLSG.newTable = input.value
-              socket.emit('newSqlTable', userLSG)
-            } else Input('new-table-input', bottom)
+            }
           })
+
         }
 
         DBLists()
