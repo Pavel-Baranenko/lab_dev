@@ -661,10 +661,6 @@ function AppMenu(dashObj) {
                 }
 
                 columns.innerHTML = ''
-
-
-
-
                 const top = lab_design_system('div', 'top', columns, '', '', ['appMenu', 'column'])
                 top.style.background = '#3C4CA6'
                 top.style.borderRadius = '10px 10px 0 0'
@@ -685,7 +681,13 @@ function AppMenu(dashObj) {
                   Cunique.setAttribute('data-column', 'unique')
 
                   column.addEventListener('click', (e) => {
-                    column.classList.add('active-column')
+                    let last = document.querySelector('.lab-active-column')
+                    if (last) {
+                      column.style.background = 'transparent'
+                      column.classList.remove('lab-active-column')
+                    }
+                    column.classList.add('lab-active-column')
+
                     column.style.background = '#ECF0F9'
                     if (e.target.getAttribute('data-column')) {
                       ColumnSettings(e.target.getAttribute('data-column'), c)
@@ -861,9 +863,8 @@ function AppMenu(dashObj) {
               })
             }
           })
-
+          lab_fade_in_recursively(box, 0.3)
         }
-
         DBLists()
       }
       lab_fade_in_recursively(box, 0.3)
