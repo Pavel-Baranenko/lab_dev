@@ -107,6 +107,6 @@ body::-webkit-scrollbar {
   border: 2px solid #2463EB;
 }
 
-.selectedItem {
+.lab-selectedItem {
   border: 2px solid #2463EB !important;
 }

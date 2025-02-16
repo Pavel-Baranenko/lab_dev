@@ -3836,10 +3836,27 @@ function design_mode() {
               const wrap = lab_design_system_d('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
               const name = lab_design_system_d('span', Designer.ID(), wrap, n)
               name.style.marginRight = '10px'
-              let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
-              attrubuteInput.addEventListener('input', () => {
-                item.setAttribute(n, attrubuteInput.value)
-              })
+              if (n != 'class') {
+                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              } else {
+                let attrubuteInput = DesignConstructor.input(wrap, '')
+                let systemClasses = ['lab-selectedItem', 'lab-active-element']
+                let classes = String(item.getAttribute(n)).split(' ')
+                // .split[' ']
+                console.log(classes);
+
+                classes.forEach(e => {
+                  if (!systemClasses.includes(e)) {
+                    attrubuteInput.value += e + ' '
+                  }
+                })
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              }
             }
           })
 
