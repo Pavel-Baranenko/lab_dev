@@ -2578,7 +2578,7 @@ class Designer {
     return ('lab-element' + S4() + S4() + S4() + S4() + S4());
   }
 
-  static async create(TemplatesList, template_id, parent, vpm, random) {
+  static async create(TemplatesList, template_id, parent, vpm, random, id) {
     const T = TemplatesList[template_id].template
     let A
 
@@ -2591,7 +2591,7 @@ class Designer {
         A = element
       }
 
-      element.id = (random ? Designer.ID() : obj.id)
+      element.id = id ? id : (random ? Designer.ID() : obj.id)
 
       if (obj.classes) {
         const classes = obj.classes.split(' ')
@@ -4231,8 +4231,9 @@ async function loadImg(i, items) {
       await socket.emit('droppedImages', userLSG, async res => {
         items.forEach(e => {
           e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
-          // let opt = lab_local_storage_object('options').vpm
-          // lab_save_section(opt)
+          e.id = res.id
+          let opt = lab_local_storage_object('options').vpm
+          lab_save_section(opt)
         })
         return newSrc
       })
