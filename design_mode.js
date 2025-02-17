@@ -1,41 +1,14 @@
 
+let styles = lab_ui_styles
+
+
+
 const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
 
 
 let ActiveMode
 let selected
 let mouseIsDown = false
-let styles = styles_d
-
-function lab_design_system(tag, id, parent, content, className, styled) {
-  const elementToAppend = document.createElement(tag)
-  elementToAppend.setAttribute("id", "lab-" + id)
-  parent.appendChild(elementToAppend)
-
-  const A = document.querySelector("#" + "lab-" + id)
-  A.setAttribute("class", "escape")
-  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
-
-  if (content && typeof content == "string") {
-    A.innerText = content
-  }
-  A.style.opacity = 1
-  if (styled) {
-    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
-
-    Object.keys(elementStyles.default).forEach(e => {
-      A.style[e] = elementStyles.default[e]
-    })
-
-    if (elementStyles[lab_orientation]) {
-      Object.keys(elementStyles[lab_orientation]).forEach(e => {
-        A.style[e] = elementStyles[lab_orientation][e]
-      })
-    }
-  }
-
-  return A
-}
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -373,7 +346,9 @@ const elementsToolsList = {
         'classes': "lab-img",
         'root': true,
         'styles': {
-          'position': "relative"
+          'position': "relative",
+          'objectFit': "cover",
+          'objectPosition': "50% 50%"
         }
       },
       'landscape': {
@@ -382,7 +357,9 @@ const elementsToolsList = {
         'classes': "lab-img",
         'root': true,
         'styles': {
-          'position': "relative"
+          'position': "relative",
+          'objectFit': "cover",
+          'objectPosition': "50% 50%"
         }
       }
     }
@@ -1151,8 +1128,12 @@ function design_mode() {
 
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
-  const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none', ['design', 'styleWrapper'])
+  const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none ', ['design', 'styleWrapper'])
   const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none')
+  styleWrap.style.paddingTop = '75px'
+  styleWrap.style.overflowY = 'scroll'
+  styleWrap.style.maxHeight = 'calc(100% - 75px)'
+  styleWrap.classList.add('lab-scrollable')
 
   const styleHide = lab_design_system('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
   const styleHideIcon = lab_design_system('img', 'style-hide-icon', styleHide, '', 'none')
@@ -1202,7 +1183,7 @@ function design_mode() {
   }
 
   function StylesMenu(item) {
-    const lastSelected = document.querySelector('.selectedItem')
+    const lastSelected = document.querySelector('.lab-selectedItem')
     const box = document.getElementById('lab-style-wrap')
     const itemStyles = window.getComputedStyle(item)
     selectedElementChangeId = item
@@ -1239,17 +1220,17 @@ function design_mode() {
 
     if (lastSelected) {
       box.innerHTML = ''
-      lastSelected.classList.remove('selectedItem')
+      lastSelected.classList.remove('lab-selectedItem')
       renderMenu()
     }
     if (!lastSelected) renderMenu()
 
     function renderMenu() {
-      item.classList.add('selectedItem')
+      item.classList.add('lab-selectedItem')
       box.innerHTML = ''
 
       const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
-      const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', 'scrollable', ['design', 'elementMenuBody'])
+      const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
       const menuSettings = ['general', 'additional']
       const activeSettings = 'general'
 
@@ -1280,16 +1261,112 @@ function design_mode() {
           idInput.addEventListener('input', () => {
             item.id = idInput.value.trim().replace('#', '')
           })
-          const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
-          const tag = DesignConstructor.dropList(elementMenuBody, tagList, item.tagName, (e) => {
-            let newEl = document.createElement(e)
-            item.getAttributeNames().forEach(n => {
-              newEl.setAttribute(n, item.getAttribute(n))
+          if (item.classList.contains('lab-img-container')) {
+            const fileBox = lab_design_system('div', 'file-preview-box', elementMenuBody, '', '', ['design', 'fileBox'])
+            let image = item.querySelector('img')
+
+
+            const fileInput = lab_design_system('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
+            fileInput.style.opacity = 0
+            fileInput.setAttribute('type', 'file')
+            const preview = lab_design_system('img', 'file-preview', fileBox)
+            preview.style.width = '100%'
+            preview.style.height = '100%'
+            preview.style.objectFit = 'cover'
+            preview.style.zIndex = '3'
+            preview.style.pointerEvents = 'none'
+            preview.style.position = 'relative'
+            preview.setAttribute('src', image.src)
+
+            fileInput.addEventListener('change', (i) => {
+              async function setSrc() {
+                await loadImg(Array.from(i.target.files)[0], [image, preview])
+              }
+              setSrc()
             })
-            newEl.innerHTML = item.innerHTML
-            item.replaceWith(newEl)
-            item = newEl
-          })
+
+            const srcWrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+            const fileSrc = lab_design_system('span', Designer.ID(), srcWrap, 'src')
+            fileSrc.style.marginRight = '10px'
+            let attrubuteInput = DesignConstructor.input(srcWrap, image.src)
+            attrubuteInput.addEventListener('input', () => {
+              image.setAttribute('src', attrubuteInput.value)
+            })
+
+            const objFit = DesignConstructor.dropList(elementMenuBody, ['cover', 'fill', 'contain', 'none', 'scale-down'], image.style.objectFit, (e) => Designer.WriteStyle(image, 'objectFit', e))
+
+            const horizontal = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+            const horizontalLabel = lab_design_system('span', Designer.ID(), horizontal, 'horizontal')
+            horizontalLabel.style.marginRight = '10px'
+            horizontalLabel.style.minWidth = '50%'
+            let imagePos = image.style.objectPosition.split(' ')
+
+            let horizontalInput = DesignConstructor.input(horizontal, imagePos[0].replace('%', ''), '%')
+            horizontalInput.setAttribute('type', 'number')
+            horizontalInput.addEventListener('input', () => {
+              image.style.objectPosition = horizontalInput.value + "% " + image.style.objectPosition.split(' ')[1]
+            })
+            const imgWidth = lab_design_system('div', 'image-width', elementMenuBody, '', '', ['design', 'styleBox'])
+            const imgWidthLabel = lab_design_system('span', 'image-width-label', imgWidth, 'width')
+            imgWidthLabel.style.marginRight = '10px'
+            imgWidthLabel.style.minWidth = '50%'
+
+            let imgWidthInput = DesignConstructor.input(imgWidth, image.style.width.replace("%", ''), '%')
+            imgWidthInput.setAttribute('type', 'number')
+            imgWidthInput.addEventListener('input', () => {
+              image.style.width = imgWidthInput.value + '%'
+            })
+
+            const imgHeight = lab_design_system('div', 'image-height', elementMenuBody, '', '', ['design', 'styleBox'])
+            const imgHeightLabel = lab_design_system('span', 'image-height-label', imgHeight, 'height')
+            imgHeightLabel.style.marginRight = '10px'
+            imgHeightLabel.style.minWidth = '50%'
+
+            let imgHeightInput = DesignConstructor.input(imgHeight, image.style.height.replace("%", ''), '%')
+            imgHeightInput.setAttribute('type', 'number')
+            imgHeightInput.addEventListener('input', () => {
+              image.style.height = imgHeightInput.value + '%'
+            })
+
+
+            const vertical = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+            const verticalLabel = lab_design_system('span', Designer.ID(), vertical, 'vertical')
+            verticalLabel.style.marginRight = '10px'
+            verticalLabel.style.minWidth = '50%'
+
+            let verticalInput = DesignConstructor.input(vertical, imagePos[1].replace('%', ''), '%')
+            verticalInput.setAttribute('type', 'number')
+
+            verticalInput.addEventListener('input', () => {
+              image.style.objectPosition = image.style.objectPosition.split(' ')[0] + " " + verticalInput.value + "%"
+            })
+
+
+            const aspect = lab_design_system('div', 'image-aspect', elementMenuBody, '', '', ['design', 'styleBox'])
+            const aspectLabel = lab_design_system('span', 'image-aspect-label', aspect, 'aspect-ratio')
+            aspectLabel.style.marginRight = '10px'
+            aspectLabel.style.minWidth = '50%'
+            console.log(image.style.aspectRatio);
+
+            let aspectInput = DesignConstructor.input(aspect, image.style.aspectRatio.split(' ')[0])
+            aspectInput.setAttribute('type', 'number')
+
+            aspectInput.addEventListener('input', () => {
+              image.style.aspectRatio = aspectInput.value
+            })
+
+          } else {
+            const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
+            const tag = DesignConstructor.dropList(elementMenuBody, tagList, item.tagName, (e) => {
+              let newEl = document.createElement(e)
+              item.getAttributeNames().forEach(n => {
+                newEl.setAttribute(n, item.getAttribute(n))
+              })
+              newEl.innerHTML = item.innerHTML
+              item.replaceWith(newEl)
+              item = newEl
+            })
+          }
 
           const settings = lab_design_system('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
           const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
@@ -1336,10 +1413,25 @@ function design_mode() {
               const wrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
               const name = lab_design_system('span', Designer.ID(), wrap, n)
               name.style.marginRight = '10px'
-              let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
-              attrubuteInput.addEventListener('input', () => {
-                item.setAttribute(n, attrubuteInput.value)
-              })
+              if (n != 'class') {
+                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              } else {
+                let attrubuteInput = DesignConstructor.input(wrap, '')
+                let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
+                let classes = String(item.getAttribute(n)).split(' ')
+
+                classes.forEach(e => {
+                  if (!systemClasses.includes(e)) {
+                    attrubuteInput.value += e + ' '
+                  }
+                })
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              }
             }
           })
 
@@ -1441,8 +1533,6 @@ function capitalizeFirstLetter(val) {
 }
 
 function mode(modeName) {
-  console.log(modeName);
-
   const page = document.getElementById('lab-user-page')
   const pagePos = page.getBoundingClientRect()
   let mouse = false
@@ -1511,6 +1601,7 @@ function mode(modeName) {
             console.log(fileInfo);
 
             const itemBox = document.createElement('div')
+            itemBox.classList.add('lab-img-container')
             itemBox.id = Designer.ID()
 
             const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
@@ -1522,46 +1613,16 @@ function mode(modeName) {
             item.style.width = '100%'
             item.style.pointerEvents = 'none'
             item.setAttribute('src', URL.createObjectURL(fileInfo))
+            let i = Array.from(e.target.files)[0]
 
-            e.target.files.forEach(i => {
-              let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
-              let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
-              let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
-              userLSG.name = finalNameWithExtension
-              userLSG.type = i.type
-              userLSG.support = ""
+            async function setSrc() {
+              await loadImg(i, [item])
+            }
 
-              function readFileAsync(file) {
-                return new Promise((resolve, reject) => {
-                  let reader = new FileReader()
-                  reader.readAsDataURL(file)
-
-                  reader.onload = () => {
-                    resolve(reader.result)
-                  }
-                  reader.onerror = reject;
-                })
-              }
-
-              async function processFile() {
-                try {
-                  let imgData = await readFileAsync(i)
-                  let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
-                  userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
-                  socket.emit('droppedImages', userLSG, res => {
-                    item.setAttribute('src', res.src)
-
-                  })
-                } catch (err) {
-                  console.log(err)
-                }
-              }
-
-              processFile()
-            })
-
+            setSrc()
 
             item.style.objectFit = 'cover'
+            item.style.objectPosition = '50% 50%'
             page.appendChild(itemBox)
             input.removeEventListener('change', IMG)
           }
@@ -1576,5 +1637,54 @@ function mode(modeName) {
   page.addEventListener('click', () => mouse = false)
 }
 
+
+
+
+async function loadImg(i, items) {
+  let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
+  let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
+  let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
+  const userLSG = lab_local_storage_object('global')
+  userLSG.name = finalNameWithExtension
+  userLSG.type = i.type
+  userLSG.support = ""
+  let newSrc
+
+  function readFileAsync(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.onerror = reject;
+    })
+  }
+
+  async function processFile() {
+    try {
+      let imgData = await readFileAsync(i)
+      let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+      userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
+
+      await socket.emit('droppedImages', userLSG, async res => {
+        items.forEach(e => {
+          e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
+          // let opt = lab_local_storage_object('options').vpm
+          // lab_save_section(opt)
+        })
+        return newSrc
+      })
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
+
+  return await processFile()
+}
 
 return design_mode

@@ -728,7 +728,7 @@ const styles_d = {
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
-        "zIndex": "99",
+        "zIndex": "99999",
         "left": "50%",
         "transform": "translateX(-50%)",
         "paddingTop": "clamp(2svh, 5svh, 40px)",
@@ -743,7 +743,7 @@ const styles_d = {
         "right": 0,
         "left": 0,
         "bottom": 0,
-        "zIndex": "99"
+        "zIndex": "99999"
       }
     },
     "content": {
@@ -2515,17 +2515,8 @@ const styles_d = {
     }
   }
 }
-
-
-
-const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
-
-// let lab_ui_styles_d = lab_ui_styles
-
-let ActiveMode
-let selected
-let mouseIsDown = false
 let styles = styles_d
+
 
 function lab_design_system_d(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
@@ -2556,6 +2547,26 @@ function lab_design_system_d(tag, id, parent, content, className, styled) {
 
   return A
 }
+
+
+// function db_popup(el) {
+//   const wrap = lab_design_system_d('div', 'db-popup-wrap', rootLayer, '', '', ['popup', 'wrap'])
+//   const box = lab_design_system_d('div', 'db-popup', rootLayer, '', '', ['popup', 'box'])
+
+//   wrap.addEventListener('click', () => {
+//     box.remove()
+//     wrap.remove()
+//   })
+// }
+
+// db_popup()
+const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
+
+// let lab_ui_styles_d = lab_ui_styles
+
+let ActiveMode
+let selected
+let mouseIsDown = false
 
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
@@ -4220,6 +4231,8 @@ async function loadImg(i, items) {
       await socket.emit('droppedImages', userLSG, async res => {
         items.forEach(e => {
           e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
+          // let opt = lab_local_storage_object('options').vpm
+          // lab_save_section(opt)
         })
         return newSrc
       })
