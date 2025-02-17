@@ -1674,16 +1674,12 @@
         "minHeight": "100vh",
         "background": "#EFEFEF",
         "margin": "auto",
-        "display": "flex",
-        "flexDirection": "column",
-        "gap": "20px",
-        "padding": "30px",
+        "overflowY": "scroll",
         "boxSizing": "border-box"
       }
     },
     "pageWrap": {
       "default": {
-        "overflowY": "scroll",
         "maxWidth": "100svw",
         "order": 2,
         "minHeight": "100svh",
@@ -1777,6 +1773,7 @@
         "backgroundColor": "#fff",
         "fontSize": "12px",
         "overflow": "hidden",
+        "overflowY": "scroll",
         "fontWeight": 500,
         "lineHeight": "22px",
         "borderRadius": "30px 30px 0 0",
@@ -2050,7 +2047,7 @@
         "width": "100%",
         "aspectRatio": "1.7",
         "position": "relative",
-        "boxShadow": "0px 0px 50px 12px rgba(0, 0, 0, 0.1) inset"
+        "boxShadow": "0px 0px 50px 12px rgba(0,0,0,0.1) inset"
       }
     },
     "fileBoxInput": {

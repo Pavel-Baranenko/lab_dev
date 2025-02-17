@@ -1674,16 +1674,12 @@ const styles_d = {
         "minHeight": "100vh",
         "background": "#EFEFEF",
         "margin": "auto",
-        "display": "flex",
-        "flexDirection": "column",
-        "gap": "20px",
-        "padding": "30px",
+        "overflowY": "scroll",
         "boxSizing": "border-box"
       }
     },
     "pageWrap": {
       "default": {
-        "overflowY": "scroll",
         "maxWidth": "100svw",
         "order": 2,
         "minHeight": "100svh",
@@ -1777,6 +1773,7 @@ const styles_d = {
         "backgroundColor": "#fff",
         "fontSize": "12px",
         "overflow": "hidden",
+        "overflowY": "scroll",
         "fontWeight": 500,
         "lineHeight": "22px",
         "borderRadius": "30px 30px 0 0",
