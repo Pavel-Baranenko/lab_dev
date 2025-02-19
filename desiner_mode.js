@@ -1,34 +1,6 @@
 
 
-function lab_design_system(tag, id, parent, content, className, styled) {
-  const elementToAppend = document.createElement(tag)
-  elementToAppend.setAttribute("id", "lab-" + id)
-  parent.appendChild(elementToAppend)
 
-  const A = document.querySelector("#" + "lab-" + id)
-  A.setAttribute("class", "escape")
-  className ? elementToAppend.setAttribute("class", `lab-${className} escape`) : ""
-
-  if (content && typeof content == "string") {
-    A.innerText = content
-  }
-  A.style.opacity = 1
-  if (styled) {
-    let elementStyles = styled.length > 1 ? styles[styled[0]][styled[1]] : styles[styled[0]]
-
-    Object.keys(elementStyles.default).forEach(e => {
-      A.style[e] = elementStyles.default[e]
-    })
-
-    if (elementStyles[lab_orientation]) {
-      Object.keys(elementStyles[lab_orientation]).forEach(e => {
-        A.style[e] = elementStyles[lab_orientation][e]
-      })
-    }
-  }
-
-  return A
-}
 
 const oldSRC = 'https://laboranth.tech/D/R/IMG/CLA/'
 
@@ -1664,6 +1636,9 @@ function mode(modeName) {
   page.addEventListener('click', () => mouse = false)
 }
 
+design_mode()
+
+// return design_mode
 
 
 async function loadImg(i, items) {
@@ -1712,6 +1687,97 @@ async function loadImg(i, items) {
 
 
   return await processFile()
+}
+
+
+function db_popup(el, lngData) {
+  const wrap = lab_design_system('div', 'db-popup-wrap', rootLayer, '', '', ['popup', 'wrap'])
+  const box = lab_design_system('div', 'db-popup', rootLayer, '', '', ['popup', 'box'])
+  box.style.flexDirection = 'column'
+  box.style.gap = '40px'
+  const top = lab_design_system('div', 'db-popup-top', box, '', '', ['design', 'styleBox'])
+  top.style.width = '100%'
+  top.style.justifyContent = 'space-evenly'
+  top.style.position = 'relative'
+  top.style.zIndex = 3
+  const midle = lab_design_system('div', 'db-popup-midle', box, '', '', ['design', 'styleBox'])
+  midle.style.width = '100%'
+  midle.style.justifyContent = 'space-evenly'
+  midle.style.position = 'relative'
+  midle.style.zIndex = 2
+
+  const bottom = lab_design_system('div', 'db-popup-bottom', box, '', '', ['design', 'styleBox'])
+  bottom.style.width = '100%'
+  bottom.style.justifyContent = 'space-evenly'
+  bottom.style.position = 'relative'
+  bottom.style.zIndex = 1
+
+
+  let dbAction = {
+    top: {
+      db: null,
+      table: null
+    },
+    midle: {
+      db: null,
+      table: null
+    },
+    bottom: {
+      db: null,
+      table: null
+    },
+    operationType: null
+  }
+  const topLabel = lab_design_system('div', 'db-popup-top-label', top, 'label')
+  const topDb = DesignConstructor.dropList(top, sectionElementsObject.databases, '', (e) => {
+    dbAction.top.db = e
+  })
+  topDb.style.maxWidth = '20%'
+  const topTable = DesignConstructor.dropList(top, sectionElementsObject.databases, '', (e) => {
+    dbAction.top.table = e
+  })
+  topTable.style.maxWidth = '20%'
+
+
+  const midleLabel = lab_design_system('div', 'db-popup-midle-label', midle, 'label')
+  const midleDb = DesignConstructor.dropList(midle, sectionElementsObject.databases, '', (e) => {
+    dbAction.midle.db = e
+  })
+  midleDb.style.maxWidth = '20%'
+  const midleTable = DesignConstructor.dropList(midle, sectionElementsObject.databases, '', (e) => {
+    dbAction.midle.table = e
+  })
+  midleTable.style.maxWidth = '20%'
+
+
+  const bottomLabel = lab_design_system('div', 'db-popup-bottom-label', bottom, 'label')
+  const bottomDb = DesignConstructor.dropList(bottom, sectionElementsObject.databases, '', (e) => {
+    dbAction.bottom.db = e
+  })
+  bottomDb.style.maxWidth = '20%'
+  const bottomTable = DesignConstructor.dropList(bottom, sectionElementsObject.databases, '', (e) => {
+    dbAction.bottom.table = e
+  })
+  bottomTable.style.maxWidth = '20%'
+
+
+  let options = ['registration', 'auntification', 'write', 'read', 'update']
+  const operationType = DesignConstructor.dropList(box, options, '', (e) => {
+    dbAction.operationType = e
+  })
+  operationType.style.width = '50%'
+
+  const save = lab_design_system('button', 'save-db-options', box, lngData.save, '', ['buttons', 'action'])
+  operationType.style.width = 'fit-content'
+
+  save.addEventListener('click', () => {
+    //something
+  })
+
+  wrap.addEventListener('click', () => {
+    box.remove()
+    wrap.remove()
+  })
 }
 
 return design_mode
