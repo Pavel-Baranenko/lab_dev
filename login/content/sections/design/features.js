@@ -2515,7 +2515,7 @@ const styles_d = {
 let styles = styles_d
 
 
-function lab_design_system_d(tag, id, parent, content, className, styled) {
+function lab_design_system(tag, id, parent, content, className, styled) {
   const elementToAppend = document.createElement(tag)
   elementToAppend.setAttribute("id", "lab-" + id)
   parent.appendChild(elementToAppend)
@@ -2555,10 +2555,10 @@ function AppMenu(dashObj) {
 
   socket.emit('getAppData', userLSG, res => {
     sectionElementsObject = res
-    const menuWrap = lab_design_system_d('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
-    const menu = lab_design_system_d('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
-    const side = lab_design_system_d('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
-    const box = lab_design_system_d('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
+    const menuWrap = lab_design_system('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
+    const menu = lab_design_system('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+    const side = lab_design_system('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
+    const box = lab_design_system('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
 
     let activeSlide;
 
@@ -2603,9 +2603,9 @@ function AppMenu(dashObj) {
     }
 
     Object.keys(sideButtons).forEach(e => {
-      const btn = lab_design_system_d('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
-      const icon = lab_design_system_d('img', `app-menu-btn-icon-${e}`, btn)
-      const span = lab_design_system_d('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
+      const btn = lab_design_system('button', `app-menu-btn-${e}`, side, '', '', ['appMenu', 'sideBtn'])
+      const icon = lab_design_system('img', `app-menu-btn-icon-${e}`, btn)
+      const span = lab_design_system('span', `app-menu-btn-span-${e}`, btn, sideButtons[e])
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}.svg`)
 
       btn.addEventListener('click', () => {
@@ -2633,19 +2633,19 @@ function AppMenu(dashObj) {
       btn.querySelector('img').setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${slide}-white.svg`)
 
       if (slide == 'backup') {
-        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
+        const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
         dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
-        const setWrap = lab_design_system_d('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
+        const setWrap = lab_design_system('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
 
         function Settings(name = 'versioning') {
           setWrap.innerHTML = ''
           if (name == 'versioning') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
-              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
-              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
+              const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
               row.style.position = 'relative'
               row.style.zIndex = 2
-              const create = lab_design_system_d('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
+              const create = lab_design_system('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
               create.style.width = 'fit-content'
 
               create.addEventListener('click', e => {
@@ -2660,10 +2660,10 @@ function AppMenu(dashObj) {
                 socket.emit("makeAppBackup", userLSG)
               })
 
-              const text = lab_design_system_d('span', `row-text`, row, lngData.load_a_previous_version)
+              const text = lab_design_system('span', `row-text`, row, lngData.load_a_previous_version)
               const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
               previous.wrap.style.maxWidth = '200px'
-              const upload = lab_design_system_d('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
+              const upload = lab_design_system('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
               upload.style.width = 'fit-content'
               upload.addEventListener('click', e => {
                 const userLSG = lab_local_storage_object('global')
@@ -2671,12 +2671,12 @@ function AppMenu(dashObj) {
                 socket.emit('eraseByBackup', userLSG)
               })
 
-              const auto = lab_design_system_d('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
-              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const auto = lab_design_system('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
+              const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
               const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
-              const uploadAuto = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              const uploadAuto = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
               uploadAuto.style.width = 'fit-content'
 
               uploadAuto.addEventListener('click', e => {
@@ -2689,12 +2689,12 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'pages_management') {
-            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.pages_management, '', ['appMenu', 'heading'])
-            const scrollList = lab_design_system_d('div', 'scrollList', setWrap, '', 'scrollable', ['appMenu', 'scrollList'])
-            const pList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
+            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.pages_management, '', ['appMenu', 'heading'])
+            const scrollList = lab_design_system('div', 'scrollList', setWrap, '', 'scrollable', ['appMenu', 'scrollList'])
+            const pList = lab_design_system('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
             sectionElementsObject.sections.forEach((e, index) => {
-              const pageLink = lab_design_system_d('div', `page-link-${index}`, pList, '', '', ['appMenu', 'db'])
-              const name = lab_design_system_d('span', `page-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
+              const pageLink = lab_design_system('div', `page-link-${index}`, pList, '', '', ['appMenu', 'db'])
+              const name = lab_design_system('span', `page-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
               name.style.width = '100%'
               name.style.cursor = 'pointer'
               name.addEventListener('click', () => {
@@ -2702,8 +2702,8 @@ function AppMenu(dashObj) {
                 window.open(window.location.protocol + "//" + window.location.host + "/" + lab_local_storage_object('global').app + "/" + e, "_self")
               })
 
-              const del = lab_design_system_d('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
-              const delIcon = lab_design_system_d('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
+              const del = lab_design_system('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
+              const delIcon = lab_design_system('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
               delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
               del.addEventListener('click', () => {
                 let removeSectionObject = {
@@ -2722,11 +2722,11 @@ function AppMenu(dashObj) {
               })
 
             })
-            const bottom = lab_design_system_d('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
+            const bottom = lab_design_system('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
             const input = Input('act-name', bottom)
             input.style.minWidth = '220px'
             input.style.width = 'fit-content'
-            const btn = lab_design_system_d('button', 'creare-page', bottom, lngData.add, '', ['buttons', 'action'])
+            const btn = lab_design_system('button', 'creare-page', bottom, lngData.add, '', ['buttons', 'action'])
             btn.style.width = 'fit-content'
             btn.addEventListener('click', (e) => {
               e.preventDefault()
@@ -2747,15 +2747,15 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'libraries') {
-            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.libraries, '', ['appMenu', 'heading'])
-            const scrollList = lab_design_system_d('div', 'scrollList', setWrap, '', 'scrollable', ['appMenu', 'scrollList'])
-            const libList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
+            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.libraries, '', ['appMenu', 'heading'])
+            const scrollList = lab_design_system('div', 'scrollList', setWrap, '', 'scrollable', ['appMenu', 'scrollList'])
+            const libList = lab_design_system('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
             sectionElementsObject.configuration.scripts.forEach((e, index) => {
-              const pageLink = lab_design_system_d('div', `library-link-${index}`, libList, '', '', ['appMenu', 'db'])
-              const name = lab_design_system_d('span', `library-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
+              const pageLink = lab_design_system('div', `library-link-${index}`, libList, '', '', ['appMenu', 'db'])
+              const name = lab_design_system('span', `library-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
               name.style.width = '100%'
-              const del = lab_design_system_d('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
-              const delIcon = lab_design_system_d('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
+              const del = lab_design_system('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
+              const delIcon = lab_design_system('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
               delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
               del.addEventListener('click', () => {
                 userLSG.scriptToDelete = e
@@ -2763,11 +2763,11 @@ function AppMenu(dashObj) {
               })
             })
 
-            const bottom = lab_design_system_d('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
+            const bottom = lab_design_system('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
             const input = Input('act-name', bottom)
             input.style.minWidth = '220px'
             input.style.width = 'fit-content'
-            const btn = lab_design_system_d('button', 'add-library', bottom, lngData.add, '', ['buttons', 'action'])
+            const btn = lab_design_system('button', 'add-library', bottom, lngData.add, '', ['buttons', 'action'])
             btn.style.width = 'fit-content'
             btn.addEventListener('click', (e) => {
               e.preventDefault()
@@ -2778,13 +2778,13 @@ function AppMenu(dashObj) {
           }
           else if (name == 'ephemeral_sharing') {
             socket.emit("getUserBackups", lab_local_storage_object('global'), b => {
-              const heading = lab_design_system_d('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
-              const row = lab_design_system_d('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
-              const text = lab_design_system_d('span', `row-text`, row, lngData.share_id)
+              const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.ephemeral_sharing, '', ['appMenu', 'heading'])
+              const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+              const text = lab_design_system('span', `row-text`, row, lngData.share_id)
               const id = Input('share', row)
               row.style.position = 'relative'
               row.style.zIndex = 2
-              const update = lab_design_system_d('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
+              const update = lab_design_system('button', `c-backup`, row, lngData.update, '', ['buttons', 'action'])
               update.style.width = 'fit-content'
 
               update.addEventListener('click', e => {
@@ -2810,14 +2810,14 @@ function AppMenu(dashObj) {
                 10: '10 ' + lngData.day
               }
 
-              const autoRow = lab_design_system_d('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+              const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
               let duration
               const autoBack = dropDown(list, list['1'], 'previous-backup-auto', (e) => {
                 duration = list[e]
               }, autoRow)
               autoBack.wrap.style.maxWidth = '200px'
 
-              const load = lab_design_system_d('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+              const load = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
               load.style.width = 'fit-content'
 
 
@@ -2833,8 +2833,8 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'svg_fragmentation') {
-            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
-            const importSvg = lab_design_system_d('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
+            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.svg_fragmentation, '', ['appMenu', 'heading'])
+            const importSvg = lab_design_system('button', `c-backup`, setWrap, lngData.import_svg, '', ['buttons', 'action'])
             importSvg.style.width = 'fit-content'
 
             importSvg.addEventListener('click', () => {
@@ -2843,17 +2843,17 @@ function AppMenu(dashObj) {
             })
           }
           else if (name == 'collaborative_mode') {
-            const heading = lab_design_system_d('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
-            const content = lab_design_system_d('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
-            const collaborators = lab_design_system_d('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
-            const rights = lab_design_system_d('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
-            const collabText = lab_design_system_d('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
-            const rightsText = lab_design_system_d('span', 'rights-text', rights, lngData.collaborators_rights)
+            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.collaborative_mode, '', ['appMenu', 'heading'])
+            const content = lab_design_system('div', 'app-menu-content', setWrap, '', '', ['appMenu', 'deploy'])
+            const collaborators = lab_design_system('div', 'app-menu-collaborators', content, '', '', ['appMenu', 'collaborators'])
+            const rights = lab_design_system('div', 'app-menu-rights', content, '', '', ['appMenu', 'collaborators'])
+            const collabText = lab_design_system('span', 'collabs-head-text', collaborators, lngData.add_a_collaborator)
+            const rightsText = lab_design_system('span', 'rights-text', rights, lngData.collaborators_rights)
 
             let collabs = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.collaborator_email)
 
 
-            const collRow = lab_design_system_d('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
+            const collRow = lab_design_system('div', 'collab-row', collaborators, '', '', ['appMenu', 'execute'])
             collRow.style.width = '100%'
             let selectedCol = collabs[0]
 
@@ -2864,7 +2864,7 @@ function AppMenu(dashObj) {
             const list = dropDown(collabs, selectedCol, 'collabs', select, collRow)
             list.wrap.style.width = '60%'
 
-            const del = lab_design_system_d('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
+            const del = lab_design_system('button', 'del-collab', collRow, lngData.delete, '', ['buttons', 'action'])
             del.style.width = '30%'
 
             del.addEventListener('click', () => {
@@ -2875,13 +2875,13 @@ function AppMenu(dashObj) {
               })
             })
 
-            const row = lab_design_system_d('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
+            const row = lab_design_system('div', 'app-menu-row', collaborators, '', '', ['appMenu', 'execute'])
             row.style.width = '100%'
 
             const newCollaborator = Input('collab', row)
             newCollaborator.style.width = '60%'
 
-            const add = lab_design_system_d('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
+            const add = lab_design_system('button', 'add-collab', row, lngData.add, '', ['buttons', 'action'])
             add.style.width = '30%'
 
             add.addEventListener('click', () => {
@@ -2904,10 +2904,10 @@ function AppMenu(dashObj) {
             const rightArr = ['designer', 'developer', 'administrator', 'custom']
             let collabRights = sectionElementsObject.userConfigs.collaboratorsLIST.map(e => e.rights.preset)
             let selected = collabs[0]
-            const rightsRow = lab_design_system_d('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
+            const rightsRow = lab_design_system('div', 'rightsRow', rights, '', '', ['appMenu', 'execute'])
             const rightsCollabs = dropDown(collabs, selected, 'collabs-rights', writeCollab, rightsRow)
 
-            const pointers = lab_design_system_d('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
+            const pointers = lab_design_system('div', 'pointers', rights, '', '', ['appMenu', 'collaborators'])
 
             function writeCollab(index = 0) {
               selected = collabs[index]
@@ -2924,9 +2924,9 @@ function AppMenu(dashObj) {
               function selcetRights(a = 0) {
                 pointers.innerHTML = ''
                 checkInputs.forEach((e, i) => {
-                  const row = lab_design_system_d('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
-                  const text = lab_design_system_d('span', `${e}-text`, row, e)
-                  const check = lab_design_system_d('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
+                  const row = lab_design_system('div', `${e}-${i}`, pointers, '', '', ['appMenu', 'execute'])
+                  const text = lab_design_system('span', `${e}-text`, row, e)
+                  const check = lab_design_system('input', `${e}-check`, row, '', '', ['appMenu', 'checkbox'])
                   check.setAttribute('type', 'checkbox')
                   check.checked = checkRights[rightArr[a]][i]
                   if (rightArr[a] != 'custom') check.disabled = true
@@ -2946,16 +2946,16 @@ function AppMenu(dashObj) {
 
       else if (slide == 'media') {
         let selectedFolder;
-        const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
-        const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
-        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
-        const files = lab_design_system_d('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
+        const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+        const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+        const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+        const files = lab_design_system('div', 'app-menu-files', wrapper, '', '', ['appMenu', 'files'])
         if (sectionElementsObject.mediaLists && sectionElementsObject.mediaLists.length > 0) {
           sectionElementsObject.mediaLists.forEach(e => {
-            const item = lab_design_system_d('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
-            const icon = lab_design_system_d('img', `forder-${e.listName}-icon`, item)
+            const item = lab_design_system('div', `forder-${e.listName}`, folders, '', '', ['appMenu', 'folder'])
+            const icon = lab_design_system('img', `forder-${e.listName}-icon`, item)
             icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
-            const text = lab_design_system_d('div', `forder-${e.listName}-name`, item, e.listName)
+            const text = lab_design_system('div', `forder-${e.listName}-name`, item, e.listName)
             text.style.marginRight = 'auto'
             moreBtn(item, `folder-${e.listName}`, { 'delete': "delete" }, e.listName, Folders)
 
@@ -2982,13 +2982,13 @@ function AppMenu(dashObj) {
           files.innerHTML = ''
           if (list.length > 0) {
             list.forEach((e, i) => {
-              const file = lab_design_system_d('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
-              const fileImg = lab_design_system_d('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
-              const img = lab_design_system_d('img', `file-img-${i}`, fileImg)
+              const file = lab_design_system('div', `file-${i}`, files, '', '', ['appMenu', 'fileImg'])
+              const fileImg = lab_design_system('div', `f-img-${i}`, file, '', '', ['appMenu', 'boxImg'])
+              const img = lab_design_system('img', `file-img-${i}`, fileImg)
               img.style.maxWidth = '100%'
               img.style.aspectRatio = '1'
               img.style.objectFit = 'cover'
-              const span = lab_design_system_d('span', `file-span-${i}`, file, e)
+              const span = lab_design_system('span', `file-span-${i}`, file, e)
               img.setAttribute('src', `/DB/USERS_FOLDERS/${sectionElementsObject.uid}/apps/${sectionElementsObject.app}/content/ressources/medias/${selectedFolder}/${e}`)
             })
           } else {
@@ -2997,7 +2997,7 @@ function AppMenu(dashObj) {
           lab_fade_in_recursively(files, 0.3)
         }
 
-        const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+        const bottom = lab_design_system('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
 
         let buttons = {
           'import': lngData.import_files,
@@ -3005,10 +3005,10 @@ function AppMenu(dashObj) {
         }
 
         Object.keys(buttons).forEach(e => {
-          const btn = lab_design_system_d('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
-          const icon = lab_design_system_d('img', `forder-${e}-icon`, btn)
+          const btn = lab_design_system('div', `forder-${e}`, bottom, '', '', ['appMenu', 'borderBtn'])
+          const icon = lab_design_system('img', `forder-${e}-icon`, btn)
           icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
-          const text = lab_design_system_d('div', `forder-${e}-name`, btn, buttons[e])
+          const text = lab_design_system('div', `forder-${e}-name`, btn, buttons[e])
           btn.addEventListener('click', (ev) => {
             ev.preventDefault()
             if (e == 'create') {
@@ -3031,12 +3031,12 @@ function AppMenu(dashObj) {
       }
 
       else if (slide == 'deploy') {
-        const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-        const deploy = lab_design_system_d('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
-        const left = lab_design_system_d('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
-        const right = lab_design_system_d('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
-        const heading = lab_design_system_d('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
-        const wrap = lab_design_system_d('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
+        const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+        const deploy = lab_design_system('div', 'app-menu-deploy', wrapper, '', 'scrollable', ['appMenu', 'deploy'])
+        const left = lab_design_system('div', 'app-deploy-left', deploy, '', '', ['appMenu', 'left'])
+        const right = lab_design_system('div', 'app-deploy-right', deploy, '', '', ['appMenu', 'right'])
+        const heading = lab_design_system('h6', 'app-menu-heading', left, sideButtons[slide], '', ['appMenu', 'heading'])
+        const wrap = lab_design_system('div', `app-menu-text-wrap`, right, '', '', ['appMenu', 'textBox'])
         right.style.position = 'relative'
         wrap.style.height = '100%'
         wrap.style.maxHeight = '100%'
@@ -3045,7 +3045,7 @@ function AppMenu(dashObj) {
         drop.wrap.style.position = 'relative'
         drop.wrap.style.zIndex = 25
 
-        const leftBox = lab_design_system_d('form', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
+        const leftBox = lab_design_system('form', 'app-deploy-box', left, '', '', ['appMenu', 'leftBox'])
 
         function deployBox(e = 'lab_user_personnal_server') {
           removeCommandsBox()
@@ -3056,7 +3056,7 @@ function AppMenu(dashObj) {
             const pass = Input('pass', leftBox, lngData.password, '')
             const dir = Input('dir', leftBox, lngData.remote_app_dir, '')
             const port = Input('port', leftBox, lngData.port, '')
-            const save = lab_design_system_d('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
+            const save = lab_design_system('button', `save`, leftBox, lngData.save, '', ['buttons', 'action'])
             save.style.width = 'fit-content'
 
             save.addEventListener('click', () => {
@@ -3074,9 +3074,9 @@ function AppMenu(dashObj) {
           if (e == 'laboranth_remote_server') {
             socket.emit('checkAgencyStatus', userLSG, agencyStatus => {
               function serverHandler(userConfiguration) {
-                const ressourceIPV4Label = lab_design_system_d("div", "ressource-ip4-label", leftBox, lngData.host_ip + 'V4 :' + userConfiguration.configs.agencyServer.public_ipv4, '')
-                const serverUserLabel = lab_design_system_d("div", "ressource-username-label", leftBox, lngData.username_ssh + " : " + userConfiguration.configs.agencyServer.username, '')
-                const ressourcePassword = lab_design_system_d("button", "ressource-password", leftBox, lngData.copy + " " + lngData.password, '', ['buttons', 'action'])
+                const ressourceIPV4Label = lab_design_system("div", "ressource-ip4-label", leftBox, lngData.host_ip + 'V4 :' + userConfiguration.configs.agencyServer.public_ipv4, '')
+                const serverUserLabel = lab_design_system("div", "ressource-username-label", leftBox, lngData.username_ssh + " : " + userConfiguration.configs.agencyServer.username, '')
+                const ressourcePassword = lab_design_system("button", "ressource-password", leftBox, lngData.copy + " " + lngData.password, '', ['buttons', 'action'])
                 ressourcePassword.style.display = 'inline-block'
 
                 ressourcePassword.addEventListener('click', () => {
@@ -3099,7 +3099,7 @@ function AppMenu(dashObj) {
                   })
                 })
 
-                const deployButton = lab_design_system_d('button', "server-deploy", leftBox, lngData.deployment, '', ['buttons', 'action'])
+                const deployButton = lab_design_system('button', "server-deploy", leftBox, lngData.deployment, '', ['buttons', 'action'])
                 deployButton.style.display = 'inline-block'
 
                 deployButton.addEventListener('click', () => {
@@ -3108,7 +3108,7 @@ function AppMenu(dashObj) {
                   socket.emit('sshDeploy', userLSG)
                 })
 
-                const destroyButton = lab_design_system_d('button', "server-destroy", leftBox, lngData.delete, '', ['buttons', 'action'])
+                const destroyButton = lab_design_system('button', "server-destroy", leftBox, lngData.delete, '', ['buttons', 'action'])
                 destroyButton.style.display = 'inline-block'
 
                 destroyButton.addEventListener('click', () => {
@@ -3125,13 +3125,13 @@ function AppMenu(dashObj) {
                     console.log(userConfiguration.configs);
                   } else {
 
-                    const usernameSsh = lab_design_system_d('div', 'username-ssh', leftBox, lngData.username_ssh)
+                    const usernameSsh = lab_design_system('div', 'username-ssh', leftBox, lngData.username_ssh)
                     const userNameInput = Input('user-ssh-input', leftBox, 'root')
 
-                    const userPass = lab_design_system_d('div', 'user-password', leftBox, lngData.password)
+                    const userPass = lab_design_system('div', 'user-password', leftBox, lngData.password)
                     const userPassInput = Input('user-password-input', leftBox)
                     userPassInput.setAttribute('type', 'password')
-                    const initialize = lab_design_system_d('button', 'server-initialize', leftBox, lngData.initialize, '', ['buttons', 'action'])
+                    const initialize = lab_design_system('button', 'server-initialize', leftBox, lngData.initialize, '', ['buttons', 'action'])
 
                     function isValidPassword(password) {
                       if (
@@ -3153,7 +3153,7 @@ function AppMenu(dashObj) {
                         userLSG.password = userPassInput.value
                         userLSG.status = agencyStatus.status
 
-                        const spinner = lab_design_system_d('img', 'load-spinner', right)
+                        const spinner = lab_design_system('img', 'load-spinner', right)
                         spinner.setAttribute('src', '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/login/content/sections/design/img/pre-loader.svg')
                         spinner.style.left = 'calc(50% - 40px)'
                         spinner.style.width = '80px'
@@ -3185,7 +3185,7 @@ function AppMenu(dashObj) {
             })
           }
           if (e == 'laboranth_deploy_zip') {
-            const donwload = lab_design_system_d('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
+            const donwload = lab_design_system('button', `donwload`, leftBox, lngData.download, '', ['buttons', 'action'])
             donwload.addEventListener('click', e => {
               socket.emit('askAppZipFolder', lab_local_storage_object('global'), res => {
                 const blob = new Blob([res.fileData], { type: 'application/zip' })
@@ -3202,7 +3202,7 @@ function AppMenu(dashObj) {
           }
           if (e == 'laboranth_deploy_git') {
             const drop = dropDown(git_settings, git_settings.credentials, 'git', (e) => subBox(git, e), leftBox)
-            const git = lab_design_system_d('div', 'app-sub-box', left, '', '', ['appMenu', 'leftBox'])
+            const git = lab_design_system('div', 'app-sub-box', left, '', '', ['appMenu', 'leftBox'])
             subBox(git)
           }
 
@@ -3217,7 +3217,7 @@ function AppMenu(dashObj) {
             const email = Input('pass', parent, lngData.email, '')
             const dir = Input('dir', parent, lngData.remote_app_dir, '')
             const port = Input('port', parent, lngData.port, '')
-            const save = lab_design_system_d('button', `save`, parent, lngData.save, '', ['buttons', 'action'])
+            const save = lab_design_system('button', `save`, parent, lngData.save, '', ['buttons', 'action'])
             save.style.width = 'fit-content'
 
             save.addEventListener('click', () => {
@@ -3231,18 +3231,18 @@ function AppMenu(dashObj) {
             })
           }
           if (e == 'create') {
-            const nameLabel = lab_design_system_d("div", "rep-name", parent, lngData.repository_name)
+            const nameLabel = lab_design_system("div", "rep-name", parent, lngData.repository_name)
 
             const repoName = Input('rep-name-input', parent)
-            const privateLabel = lab_design_system_d("div", "rep-private-label", parent, lngData.private_repository)
+            const privateLabel = lab_design_system("div", "rep-private-label", parent, lngData.private_repository)
 
-            const privateInput = lab_design_system_d('input', `private-rep`, parent, '', '', ['steps', 'checkbox'])
+            const privateInput = lab_design_system('input', `private-rep`, parent, '', '', ['steps', 'checkbox'])
 
-            const descriptionLabel = lab_design_system_d("div", "rep-description-label", parent, lngData.description)
+            const descriptionLabel = lab_design_system("div", "rep-description-label", parent, lngData.description)
 
             const descriptionInput = Input('rep-description-input', parent)
 
-            const create = lab_design_system_d('button', `create-rep`, parent, lngData.create, '', ['buttons', 'action'])
+            const create = lab_design_system('button', `create-rep`, parent, lngData.create, '', ['buttons', 'action'])
             create.style.width = 'fit-content'
 
             create.addEventListener('click', (e) => {
@@ -3261,9 +3261,9 @@ function AppMenu(dashObj) {
           }
 
           if (e == 'delete') {
-            const delLabel = lab_design_system_d("div", "rep-delete", parent, lngData.repository_name)
+            const delLabel = lab_design_system("div", "rep-delete", parent, lngData.repository_name)
             const repoName = Input('rep-name-input', parent)
-            const del = lab_design_system_d('button', `delete-rep`, parent, lngData.delete, '', ['buttons', 'action'])
+            const del = lab_design_system('button', `delete-rep`, parent, lngData.delete, '', ['buttons', 'action'])
             del.style.width = 'fit-content'
 
             del.addEventListener('click', e => {
@@ -3288,9 +3288,9 @@ function AppMenu(dashObj) {
         }
         function CommandsBox() {
           removeCommandsBox()
-          const executeBox = lab_design_system_d('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
+          const executeBox = lab_design_system('div', 'deploy-execute', wrapper, '', '', ['appMenu', 'execute'])
           const command = Input('command', executeBox, 'ls')
-          const execute = lab_design_system_d('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
+          const execute = lab_design_system('button', `execute`, executeBox, lngData.run_cmd, '', ['buttons', 'action'])
           execute.style.width = 'fit-content'
           execute.style.whiteSpace = 'nowrap'
 
@@ -3301,7 +3301,7 @@ function AppMenu(dashObj) {
             socket.emit("runRemoteCommand", userLSG)
           })
 
-          const deployBtn = lab_design_system_d('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
+          const deployBtn = lab_design_system('button', `btn-deploy`, wrapper, lngData.deployment, '', ['buttons', 'action'])
           deployBtn.style.width = 'fit-content'
 
           deployBtn.addEventListener('click', e => {
@@ -3318,22 +3318,22 @@ function AppMenu(dashObj) {
       else if (slide == 'database') {
         function DBLists() {
           box.innerHTML = ''
-          const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+          const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
 
-          const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, lngData.sql_databases, '', ['appMenu', 'heading'])
-          const scrollList = lab_design_system_d('div', 'scrollList', wrapper, '', 'scrollable', ['appMenu', 'scrollList'])
-          const dbList = lab_design_system_d('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
+          const heading = lab_design_system('h6', 'app-menu-heading', wrapper, lngData.sql_databases, '', ['appMenu', 'heading'])
+          const scrollList = lab_design_system('div', 'scrollList', wrapper, '', 'scrollable', ['appMenu', 'scrollList'])
+          const dbList = lab_design_system('div', 'app-menu-act', scrollList, '', '', ['appMenu', 'DBList'])
 
           sectionElementsObject.databases.forEach((e, index) => {
-            const pageLink = lab_design_system_d('div', `db-link-${index}`, dbList, '', '', ['appMenu', 'db'])
-            const name = lab_design_system_d('span', `db-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
+            const pageLink = lab_design_system('div', `db-link-${index}`, dbList, '', '', ['appMenu', 'db'])
+            const name = lab_design_system('span', `db-name-${index}`, pageLink, e, '', ['appMenu', 'link'])
             name.style.cursor = 'pointer'
             name.style.width = '100%'
             name.addEventListener('click', () => {
               OpenDB(e)
             })
-            const del = lab_design_system_d('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
-            const delIcon = lab_design_system_d('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
+            const del = lab_design_system('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
+            const delIcon = lab_design_system('img', `del-btn-icon-${index}`, del, '', '', ['design', 'icon'])
             delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
             del.addEventListener('click', () => {
               userLSG.sqlDB = e
@@ -3346,11 +3346,11 @@ function AppMenu(dashObj) {
             })
           })
 
-          const bottom = lab_design_system_d('div', `bottom`, wrapper, '', '', ['appMenu', 'execute'])
+          const bottom = lab_design_system('div', `bottom`, wrapper, '', '', ['appMenu', 'execute'])
           const input = Input('act-name', bottom)
           input.style.minWidth = '220px'
           input.style.width = 'fit-content'
-          const btn = lab_design_system_d('button', 'add-db', bottom, lngData.add, '', ['buttons', 'action'])
+          const btn = lab_design_system('button', 'add-db', bottom, lngData.add, '', ['buttons', 'action'])
           btn.style.width = 'fit-content'
           btn.addEventListener('click', (e) => {
             if (input.value) {
@@ -3385,9 +3385,9 @@ function AppMenu(dashObj) {
 
             if (dbInfo) {
 
-              const media = lab_design_system_d('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
-              const folders = lab_design_system_d('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
-              const wrapper = lab_design_system_d('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
+              const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
+              const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
+              const wrapper = lab_design_system('div', 'app-menu-wrapper', media, '', 'scrollable', ['appMenu', 'wrapper'])
 
 
               function RenderColumns(dbTable) {
@@ -3399,33 +3399,33 @@ function AppMenu(dashObj) {
                   'real': "REAL"
                 }
 
-                const columns = lab_design_system_d('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
+                const columns = lab_design_system('div', 'columns', wrapper, '', 'scrolable', ['appMenu', 'columns'])
 
                 columns.innerHTML = ''
 
-                const top = lab_design_system_d('div', 'top', columns, '', '', ['appMenu', 'column'])
+                const top = lab_design_system('div', 'top', columns, '', '', ['appMenu', 'column'])
                 top.style.background = '#3C4CA6'
                 top.style.borderRadius = '10px 10px 0 0'
-                const name = lab_design_system_d('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
-                const type = lab_design_system_d('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
-                const notNull = lab_design_system_d('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
-                const unique = lab_design_system_d('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
+                const name = lab_design_system('div', 'h-name', top, lngData.name_of_column, '', ['appMenu', 'columnHead'])
+                const type = lab_design_system('div', 'h-type', top, lngData.data_type, '', ['appMenu', 'columnHead'])
+                const notNull = lab_design_system('div', 'h-notNull', top, lngData.not_null, '', ['appMenu', 'columnHead'])
+                const unique = lab_design_system('div', 'h-unique', top, lngData.unique, '', ['appMenu', 'columnHead'])
                 //COLUMN
 
-                const newColumn = lab_design_system_d('div', 'new-column', columns, '', '', ['appMenu', 'column'])
+                const newColumn = lab_design_system('div', 'new-column', columns, '', '', ['appMenu', 'column'])
                 newColumn.style.position = 'relative'
                 newColumn.style.order = 9999
 
-                const addColumn = lab_design_system_d('button', 'add-column', newColumn, '', '', ['appMenu', 'addColumn'])
-                const addIcon = lab_design_system_d('img', 'add-column-icon', addColumn, '', '', ['design', 'icon'])
+                const addColumn = lab_design_system('button', 'add-column', newColumn, '', '', ['appMenu', 'addColumn'])
+                const addIcon = lab_design_system('img', 'add-column-icon', addColumn, '', '', ['design', 'icon'])
                 addIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/add_user.svg')
 
-                const newColumnName = lab_design_system_d('div', 'new-column-name', newColumn, '', '', ['appMenu', 'columnBox'])
+                const newColumnName = lab_design_system('div', 'new-column-name', newColumn, '', '', ['appMenu', 'columnBox'])
                 newColumnName.style.padding = '0'
 
                 const newColumnNameInput = Input('new-column-name-input', newColumnName)
 
-                const newColumnType = lab_design_system_d('div', 'new-column-type', newColumn, '', '', ['appMenu', 'columnBox'])
+                const newColumnType = lab_design_system('div', 'new-column-type', newColumn, '', '', ['appMenu', 'columnBox'])
                 newColumnType.style.padding = '0'
                 let newColumnDataType = 'INTEGER'
 
@@ -3434,28 +3434,28 @@ function AppMenu(dashObj) {
                 }, newColumnType)
                 newColumnTypeInput.wrap.style.width = '100%'
 
-                const newColumnNotNull = lab_design_system_d('div', 'new-column-notNull', newColumn, '', '', ['appMenu', 'columnBox'])
+                const newColumnNotNull = lab_design_system('div', 'new-column-notNull', newColumn, '', '', ['appMenu', 'columnBox'])
                 newColumnNotNull.style.padding = '0'
 
-                const newColumnNotNullInput = lab_design_system_d('input', 'new-column-notNull-input', newColumnNotNull, '', '', ['steps', 'checkbox'])
+                const newColumnNotNullInput = lab_design_system('input', 'new-column-notNull-input', newColumnNotNull, '', '', ['steps', 'checkbox'])
                 newColumnNotNullInput.setAttribute('type', 'checkbox')
 
-                const newColumnUnique = lab_design_system_d('div', 'new-column-unique', newColumn, '', '', ['appMenu', 'columnBox'])
+                const newColumnUnique = lab_design_system('div', 'new-column-unique', newColumn, '', '', ['appMenu', 'columnBox'])
                 newColumnUnique.style.padding = '0'
 
-                const newColumnUniqueInput = lab_design_system_d('input', 'new-column-unique-input', newColumnUnique, '', '', ['steps', 'checkbox'])
+                const newColumnUniqueInput = lab_design_system('input', 'new-column-unique-input', newColumnUnique, '', '', ['steps', 'checkbox'])
 
                 newColumnUniqueInput.setAttribute('type', 'checkbox')
 
                 function addRow(c, index) {
-                  const column = lab_design_system_d('div', `column-${index}`, columns, '', 'sql-column', ['appMenu', 'column'])
-                  const Cname = lab_design_system_d('div', `column-name-${index}`, column, c.name, '', ['appMenu', 'columnBox'])
+                  const column = lab_design_system('div', `column-${index}`, columns, '', 'sql-column', ['appMenu', 'column'])
+                  const Cname = lab_design_system('div', `column-name-${index}`, column, c.name, '', ['appMenu', 'columnBox'])
                   Cname.setAttribute('data-column', 'name')
-                  const Ctype = lab_design_system_d('div', `column-type-${index}`, column, c.type, '', ['appMenu', 'columnBox'])
+                  const Ctype = lab_design_system('div', `column-type-${index}`, column, c.type, '', ['appMenu', 'columnBox'])
                   Ctype.setAttribute('data-column', 'type')
-                  const CnotNull = lab_design_system_d('div', `column-not-null-${index}`, column, Boolean(c.notnull).toString(), '', ['appMenu', 'columnBox'])
+                  const CnotNull = lab_design_system('div', `column-not-null-${index}`, column, Boolean(c.notnull).toString(), '', ['appMenu', 'columnBox'])
                   CnotNull.setAttribute('data-column', 'notNull')
-                  const Cunique = lab_design_system_d('div', `column-unique-${index}`, column, String(c.unique), '', ['appMenu', 'columnBox'])
+                  const Cunique = lab_design_system('div', `column-unique-${index}`, column, String(c.unique), '', ['appMenu', 'columnBox'])
                   Cunique.setAttribute('data-column', 'unique')
 
                   column.addEventListener('click', (e) => {
@@ -3492,8 +3492,8 @@ function AppMenu(dashObj) {
                 function ColumnSettings(field, columnInfo, fieldId) {
                   let last = document.getElementById('lab-column-setting')
                   if (last) last.remove()
-                  const columnSetting = lab_design_system_d('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
-                  const del = lab_design_system_d('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
+                  const columnSetting = lab_design_system('div', 'column-setting', wrapper, '', '', ['appMenu', 'columnSetting'])
+                  const del = lab_design_system('div', 'del', columnSetting, lngData.delete, '', ['buttons', 'action'])
                   del.style.width = 'fit-content'
                   del.style.marginRight = 'auto'
 
@@ -3519,7 +3519,7 @@ function AppMenu(dashObj) {
                     let input = Input('column-name', columnSetting, columnInfo.name)
                     input.style.maxWidth = '220px'
 
-                    action = lab_design_system_d('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
+                    action = lab_design_system('div', 'action', columnSetting, lngData.update_column_name, '', ['buttons', 'action'])
 
                     action.addEventListener('click', function () {
                       userLSG.sqlTable = lab_local_storage_object('global').openedSqlTable
@@ -3543,7 +3543,7 @@ function AppMenu(dashObj) {
                     }, columnSetting)
                     drop.wrap.style.maxWidth = '220px'
                     drop.wrap.style.width = '100%'
-                    action = lab_design_system_d('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
+                    action = lab_design_system('div', 'action', columnSetting, lngData.update_data_type, '', ['buttons', 'action'])
 
                     action.addEventListener('click', function () {
                       userLSG.sqlTable = lab_local_storage_object('global').openedSqlTable
@@ -3562,7 +3562,7 @@ function AppMenu(dashObj) {
                   }
                   if (field == 'notNull') {
                     let temp = columnInfo.notnull == true ? 'change_true_to_false' : 'change_false_to_true'
-                    action = lab_design_system_d('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+                    action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
 
                     action.addEventListener('click', () => {
                       userLSG.sqlTable = lab_local_storage_object('global').openedSqlTable
@@ -3594,7 +3594,7 @@ function AppMenu(dashObj) {
                   }
                   if (field == 'unique') {
                     let temp = columnInfo.unique == true ? 'change_true_to_false' : 'change_false_to_true'
-                    action = lab_design_system_d('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
+                    action = lab_design_system('div', 'action', columnSetting, lngData[temp], '', ['buttons', 'action'])
 
                     action.addEventListener('click', () => {
                       userLSG.sqlTable = lab_local_storage_object('global').openedSqlTable
@@ -3626,8 +3626,8 @@ function AppMenu(dashObj) {
               }
 
               function addTable(e, index) {
-                const item = lab_design_system_d('div', `table-${e.tableName}`, folders, '', 'sql-table', ['appMenu', 'folder'])
-                const text = lab_design_system_d('div', `table-${index}-name`, item, e.tableName)
+                const item = lab_design_system('div', `table-${e.tableName}`, folders, '', 'sql-table', ['appMenu', 'folder'])
+                const text = lab_design_system('div', `table-${index}-name`, item, e.tableName)
                 text.style.width = '100%'
                 text.addEventListener('click', () => {
                   if (!item.classList.contains('lab-selected-table')) {
@@ -3640,8 +3640,8 @@ function AppMenu(dashObj) {
                     item.classList.add('lab-selected-table')
                     item.style.background = '#fff'
 
-                    const del = lab_design_system_d('button', `table-del-btn`, item, '', '', ['appMenu', 'deleteBtn'])
-                    const delIcon = lab_design_system_d('img', `del-btn-icon`, del, '', '', ['design', 'icon'])
+                    const del = lab_design_system('button', `table-del-btn`, item, '', '', ['appMenu', 'deleteBtn'])
+                    const delIcon = lab_design_system('img', `del-btn-icon`, del, '', '', ['design', 'icon'])
                     delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
                     del.addEventListener('click', () => {
                       userLSG.tableToDel = e.tableName
@@ -3668,12 +3668,12 @@ function AppMenu(dashObj) {
                 })
               }
 
-              const bottom = lab_design_system_d('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
+              const bottom = lab_design_system('div', 'app-fold-bottom', folders, '', '', ['appMenu', 'bottom'])
               bottom.style.order = 9999
-              const NewTable = lab_design_system_d('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
-              const icon = lab_design_system_d('img', `new-table-icon`, NewTable)
+              const NewTable = lab_design_system('div', `new-table`, bottom, '', '', ['appMenu', 'borderBtn'])
+              const icon = lab_design_system('img', `new-table-icon`, NewTable)
               icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/new-folder.svg`)
-              const text = lab_design_system_d('div', `new-table-name`, NewTable, lngData.new_table)
+              const text = lab_design_system('div', `new-table-name`, NewTable, lngData.new_table)
 
               NewTable.addEventListener('click', (e) => {
                 e.preventDefault()
@@ -3715,16 +3715,16 @@ function AppMenu(dashObj) {
     RenderBox()
 
     function moreBtn(parent, id, list, el, func) {
-      const more = lab_design_system_d('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
-      const icon = lab_design_system_d('img', `more-btn-${id}-icon`, more)
+      const more = lab_design_system('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
+      const icon = lab_design_system('img', `more-btn-${id}-icon`, more)
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/more_vert.svg`)
       icon.style.transform = 'rotate(90deg)'
 
       more.addEventListener('click', () => {
-        const listing = lab_design_system_d('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
+        const listing = lab_design_system('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
 
         Object.keys(list).forEach((e, i) => {
-          const item = lab_design_system_d('div', `more-list-${i}`, listing, list[e])
+          const item = lab_design_system('div', `more-list-${i}`, listing, list[e])
           item.addEventListener('click', () => func(el, e))
         })
 
@@ -3733,13 +3733,13 @@ function AppMenu(dashObj) {
     }
 
     function TextEditableBox(type) {
-      const wrapper = lab_design_system_d('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
-      const heading = lab_design_system_d('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
-      const wrap = lab_design_system_d('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
-      const textArea = lab_design_system_d('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
+      const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
+      const heading = lab_design_system('h6', 'app-menu-heading', wrapper, sideButtons[type], '', ['appMenu', 'heading'])
+      const wrap = lab_design_system('div', `app-menu-text-wrap`, wrapper, '', '', ['appMenu', 'textBox'])
+      const textArea = lab_design_system('div', `app-menu-textArea`, wrap, '', 'scrollable', ['appMenu', 'textArea'])
       textArea.contentEditable = true
 
-      const btn = lab_design_system_d('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
+      const btn = lab_design_system('button', `app-menu-btn`, wrapper, lngData.save, '', ['buttons', 'action'])
       btn.style.width = 'fit-content'
 
       let FileType = type == 'css' ? "CSS" : "Features"
@@ -3758,23 +3758,23 @@ function AppMenu(dashObj) {
     }
 
     function Input(id, parent, placeholder = '', value = '') {
-      const input = lab_design_system_d('input', id, parent, '', '', ['appMenu', 'Input'])
+      const input = lab_design_system('input', id, parent, '', '', ['appMenu', 'Input'])
       input.setAttribute('placeholder', placeholder)
       input.setAttribute('value', value)
       return input
     }
 
     function dropDown(list, value, id, func, parent = box) {
-      const wrap = lab_design_system_d('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
-      const selected = lab_design_system_d('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
-      const text = lab_design_system_d('span', `${id}-text`, selected, value.replace(/"/gi, ''))
-      const icon = lab_design_system_d('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
+      const wrap = lab_design_system('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
+      const selected = lab_design_system('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
+      const text = lab_design_system('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+      const icon = lab_design_system('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
-      const listing = lab_design_system_d('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
+      const listing = lab_design_system('div', `${id}-list`, wrap, '', 'scrollable', ['appMenu', 'list'])
       if (typeof list == 'array') {
         list.forEach(e => {
-          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, e)
+          const item = lab_design_system('div', `${id}-list-${e}`, listing, e)
           item.addEventListener('click', () => {
             text.innerHTML = e
             func(e)
@@ -3782,7 +3782,7 @@ function AppMenu(dashObj) {
         })
       } else {
         Object.keys(list).forEach(e => {
-          const item = lab_design_system_d('div', `${id}-list-${e}`, listing, list[e])
+          const item = lab_design_system('div', `${id}-list-${e}`, listing, list[e])
           item.addEventListener('click', () => {
             text.innerHTML = list[e]
             func(e)
@@ -3805,7 +3805,7 @@ function AppMenu(dashObj) {
       menu.remove()
     })
 
-    const fileInput = lab_design_system_d('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
+    const fileInput = lab_design_system('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
     fileInput.setAttribute('type', 'file')
 
     lab_fade_in_recursively(menu, 0.3)
@@ -3976,21 +3976,21 @@ class Designer {
 
 class DesignConstructor {
   static button(parent, styles, content, icon, className = 'none', id = Designer.ID()) {
-    const btn = lab_design_system_d('button', id, parent, content, className, styles)
+    const btn = lab_design_system('button', id, parent, content, className, styles)
     if (icon) {
-      const btnIcon = lab_design_system_d('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
+      const btnIcon = lab_design_system('img', `${id}-icon`, btn, '', 'none', ['design', 'icon'])
       btnIcon.setAttribute('src', `${oldSRC}${icon}.svg`)
     }
     return btn;
   }
 
   static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
-    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'inputWrap'])
+    const wrap = lab_design_system('div', id, parent, '', '', ['design', 'inputWrap'])
     if (icon) {
-      const innerIcon = lab_design_system_d('img', id, wrap, '', '', ['design', 'icon'])
+      const innerIcon = lab_design_system('img', id, wrap, '', '', ['design', 'icon'])
       innerIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${icon}.svg`)
     }
-    const Input = lab_design_system_d('input', `input-${id}`, wrap, '', '', ['design', 'input'])
+    const Input = lab_design_system('input', `input-${id}`, wrap, '', '', ['design', 'input'])
 
     value && Input.setAttribute('value', value)
     placeholder && Input.setAttribute('placeholder', placeholder)
@@ -4001,15 +4001,15 @@ class DesignConstructor {
 
   static dropList(parent, list, value, func) {
     let id = Designer.ID()
-    const wrap = lab_design_system_d('div', id, parent, '', '', ['design', 'dropList'])
-    const selected = lab_design_system_d('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
-    const text = lab_design_system_d('span', Designer.ID(), selected, value.replace(/"/gi, ''))
-    const icon = lab_design_system_d('img', id + '-icon', selected, '', '', ['design', 'icon'])
+    const wrap = lab_design_system('div', id, parent, '', '', ['design', 'dropList'])
+    const selected = lab_design_system('div', id + '-selected', wrap, '', '', ['design', 'dropSel'])
+    const text = lab_design_system('span', Designer.ID(), selected, value.replace(/"/gi, ''))
+    const icon = lab_design_system('img', id + '-icon', selected, '', '', ['design', 'icon'])
     icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
-    const listing = lab_design_system_d('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
+    const listing = lab_design_system('div', id + '-list', wrap, '', '', ['design', 'dropListing'])
     list.forEach(e => {
-      const item = lab_design_system_d('span', Designer.ID(), listing, e)
+      const item = lab_design_system('span', Designer.ID(), listing, e)
       item.addEventListener('click', () => {
         text.innerHTML = e
         func && func(e)
@@ -4049,13 +4049,13 @@ class DesignConstructor {
     let last = document.getElementById('lab-block-menu')
     if (last) last.remove()
 
-    const menuWrap = lab_design_system_d('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
+    const menuWrap = lab_design_system('div', 'block-menu-wrap', parent, '', 'none', ['design', 'blockMenuWrap'])
 
-    const menu = lab_design_system_d('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
+    const menu = lab_design_system('div', 'block-menu', menuWrap, '', 'none', ['design', 'blockMenu'])
     Object.keys(options).forEach(e => {
-      const item = lab_design_system_d('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
-      const itemIcon = lab_design_system_d('img', Designer.ID(), item, '0', 'none')
-      const itemText = lab_design_system_d('span', Designer.ID(), item, options[e], 'none')
+      const item = lab_design_system('div', Designer.ID(), menu, '', 'none', ['design', 'blockMenuItem'])
+      const itemIcon = lab_design_system('img', Designer.ID(), item, '0', 'none')
+      const itemText = lab_design_system('span', Designer.ID(), item, options[e], 'none')
       itemIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
       itemIcon.style.width = '15px'
 
@@ -4066,6 +4066,7 @@ class DesignConstructor {
         if (e == 'drag') selectTool('move')
         if (e == 'copy') Designer.copy(element)
         if (e == 'del') Designer.del(element)
+        if (e == 'db_actions') db_popup(element, lngData)
       })
     })
     const menuRect = menuWrap.getBoundingClientRect()
@@ -4210,647 +4211,1399 @@ const elementsToolsList = {
   },
 }
 
-function design_mode() {
-  const labBody = document.querySelector('body')
-  labBody.style.position = "relative"
-  labBody.style.overflow = "hidden"
-  labBody.style.display = "flex"
-  labBody.style.width = "100svw"
-  labBody.style.height = "100svh"
+// function design_mode() {
+//   const labBody = document.querySelector('body')
+//   labBody.style.position = "relative"
+//   labBody.style.overflow = "hidden"
+//   labBody.style.display = "flex"
+//   labBody.style.width = "100svw"
+//   labBody.style.height = "100svh"
 
-  const ElementsList = {
-    'button': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
-      'title': "button",
-      'template': {
-        'landscape': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': 'inline',
-            'width': "fit-content",
-            'position': "relative",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
+//   const ElementsList = {
+//     'button': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
+//       'title': "button",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-button",
+//           'tag': "button",
+//           'root': true,
+//           'classes': "lab-button",
+//           'styles': {
+//             'padding': '10px 20px',
+//             'borderRadius': "15px",
+//             'display': 'inline',
+//             'width': "fit-content",
+//             'position': "relative",
+//             'background': "#FED05E"
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
 
-              },
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              }
-            }
-          ]
-        },
-        'portrait': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': "flex",
-            'gap': "10px",
-            'alignItems': "center",
-            'justifyContent': "center",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              },
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              }
-            }
-          ]
-        }
-      }
-    },
-    'section': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "section",
-      'template': {
-        'landscape': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'position': "relative"
-          }
-        },
-        'portrait': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'padding': '80px 20px',
-            'background': '#FFFFFF',
-            'position': "relative"
-          }
-        },
-      }
-    },
-    'div': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "div",
-      'template': {
-        'landscape': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative"
-          }
-        },
-        'portrait': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative"
-          }
-        },
-      }
-    },
-    'form': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
-      'title': "form",
-      'template': {
-        'landscape': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'positon': "relative",
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
-                },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'portrait': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
-            }
-          ]
-        },
-        'portrait': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'positon': "relative",
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
-                },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'portrait': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
-            }
-          ]
-        }
-      }
-    },
-    'input': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "input",
-      'template': {
-        'landscape': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
-          }
-        },
-        'portrait': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
-          }
-        },
-      }
-    }
+//               },
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               }
+//             }
+//           ]
+//         },
+//         'portrait': {
+//           'id': "lab-button",
+//           'tag': "button",
+//           'root': true,
+//           'classes': "lab-button",
+//           'styles': {
+//             'padding': '10px 20px',
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'gap': "10px",
+//             'alignItems': "center",
+//             'justifyContent': "center",
+//             'background': "#FED05E"
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               },
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               }
+//             }
+//           ]
+//         }
+//       }
+//     },
+//     'section': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "section",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-section",
+//           'tag': "section",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'position': "relative"
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-section",
+//           'tag': "section",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'padding': '80px 20px',
+//             'background': '#FFFFFF',
+//             'position': "relative"
+//           }
+//         },
+//       }
+//     },
+//     'div': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "div",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-section",
+//           'tag': "div",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '20px 20px',
+//             'position': "relative"
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-section",
+//           'tag': "div",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '20px 20px',
+//             'position': "relative"
+//           }
+//         },
+//       }
+//     },
+//     'form': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
+//       'title': "form",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-form",
+//           'tag': "form",
+//           'root': true,
+//           'styles': {
+//             'padding': '15px',
+//             'positon': "relative",
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'flexDirection': "column",
+//             'gap': "10px",
+//             'background': "#FFFFFF",
+//             'boxSizing': "border-box",
+//             'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'width': "100%",
+//                   'positon': "relative",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'positon': "relative",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'background': "#FED05E"
+//                 },
+//                 'attributes': {
+//                   'type': "button"
+//                 },
+//                 'text': 'Button'
+//               },
+//               'portrait': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'background': "#FED05E"
+//                 },
+//                 'text': 'Button'
+//               }
+//             }
+//           ]
+//         },
+//         'portrait': {
+//           'id': "lab-form",
+//           'tag': "form",
+//           'root': true,
+//           'styles': {
+//             'padding': '15px',
+//             'positon': "relative",
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'flexDirection': "column",
+//             'gap': "10px",
+//             'background': "#FFFFFF",
+//             'boxSizing': "border-box",
+//             'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'width': "100%",
+//                   'positon': "relative",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'positon': "relative",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'background': "#FED05E"
+//                 },
+//                 'attributes': {
+//                   'type': "button"
+//                 },
+//                 'text': 'Button'
+//               },
+//               'portrait': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'background': "#FED05E"
+//                 },
+//                 'text': 'Button'
+//               }
+//             }
+//           ]
+//         }
+//       }
+//     },
+//     'input': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "input",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-input",
+//           'tag': "input",
+//           'classes': "lab-empty-input",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '10px 20px',
+//             'borderRadius': "10px",
+//             'border': "none",
+//             'outline': "none",
+//             'position': "relative"
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-input",
+//           'tag': "input",
+//           'classes': "lab-empty-input",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '10px 20px',
+//             'borderRadius': "10px",
+//             'border': "none",
+//             'outline': "none",
+//             'position': "relative"
+//           }
+//         },
+//       }
+//     }
+//   }
+
+//   function Options(obj, key, value) {
+//     obj[key] = value ? value : !obj[key]
+//     localStorage.setItem('options', JSON.stringify(obj))
+//   }
+
+//   const designBody = document.querySelector('body')
+
+//   let options = JSON.parse(localStorage.getItem('options')) || {
+//     'vpm': "landscape",
+//     'zoom': 100,
+//     'toolBar': true,
+//     'settingsBar': true,
+//     'sideMenu': true,
+//   }
+
+//   //SIDE MENU
+
+//   const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
+//   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
+
+//   menuButton.addEventListener('click', () => {
+//     DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
+//     DesignConstructor.toggleClass(menuButton, 'design', 'showMenu', 'hideMenu')
+//     Options(options, 'sideMenu')
+//   })
+
+//   if (!options.sideMenu) {
+//     DesignConstructor.addClass(menu, 'design', 'hideSide')
+//     DesignConstructor.addClass(menuButton, 'design', 'hideMenu')
+//   }
+
+//   const elementsBox = lab_design_system('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
+
+//   const elementsTitle = lab_design_system('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
+//   const elementsWrap = lab_design_system('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
+
+//   function addList(e, list) {
+//     Object.keys(e).map(el => {
+//       const item = lab_design_system('div', Designer.ID(), list, '', '', ['design', 'template'])
+//       const icon = lab_design_system('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
+//       const img = lab_design_system('img', Designer.ID(), icon)
+//       img.setAttribute('src', e[el].icon)
+//       img.style.width = '30px'
+//       img.style.height = '30px'
+//       const text = lab_design_system('span', Designer.ID(), item, e[el].title)
+
+//       item.addEventListener('click', () => {
+//         const coord = item.getBoundingClientRect()
+//         const copy = Designer.copy(item)
+//         copy.style.position = "absolute"
+//         copy.style.opacity = "0.7"
+//         copy.style.left = `${coord.left}px`
+//         copy.style.top = `${coord.top}px`
+
+//         Designer.move(copy, async () => {
+//           const copyPos = copy.getBoundingClientRect()
+//           const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
+//           list.removeChild(copy)
+//           const item = await Designer.create(e, el, page, 'landscape', true)
+//           if (!['form', 'div', 'section'].includes(el)) {
+//             item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
+//             item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
+//             item.style.position = 'absolute'
+//             item.style.zIndex = '1'
+//           }
+//         })
+//       })
+//     })
+//   }
+
+//   addList(ElementsList, elementsWrap)
+
+//   //SIDE MENU END
+
+//   //USER PAGE
+
+//   let pageWrap
+//   if (!document.querySelector('#lab-user-page')) {
+//     pageWrap = lab_design_system('div', "user-page-wrap", designBody, '', 'scrollable', ['design', 'pageWrap'])
+//     pageWrap.classList.remove('escape')
+//     pageWrap.setAttribute('class', 'lab-scrollable')
+//   } else {
+//     pageWrap = document.querySelector('#lab-user-wrap')
+//   }
+
+//   let page
+//   if (!document.querySelector('#lab-user-page')) {
+//     page = lab_design_system('div', "user-page", pageWrap, '', '', ['design', 'page'])
+//   } else {
+//     page = document.querySelector('#lab-user-page')
+//   }
+//   page.classList.remove('escape')
+
+//   page.addEventListener('mouseover', (p) => {
+//     Designer.hover(p.target)
+//   })
+
+//   page.addEventListener('click', (e) => {
+//     let element = document.elementFromPoint(e.clientX, e.clientY)
+//     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+//     if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+//       StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
+//     }
+//   })
+
+//   page.addEventListener('mousedown', () => {
+//     mouseIsDown = true
+//   })
+//   page.addEventListener('mouseup', () => {
+//     mouseIsDown = false
+//   })
+
+
+//   page.addEventListener('contextmenu', function (e) {
+//     e.preventDefault()
+//     let element = document.elementFromPoint(e.clientX, e.clientY)
+//     const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
+//     if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+//       const BlockOptions = {
+//         'copy': lngData.copy,
+//         'drag': lngData.translate,
+//         'transform': lngData.resize,
+//         'del': lngData.delete
+//       }
+//       if (['form', 'input', 'button'].includes(element.tagName)) {
+//         BlockOptions['db_actions'] = lngData.link_to_database
+//       }
+//       const menu = DesignConstructor.blockMenu(element, page, BlockOptions)
+//       const pagePos = page.getBoundingClientRect()
+//       menu.style.left = e.clientX - pagePos.x - 30 + 'px'
+//       menu.style.top = e.clientY - pagePos.y - 30 + 'px'
+//     }
+//   })
+
+
+//   //USER PAGE END
+
+//   //TOOLBAR
+
+//   const toolBar = lab_design_system('div', "designers-bar-s", designBody, '', '', ['design', 'toolbar'])
+//   // const toolBar = lab_design_system('div', "designers-bar", designBody, '', '', ['design', 'toolbar'])
+
+//   const tools = {
+//     'cursor': [{
+//       value: 'cursor',
+//       icon: `${oldSRC}cursor.svg`
+//     },
+//     {
+//       value: 'group',
+//       icon: `${oldSRC}cursor.svg`
+//     }],
+//     'rotate': "rotate",
+//     'move': "move",
+//     'resize': "resize",
+//     'square': [{
+//       value: 'square',
+//       icon: `${oldSRC}square.svg`
+//     },
+//     {
+//       value: 'circle',
+//       icon: `${oldSRC}Ellipse.svg`
+//     },
+//     {
+//       value: 'triangle',
+//       icon: `${oldSRC}triangle.svg`
+//     },
+//     {
+//       value: 'formPath',
+//       icon: `https://laboranth.tech/D/R/IMG/LAB/designer_mode/labIconFormPathShape.svg`
+//     }],
+//     'pen': "pen",
+//     'text': 'text',
+//     'img': "img"
+//   }
+
+//   Object.keys(tools).forEach(tool => {
+//     let toolBtn
+//     if (typeof tools[tool] == 'object') {
+//       const toolWrap = lab_design_system('div', `${tool}-wrap`, toolBar, '', '', ['design', 'toolbarItemWrap'])
+//       toolBtn = DesignConstructor.button(toolWrap, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-btn`)
+//       const arrow = DesignConstructor.button(toolWrap, ['design', 'toolArrow'], '', `keyboard_arrow_down`)
+//       toolBtn.setAttribute('data-tool', tool)
+
+
+//       const list = lab_design_system('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
+//       tools[tool].forEach(e => {
+//         let btn = lab_design_system('button', `${e.value}-wrap-btn`, list,
+//           '', '', ['design', 'toolbarItem'])
+
+//         const icon = lab_design_system('img', `${e.value}-wrap-icon`, btn,
+//           '', '', ['design', 'icon'])
+//         icon.setAttribute('src', e.icon)
+//         btn.addEventListener('click', () => {
+//           toolBtn.setAttribute('data-tool', e.value)
+//           toolBtn.querySelector('img').setAttribute('src', e.icon)
+//           selectTool(e.value)
+//           list.style.display = "none"
+//           arrow.style.transform = arrow.style.transform == 'translateY(-50%) rotate(180deg)' ? "translateY(-50%)" : "translateY(-50%) rotate(180deg)"
+//         })
+//       })
+
+//       arrow.addEventListener('click', () => {
+//         arrow.style.transform = arrow.style.transform == 'translateY(-50%) rotate(180deg)' ? "translateY(-50%)" : "translateY(-50%) rotate(180deg)"
+//         list.style.display = list.style.display == "none" ? "flex" : "none"
+//       })
+//     }
+//     else {
+//       toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-tool`)
+//       toolBtn.setAttribute('data-tool', tool)
+//     }
+
+//     toolBtn.addEventListener('click', () => {
+//       let last = document.querySelector('.lab-toolBtn.active')
+//       if (last) {
+//         last.style.background = 'transparent'
+//         last.classList.remove('active')
+//       }
+//       selectTool(toolBtn.getAttribute('data-tool'))
+//       toolBtn.classList.add('active')
+//       toolBtn.style.background = '#EBEEFF'
+//     })
+//   })
+
+//   const blind = lab_design_system('button', "blind-tools", toolBar, '', '', ['design', 'blindTools'])
+//   blind.addEventListener('click', () => {
+//     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
+//     Options(options, 'toolBar')
+//   })
+
+//   if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
+
+//   //TOPSETTINGS
+
+//   const topSettings = lab_design_system('div', "top-settings", designBody, '', '', ['design', 'top'])
+//   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
+//   const responsiveList = ["landscape", "portrait"]
+
+//   function setVpm(vpm) {
+//     Designer.removePointer()
+//     if (vpm == 'landscape') {
+//       pixelScreen.innerHTML = window.outerWidth + 'px'
+//       page.style.maxWidth = 'none'
+//       page.style.maxHeight = 'none'
+//     }
+
+//     if (vpm == 'portrait') {
+//       pixelScreen.innerHTML = '414px '
+//       page.style.maxWidth = '414px'
+//       page.style.maxHeight = '896px'
+//     }
+//   }
+
+//   responsiveList.map(e => {
+//     const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn')
+
+//     if (e == options.vpm) activeBtn(btn)
+
+//     function activeBtn(btn) {
+//       btn.style.background = '#6a768e'
+//       btn.classList.add('active')
+//     }
+
+//     btn.addEventListener('click', () => {
+//       if (e != options.vpm) {
+//         let last = document.querySelector('.lab-screen-btn.active')
+//         last.style.background = 'transparent'
+//         last.classList.remove('active')
+
+//         activeBtn(btn)
+//         Options(options, 'vpm', e)
+//         setVpm(e)
+//       }
+//     })
+//   })
+
+//   const pixelScreen = lab_design_system('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
+//   pixelScreen.style.width = '65px'
+//   setVpm(options.vpm)
+
+//   const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
+//   pixelSettings.querySelector('img').style.width = '15px'
+
+//   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box')
+
+//   setPage.appendChild(document.createTextNode(sectionElementsObject.section))
+//   const arrow = lab_design_system('img', 'page-arrow', setPage)
+//   arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
+
+//   setPage.addEventListener('click', () => {
+//     let last = document.getElementById('lab-page-list')
+//     if (last) last.remove()
+//     const list = lab_design_system('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
+
+//     sectionElementsObject.sections.forEach(e => {
+//       if (e != sectionElementsObject.section) {
+//         const btn = lab_design_system('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
+//         btn.setAttribute('href', `./${e}`)
+//       }
+//     })
+//     list.addEventListener('mouseleave', () => list.remove())
+//   })
+
+//   const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
+//   sizeSwitcher.setAttribute('type', "range")
+//   sizeSwitcher.setAttribute('min', "1")
+//   sizeSwitcher.setAttribute('max', "100")
+//   sizeSwitcher.setAttribute('type', "range")
+//   sizeSwitcher.setAttribute('value', "100")
+
+//   const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
+//   size.style.width = "60px"
+//   sizeSwitcher.value = options.zoom
+//   page.style.scale = options.zoom / 100
+
+//   sizeSwitcher.oninput = function () {
+//     size.innerHTML = this.value + "%"
+//     Options(options, 'zoom', this.value)
+//     page.style.scale = this.value / 100
+//   }
+
+//   const view = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'visibility')
+//   view.addEventListener('click', DesignConstructor.closeAll)
+//   const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+
+//   const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
+
+//   blindTop.addEventListener('click', () => {
+//     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
+//     Options(options, 'settingsBar')
+//   })
+
+//   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
+
+//   const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none ', ['design', 'styleWrapper'])
+//   const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none')
+//   styleWrap.style.paddingTop = '75px'
+//   styleWrap.style.overflowY = 'scroll'
+//   styleWrap.style.maxHeight = 'calc(100% - 75px)'
+//   styleWrap.classList.add('lab-scrollable')
+
+//   const styleHide = lab_design_system('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
+//   const styleHideIcon = lab_design_system('img', 'style-hide-icon', styleHide, '', 'none')
+//   styleHideIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/hide.svg`)
+//   styleHideIcon.style.maxWidth = '100%'
+//   styleHideIcon.style.marginLeft = '-4px'
+
+//   styleHide.addEventListener('click', () => {
+//     Designer.removePointer()
+//     styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
+//   })
+
+//   StylesMenu(page)
+//   //CODE MENU
+
+//   const codeMenu = lab_design_system('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
+//   const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
+//   const codeWrapper = lab_design_system('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
+//   codeMenuButton.addEventListener('click', () => {
+//     codeWrapper.innerHTML = ''
+//     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
+//     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
+//     document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
+//       codeWrapper.innerText += e + '>\n            '
+//     })
+//   })
+
+//   //CODE MENU END
+
+//   const fileInput = lab_design_system('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
+//   fileInput.setAttribute('type', 'file')
+
+//   DesignConstructor.BlockResize()
+//   lab_fade_in_recursively(designBody, 0.3)
+
+//   window.addEventListener('resize', () => {
+//     Designer.removePointer()
+//   })
+
+
+//   function rgb2hex(rgb) {
+//     var rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+//     return (rgb && rgb.length === 4) ? "#" +
+//       ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+//       ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+//       ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
+//   }
+
+//   function StylesMenu(item) {
+//     const lastSelected = document.querySelector('.lab-selectedItem')
+//     const box = document.getElementById('lab-style-wrap')
+//     const itemStyles = window.getComputedStyle(item)
+//     selectedElementChangeId = item
+
+//     if (ActiveMode === 'rotation') {
+//       activeRotateElement()
+//     }
+
+//     if (ActiveMode === 'resize') {
+//       labResizeElements()
+//     }
+
+//     const css = {
+//       'font-family': itemStyles.fontFamily,
+//       'text-align': itemStyles.textAlign,
+//       'font-style': itemStyles.fontStyle,
+//       'font-weight': itemStyles.fontWeight,
+//       'font-size': itemStyles.fontSize,
+//       'line-height': itemStyles.lineHeight,
+//       'letter-spacing': itemStyles.letterSpacing,
+//       'stroke': itemStyles.stroke,
+//       'color': itemStyles.color,
+//       'background': rgb2hex(itemStyles.background),
+//       'stroke-width': itemStyles.strokeWidth,
+//       'padding-top': itemStyles.paddingTop,
+//       'padding-right': itemStyles.paddingRight,
+//       'padding-bottom': itemStyles.paddingBottom,
+//       'padding-left': itemStyles.paddingLeft,
+//       'margin-top': itemStyles.marginTop,
+//       'margin-right': itemStyles.marginRight,
+//       'margin-bottom': itemStyles.marginBottom,
+//       'margin-left': itemStyles.marginLeft,
+//     }
+
+//     if (lastSelected) {
+//       box.innerHTML = ''
+//       lastSelected.classList.remove('lab-selectedItem')
+//       renderMenu()
+//     }
+//     if (!lastSelected) renderMenu()
+
+//     function renderMenu() {
+//       item.classList.add('lab-selectedItem')
+//       box.innerHTML = ''
+
+//       const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
+//       const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
+//       const menuSettings = ['general', 'additional']
+//       const activeSettings = 'general'
+
+//       menuSettings.forEach((e) => {
+//         const btn = lab_design_system('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+//         if (e == activeSettings) {
+//           btn.classList.add('active')
+//           btn.style.background = '#F7F7F7'
+//           StyleSection(e)
+//         }
+
+//         btn.addEventListener('click', () => {
+//           if (!btn.classList.contains('active')) {
+//             let last = document.querySelector('.lab-element-menu-btn.active')
+//             last.classList.remove('active')
+//             last.style.background = '#E5E5E5'
+//             StyleSection(e)
+//             btn.classList.add('active')
+//             btn.style.background = '#F7F7F7'
+//           }
+//         })
+//       })
+
+//       function StyleSection(param) {
+//         elementMenuBody.innerHTML = ''
+//         if (param == 'general') {
+//           const idInput = DesignConstructor.input(elementMenuBody, "#" + item.id, '#')
+//           idInput.addEventListener('input', () => {
+//             item.id = idInput.value.trim().replace('#', '')
+//           })
+//           if (item.classList.contains('lab-img-container')) {
+//             const fileBox = lab_design_system('div', 'file-preview-box', elementMenuBody, '', '', ['design', 'fileBox'])
+//             let image = item.querySelector('img')
+
+
+//             const fileInput = lab_design_system('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
+//             fileInput.style.opacity = 0
+//             fileInput.setAttribute('type', 'file')
+//             const preview = lab_design_system('img', 'file-preview', fileBox)
+//             preview.style.width = '100%'
+//             preview.style.height = '100%'
+//             preview.style.objectFit = 'cover'
+//             preview.style.zIndex = '3'
+//             preview.style.pointerEvents = 'none'
+//             preview.style.position = 'relative'
+//             preview.setAttribute('src', image.src)
+
+//             fileInput.addEventListener('change', (i) => {
+//               async function setSrc() {
+//                 await loadImg(Array.from(i.target.files)[0], [image, preview])
+//               }
+//               setSrc()
+//             })
+
+//             const srcWrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+//             const fileSrc = lab_design_system('span', Designer.ID(), srcWrap, 'src')
+//             fileSrc.style.marginRight = '10px'
+//             let attrubuteInput = DesignConstructor.input(srcWrap, image.src)
+//             attrubuteInput.addEventListener('input', () => {
+//               image.setAttribute('src', attrubuteInput.value)
+//             })
+
+//             const objFit = DesignConstructor.dropList(elementMenuBody, ['cover', 'fill', 'contain', 'none', 'scale-down'], image.style.objectFit, (e) => Designer.WriteStyle(image, 'objectFit', e))
+
+//             const horizontal = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+//             const horizontalLabel = lab_design_system('span', Designer.ID(), horizontal, 'horizontal')
+//             horizontalLabel.style.marginRight = '10px'
+//             horizontalLabel.style.minWidth = '50%'
+//             let imagePos = image.style.objectPosition.split(' ')
+
+//             let horizontalInput = DesignConstructor.input(horizontal, imagePos[0].replace('%', ''), '%')
+//             horizontalInput.setAttribute('type', 'number')
+//             horizontalInput.addEventListener('input', () => {
+//               image.style.objectPosition = horizontalInput.value + "% " + image.style.objectPosition.split(' ')[1]
+//             })
+//             const imgWidth = lab_design_system('div', 'image-width', elementMenuBody, '', '', ['design', 'styleBox'])
+//             const imgWidthLabel = lab_design_system('span', 'image-width-label', imgWidth, 'width')
+//             imgWidthLabel.style.marginRight = '10px'
+//             imgWidthLabel.style.minWidth = '50%'
+
+//             let imgWidthInput = DesignConstructor.input(imgWidth, image.style.width.replace("%", ''), '%')
+//             imgWidthInput.setAttribute('type', 'number')
+//             imgWidthInput.addEventListener('input', () => {
+//               image.style.width = imgWidthInput.value + '%'
+//             })
+
+//             const imgHeight = lab_design_system('div', 'image-height', elementMenuBody, '', '', ['design', 'styleBox'])
+//             const imgHeightLabel = lab_design_system('span', 'image-height-label', imgHeight, 'height')
+//             imgHeightLabel.style.marginRight = '10px'
+//             imgHeightLabel.style.minWidth = '50%'
+
+//             let imgHeightInput = DesignConstructor.input(imgHeight, image.style.height.replace("%", ''), '%')
+//             imgHeightInput.setAttribute('type', 'number')
+//             imgHeightInput.addEventListener('input', () => {
+//               image.style.height = imgHeightInput.value + '%'
+//             })
+
+
+//             const vertical = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+//             const verticalLabel = lab_design_system('span', Designer.ID(), vertical, 'vertical')
+//             verticalLabel.style.marginRight = '10px'
+//             verticalLabel.style.minWidth = '50%'
+
+//             let verticalInput = DesignConstructor.input(vertical, imagePos[1].replace('%', ''), '%')
+//             verticalInput.setAttribute('type', 'number')
+
+//             verticalInput.addEventListener('input', () => {
+//               image.style.objectPosition = image.style.objectPosition.split(' ')[0] + " " + verticalInput.value + "%"
+//             })
+
+
+//             const aspect = lab_design_system('div', 'image-aspect', elementMenuBody, '', '', ['design', 'styleBox'])
+//             const aspectLabel = lab_design_system('span', 'image-aspect-label', aspect, 'aspect-ratio')
+//             aspectLabel.style.marginRight = '10px'
+//             aspectLabel.style.minWidth = '50%'
+//             console.log(image.style.aspectRatio);
+
+//             let aspectInput = DesignConstructor.input(aspect, image.style.aspectRatio.split(' ')[0])
+//             aspectInput.setAttribute('type', 'number')
+
+//             aspectInput.addEventListener('input', () => {
+//               image.style.aspectRatio = aspectInput.value
+//             })
+
+//           } else {
+//             const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
+//             const tag = DesignConstructor.dropList(elementMenuBody, tagList, item.tagName, (e) => {
+//               let newEl = document.createElement(e)
+//               item.getAttributeNames().forEach(n => {
+//                 newEl.setAttribute(n, item.getAttribute(n))
+//               })
+//               newEl.innerHTML = item.innerHTML
+//               item.replaceWith(newEl)
+//               item = newEl
+//             })
+//           }
+
+//           const settings = lab_design_system('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
+//           const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
+
+
+//           const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+
+//           const padding = lab_design_system('span', Designer.ID(), elementMenuBody, 'padding')
+
+//           const paddingBox = lab_design_system('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
+//           const margin = lab_design_system('span', Designer.ID(), elementMenuBody, 'margin')
+//           const marginBox = lab_design_system('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
+
+//           const padList = ['top', 'right', 'bottom', 'left']
+
+//           padList.forEach(e => {
+//             const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
+//           })
+
+//           padList.forEach(e => {
+//             const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
+//           })
+
+
+//           const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
+//           const textColor = lab_design_system('span', Designer.ID(), colorSettings, 'background')
+//           const colorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
+//           colorInput.setAttribute('type', 'color')
+//           colorInput.setAttribute('value', css['background'])
+//           if (item.tagName == 'svg') {
+//             colorInput.setAttribute('value', item.getAttribute('fill'))
+//           }
+
+//           colorInput.addEventListener('input', () => {
+//             if (item.tagName == 'svg') {
+//               Designer.WriteStyle(item, 'fill', colorInput.value)
+//             } else {
+//               Designer.WriteStyle(item, 'background', colorInput.value)
+//             }
+//           })
+
+//           item.getAttributeNames().forEach(n => {
+//             if (!['style', 'id'].includes(n)) {
+//               const wrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+//               const name = lab_design_system('span', Designer.ID(), wrap, n)
+//               name.style.marginRight = '10px'
+//               if (n != 'class') {
+//                 let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
+//                 attrubuteInput.addEventListener('input', () => {
+//                   item.setAttribute(n, attrubuteInput.value)
+//                 })
+//               } else {
+//                 let attrubuteInput = DesignConstructor.input(wrap, '')
+//                 let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
+//                 let classes = String(item.getAttribute(n)).split(' ')
+
+//                 classes.forEach(e => {
+//                   if (!systemClasses.includes(e)) {
+//                     attrubuteInput.value += e + ' '
+//                   }
+//                 })
+//                 attrubuteInput.addEventListener('input', () => {
+//                   item.setAttribute(n, attrubuteInput.value)
+//                 })
+//               }
+//             }
+//           })
+
+//         }
+//         if (param == 'additional') {
+//           const fontFamily = DesignConstructor.dropList(elementMenuBody, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
+
+//           const fontSettings = lab_design_system('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
+//           const textALign = lab_design_system('div', "textALign", fontSettings)
+//           const textStyle = lab_design_system('div', "textStyle", fontSettings)
+//           const textALignList = ['left', 'center', 'right', 'justify']
+//           const textStyleList = ['italic', 'underline', 'line', 'dec']
+
+//           textALignList.forEach(e => {
+//             const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
+//             btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
+//           })
+
+//           const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
+//           const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
+//           const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
+//           const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
+
+//           const textSettings = lab_design_system('div', "textSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
+
+//           const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
+
+//           const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
+
+//           const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
+
+//           const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
+
+//           const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
+//           const textColor = lab_design_system('span', "text-color", colorSettings, 'Text color')
+//           const textColorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
+//           textColorInput.setAttribute('type', 'color')
+//           textColorInput.setAttribute('value', css['color'])
+//           textColorInput.addEventListener('input', () => {
+//             Designer.WriteStyle(item, 'color', textColorInput.value)
+//           })
+//         }
+//         lab_fade_in_recursively(elementMenuBody, 0.2)
+//       }
+
+//       lab_fade_in_recursively(box, 0.3)
+//     }
+//   }
+// }
+
+// function selectTool(toolName) {
+//   ActiveMode = null
+//   selectedShape = null
+//   elementDragging = false
+//   labIsElementDragging = false
+//   if (toolName == 'pen') {
+//     selectedShape = 'feather'
+//   }
+//   else if (toolName == 'move') {
+//     ActiveMode = 'translation'
+//     labIsElementDragging = true
+//   }
+//   else if (toolName == 'resize') {
+//     ActiveMode = 'resize'
+//     isResizing = true
+//   }
+//   else if (toolName == 'rotate') {
+//     ActiveMode = 'rotation'
+//   }
+
+//   else if (['text', 'img'].includes(toolName)) {
+//     mode(toolName)
+//   }
+
+//   else if (toolName == 'square') {
+//     isControlEnabled = false
+//     selectedShape = 'square'
+//     elementDragging = false
+//   }
+//   else if (toolName == 'circle') {
+//     isControlEnabled = false
+//     selectedShape = 'circle'
+//     elementDragging = false
+//   }
+//   else if (toolName == 'triangle') {
+//     isControlEnabled = false
+//     selectedShape = 'triangle'
+//     elementDragging = false
+//   }
+//   else if (toolName == 'formPath') {
+//     isControlEnabled = false
+//     selectedShape = 'formPath'
+//     elementDragging = false
+//   }
+// }
+
+// function capitalizeFirstLetter(val) {
+//   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+// }
+
+
+// function mode(modeName) {
+//   const page = document.getElementById('lab-user-page')
+//   const pagePos = page.getBoundingClientRect()
+//   let mouse = false
+//   let startCoords
+//   selectedShape = modeName
+//   if (['text', 'img'].includes(modeName)) {
+//     page.addEventListener('mousemove', write)
+//   }
+
+//   const types = {
+//     'text': 'span',
+//     'img': 'img',
+//   }
+
+//   async function write({ x, y }) {
+//     if (selectedShape == modeName) {
+//       if (mouse) {
+//         let area = !document.getElementById('lab-area') ? lab_design_system('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
+//         area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
+//         area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
+//         area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
+//         area.style.height = (y - startCoords.y) / pagePos.height * 100 + '%'
+//         area.style.opacity = ''
+
+//         page.addEventListener('mouseup', CreateEl)
+
+//       }
+//       page.addEventListener('mousedown', start)
+//     }
+//     else {
+//       page.removeEventListener('mousedown', start)
+//       page.removeEventListener('mouseup', CreateEl)
+//       page.removeEventListener('mousemove', write)
+//       return false
+//     }
+//   }
+
+//   function start(e) {
+//     if (!mouse) {
+//       mouse = true
+//       startCoords = { x: e.clientX, y: e.clientY }
+//     }
+//   }
+
+//   async function CreateEl() {
+//     const area = document.getElementById('lab-area')
+//     if (area) {
+//       const areaPos = area.getBoundingClientRect()
+//       mouse = false
+//       startCoords = null
+//       if (modeName == 'text') {
+//         const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
+//         item.style.position = 'absolute'
+//         item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+//         item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+//         item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+//         item.style.aspectRatio = areaPos.width / areaPos.height
+//       }
+
+//       if (modeName == 'img') {
+//         let input = document.getElementById('lab-img-input')
+//         input.click()
+//         async function IMG(e) {
+//           if (e.target.files.length > 0) {
+//             const fileInfo = e.target.files[0]
+//             console.log(fileInfo);
+
+//             const itemBox = document.createElement('div')
+//             itemBox.classList.add('lab-img-container')
+//             itemBox.id = Designer.ID()
+
+//             const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
+//             itemBox.style.position = 'absolute'
+//             itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
+//             itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
+//             itemBox.style.width = (areaPos.width) / pagePos.width * 100 + '%'
+//             item.style.aspectRatio = areaPos.width / areaPos.height
+//             item.style.width = '100%'
+//             item.style.pointerEvents = 'none'
+//             item.setAttribute('src', URL.createObjectURL(fileInfo))
+//             let i = Array.from(e.target.files)[0]
+
+//             async function setSrc() {
+//               await loadImg(i, [item])
+//             }
+
+//             setSrc()
+
+//             item.style.objectFit = 'cover'
+//             item.style.objectPosition = '50% 50%'
+//             page.appendChild(itemBox)
+//             input.removeEventListener('change', IMG)
+//           }
+//         }
+
+//         input.addEventListener('change', IMG)
+//       }
+//       area.remove()
+//     }
+//   }
+
+//   page.addEventListener('click', () => mouse = false)
+// }
+
+// design_mode()
+
+// // return design_mode
+
+
+// async function loadImg(i, items) {
+//   let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
+//   let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
+//   let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
+//   const userLSG = lab_local_storage_object('global')
+//   userLSG.name = finalNameWithExtension
+//   userLSG.type = i.type
+//   userLSG.support = ""
+//   let newSrc
+
+//   function readFileAsync(file) {
+//     return new Promise((resolve, reject) => {
+//       let reader = new FileReader()
+//       reader.readAsDataURL(file)
+
+//       reader.onload = () => {
+//         resolve(reader.result)
+//       }
+//       reader.onerror = reject;
+//     })
+//   }
+
+//   async function processFile() {
+//     try {
+//       let imgData = await readFileAsync(i)
+//       let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+//       userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
+
+//       await socket.emit('droppedImages', userLSG, async res => {
+//         items.forEach(e => {
+//           e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
+//           e.id = res.id
+//           let opt = lab_local_storage_object('options').vpm
+//           lab_save_section(opt)
+//         })
+//         return newSrc
+//       })
+
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   }
+
+
+
+//   return await processFile()
+// }
+
+
+// function db_popup(el, lngData) {
+//   const wrap = lab_design_system('div', 'db-popup-wrap', rootLayer, '', '', ['popup', 'wrap'])
+//   const box = lab_design_system('div', 'db-popup', rootLayer, '', '', ['popup', 'box'])
+//   box.style.flexDirection = 'column'
+//   box.style.gap = '40px'
+
+//   const inputs = el.querySelectorAll('input')
+//   if (inputs && inputs.length > 0) {
+//     inputs.forEach((e, index) => {
+//       const line = lab_design_system('div', `db-popup-${index}`, box, '', '', ['design', 'styleBox'])
+//       line.style.width = '100%'
+//       line.style.justifyContent = 'space-evenly'
+//       line.style.position = 'relative'
+//       line.style.zIndex = inputs.length - index
+
+//       const label = lab_design_system('div', `db-popup-${index}-label`, line, 'label')
+//       const lineDb = DesignConstructor.dropList(line, sectionElementsObject.databases, '', (e) => {
+//         // dbAction.line.db = e
+//       })
+
+
+//       lineDb.style.maxWidth = '20%'
+//       const lineTable = DesignConstructor.dropList(line, sectionElementsObject.databases, '', (e) => {
+//         // dbAction.line.table = e
+//       })
+//       lineTable.style.maxWidth = '20%'
+
+
+//     })
+//   }
+
+
+
+//   let dbAction = {
+//     top: {
+//       db: null,
+//       table: null
+//     },
+//     midle: {
+//       db: null,
+//       table: null
+//     },
+//     bottom: {
+//       db: null,
+//       table: null
+//     },
+//     operationType: null
+//   }
+
+
+//   let options = ['registration', 'auntification', 'write', 'read', 'update']
+//   const operationType = DesignConstructor.dropList(box, options, '', (e) => {
+//     dbAction.operationType = e
+//   })
+//   operationType.style.width = '50%'
+
+//   const save = lab_design_system('button', 'save-db-options', box, lngData.save, '', ['buttons', 'action'])
+//   save.style.width = 'fit-content'
+
+//   save.addEventListener('click', () => {
+//     //something
+//   })
+
+//   wrap.addEventListener('click', () => {
+//     box.remove()
+//     wrap.remove()
+//   })
+// }
+
+
+function newSettings() {
+
+
+  let last = document.getElementById('lab-top-settings')
+  if (last) last.remove()
+  let options = {
+    vpm: "landscape"
   }
-
-  function Options(obj, key, value) {
-    obj[key] = value ? value : !obj[key]
-    localStorage.setItem('options', JSON.stringify(obj))
-  }
-
-  const designBody = document.querySelector('body')
-
-  let options = JSON.parse(localStorage.getItem('options')) || {
-    'vpm': "landscape",
-    'zoom': 100,
-    'toolBar': true,
-    'settingsBar': true,
-    'sideMenu': true,
-  }
-
-  //SIDE MENU
-
-  const menu = lab_design_system_d('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
-  const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close')
-
-  menuButton.addEventListener('click', () => {
-    DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
-    DesignConstructor.toggleClass(menuButton, 'design', 'showMenu', 'hideMenu')
-    Options(options, 'sideMenu')
-  })
-
-  if (!options.sideMenu) {
-    DesignConstructor.addClass(menu, 'design', 'hideSide')
-    DesignConstructor.addClass(menuButton, 'design', 'hideMenu')
-  }
-
-  const elementsBox = lab_design_system_d('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
-
-  const elementsTitle = lab_design_system_d('span', Designer.ID(), elementsBox, "Elements", '', ['design', 'templatesHeading'])
-  const elementsWrap = lab_design_system_d('div', Designer.ID(), elementsBox, '', '', ['design', 'templates'])
-
-  function addList(e, list) {
-    Object.keys(e).map(el => {
-      const item = lab_design_system_d('div', Designer.ID(), list, '', '', ['design', 'template'])
-      const icon = lab_design_system_d('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
-      const img = lab_design_system_d('img', Designer.ID(), icon)
-      img.setAttribute('src', e[el].icon)
-      img.style.width = '30px'
-      img.style.height = '30px'
-      const text = lab_design_system_d('span', Designer.ID(), item, e[el].title)
-
-      item.addEventListener('click', () => {
-        const coord = item.getBoundingClientRect()
-        const copy = Designer.copy(item)
-        copy.style.position = "absolute"
-        copy.style.opacity = "0.7"
-        copy.style.left = `${coord.left}px`
-        copy.style.top = `${coord.top}px`
-
-        Designer.move(copy, async () => {
-          const copyPos = copy.getBoundingClientRect()
-          const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
-          list.removeChild(copy)
-          const item = await Designer.create(e, el, page, 'landscape', true)
-          if (!['form', 'div', 'section'].includes(el)) {
-            item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
-            item.style.position = 'absolute'
-            item.style.zIndex = '1'
-          }
-        })
-      })
-    })
-  }
-
-  addList(ElementsList, elementsWrap)
-
-  //SIDE MENU END
-
-  //USER PAGE
-
-  let pageWrap
-  if (!document.querySelector('#lab-user-page')) {
-    pageWrap = lab_design_system_d('div', "user-page-wrap", designBody, '', 'scrollable', ['design', 'pageWrap'])
-    pageWrap.classList.remove('escape')
-    pageWrap.setAttribute('class', 'lab-scrollable')
-  } else {
-    pageWrap = document.querySelector('#lab-user-wrap')
-  }
-
-  let page
-  if (!document.querySelector('#lab-user-page')) {
-    page = lab_design_system_d('div', "user-page", pageWrap, '', '', ['design', 'page'])
-  } else {
-    page = document.querySelector('#lab-user-page')
-  }
-  page.classList.remove('escape')
-
-  page.addEventListener('mouseover', (p) => {
-    Designer.hover(p.target)
-  })
-
-  page.addEventListener('click', (e) => {
-    let element = document.elementFromPoint(e.clientX, e.clientY)
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
-    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
-      StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
-    }
-  })
-
-  page.addEventListener('mousedown', () => {
-    mouseIsDown = true
-  })
-  page.addEventListener('mouseup', () => {
-    mouseIsDown = false
-  })
+  let page = document.getElementById('lab-user-page')
 
 
-  page.addEventListener('contextmenu', function (e) {
-    e.preventDefault()
-    let element = document.elementFromPoint(e.clientX, e.clientY)
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
-    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
-      const BlockOptions = {
-        'copy': "Copy",
-        'drag': "Move",
-        'transform': "Transform",
-        'del': "Delete",
-      }
-      const menu = DesignConstructor.blockMenu(element, page, BlockOptions)
-      const pagePos = page.getBoundingClientRect()
-      menu.style.left = e.clientX - pagePos.x - 30 + 'px'
-      menu.style.top = e.clientY - pagePos.y - 30 + 'px'
-    }
-  })
 
-
-  //USER PAGE END
-
-  //TOOLBAR
-
-  const toolBar = lab_design_system_d('div', "designers-bar-s", designBody, '', '', ['design', 'toolbar'])
-  // const toolBar = lab_design_system_d('div', "designers-bar", designBody, '', '', ['design', 'toolbar'])
-
-  const tools = {
-    'cursor': [{
-      value: 'cursor',
-      icon: `${oldSRC}cursor.svg`
-    },
-    {
-      value: 'group',
-      icon: `${oldSRC}cursor.svg`
-    }],
-    'rotate': "rotate",
-    'move': "move",
-    'resize': "resize",
-    'square': [{
-      value: 'square',
-      icon: `${oldSRC}square.svg`
-    },
-    {
-      value: 'circle',
-      icon: `${oldSRC}Ellipse.svg`
-    },
-    {
-      value: 'triangle',
-      icon: `${oldSRC}triangle.svg`
-    },
-    {
-      value: 'formPath',
-      icon: `https://laboranth.tech/D/R/IMG/LAB/designer_mode/labIconFormPathShape.svg`
-    }],
-    'pen': "pen",
-    'text': 'text',
-    'img': "img"
-  }
-
-  Object.keys(tools).forEach(tool => {
-    let toolBtn
-    if (typeof tools[tool] == 'object') {
-      const toolWrap = lab_design_system_d('div', `${tool}-wrap`, toolBar, '', '', ['design', 'toolbarItemWrap'])
-      toolBtn = DesignConstructor.button(toolWrap, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-btn`)
-      const arrow = DesignConstructor.button(toolWrap, ['design', 'toolArrow'], '', `keyboard_arrow_down`)
-      toolBtn.setAttribute('data-tool', tool)
-
-
-      const list = lab_design_system_d('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
-      tools[tool].forEach(e => {
-        let btn = lab_design_system_d('button', `${e.value}-wrap-btn`, list,
-          '', '', ['design', 'toolbarItem'])
-
-        const icon = lab_design_system_d('img', `${e.value}-wrap-icon`, btn,
-          '', '', ['design', 'icon'])
-        icon.setAttribute('src', e.icon)
-        btn.addEventListener('click', () => {
-          toolBtn.setAttribute('data-tool', e.value)
-          toolBtn.querySelector('img').setAttribute('src', e.icon)
-          selectTool(e.value)
-          list.style.display = "none"
-          arrow.style.transform = arrow.style.transform == 'translateY(-50%) rotate(180deg)' ? "translateY(-50%)" : "translateY(-50%) rotate(180deg)"
-        })
-      })
-
-      arrow.addEventListener('click', () => {
-        arrow.style.transform = arrow.style.transform == 'translateY(-50%) rotate(180deg)' ? "translateY(-50%)" : "translateY(-50%) rotate(180deg)"
-        list.style.display = list.style.display == "none" ? "flex" : "none"
-      })
-    }
-    else {
-      toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-tool`)
-      toolBtn.setAttribute('data-tool', tool)
-    }
-
-    toolBtn.addEventListener('click', () => {
-      let last = document.querySelector('.lab-toolBtn.active')
-      if (last) {
-        last.style.background = 'transparent'
-        last.classList.remove('active')
-      }
-      selectTool(toolBtn.getAttribute('data-tool'))
-      toolBtn.classList.add('active')
-      toolBtn.style.background = '#EBEEFF'
-    })
-  })
-
-  const blind = lab_design_system_d('button', "blind-tools", toolBar, '', '', ['design', 'blindTools'])
-  blind.addEventListener('click', () => {
-    DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
-    Options(options, 'toolBar')
-  })
-
-  if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
-
-  //TOPSETTINGS
-
-  const topSettings = lab_design_system_d('div', "top-settings", designBody, '', '', ['design', 'top'])
+  const topSettings = lab_design_system('div', "top-settings", designBody, '', '', ['design', 'top'])
+  topSettings.style.maxWidth = '1080px'
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
   const responsiveList = ["landscape", "portrait"]
+  settingsBtn.minHeight = '25px'
+  settingsBtn.minWidth = '25px'
 
   function setVpm(vpm) {
     Designer.removePointer()
@@ -4869,7 +5622,8 @@ function design_mode() {
 
   responsiveList.map(e => {
     const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn')
-
+    btn.minHeight = '42px'
+    btn.minWidth = '42px'
     if (e == options.vpm) activeBtn(btn)
 
     function activeBtn(btn) {
@@ -4890,8 +5644,8 @@ function design_mode() {
     })
   })
 
-  const pixelScreen = lab_design_system_d('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
-  pixelScreen.style.width = '65px'
+  const pixelScreen = lab_design_system('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
+  pixelScreen.style.minWidth = '65px'
   setVpm(options.vpm)
 
   const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white')
@@ -4900,31 +5654,31 @@ function design_mode() {
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box')
 
   setPage.appendChild(document.createTextNode(sectionElementsObject.section))
-  const arrow = lab_design_system_d('img', 'page-arrow', setPage)
+  const arrow = lab_design_system('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
 
   setPage.addEventListener('click', () => {
-    let last = document.getElementById('lab-page-list')
+    let last = document.getElementById('lab-pages-list')
     if (last) last.remove()
-    const list = lab_design_system_d('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
+    const list = lab_design_system('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
 
     sectionElementsObject.sections.forEach(e => {
       if (e != sectionElementsObject.section) {
-        const btn = lab_design_system_d('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
+        const btn = lab_design_system('a', `pages-list-${e}`, list, e, '', ['design', 'pageLink'])
         btn.setAttribute('href', `./${e}`)
       }
     })
     list.addEventListener('mouseleave', () => list.remove())
   })
 
-  const sizeSwitcher = lab_design_system_d('input', 'sliderRange', topSettings, null, null)
+  const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('min', "1")
   sizeSwitcher.setAttribute('max', "100")
   sizeSwitcher.setAttribute('type', "range")
   sizeSwitcher.setAttribute('value', "100")
 
-  const size = lab_design_system_d('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
+  const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
   size.style.width = "60px"
   sizeSwitcher.value = options.zoom
   page.style.scale = options.zoom / 100
@@ -4937,668 +5691,21 @@ function design_mode() {
 
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'visibility')
   view.addEventListener('click', DesignConstructor.closeAll)
-  const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+  view.style.minHeight = '25px'
 
-  const blindTop = lab_design_system_d('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
+  const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+  download.style.minHeight = '25px'
+  const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
 
   blindTop.addEventListener('click', () => {
     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
     Options(options, 'settingsBar')
   })
 
-  if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
-
-  const styleMenu = lab_design_system_d('div', 'style-box', designBody, '', 'none ', ['design', 'styleWrapper'])
-  const styleWrap = lab_design_system_d('div', 'style-wrap', styleMenu, '', 'none')
-  styleWrap.style.paddingTop = '75px'
-  styleWrap.style.overflowY = 'scroll'
-  styleWrap.style.maxHeight = 'calc(100% - 75px)'
-  styleWrap.classList.add('lab-scrollable')
-
-  const styleHide = lab_design_system_d('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
-  const styleHideIcon = lab_design_system_d('img', 'style-hide-icon', styleHide, '', 'none')
-  styleHideIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/hide.svg`)
-  styleHideIcon.style.maxWidth = '100%'
-  styleHideIcon.style.marginLeft = '-4px'
-
-  styleHide.addEventListener('click', () => {
-    Designer.removePointer()
-    styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
-  })
-
-  StylesMenu(page)
-  //CODE MENU
-
-  const codeMenu = lab_design_system_d('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
-  const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
-  const codeWrapper = lab_design_system_d('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
-  codeMenuButton.addEventListener('click', () => {
-    codeWrapper.innerHTML = ''
-    DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
-    DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
-    document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
-      codeWrapper.innerText += e + '>\n            '
-    })
-  })
-
-  //CODE MENU END
-
-  const fileInput = lab_design_system_d('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
-  fileInput.setAttribute('type', 'file')
-
-  DesignConstructor.BlockResize()
-  lab_fade_in_recursively(designBody, 0.3)
-
-  window.addEventListener('resize', () => {
-    Designer.removePointer()
-  })
-
-
-  function rgb2hex(rgb) {
-    var rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
-    return (rgb && rgb.length === 4) ? "#" +
-      ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
-      ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
-      ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
-  }
-
-  function StylesMenu(item) {
-    const lastSelected = document.querySelector('.lab-selectedItem')
-    const box = document.getElementById('lab-style-wrap')
-    const itemStyles = window.getComputedStyle(item)
-    selectedElementChangeId = item
-
-    if (ActiveMode === 'rotation') {
-      activeRotateElement()
-    }
-
-    if (ActiveMode === 'resize') {
-      labResizeElements()
-    }
-
-    const css = {
-      'font-family': itemStyles.fontFamily,
-      'text-align': itemStyles.textAlign,
-      'font-style': itemStyles.fontStyle,
-      'font-weight': itemStyles.fontWeight,
-      'font-size': itemStyles.fontSize,
-      'line-height': itemStyles.lineHeight,
-      'letter-spacing': itemStyles.letterSpacing,
-      'stroke': itemStyles.stroke,
-      'color': itemStyles.color,
-      'background': rgb2hex(itemStyles.background),
-      'stroke-width': itemStyles.strokeWidth,
-      'padding-top': itemStyles.paddingTop,
-      'padding-right': itemStyles.paddingRight,
-      'padding-bottom': itemStyles.paddingBottom,
-      'padding-left': itemStyles.paddingLeft,
-      'margin-top': itemStyles.marginTop,
-      'margin-right': itemStyles.marginRight,
-      'margin-bottom': itemStyles.marginBottom,
-      'margin-left': itemStyles.marginLeft,
-    }
-
-    if (lastSelected) {
-      box.innerHTML = ''
-      lastSelected.classList.remove('lab-selectedItem')
-      renderMenu()
-    }
-    if (!lastSelected) renderMenu()
-
-    function renderMenu() {
-      item.classList.add('lab-selectedItem')
-      box.innerHTML = ''
-
-      const elementMenuButtons = lab_design_system_d('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
-      const elementMenuBody = lab_design_system_d('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
-      const menuSettings = ['general', 'additional']
-      const activeSettings = 'general'
-
-      menuSettings.forEach((e) => {
-        const btn = lab_design_system_d('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
-        if (e == activeSettings) {
-          btn.classList.add('active')
-          btn.style.background = '#F7F7F7'
-          StyleSection(e)
-        }
-
-        btn.addEventListener('click', () => {
-          if (!btn.classList.contains('active')) {
-            let last = document.querySelector('.lab-element-menu-btn.active')
-            last.classList.remove('active')
-            last.style.background = '#E5E5E5'
-            StyleSection(e)
-            btn.classList.add('active')
-            btn.style.background = '#F7F7F7'
-          }
-        })
-      })
-
-      function StyleSection(param) {
-        elementMenuBody.innerHTML = ''
-        if (param == 'general') {
-          const idInput = DesignConstructor.input(elementMenuBody, "#" + item.id, '#')
-          idInput.addEventListener('input', () => {
-            item.id = idInput.value.trim().replace('#', '')
-          })
-          if (item.classList.contains('lab-img-container')) {
-            const fileBox = lab_design_system_d('div', 'file-preview-box', elementMenuBody, '', '', ['design', 'fileBox'])
-            let image = item.querySelector('img')
-
-
-            const fileInput = lab_design_system_d('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
-            fileInput.style.opacity = 0
-            fileInput.setAttribute('type', 'file')
-            const preview = lab_design_system_d('img', 'file-preview', fileBox)
-            preview.style.width = '100%'
-            preview.style.height = '100%'
-            preview.style.objectFit = 'cover'
-            preview.style.zIndex = '3'
-            preview.style.pointerEvents = 'none'
-            preview.style.position = 'relative'
-            preview.setAttribute('src', image.src)
-
-            fileInput.addEventListener('change', (i) => {
-              async function setSrc() {
-                await loadImg(Array.from(i.target.files)[0], [image, preview])
-              }
-              setSrc()
-            })
-
-            const srcWrap = lab_design_system_d('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const fileSrc = lab_design_system_d('span', Designer.ID(), srcWrap, 'src')
-            fileSrc.style.marginRight = '10px'
-            let attrubuteInput = DesignConstructor.input(srcWrap, image.src)
-            attrubuteInput.addEventListener('input', () => {
-              image.setAttribute('src', attrubuteInput.value)
-            })
-
-            const objFit = DesignConstructor.dropList(elementMenuBody, ['cover', 'fill', 'contain', 'none', 'scale-down'], image.style.objectFit, (e) => Designer.WriteStyle(image, 'objectFit', e))
-
-            const horizontal = lab_design_system_d('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const horizontalLabel = lab_design_system_d('span', Designer.ID(), horizontal, 'horizontal')
-            horizontalLabel.style.marginRight = '10px'
-            horizontalLabel.style.minWidth = '50%'
-            let imagePos = image.style.objectPosition.split(' ')
-
-            let horizontalInput = DesignConstructor.input(horizontal, imagePos[0].replace('%', ''), '%')
-            horizontalInput.setAttribute('type', 'number')
-            horizontalInput.addEventListener('input', () => {
-              image.style.objectPosition = horizontalInput.value + "% " + image.style.objectPosition.split(' ')[1]
-            })
-            const imgWidth = lab_design_system_d('div', 'image-width', elementMenuBody, '', '', ['design', 'styleBox'])
-            const imgWidthLabel = lab_design_system_d('span', 'image-width-label', imgWidth, 'width')
-            imgWidthLabel.style.marginRight = '10px'
-            imgWidthLabel.style.minWidth = '50%'
-
-            let imgWidthInput = DesignConstructor.input(imgWidth, image.style.width.replace("%", ''), '%')
-            imgWidthInput.setAttribute('type', 'number')
-            imgWidthInput.addEventListener('input', () => {
-              image.style.width = imgWidthInput.value + '%'
-            })
-
-            const imgHeight = lab_design_system_d('div', 'image-height', elementMenuBody, '', '', ['design', 'styleBox'])
-            const imgHeightLabel = lab_design_system_d('span', 'image-height-label', imgHeight, 'height')
-            imgHeightLabel.style.marginRight = '10px'
-            imgHeightLabel.style.minWidth = '50%'
-
-            let imgHeightInput = DesignConstructor.input(imgHeight, image.style.height.replace("%", ''), '%')
-            imgHeightInput.setAttribute('type', 'number')
-            imgHeightInput.addEventListener('input', () => {
-              image.style.height = imgHeightInput.value + '%'
-            })
-
-
-            const vertical = lab_design_system_d('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const verticalLabel = lab_design_system_d('span', Designer.ID(), vertical, 'vertical')
-            verticalLabel.style.marginRight = '10px'
-            verticalLabel.style.minWidth = '50%'
-
-            let verticalInput = DesignConstructor.input(vertical, imagePos[1].replace('%', ''), '%')
-            verticalInput.setAttribute('type', 'number')
-
-            verticalInput.addEventListener('input', () => {
-              image.style.objectPosition = image.style.objectPosition.split(' ')[0] + " " + verticalInput.value + "%"
-            })
-
-
-            const aspect = lab_design_system_d('div', 'image-aspect', elementMenuBody, '', '', ['design', 'styleBox'])
-            const aspectLabel = lab_design_system_d('span', 'image-aspect-label', aspect, 'aspect-ratio')
-            aspectLabel.style.marginRight = '10px'
-            aspectLabel.style.minWidth = '50%'
-            console.log(image.style.aspectRatio);
-
-            let aspectInput = DesignConstructor.input(aspect, image.style.aspectRatio.split(' ')[0])
-            aspectInput.setAttribute('type', 'number')
-
-            aspectInput.addEventListener('input', () => {
-              image.style.aspectRatio = aspectInput.value
-            })
-
-          } else {
-            const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
-            const tag = DesignConstructor.dropList(elementMenuBody, tagList, item.tagName, (e) => {
-              let newEl = document.createElement(e)
-              item.getAttributeNames().forEach(n => {
-                newEl.setAttribute(n, item.getAttribute(n))
-              })
-              newEl.innerHTML = item.innerHTML
-              item.replaceWith(newEl)
-              item = newEl
-            })
-          }
-
-          const settings = lab_design_system_d('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
-          const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
-
-
-          const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
-
-          const padding = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'padding')
-
-          const paddingBox = lab_design_system_d('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
-          const margin = lab_design_system_d('span', Designer.ID(), elementMenuBody, 'margin')
-          const marginBox = lab_design_system_d('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
-
-          const padList = ['top', 'right', 'bottom', 'left']
-
-          padList.forEach(e => {
-            const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
-          })
-
-          padList.forEach(e => {
-            const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
-          })
-
-
-          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
-          const textColor = lab_design_system_d('span', Designer.ID(), colorSettings, 'background')
-          const colorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
-          colorInput.setAttribute('type', 'color')
-          colorInput.setAttribute('value', css['background'])
-          if (item.tagName == 'svg') {
-            colorInput.setAttribute('value', item.getAttribute('fill'))
-          }
-
-          colorInput.addEventListener('input', () => {
-            if (item.tagName == 'svg') {
-              Designer.WriteStyle(item, 'fill', colorInput.value)
-            } else {
-              Designer.WriteStyle(item, 'background', colorInput.value)
-            }
-          })
-
-          item.getAttributeNames().forEach(n => {
-            if (!['style', 'id'].includes(n)) {
-              const wrap = lab_design_system_d('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-              const name = lab_design_system_d('span', Designer.ID(), wrap, n)
-              name.style.marginRight = '10px'
-              if (n != 'class') {
-                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              } else {
-                let attrubuteInput = DesignConstructor.input(wrap, '')
-                let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
-                let classes = String(item.getAttribute(n)).split(' ')
-
-                classes.forEach(e => {
-                  if (!systemClasses.includes(e)) {
-                    attrubuteInput.value += e + ' '
-                  }
-                })
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              }
-            }
-          })
-
-        }
-        if (param == 'additional') {
-          const fontFamily = DesignConstructor.dropList(elementMenuBody, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
-
-          const fontSettings = lab_design_system_d('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
-          const textALign = lab_design_system_d('div', "textALign", fontSettings)
-          const textStyle = lab_design_system_d('div', "textStyle", fontSettings)
-          const textALignList = ['left', 'center', 'right', 'justify']
-          const textStyleList = ['italic', 'underline', 'line', 'dec']
-
-          textALignList.forEach(e => {
-            const btn = DesignConstructor.button(textALign, ['design', 'stylesBtn'], '', `${e}-text`)
-            btn.addEventListener('click', () => Designer.WriteStyle(item, 'textAlign', e))
-          })
-
-          const italic = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `italic-style`)
-          const underline = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `underline-style`)
-          const line = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `line-through-style`)
-          const dec = DesignConstructor.button(textStyle, ['design', 'stylesBtn'], '', `text-decoration-style`)
-
-          const textSettings = lab_design_system_d('div', "textSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
-
-          const weight = DesignConstructor.dropList(textSettings, ['normal', 'bold', 'thin', 'medium', 'black'], css['font-weight'], (e) => Designer.WriteStyle(item, 'fontWeight', e))
-
-          const fontSize = DesignConstructor.input(textSettings, css['font-size'], 'px', '', { el: item, style: 'fontSize' })
-
-          const lineHeight = DesignConstructor.input(textSettings, css['line-height'], '', 'line-height', { el: item, style: 'lineHeight' })
-
-          const letterSpacing = DesignConstructor.input(textSettings, css['letter-spacing'], '', 'letter-spacing', { el: item, style: 'letterSpacing' })
-
-          const colorSettings = lab_design_system_d('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
-          const textColor = lab_design_system_d('span', "text-color", colorSettings, 'Text color')
-          const textColorInput = lab_design_system_d('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
-          textColorInput.setAttribute('type', 'color')
-          textColorInput.setAttribute('value', css['color'])
-          textColorInput.addEventListener('input', () => {
-            Designer.WriteStyle(item, 'color', textColorInput.value)
-          })
-        }
-        lab_fade_in_recursively(elementMenuBody, 0.2)
-      }
-
-      lab_fade_in_recursively(box, 0.3)
-    }
-  }
-}
-
-function selectTool(toolName) {
-  ActiveMode = null
-  selectedShape = null
-  elementDragging = false
-  labIsElementDragging = false
-  if (toolName == 'pen') {
-    selectedShape = 'feather'
-  }
-  else if (toolName == 'move') {
-    ActiveMode = 'translation'
-    labIsElementDragging = true
-  }
-  else if (toolName == 'resize') {
-    ActiveMode = 'resize'
-    isResizing = true
-  }
-  else if (toolName == 'rotate') {
-    ActiveMode = 'rotation'
-  }
-
-  else if (['text', 'img'].includes(toolName)) {
-    mode(toolName)
-  }
-
-  else if (toolName == 'square') {
-    isControlEnabled = false
-    selectedShape = 'square'
-    elementDragging = false
-  }
-  else if (toolName == 'circle') {
-    isControlEnabled = false
-    selectedShape = 'circle'
-    elementDragging = false
-  }
-  else if (toolName == 'triangle') {
-    isControlEnabled = false
-    selectedShape = 'triangle'
-    elementDragging = false
-  }
-  else if (toolName == 'formPath') {
-    isControlEnabled = false
-    selectedShape = 'formPath'
-    elementDragging = false
-  }
-}
-
-function capitalizeFirstLetter(val) {
-  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-}
-
-function mode(modeName) {
-  const page = document.getElementById('lab-user-page')
-  const pagePos = page.getBoundingClientRect()
-  let mouse = false
-  let startCoords
-  selectedShape = modeName
-  if (['text', 'img'].includes(modeName)) {
-    page.addEventListener('mousemove', write)
-  }
-
-  const types = {
-    'text': 'span',
-    'img': 'img',
-  }
-
-  async function write({ x, y }) {
-    if (selectedShape == modeName) {
-      if (mouse) {
-        let area = !document.getElementById('lab-area') ? lab_design_system_d('div', 'area', page, '', 'none', ['design', 'area']) : document.getElementById('lab-area')
-        area.style.top = (startCoords.y - pagePos.y) / pagePos.height * 100 + '%'
-        area.style.left = (startCoords.x - pagePos.x) / pagePos.width * 100 + '%'
-        area.style.width = (x - startCoords.x) / pagePos.width * 100 + '%'
-        area.style.height = (y - startCoords.y) / pagePos.height * 100 + '%'
-        area.style.opacity = ''
-
-        page.addEventListener('mouseup', CreateEl)
-
-      }
-      page.addEventListener('mousedown', start)
-    }
-    else {
-      page.removeEventListener('mousedown', start)
-      page.removeEventListener('mouseup', CreateEl)
-      page.removeEventListener('mousemove', write)
-      return false
-    }
-  }
-
-  function start(e) {
-    if (!mouse) {
-      mouse = true
-      startCoords = { x: e.clientX, y: e.clientY }
-    }
-  }
-
-  async function CreateEl() {
-    const area = document.getElementById('lab-area')
-    if (area) {
-      const areaPos = area.getBoundingClientRect()
-      mouse = false
-      startCoords = null
-      if (modeName == 'text') {
-        const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
-        item.style.position = 'absolute'
-        item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-        item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-        item.style.width = (areaPos.width) / pagePos.width * 100 + '%'
-        item.style.aspectRatio = areaPos.width / areaPos.height
-      }
-
-      if (modeName == 'img') {
-        let input = document.getElementById('lab-img-input')
-        input.click()
-        async function IMG(e) {
-          if (e.target.files.length > 0) {
-            const fileInfo = e.target.files[0]
-            console.log(fileInfo);
-
-            const itemBox = document.createElement('div')
-            itemBox.classList.add('lab-img-container')
-            itemBox.id = Designer.ID()
-
-            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
-            itemBox.style.position = 'absolute'
-            itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
-            itemBox.style.width = (areaPos.width) / pagePos.width * 100 + '%'
-            item.style.aspectRatio = areaPos.width / areaPos.height
-            item.style.width = '100%'
-            item.style.pointerEvents = 'none'
-            item.setAttribute('src', URL.createObjectURL(fileInfo))
-            let i = Array.from(e.target.files)[0]
-
-            async function setSrc() {
-              await loadImg(i, [item])
-            }
-
-            setSrc()
-
-            item.style.objectFit = 'cover'
-            item.style.objectPosition = '50% 50%'
-            page.appendChild(itemBox)
-            input.removeEventListener('change', IMG)
-          }
-        }
-
-        input.addEventListener('change', IMG)
-      }
-      area.remove()
-    }
-  }
-
-  page.addEventListener('click', () => mouse = false)
-}
-
-design_mode()
-
-// return design_mode
-
-
-async function loadImg(i, items) {
-  let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
-  let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)
-  let finalNameWithExtension = withoutSpecChar + "." + i.name.split('.')[1]
-  const userLSG = lab_local_storage_object('global')
-  userLSG.name = finalNameWithExtension
-  userLSG.type = i.type
-  userLSG.support = ""
-  let newSrc
-
-  function readFileAsync(file) {
-    return new Promise((resolve, reject) => {
-      let reader = new FileReader()
-      reader.readAsDataURL(file)
-
-      reader.onload = () => {
-        resolve(reader.result)
-      }
-      reader.onerror = reject;
-    })
-  }
-
-  async function processFile() {
-    try {
-      let imgData = await readFileAsync(i)
-      let regExp64 = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
-      userLSG.support = imgData.trim().toString('base64').replace(regExp64, '')
-
-      await socket.emit('droppedImages', userLSG, async res => {
-        items.forEach(e => {
-          e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
-          e.id = res.id
-          let opt = lab_local_storage_object('options').vpm
-          lab_save_section(opt)
-        })
-        return newSrc
-      })
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-
-
-  return await processFile()
 }
 
 
-function db_popup(el, lngData) {
-  const wrap = lab_design_system_d('div', 'db-popup-wrap', rootLayer, '', '', ['popup', 'wrap'])
-  const box = lab_design_system_d('div', 'db-popup', rootLayer, '', '', ['popup', 'box'])
-  box.style.flexDirection = 'column'
-  box.style.gap = '40px'
-  const top = lab_design_system_d('div', 'db-popup-top', box, '', '', ['design', 'styleBox'])
-  top.style.width = '100%'
-  top.style.justifyContent = 'space-evenly'
-  top.style.position = 'relative'
-  top.style.zIndex = 3
-  const midle = lab_design_system_d('div', 'db-popup-midle', box, '', '', ['design', 'styleBox'])
-  midle.style.width = '100%'
-  midle.style.justifyContent = 'space-evenly'
-  midle.style.position = 'relative'
-  midle.style.zIndex = 2
+setTimeout(() => {
 
-  const bottom = lab_design_system_d('div', 'db-popup-bottom', box, '', '', ['design', 'styleBox'])
-  bottom.style.width = '100%'
-  bottom.style.justifyContent = 'space-evenly'
-  bottom.style.position = 'relative'
-  bottom.style.zIndex = 1
-
-
-  let dbAction = {
-    top: {
-      db: null,
-      table: null
-    },
-    midle: {
-      db: null,
-      table: null
-    },
-    bottom: {
-      db: null,
-      table: null
-    },
-    operationType: null
-  }
-  const topLabel = lab_design_system_d('div', 'db-popup-top-label', top, 'label')
-  const topDb = DesignConstructor.dropList(top, sectionElementsObject.databases, '', (e) => {
-    dbAction.top.db = e
-  })
-  topDb.style.maxWidth = '20%'
-  const topTable = DesignConstructor.dropList(top, sectionElementsObject.databases, '', (e) => {
-    dbAction.top.table = e
-  })
-  topTable.style.maxWidth = '20%'
-
-
-  const midleLabel = lab_design_system_d('div', 'db-popup-midle-label', midle, 'label')
-  const midleDb = DesignConstructor.dropList(midle, sectionElementsObject.databases, '', (e) => {
-    dbAction.midle.db = e
-  })
-  midleDb.style.maxWidth = '20%'
-  const midleTable = DesignConstructor.dropList(midle, sectionElementsObject.databases, '', (e) => {
-    dbAction.midle.table = e
-  })
-  midleTable.style.maxWidth = '20%'
-
-
-  const bottomLabel = lab_design_system_d('div', 'db-popup-bottom-label', bottom, 'label')
-  const bottomDb = DesignConstructor.dropList(bottom, sectionElementsObject.databases, '', (e) => {
-    dbAction.bottom.db = e
-  })
-  bottomDb.style.maxWidth = '20%'
-  const bottomTable = DesignConstructor.dropList(bottom, sectionElementsObject.databases, '', (e) => {
-    dbAction.bottom.table = e
-  })
-  bottomTable.style.maxWidth = '20%'
-
-
-  let options = ['registration', 'auntification', 'write', 'read', 'update']
-  const operationType = DesignConstructor.dropList(box, options, '', (e) => {
-    dbAction.operationType = e
-  })
-  operationType.style.width = '50%'
-
-  const save = lab_design_system_d('button', 'save-db-options', box, lngData.save, '', ['buttons', 'action'])
-  operationType.style.width = 'fit-content'
-
-  save.addEventListener('click', () => {
-    //something
-  })
-
-  wrap.addEventListener('click', () => {
-    box.remove()
-    wrap.remove()
-  })
-}
-
-db_popup()
+  newSettings()
+}, 1000);

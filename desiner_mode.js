@@ -1638,7 +1638,6 @@ function mode(modeName) {
 
 design_mode()
 
-// return design_mode
 
 
 async function loadImg(i, items) {
