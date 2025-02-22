@@ -1,12 +1,1 @@
-[
-	{
-		"parent": "lab_svg_20422",
-		"attributes": {
-			"class": "lab-none",
-			"width": "100%",
-			"height": "100%",
-			"style": "pointer-events: none;"
-		},
-		"name": "rect"
-	}
-]
+[]

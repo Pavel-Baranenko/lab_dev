@@ -47,9 +47,6 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
-.selectedItem {
-  border: 1px solid #fed05e !important;
-}
 
 #background {
   display: none;
@@ -87,4 +84,29 @@ body::-webkit-scrollbar {
 
 #lab-user-page-wrap::-webkit-scrollbar {
   width: 0;
+}
+
+
+
+.lab-scrollable::-webkit-scrollbar {
+  width: 2px;
+  border-radius: 80px;
+}
+
+.lab-scrollable::-webkit-scrollbar-track {
+  background-color: #D9D9D9;
+  border-radius: 80px;
+}
+
+.lab-scrollable::-webkit-scrollbar-thumb {
+  background-color: #FED05E;
+  border-radius: 80px;
+}
+
+.lab-active-element {
+  border: 2px solid #2463EB;
+}
+
+.lab-selectedItem {
+  border: 2px solid #2463EB !important;
 }

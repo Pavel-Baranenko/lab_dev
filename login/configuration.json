@@ -15,8 +15,15 @@
 		{
 			"collaborator_email": "alterseiver@gmail.com",
 			"rights": {
-				"preset": "administrator",
-				"custom": []
+				"preset": "custom",
+				"custom": [
+					{
+						"sftp": true
+					},
+					{
+						"ephemeral_sharing": true
+					}
+				]
 			}
 		},
 		{

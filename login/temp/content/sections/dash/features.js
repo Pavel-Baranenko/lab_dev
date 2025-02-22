@@ -1414,8 +1414,7 @@ let customerData = {
   customerHDAdress: '',
   customerHDCity: '',
   customerHDZip: '',
-  customerVatNumber: '',
-
+  customerVatNumber: ''
 }
 
 let plansLng = {
