@@ -1,7 +1,7 @@
 function alert(text) {
   let last = document.getElementById('lab-alert')
   if (last) last.remove()
-  const wrap = lab_design_system("div", "alert", rootLayer, text, null, ["alert", "wrap"])
+  const wrap = lab_design_system("div", "alert", document.querySelector('body'), text, null, ["alert", "wrap"])
 
   wrap.style.transition = "all 0.4s linear"
   wrap.style.opacity = 1
