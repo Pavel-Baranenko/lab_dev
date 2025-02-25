@@ -1640,6 +1640,7 @@ design_mode()
 
 
 
+
 async function loadImg(i, items) {
   let nameWithoutFirstNumbers = idStartWithoutNumbers(i.name.split('.')[0])
   let withoutSpecChar = formatFromSpecChar(nameWithoutFirstNumbers)

@@ -873,35 +873,9 @@ function design_mode(app) {
 
   //USER PAGE
 
-  //DELETE THIS START
 
-  let pageWrap
-  if (!document.querySelector('#lab-user-page')) {
-    pageWrap = lab_design_system('div', "user-page-wrap", designBody, '', 'scrollable', ['design', 'pageWrap'])
-    pageWrap.classList.remove('escape')
-    pageWrap.setAttribute('class', 'lab-scrollable')
-  } else {
-    pageWrap = document.querySelector('#lab-user-wrap')
-  }
-
-  let page
-  if (!document.querySelector('#lab-user-page')) {
-    page = lab_design_system('div', "user-page", pageWrap, '', '', ['design', 'page'])
-  } else {
-    page = document.querySelector('#lab-user-page')
-  }
-  page.classList.remove('escape')
-
-
-
-  // const page = document.querySelector('#lab-user-page')
-
-
-  //DELETE THIS END
-
-
-
-  // const page = document.querySelector('#lab-user-page')
+  const pageWrap = document.querySelector('#lab-user-page-wrap')
+  const page = document.querySelector('#lab-user-page')
 
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
