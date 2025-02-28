@@ -1020,12 +1020,8 @@ function design_mode(app) {
 
   //TOPSETTINGS
   pageWrap.style.position = 'relative'
-  console.log(pageWrap);
-  designBody.appendChild(pageWrap)
+  // designBody.appendChild(pageWrap)
 
-  if (document.querySelector('#lab-top-settings')) {
-    document.querySelector('#lab-top-settings').remove()
-  }
 
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
   console.log(topSettings);
