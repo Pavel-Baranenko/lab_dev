@@ -1,3 +1,5 @@
+rootLayer = document.querySelector('body')
+
 function select(label, list, parent, value, func) {
   const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
   const top = lab_design_system("div", `select-top-${value}`, select, null, null, ["select", "top"])
@@ -177,18 +179,17 @@ function shortcutsSettings(u, parent) {
 
 function dash_parameters(u) {
   let activeTab = "profile"
-  const parametersWrap = lab_design_system("div", "parameters-wrapper", rootLayer, null, null, ["parameters", "wrapper"])
-  const parameters = lab_design_system("div", "parameters", rootLayer, null, null, ["parameters", "popup"])
+  const parametersWrap = lab_design_system("div", "parameters-wrapper", rootLayer, '', '', ["parameters", "wrapper"])
+  const parameters = lab_design_system("div", "parameters", rootLayer, '', '', ["parameters", "popup"])
   parametersWrap.addEventListener("click", () => {
     rootLayer.removeChild(parametersWrap)
     rootLayer.removeChild(parameters)
   })
 
-  const side = lab_design_system("div", "parameters-side", parameters, null, null, ["parameters", "side"])
-  const boxWrap = lab_design_system("div", "parameters-box", parameters, null, null, ["parameters", "box"])
+  const side = lab_design_system("div", "parameters-side", parameters, '', '', ["parameters", "side"])
+  const boxWrap = lab_design_system("div", "parameters-box", parameters, '', null, ["parameters", "box"])
   const user = lab_design_system("div", "profile-user", side, null, null)
-  user.style.margin = " 0 0 40px 0"
-
+  user.style.margin = "0 0 40px 0"
   const userName = lab_design_system("span", "profile-user-name", user, u.email.split("@")[0], null)
 
   function tab(tabValue) {
@@ -421,7 +422,7 @@ function dash_parameters(u) {
         gitNameInput.value = u.configs.gitCredentials.username
         gitEmailInput.value = u.configs.gitCredentials.userGithubMail
         gitTokenInput.value = u.lngData.encrypted
-    }
+      }
 
       const gitBtn = lab_design_system("button", "github-gredentials-btn", boxWrap, u.lngData.save, null, ["buttons", "action"])
 
@@ -431,10 +432,10 @@ function dash_parameters(u) {
         if (gitNameInput.value && gitEmailInput.value && gitTokenInput.value) {
           const userLSG = lab_local_storage_object('global')
           userLSG.gitUsername = gitNameInput.value,
-          userLSG.userGithubMail = gitEmailInput.value,
-          userLSG.pat = gitTokenInput.value
+            userLSG.userGithubMail = gitEmailInput.value,
+            userLSG.pat = gitTokenInput.value
           userLSG.gitOp = "gitCredentials"
-          socket.emit('launchGitHubOperation', userLSG, res => {})
+          socket.emit('launchGitHubOperation', userLSG, res => { })
         } else {
           alertUser(u.lngData.input_cannot_be_empty)
         }
@@ -560,6 +561,7 @@ function dashboard(dashObject) {
   rootLayer.style.overflowY = "auto"
   let viewMyList = true
   const wrapper = lab_design_system("div", "body-wrapper", rootLayer, 0, 0, ["pages", "dash"])
+  wrapper.style.width = '100svw'
   const header = lab_design_system("header", "header", wrapper, 0, 0, ["containers", "header"])
   const content = lab_design_system("div", "content-box", wrapper, null, null, null)
   const headerWrap = lab_design_system("div", "header-wrap", header, 0, 0, ["containers", "headerWrap"])
@@ -567,6 +569,7 @@ function dashboard(dashObject) {
 
   const logo = lab_design_system("a", "logo", header, 0, 0, null);
   logo.setAttribute("href", "/")
+  logo.style.marginRight = 'auto'
   const logoImg = lab_design_system("img", "logo-img", logo, null, null, ["logo", "small"]);
   logoImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/logoAlt.svg")
 
@@ -703,6 +706,7 @@ function dashboard(dashObject) {
         }
 
         item.addEventListener("click", () => {
+
           if (e == lngData.settings) {
             socket.emit("askAccount", lab_local_storage_object("global"), res => {
               res.lngData = lngData
@@ -716,7 +720,7 @@ function dashboard(dashObject) {
 
           else if (e == lngData.plans) {
             content.innerHTML = ''
-            lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList, user : dashObject })
+            lab_load_component('/D/C/UI/GLOB/lab_plans.js', { parent: content, lngData: lngData, closeAction: renderList, user: dashObject })
           }
         })
       })
@@ -728,74 +732,84 @@ function dashboard(dashObject) {
     if (localStorage.getItem('layout') == 'column') {
       direction = 'column'
     }
-
     content.innerHTML = ''
-    const apps = lab_design_system("div", "app-list", content, null, null, ["apps", "list"])
-
+    const apps = lab_design_system("div", "app-list", content, '', '', ["apps", "list"])
     apps.innerHTML = ""
+    apps.style.justifyContent = "unset"
+    apps.style.gap = "20px"
     let len = list.length
 
     list.forEach(e => {
-      if (!e.startsWith('.')) {
-        const project = lab_design_system("div", `project-${e}`, apps, null, null, ["apps", direction])
-        project.addEventListener("mouseover", () => {
-          project.style.transform = "scale(1.01)";
-        })
+      const project = lab_design_system("div", `project-${e.appName}`, apps, '', '', ["apps", direction])
+      project.addEventListener("mouseover", () => {
+        project.style.transform = "scale(1.01)";
+      })
 
-        project.addEventListener("mouseleave", () => {
-          project.style.transform = "none";
-        })
+      project.addEventListener("mouseleave", () => {
+        project.style.transform = "none";
+      })
 
-        const previewBox = lab_design_system("div", `item-preview-${e}`, project, null, null, ["apps", "preview"])
-        previewBox.addEventListener("click", () => {
-          lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
-          window.open(window.location.href + e + "/" + "home", "_self")
-        })
+      const previewBox = lab_design_system("div", `item-preview-${e.appName}`, project, '', '', ["apps", "preview"])
+      previewBox.style.background = 'url(https://laboranth.tech/D/R/IMG/logoAlt.svg)'
+      previewBox.style.backgroundPosition = 'center'
+      previewBox.style.backgroundRepeat = 'no-repeat'
 
-        const preview = lab_design_system("img", `item-img-${e}`, previewBox, null, null)
-        const bottom = lab_design_system("div", `apps-item-wrap-${e}`, project, null, null, ["apps", `wrap-${direction}`])
-        const text = lab_design_system("span", `apps-item-${e}`, bottom, e, null, null)
-        text.style.width = 100 + "%"
+      previewBox.addEventListener("click", () => {
+        lab_local_storage_object_update("global", { "ctx": "Application", "app": e.appName, "section": "home", "externalApp": false })
+        window.open(window.location.href + e.appName + "/" + "home", "_self")
+      })
+      if (e.src) {
+        const preview = lab_design_system("img", `item-img-${e.appName}`, previewBox)
+        preview.style.width = '100%'
+        preview.style.maxHeight = '100%'
+        preview.style.objectFit = 'cover'
+        previewBox.style.overflow = 'hidden'
 
-        text.addEventListener("click", () => {
-          lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
-          window.open(window.location.href + e + "/" + "home", "_self")
-        })
-
-        const img = lab_design_system("img", `apps-item-img-${e}`, bottom, null, null, null)
-        img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
-        img.style.transform = 'rotate(90deg)'
-
-        img.addEventListener("click", () => {
-          if (document.getElementById("apps-item-menu")) {
-            project.removeChild(document.getElementById(`apps-item-menu`))
-          } else {
-            const itemMenu = lab_design_system("div", `apps-item-menu`, project, null, null, ["apps", "menu"])
-
-            const menuImg = lab_design_system("img", `apps-menu-img-${e}`, itemMenu, null, null, ["apps", "more"])
-
-            menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
-
-
-            menuImg.addEventListener("click", () => {
-              project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
-            })
-
-            renderMenu(itemMenu, e, project, { "settings": lngData.settings, "copy": lngData.copy, "delete": lngData.delete })
-
-          }
-        })
-
-        project.style.zIndex = len
-        len--
+        preview.setAttribute('src', e.src)
       }
+
+      const bottom = lab_design_system("div", `apps-item-wrap-${e.appName}`, project, '', '', ["apps", `wrap-${direction}`])
+      const text = lab_design_system("span", `apps-item-${e.appName}`, bottom, e.appName)
+      text.style.width = 100 + "%"
+
+      text.addEventListener("click", () => {
+        lab_local_storage_object_update("global", { "ctx": "Application", "app": e.appName, "section": "home", "externalApp": false })
+        window.open(window.location.href + e.appName + "/" + "home", "_self")
+      })
+
+      const img = lab_design_system("img", `apps-item-img-${e.appName}`, bottom)
+      img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+      img.style.transform = 'rotate(90deg)'
+
+      img.addEventListener("click", () => {
+        if (document.getElementById("apps-item-menu")) {
+          project.removeChild(document.getElementById(`apps-item-menu`))
+        } else {
+          const itemMenu = lab_design_system("div", `apps-item-menu`, project, '', '', ["apps", "menu"])
+
+          const menuImg = lab_design_system("img", `apps-menu-img-${e.appName}`, itemMenu, '', '', ["apps", "more"])
+
+          menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
+
+
+          menuImg.addEventListener("click", () => {
+            project.removeChild(document.getElementById(`lab-apps-item-menu-${e.appName}`))
+          })
+
+          renderMenu(itemMenu, e, project, { "settings": lngData.settings, "copy": lngData.copy, "delete": lngData.delete })
+
+        }
+      })
+
+      project.style.zIndex = len
+      len--
     })
 
     lab_fade_in_recursively(apps, 0.6)
   }
 
   function renderMenu(itemMenu, e, parent, lngData) {
-    const itemMenuBox = lab_design_system("div", `apps-item-box-${e}`, itemMenu, null, null, ["apps", "box"])
+    const itemMenuBox = lab_design_system("div", `apps-item-box-${e}`, itemMenu, '', '', ["apps", "box"])
     const menuItems = ["settings", "copy", "delete"]
 
     itemMenu.addEventListener("mouseleave", () => {
@@ -803,8 +817,8 @@ function dashboard(dashObject) {
     })
 
     menuItems.forEach(p => {
-      const item = lab_design_system("button", `project-menu-${p}`, itemMenuBox, lngData[p], null, ["apps", "settings"])
-      const itemImg = lab_design_system("img", `project-menu-img-${p}`, item, null, null)
+      const item = lab_design_system("button", `project-menu-${p}`, itemMenuBox, lngData[p], '', ["apps", "settings"])
+      const itemImg = lab_design_system("img", `project-menu-img-${p}`, item, '', '')
       itemImg.style.transform = 'rotate(-deg)'
       itemImg.setAttribute("src", `https://laboranth.tech/D/R/IMG/CLA/${p}.svg`)
 
@@ -882,5 +896,37 @@ function dashboard(dashObject) {
   lab_fade_in_recursively(wrapper, 0.3)
 
 }
+
+
+
+let appList = [
+  {
+    appName: "nadncnkcndckcn",
+    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+  },
+  {
+    appName: "aaaaaaaa"
+  },
+  {
+    appName: "vvvvvv",
+    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+  },
+  {
+    appName: "dddddd",
+    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+  },
+  {
+    appName: "cdcdcdcd"
+  },
+  {
+    appName: "bbbbbbbbbfd",
+    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+  },
+  {
+    appName: "nadncnkcndckcn",
+    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+  },
+]
+
 
 return dashboard

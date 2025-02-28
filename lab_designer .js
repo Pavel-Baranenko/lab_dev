@@ -1,9 +1,8 @@
-
-
 let ActiveMode
 let selected
 let mouseIsDown = false
-
+const pageWrap = document.querySelector('#lab-user-page-wrap')
+const page = document.querySelector('#lab-user-page')
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 class Designer {
@@ -388,6 +387,8 @@ function design_mode(app) {
   labBody.style.display = "flex"
   labBody.style.width = "100svw"
   labBody.style.height = "100svh"
+
+
 
   const ElementsList = {
     'button': {
@@ -808,7 +809,7 @@ function design_mode(app) {
 
   const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close', 'none', 'side-menu-open')
-  menu.style.position = lab_orientation == 'Portrait' ? 'fixed' : "relative"
+  menu.style.position = 'fixed'
   menu.style.maxHeight = lab_orientation == "Portrait" ? 'calc(100% - 200px)' : "100%"
   menu.style.top = lab_orientation == 'Portrait' ? '100px' : "0"
   menu.style.borderRadius = lab_orientation == 'Portrait' ? '0 16px 16px 0' : "0"
@@ -873,9 +874,6 @@ function design_mode(app) {
 
   //USER PAGE
 
-
-  const pageWrap = document.querySelector('#lab-user-page-wrap')
-  const page = document.querySelector('#lab-user-page')
 
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
@@ -1022,25 +1020,46 @@ function design_mode(app) {
 
   //TOPSETTINGS
   pageWrap.style.position = 'relative'
+  console.log(pageWrap);
+  designBody.appendChild(pageWrap)
+
+  if (document.querySelector('#lab-top-settings')) {
+    document.querySelector('#lab-top-settings').remove()
+  }
 
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
+  console.log(topSettings);
   topSettings.style.maxWidth = 'clamp(56%, 100%, 1080px)'
-  topSettings.style.position = 'absolute'
+  topSettings.style.position = 'fixed'
   topSettings.style.paddingLeft = 'clamp(10px, 2svw, 40px)'
   topSettings.style.paddingRight = 'clamp(10px, 2svw, 40px)'
   topSettings.style.gap = '0'
+  topSettings.style.cursor = 'pointer'
 
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white', 'none', 'settings-open-app-menu')
+  settingsBtn.addEventListener('click', () => {
+    lab_local_storage_object_update('global', { openedMenu: "app_menu" })
+    const userLSG = lab_local_storage_object('global')
+    const appObject = {}
+    appObject.selectedApp = userLSG.app
+    appObject.lngData = app.lngData
+    lab_load_component('/D/C/UI/CLA/lab_app_menu.js', appObject)
+  })
+
   const responsiveList = ["landscape", "portrait"]
 
   function setVpm(vpm) {
+    const currentScale = lab_local_storage_object('global').classic_options.zoom
     document.querySelector('#lab-user-page').innerHTML = ""
+    page.style.scale = currentScale
+
     if (vpm === "landscape") {
       vpm = "paysage"
     }
 
-    let elements = app.elements[vpm]
+    let elements = app.elements[vpm].filter(el => el.id != "lab-user-page" && el.id != "lab-user-wrap")
     let path
+
 
     async function renderParents() {
       for (let i = 0; i < elements.length; i++) {
@@ -1079,15 +1098,13 @@ function design_mode(app) {
 
     Designer.removePointer()
     if (vpm == 'landscape' || vpm === "paysage") {
-      pixelScreen.innerHTML = window.outerWidth + 'px'
       page.style.maxWidth = 'none'
       page.style.maxHeight = 'none'
     }
 
     if (vpm == 'portrait') {
-      pixelScreen.innerHTML = '414px '
-      page.style.maxWidth = '414px'
-      page.style.maxHeight = '896px'
+      page.style.scale = 0.7
+      page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
     }
   }
 
@@ -1115,14 +1132,11 @@ function design_mode(app) {
         }
       })
     })
-
-    const pixelScreen = lab_design_system('div', "top-settings-pixel", topSettings, window.outerWidth + ' px', 0, ['design', 'pixelView'])
-    pixelScreen.style.minWidth = '65px'
-
-    const pixelSettings = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white', 'none', 'pixel-settings-btn')
-    pixelSettings.querySelector('img').style.width = '15px'
   }
 
+  if (lab_local_storage_object('global').classic_options.vpm == 'portrait') {
+    page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
+  }
 
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box', '', 'set-page-btn')
   setPage.style.margin = lab_orientation == 'Portrait' ? '0 auto' : "0"
@@ -1131,10 +1145,13 @@ function design_mode(app) {
   const arrow = lab_design_system('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
 
+
   setPage.addEventListener('click', () => {
-    let last = document.getElementById('lab-page-list')
+    let last = document.getElementById('lab-pages-list')
     if (last) last.remove()
     const list = lab_design_system('div', 'pages-list', setPage, '', '', ['design', 'pagesList'])
+    list.style.paddingTop = "15px"
+    list.style.gap = "15px"
 
     sectionElementsObject.sections.forEach(e => {
       if (e != sectionElementsObject.section) {
@@ -1142,7 +1159,55 @@ function design_mode(app) {
         btn.setAttribute('href', `./${e}`)
       }
     })
-    list.addEventListener('mouseleave', () => list.remove())
+    const add = lab_design_system('button', `add-page-btn`, list, '+', '', ['design', 'pageLink'])
+    add.style.background = '#FED05E'
+    add.style.color = '#000'
+    add.style.padding = '8px'
+    add.style.borderRadius = '6px'
+    add.style.cursor = '6px'
+    add.style.fontWeight = '700'
+
+    add.addEventListener('click', () => addPagePopup())
+
+
+    function addPagePopup() {
+      list.remove()
+
+      let last = document.getElementById('lab-add-popup')
+      if (last) last.remove()
+      const popupWrap = lab_design_system("div", `add-popup-wrap`, designBody, '', '', ["popup", "wrap"])
+      const popup = lab_design_system("div", `add-popup`, designBody, '', '', ["popup", "box"])
+      const popupContent = lab_design_system("div", `add-popup-content`, popup, '', '', ["popup", "content"])
+      popupWrap.addEventListener("click", () => {
+        parent.removeChild(popupWrap)
+        parent.removeChild(popup)
+      })
+      const pageInput = DesignConstructor.input(popupContent)
+      const addBtn = lab_design_system("button", `add-popup-btn`, popupContent, 'add', '', ["buttons", "action"])
+
+      addBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        const regex = /^[A-Za-z0-9-._~]+$/
+        if (pageInput.value && regex.test(pageInput.value)) {
+          const lab_user_current_config = lab_local_storage_object('global')
+
+          let addSectionObject = {
+            app: lab_user_current_config.app,
+            uid: lab_user_current_config.uid,
+            lng: lab_user_current_config.lng,
+            addingSection: pageInput.value
+          }
+
+          socket.emit('addNewSection', addSectionObject)
+
+        } else alertUser(lngData.column_name_cannot_be_empty)
+      })
+
+      lab_fade_in_recursively(popup, 0.3)
+    }
+
+    setPage.addEventListener('mouseleave', () => list.remove())
+    lab_fade_in_recursively(list, 0.3)
   })
 
   if (lab_orientation == 'Landscape') {
@@ -1162,12 +1227,24 @@ function design_mode(app) {
       size.innerHTML = this.value + "%"
       Options(options, 'zoom', this.value)
       page.style.scale = this.value / 100
+      let pagePos = page.getBoundingClientRect()
+      page.style.transform = `translateY(-${pagePos.y}px)`
     }
   }
 
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'visibility')
   view.addEventListener('click', DesignConstructor.closeAll)
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+  download.addEventListener('click', () => {
+    lab_local_storage_object_update('global', { openedMenu: "app_menu" })
+    const userLSG = lab_local_storage_object('global')
+    const appObject = {}
+    appObject.selectedApp = userLSG.app
+    appObject.lngData = app.lngData
+    appObject.selectedMenu = 'deploy'
+    lab_load_component('/D/C/UI/CLA/lab_app_menu.js', appObject)
+  })
+
 
   const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
 
@@ -1184,7 +1261,8 @@ function design_mode(app) {
   styleWrap.style.overflowY = 'scroll'
   styleWrap.style.height = '100%'
   styleWrap.classList.add('lab-scrollable')
-  styleMenu.style.position = lab_orientation == "Portrait" ? "fixed" : "relative"
+  styleMenu.style.position = 'fixed'
+  styleMenu.style.height = 100 + '%'
   styleMenu.style.right = 0
   styleMenu.style.top = lab_orientation == "Portrait" ? "100px" : 0
   styleMenu.style.borderRadius = lab_orientation == "Portrait" ? "16px 0 0 16px" : 0
@@ -1751,6 +1829,8 @@ async function loadImg(i, items) {
   return await processFile()
 }
 
+
 return design_mode
+
 
 

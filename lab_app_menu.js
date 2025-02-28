@@ -1,15 +1,18 @@
+
 function AppMenu(dashObj) {
   const userLSG = lab_local_storage_object('global')
   const lngData = dashObj.lngData
-  if (userLSG.ctx = 'Laboranth') {
+  let selectedMenu = dashObj.selectedMenu
+  if (!selectedMenu) selectedMenu = 'backup'
+  if (userLSG.ctx == 'Laboranth') {
     userLSG.app = dashObj.selectedApp
     userLSG.section = 'home'
   }
 
   socket.emit('getAppData', userLSG, res => {
     sectionElementsObject = res
-    const menuWrap = lab_design_system('div', 'app-menu-wrap', rootLayer, '', '', ['appMenu', 'wrap'])
-    const menu = lab_design_system('div', 'app-menu', rootLayer, '', '', ['appMenu', 'menu'])
+    const menuWrap = lab_design_system('div', 'app-menu-wrap', document.querySelector('body'), '', '', ['appMenu', 'wrap'])
+    const menu = lab_design_system('div', 'app-menu', document.querySelector('body'), '', '', ['appMenu', 'menu'])
     const side = lab_design_system('div', 'app-menu-side', menu, '', '', ['appMenu', 'side'])
     const box = lab_design_system('div', 'app-menu-box', menu, '', '', ['appMenu', 'box'])
 
@@ -25,6 +28,7 @@ function AppMenu(dashObj) {
     }
 
     const settings = {
+      'general': 'General',
       'versioning': lngData.versioning,
       'pages_management': lngData.pages_management,
       'libraries': lngData.libraries,
@@ -45,14 +49,6 @@ function AppMenu(dashObj) {
       'laboranth_remote_server': lngData.laboranth_remote_server,
       "laboranth_deploy_git": "Git",
       "laboranth_deploy_zip": "Zip"
-    }
-
-    function Folders(value, type) {
-      if (type == 'delete') {
-        const userLSG = lab_local_storage_object('global')
-        userLSG.mediaListToRemove = value
-        socket.emit('deleteMediaList', userLSG)
-      }
     }
 
     Object.keys(sideButtons).forEach(e => {
@@ -87,67 +83,157 @@ function AppMenu(dashObj) {
 
       if (slide == 'backup') {
         const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', 'scrollable', ['appMenu', 'wrapper'])
-        dropDown(settings, settings.versioning, 'settings', (e) => Settings(e), wrapper)
+        dropDown(settings, settings.general, 'settings', (e) => Settings(e), wrapper)
         const setWrap = lab_design_system('div', 'setWrap', wrapper, '', '', ['appMenu', 'setWrap'])
 
-        function Settings(name = 'versioning') {
+        function Settings(name = 'general') {
           setWrap.innerHTML = ''
           if (name == 'versioning') {
             const userLSG = lab_local_storage_object('global')
-            if (userLSG.ctx = 'Laboranth') {
+            if (userLSG.ctx == 'Laboranth') {
               userLSG.app = dashObj.selectedApp
               userLSG.section = 'home'
             }
             socket.emit("getUserBackups", userLSG, b => {
-              const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
-              const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
-              row.style.position = 'relative'
-              row.style.zIndex = 2
-              const create = lab_design_system('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
-              create.style.width = 'fit-content'
-              
-              create.addEventListener('click', e => {
-                const userLSG = lab_local_storage_object('global')
-                const now = new Date(Date.now())
-                const year = now.getFullYear()
-                const month = (now.getMonth() + 1).toString().padStart(2, '0')
-                const day = now.getDate().toString().padStart(2, '0')
-                const hours = now.getHours().toString().padStart(2, '0')
-                const minutes = now.getMinutes().toString().padStart(2, '0')
-                userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
-                socket.emit("makeAppBackup", userLSG)
-              })
+              let backupObj = b
+              let selectedBcp
 
-              const text = lab_design_system('span', `row-text`, row, lngData.load_a_previous_version)
+              function WriteUserBackups() {
+                setWrap.innerHTML = ''
+                const heading = lab_design_system('h6', 'manual-backup', setWrap, lngData.manual_management, '', ['appMenu', 'heading'])
+                const row = lab_design_system('div', 'backup', setWrap, '', '', ['appMenu', 'execute'])
+                row.style.position = 'relative'
+                row.style.zIndex = 2
+                const create = lab_design_system('button', `c-backup`, row, lngData.create, '', ['buttons', 'action'])
+                create.style.width = 'fit-content'
 
-              if (b.manual.length > 0) {
-                const previous = dropDown(b.manual, b.manual[0], 'previous-backup', null, row)
-                previous.wrap.style.maxWidth = '200px'
+                create.addEventListener('click', e => {
+                  const now = new Date(Date.now())
+                  const year = now.getFullYear()
+                  const month = (now.getMonth() + 1).toString().padStart(2, '0')
+                  const day = now.getDate().toString().padStart(2, '0')
+                  const hours = now.getHours().toString().padStart(2, '0')
+                  const minutes = now.getMinutes().toString().padStart(2, '0')
+                  userLSG.timeStamp = `${year}_${month}_${day}_${hours}_${minutes}`
+                  socket.emit("makeAppBackup", userLSG, res => {
+                    if (res.success) {
+                      if (!backupObj.manual || backupObj.manual.length == 0) {
+                        backupObj.manual = [userLSG.timeStamp]
+                        selectedBcp = userLSG.timeStamp
+                        WriteUserBackups()
+                      } else {
+                        backupObj.manual.push(userLSG.timeStamp)
+                        selectedBcp = userLSG.timeStamp
+                        WriteUserBackups()
+                      }
+                    }
+                  })
+                })
+
+                if (backupObj.manual && backupObj.manual.length > 0) {
+                  const text = lab_design_system('span', `row-text`, row, lngData.load_a_previous_version)
+                  let formatBackupDate
+                  if (!selectedBcp) {
+                    formatBackupDate = backupObj.manual[0].split('_')
+                  } else {
+                    formatBackupDate = selectedBcp.split('_')
+                  }
+
+                  const tempObj = {}
+
+                  let originalBackupName
+
+                  backupObj.manual.map(bcp => {
+                    originalBackupName = bcp
+                    let variation = bcp.split('_')
+                    tempObj[bcp] = variation[0] + '/' + variation[1] + '/' + variation[2] + " " + variation[3] + ":" + variation[4]
+                  })
+
+                  const previous = dropDown(tempObj, formatBackupDate[0] + '/' + formatBackupDate[1] + '/' + formatBackupDate[2] + " " + formatBackupDate[3] + ":" + formatBackupDate[4], 'previous-backup', (e) => { originalBackupName = e }, row)
+                  previous.wrap.style.maxWidth = '200px'
+
+                  if (userLSG.ctx == "Applications") {
+                    const upload = lab_design_system('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
+                    upload.style.width = 'fit-content'
+                    upload.addEventListener('click', e => {
+                      const userLSG = lab_local_storage_object('global')
+                      userLSG.backupDate = originalBackupName
+
+                      socket.emit('eraseByBackup', userLSG)
+                    })
+                  }
+                }
+
+                const auto = lab_design_system('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
+                const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
+                const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
+                autoBack.wrap.style.maxWidth = '200px'
+
+
+                if (userLSG.ctx == "Applications") {
+                  const uploadAuto = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
+                  uploadAuto.style.width = 'fit-content'
+
+                  uploadAuto.addEventListener('click', e => {
+                    const userLSG = lab_local_storage_object('global')
+                    userLSG.auto = true
+                    userLSG.day = autoBack.text.innerHTML
+                    socket.emit('eraseByBackup', userLSG)
+                  })
+                }
+                lab_fade_in_recursively(box, 0.3)
               }
+              WriteUserBackups()
+            })
+          }
+          else if (name == 'general') {
+            const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.settings, '', ['appMenu', 'heading'])
 
-              const upload = lab_design_system('button', `u-backup`, row, lngData.load, '', ['buttons', 'action'])
-              upload.style.width = 'fit-content'
-              upload.addEventListener('click', e => {
-                const userLSG = lab_local_storage_object('global')
-                userLSG.backupDate = previous.text.innerHTML
-                socket.emit('eraseByBackup', userLSG)
-              })
+            const imgBox = lab_design_system('div', 'image-box', setWrap)
+            imgBox.style.height = '160px'
+            imgBox.style.maxWidth = '250px'
+            imgBox.style.borderRadius = '10px'
+            imgBox.style.background = '#ddd'
+            imgBox.style.overflow = 'hidden'
+            imgBox.style.position = 'relative'
 
-              const auto = lab_design_system('h6', 'auto-backup', setWrap, lngData.automatic_management, '', ['appMenu', 'heading'])
-              const autoRow = lab_design_system('div', 'a-backup', setWrap, '', '', ['appMenu', 'execute'])
-              const autoBack = dropDown(b.auto, b.auto[0], 'previous-backup-auto', null, autoRow)
-              autoBack.wrap.style.maxWidth = '200px'
+            const img = lab_design_system('img', 'preview-img', imgBox)
+            img.style.width = '100%'
+            img.style.height = '100%'
 
-              const uploadAuto = lab_design_system('button', `u-backup-a`, autoRow, lngData.load, '', ['buttons', 'action'])
-              uploadAuto.style.width = 'fit-content'
+            const imgInputLabel = lab_design_system('label', 'preview-input-label', imgBox)
+            const imgInput = lab_design_system('input', 'preview-input', imgInputLabel)
 
-              uploadAuto.addEventListener('click', e => {
-                const userLSG = lab_local_storage_object('global')
-                userLSG.auto = true
-                userLSG.day = autoBack.text.innerHTML
-                socket.emit('eraseByBackup', userLSG)
-              })
-              lab_fade_in_recursively(box, 0.3)
+            imgInput.setAttribute('type', 'file')
+            imgInput.style.width = '0'
+
+            imgInput.setAttribute('for', 'lab-preview-input')
+            imgInputLabel.style.width = '100%'
+            imgInputLabel.style.height = '100%'
+            imgInputLabel.style.opacity = 0
+            imgInputLabel.style.position = 'absolute'
+            imgInputLabel.style.top = 0
+            imgInputLabel.style.left = 0
+            imgInputLabel.style.cursor = 'pointer'
+
+            imgInput.addEventListener('change', (e) => {
+              const fileInfo = e.target.files[0]
+              img.setAttribute('src', URL.createObjectURL(fileInfo))
+              //Some socket
+            })
+            const bottom = lab_design_system('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
+            const input = Input('act-name', bottom, 'new app name', userLSG.app)
+            input.style.minWidth = '220px'
+            input.style.width = 'fit-content'
+
+            const btn = lab_design_system('button', 'creare-page', bottom, lngData.save, '', ['buttons', 'action'])
+            btn.style.width = 'fit-content'
+            btn.addEventListener('click', (e) => {
+              e.preventDefault()
+              const regex = /^[A-Za-z0-9-._~]+$/
+              if (input.value && regex.test(input.value)) {
+                //Some socket
+              } else alertUser(lngData.column_name_cannot_be_empty)
             })
           }
           else if (name == 'pages_management') {
@@ -161,7 +247,7 @@ function AppMenu(dashObj) {
               name.style.cursor = 'pointer'
               name.addEventListener('click', () => {
                 lab_local_storage_object_update('global', { "section": e })
-                window.open(window.location.protocol + "//" + window.location.host + "/" + lab_local_storage_object('global').app + "/" + e, "_self")
+                window.open(window.location.protocol + "//" + window.location.host + "/" + userLSG.app + "/" + e, "_self")
               })
 
               const del = lab_design_system('button', `db-del-btn-${index}`, pageLink, '', '', ['appMenu', 'deleteBtn'])
@@ -234,7 +320,7 @@ function AppMenu(dashObj) {
             btn.addEventListener('click', (e) => {
               e.preventDefault()
               if (input.value) {
-                fetchLibrary(input.value)
+                fetchLibrary(input.value, userLSG)
               } else alertUser(lngData.column_name_cannot_be_empty)
             })
           }
@@ -399,14 +485,14 @@ function AppMenu(dashObj) {
             }
             writeCollab()
           }
-          lab_fade_in_recursively(setWrap, 0.3)
+          lab_fade_in_recursively(setWrap, 0.3, ['preview-input'])
         }
         Settings()
       }
 
       else if (['css', 'js'].includes(slide)) TextEditableBox(slide)
 
-        else if (slide == 'media') {
+      else if (slide == 'media') {
         let selectedFolder;
         const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
         const folders = lab_design_system('div', 'app-menu-fold', media, '', '', ['appMenu', 'fold'])
@@ -425,7 +511,7 @@ function AppMenu(dashObj) {
             delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
             del.addEventListener('click', () => {
               const userLSG = lab_local_storage_object('global')
-              if (userLSG.ctx = 'Laboranth') {
+              if (userLSG.ctx == 'Laboranth') {
                 userLSG.app = dashObj.selectedApp
                 userLSG.section = 'home'
               }
@@ -441,8 +527,7 @@ function AppMenu(dashObj) {
             })
 
             text.addEventListener('click', () => {
-              console.log('INITIAL', e);
-              
+
               if (e.listName != selectedFolder) {
                 let last = document.querySelector('.selected-folder')
                 if (last) {
@@ -467,7 +552,7 @@ function AppMenu(dashObj) {
         }
         else folders.innerHTML = lngData.zero_media_list
 
-        function openFolder(list) { 
+        function openFolder(list) {
           files.innerHTML = ''
           if (list && list.length > 0) {
             list.forEach((e, i) => {
@@ -511,20 +596,20 @@ function AppMenu(dashObj) {
                   icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/folder.svg`)
                   const text = lab_design_system('div', `folder-${userLSG.addedMediaList}-name`, item, userLSG.addedMediaList)
                   text.style.width = 100 + '%'
-      
+
                   const del = lab_design_system('button', `db-del-btn-${userLSG.addedMediaList}`, item, '', '', ['appMenu', 'deleteBtn'])
                   const delIcon = lab_design_system('img', `del-btn-icon-${userLSG.addedMediaList}`, del, '', '', ['design', 'icon'])
                   delIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
                   const previousListNameSave = userLSG.addedMediaList
                   del.addEventListener('click', () => {
                     const userLSG = lab_local_storage_object('global')
-                    if (userLSG.ctx = 'Laboranth') {
+                    if (userLSG.ctx == 'Laboranth') {
                       userLSG.app = dashObj.selectedApp
                       userLSG.section = 'home'
                     }
-      
+
                     userLSG.mediaListToRemove = previousListNameSave
-      
+
                     socket.emit('deleteMediaList', userLSG, res => {
                       if (res.success) {
                         item.remove()
@@ -532,7 +617,7 @@ function AppMenu(dashObj) {
                       }
                     })
                   })
-      
+
                   text.addEventListener('click', () => {
                     if (text.innerHTML != selectedFolder) {
                       let last = document.querySelector('.selected-folder')
@@ -542,7 +627,7 @@ function AppMenu(dashObj) {
                       }
                       item.classList.add('selected-folder')
                       item.style.background = '#fff'
-      
+
                       selectedFolder = text.innerHTML
                       userLSG.mediaList = text.innerHTML
                       socket.emit('getMediaListsData', userLSG, res => {
@@ -559,7 +644,7 @@ function AppMenu(dashObj) {
             } else {
               if (selectedFolder) {
                 function getMediaFilesFile() {
-                  const lab_file_input = lab_design_system('input', "temp-input", rootLayer)
+                  const lab_file_input = lab_design_system('input', "temp-input", document.querySelector('body'))
                   lab_file_input.setAttribute('class', 'escape')
                   lab_file_input.setAttribute('type', 'file')
                   lab_file_input.setAttribute('multiple', true)
@@ -567,7 +652,7 @@ function AppMenu(dashObj) {
 
                   lab_file_input.addEventListener('change', e => {
                     const userLSG = lab_local_storage_object('global')
-                    if (userLSG.ctx = 'Laboranth') {
+                    if (userLSG.ctx == 'Laboranth') {
                       userLSG.app = dashObj.selectedApp
                       userLSG.section = 'home'
                     }
@@ -604,9 +689,7 @@ function AppMenu(dashObj) {
               }
             }
           })
-
         })
-
       }
 
       else if (slide == 'deploy') {
@@ -742,7 +825,7 @@ function AppMenu(dashObj) {
 
                         socket.emit('createVM', userLSG, res => {
                           leftBox.innerHTML = ''
-                          
+
                           socket.emit('getUserConfigs', userLSG, userConfiguration => {
                             if (userConfiguration.configs.agencyServer) {
                               serverHandler(userConfiguration)
@@ -853,7 +936,7 @@ function AppMenu(dashObj) {
             })
 
           }
-
+          lab_fade_in_recursively(parent, 0.3)
         }
         function removeCommandsBox() {
           let btn = document.getElementById('lab-btn-deploy')
@@ -955,11 +1038,6 @@ function AppMenu(dashObj) {
           lab_local_storage_object_update('global', { openedSqlTable: "" })
           socket.emit('getSqlTables', userLSG, res => {
             const dbInfo = res.data
-
-            // if (dbInfo.dbTables && dbInfo.dbTables.length > 0) {
-            //   lab_local_storage_object_update('global', { openedSqlTable: dbInfo.dbTables[0].tableName })
-            // }
-
             if (dbInfo) {
 
               const media = lab_design_system('div', 'app-menu-media', box, '', '', ['appMenu', 'media'])
@@ -1289,25 +1367,8 @@ function AppMenu(dashObj) {
       lab_fade_in_recursively(box, 0.3)
     }
 
-    RenderBox()
+    RenderBox(selectedMenu)
 
-    function moreBtn(parent, id, list, el, func) {
-      const more = lab_design_system('button', `more-btn-${id}`, parent, '', '', ['appMenu', 'more'])
-      const icon = lab_design_system('img', `more-btn-${id}-icon`, more)
-      icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/more_vert.svg`)
-      icon.style.transform = 'rotate(90deg)'
-
-      more.addEventListener('click', () => {
-        const listing = lab_design_system('div', `more-list-${id}`, more, '', '', ['appMenu', 'moreList'])
-
-        Object.keys(list).forEach((e, i) => {
-          const item = lab_design_system('div', `more-list-${i}`, listing, list[e])
-          item.addEventListener('click', () => func(el, e))
-        })
-
-        listing.addEventListener('mouseleave', () => listing.remove())
-      })
-    }
 
     function TextEditableBox(type) {
       const wrapper = lab_design_system('div', 'app-menu-wrapper', box, '', '', ['appMenu', 'wrapper'])
@@ -1345,7 +1406,7 @@ function AppMenu(dashObj) {
     function dropDown(list, value, id, func, parent = box) {
       const wrap = lab_design_system('div', `${id}-wrap`, parent, '', '', ['appMenu', 'drop'])
       const selected = lab_design_system('div', `${id}-selected`, wrap, '', '', ['appMenu', 'selected'])
-      const text = lab_design_system('span', `${id}-text`, selected, value.replace(/"/gi, ''))
+      const text = lab_design_system('span', `${id}-text`, selected, value)
       const icon = lab_design_system('img', `${id}-icon`, selected, '', '', ['design', 'icon'])
       icon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg`)
 
@@ -1363,7 +1424,9 @@ function AppMenu(dashObj) {
           const item = lab_design_system('div', `${id}-list-${e}`, listing, list[e])
           item.addEventListener('click', () => {
             text.innerHTML = list[e]
-            func(e)
+            if (func) {
+              func(e)
+            }
           })
         })
       }
@@ -1383,7 +1446,7 @@ function AppMenu(dashObj) {
       menu.remove()
     })
 
-    const fileInput = lab_design_system('input', 'file-input', rootLayer, '', '', ['design', 'noneFile'])
+    const fileInput = lab_design_system('input', 'file-input', menu, '', '', ['design', 'noneFile'])
     fileInput.setAttribute('type', 'file')
 
     lab_fade_in_recursively(menu, 0.3)
