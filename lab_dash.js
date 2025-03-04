@@ -481,7 +481,8 @@ function search(array, string) {
   let listing = []
 
   array.forEach(e => {
-    if (e.match(string)) {
+    let searchedString = e.toLowerCase()
+    if (searchedString.match(string.toLowerCase())) {
       listing.push(e)
     }
   })
@@ -595,7 +596,14 @@ function dashboard(dashObject) {
   searchInput.addEventListener("input", () => {
     result.innerHTML = ""
     if (searchInput.value.length) {
-      myList = search(viewMyList ? appList : externalApps, searchInput.value)
+      let appListArray = []
+      let selectedList = viewMyList ? appList : externalApps
+
+      selectedList.forEach(e => {
+        appListArray.push(e.appName)
+      })
+
+      myList = search(appListArray, searchInput.value)
       if (myList.length) {
         myList.forEach((item, index) => {
           const resultItem = lab_design_system("a", `result-${item}`, result, item, null, ["search", !index ? "first" : "item"])
@@ -880,7 +888,6 @@ function dashboard(dashObject) {
         })
       }
     }
-    else if (action == "pages") console.log("pages");
     else if (action == "settings") {
       dashObject.selectedApp = e
       lab_load_component('/D/C/UI/CLA/lab_app_menu.js', dashObject)
@@ -925,8 +932,13 @@ let appList = [
   {
     appName: "nadncnkcndckcn",
     src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
+
+    // app
+    // owner
   },
 ]
+
+
 
 
 return dashboard

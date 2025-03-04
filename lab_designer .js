@@ -388,8 +388,6 @@ function design_mode(app) {
   labBody.style.width = "100svw"
   labBody.style.height = "100svh"
 
-
-
   const ElementsList = {
     'button': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
@@ -925,6 +923,16 @@ function design_mode(app) {
   toolBar.style.paddingBottom = 'clamp(10px, 2vw, 18px)'
   toolBar.style.paddingLeft = 'clamp(25px, 2vw, 40px)'
   toolBar.style.paddingRight = 'clamp(25px, 2vw, 40px)'
+
+  const prewiewTool = lab_design_system('div', "prewiew-tool", toolBar)
+  prewiewTool.style.position = 'absolute'
+  prewiewTool.style.top = '-30px'
+  prewiewTool.style.opacity = '0'
+  prewiewTool.style.pointerEvents = 'none'
+  prewiewTool.style.left = '50%'
+  prewiewTool.style.transform = 'translatex(-50%)'
+  prewiewTool.style.transition = 'all 0.3s linear'
+
   const tools = {
     'cursor': [{
       value: 'cursor',
@@ -1020,11 +1028,8 @@ function design_mode(app) {
 
   //TOPSETTINGS
   pageWrap.style.position = 'relative'
-  // designBody.appendChild(pageWrap)
-
 
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
-  console.log(topSettings);
   topSettings.style.maxWidth = 'clamp(56%, 100%, 1080px)'
   topSettings.style.position = 'fixed'
   topSettings.style.paddingLeft = 'clamp(10px, 2svw, 40px)'
@@ -1624,6 +1629,14 @@ function design_mode(app) {
 }
 
 function selectTool(toolName) {
+  let prewiewTool = document.getElementById('lab-prewiew-tool')
+  prewiewTool.style.opacity = 1
+  prewiewTool.innerHTML = toolName
+  setTimeout(() => {
+    prewiewTool.style.opacity = 0
+  }, 1000);
+
+
   ActiveMode = null
   selectedShape = null
   elementDragging = false
@@ -1827,6 +1840,4 @@ async function loadImg(i, items) {
 
 
 return design_mode
-
-
 
