@@ -596,14 +596,10 @@ function dashboard(dashObject) {
   searchInput.addEventListener("input", () => {
     result.innerHTML = ""
     if (searchInput.value.length) {
-      let appListArray = []
       let selectedList = viewMyList ? appList : externalApps
 
-      selectedList.forEach(e => {
-        appListArray.push(e.appName)
-      })
 
-      myList = search(appListArray, searchInput.value)
+      myList = search(selectedList, searchInput.value)
       if (myList.length) {
         myList.forEach((item, index) => {
           const resultItem = lab_design_system("a", `result-${item}`, result, item, null, ["search", !index ? "first" : "item"])
@@ -747,8 +743,9 @@ function dashboard(dashObject) {
     apps.style.gap = "20px"
     let len = list.length
 
+    const userLSG = lab_local_storage_object('global')
     list.forEach(e => {
-      const project = lab_design_system("div", `project-${e.appName}`, apps, '', '', ["apps", direction])
+      const project = lab_design_system("div", `project-${e}`, apps, '', '', ["apps", direction])
       project.addEventListener("mouseover", () => {
         project.style.transform = "scale(1.01)";
       })
@@ -757,35 +754,40 @@ function dashboard(dashObject) {
         project.style.transform = "none";
       })
 
-      const previewBox = lab_design_system("div", `item-preview-${e.appName}`, project, '', '', ["apps", "preview"])
+      const previewBox = lab_design_system("div", `item-preview-${e}`, project, '', '', ["apps", "preview"])
       previewBox.style.background = 'url(https://laboranth.tech/D/R/IMG/logoAlt.svg)'
       previewBox.style.backgroundPosition = 'center'
       previewBox.style.backgroundRepeat = 'no-repeat'
 
       previewBox.addEventListener("click", () => {
-        lab_local_storage_object_update("global", { "ctx": "Application", "app": e.appName, "section": "home", "externalApp": false })
-        window.open(window.location.href + e.appName + "/" + "home", "_self")
+        lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
+        window.open(window.location.href + e + "/" + "home", "_self")
       })
-      if (e.src) {
-        const preview = lab_design_system("img", `item-img-${e.appName}`, previewBox)
-        preview.style.width = '100%'
-        preview.style.maxHeight = '100%'
-        preview.style.objectFit = 'cover'
-        previewBox.style.overflow = 'hidden'
+      const preview = lab_design_system("img", `item-img-${e}`, previewBox, null, null)
+      preview.style.height = 100 + '%'
+      preview.style.width = 'auto'
+      preview.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + e + '/content/ressources/app.webp'
 
-        preview.setAttribute('src', e.src)
+      preview.onerror = () => {
+        preview.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + e + '/content/ressources/app.svg'
+
+        preview.onerror = () => {
+          preview.src = ''
+          preview.style.width = ''
+          preview.style.height = ''
+        }
       }
 
-      const bottom = lab_design_system("div", `apps-item-wrap-${e.appName}`, project, '', '', ["apps", `wrap-${direction}`])
-      const text = lab_design_system("span", `apps-item-${e.appName}`, bottom, e.appName)
+      const bottom = lab_design_system("div", `apps-item-wrap-${e}`, project, '', '', ["apps", `wrap-${direction}`])
+      const text = lab_design_system("span", `apps-item-${e}`, bottom, e)
       text.style.width = 100 + "%"
 
       text.addEventListener("click", () => {
-        lab_local_storage_object_update("global", { "ctx": "Application", "app": e.appName, "section": "home", "externalApp": false })
-        window.open(window.location.href + e.appName + "/" + "home", "_self")
+        lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
+        window.open(window.location.href + e + "/" + "home", "_self")
       })
 
-      const img = lab_design_system("img", `apps-item-img-${e.appName}`, bottom)
+      const img = lab_design_system("img", `apps-item-img-${e}`, bottom)
       img.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
       img.style.transform = 'rotate(90deg)'
 
@@ -795,13 +797,13 @@ function dashboard(dashObject) {
         } else {
           const itemMenu = lab_design_system("div", `apps-item-menu`, project, '', '', ["apps", "menu"])
 
-          const menuImg = lab_design_system("img", `apps-menu-img-${e.appName}`, itemMenu, '', '', ["apps", "more"])
+          const menuImg = lab_design_system("img", `apps-menu-img-${e}`, itemMenu, '', '', ["apps", "more"])
 
           menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
 
 
           menuImg.addEventListener("click", () => {
-            project.removeChild(document.getElementById(`lab-apps-item-menu-${e.appName}`))
+            project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
           })
 
           renderMenu(itemMenu, e, project, { "settings": lngData.settings, "copy": lngData.copy, "delete": lngData.delete })
