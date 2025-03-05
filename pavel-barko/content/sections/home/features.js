@@ -1028,8 +1028,6 @@ function design_mode(app) {
 
   //TOPSETTINGS
   pageWrap.style.position = 'relative'
-  designBody.appendChild(pageWrap)
-
 
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
   topSettings.style.maxWidth = 'clamp(56%, 100%, 1080px)'
@@ -1857,6 +1855,8 @@ setTimeout(() => {
 
 
 
+
+
 function AppMenu(dashObj) {
   if (document.getElementById('lab-app-menu')) {
     document.getElementById('lab-app-menu').remove()
@@ -2059,8 +2059,20 @@ function AppMenu(dashObj) {
               imgBox.style.position = 'relative'
 
               const img = lab_design_system('img', 'preview-img', imgBox)
-              img.style.width = '100%'
               img.style.height = '100%'
+              img.style.width = 'auto'
+
+              img.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.webp'
+
+              img.onerror = () => {
+                img.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.svg'
+
+                img.onerror = () => {
+                  img.src = ''
+                  img.style.width = ''
+                  img.style.height = ''
+                }
+              }
 
               const imgInputLabel = lab_design_system('label', 'preview-input-label', imgBox)
               const imgInput = lab_design_system('input', 'preview-input', imgInputLabel)
@@ -2077,24 +2089,65 @@ function AppMenu(dashObj) {
               imgInputLabel.style.left = 0
               imgInputLabel.style.cursor = 'pointer'
 
-              imgInput.addEventListener('change', (e) => {
+              imgInput.addEventListener('change', async (e) => {
                 const fileInfo = e.target.files[0]
                 img.setAttribute('src', URL.createObjectURL(fileInfo))
-                //Some socket
+
+                const files = e.target.files
+
+                const file = files[0]
+                const validFormats = ["image/jpeg", "image/png", "image/gif", "image/svg+xml", "image/webp", "image/avif"]
+
+                if (!validFormats.includes(file.type)) {
+                  alertUser(lngData.invalid + " " + lngData.format)
+                  return
+                }
+
+                try {
+                  let imgData = await readFileAsync(file)
+                  let base64Data = imgData.split(',')[1]
+
+                  userLSG.support = base64Data
+                  userLSG.fileType = file.type.split('/')[1]
+
+                  socket.emit('appImage', userLSG, res => {
+                    const appsArray = [...document.querySelector('#lab-app-list').children]
+                    const findAppElement = appsArray.find(app => app.textContent == userLSG.app)
+                    const elementImg = findAppElement.children[0].children[0]
+                    elementImg.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.webp'
+
+                    elementImg.onerror = () => {
+                      elementImg.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.svg'
+
+                      elementImg.onerror = () => {
+                        elementImg.src = ''
+                        elementImg.style.width = ''
+                        elementImg.style.height = ''
+                      }
+                    }
+
+                  })
+                } catch (err) {
+                  console.error("Err :", err)
+                }
               })
+
               const bottom = lab_design_system('div', `bottom`, setWrap, '', '', ['appMenu', 'execute'])
               const input = Input('act-name', bottom, 'new app name', userLSG.app)
               input.style.minWidth = '220px'
               input.style.width = 'fit-content'
 
-              const btn = lab_design_system('button', 'creare-page', bottom, lngData.save, '', ['buttons', 'action'])
-              btn.style.width = 'fit-content'
               btn.addEventListener('click', (e) => {
                 e.preventDefault()
                 const regex = /^[A-Za-z0-9-._~]+$/
                 if (input.value && regex.test(input.value)) {
-                  //Some socket
-                } else alertUser(lngData.column_name_cannot_be_empty)
+                  userLSG.newAppName = input.value
+                  socket.emit('renameApp', userLSG, res => {
+                    if (res.success) {
+                      location.reload()
+                    }
+                  })
+                } else alertUser(lngData.application_name_cannot_be_null)
               })
             }
             else if (name == 'pages_management') {
@@ -3322,6 +3375,6 @@ function AppMenu(dashObj) {
     })
 
   }
-
 }
+
 
