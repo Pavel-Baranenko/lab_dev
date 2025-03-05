@@ -1,5 +1,3 @@
-
-
 function AppMenu(dashObj) {
   if (document.getElementById('lab-app-menu')) {
     document.getElementById('lab-app-menu').remove()
@@ -194,6 +192,9 @@ function AppMenu(dashObj) {
               const heading = lab_design_system('h6', 'app-menu-heading', setWrap, lngData.settings, '', ['appMenu', 'heading'])
 
               const imgBox = lab_design_system('div', 'image-box', setWrap)
+              imgBox.style.display = 'flex'
+              imgBox.style.justifyContent = 'center'
+              imgBox.style.alignItems = 'center'
               imgBox.style.height = '160px'
               imgBox.style.maxWidth = '250px'
               imgBox.style.borderRadius = '10px'
@@ -202,8 +203,8 @@ function AppMenu(dashObj) {
               imgBox.style.position = 'relative'
 
               const img = lab_design_system('img', 'preview-img', imgBox)
-              img.style.height = '100%'
-              img.style.width = 'auto'
+              img.style.height = 'auto'
+              img.style.width = '100%'
 
               img.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.webp'
 
@@ -211,9 +212,11 @@ function AppMenu(dashObj) {
                 img.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.svg'
 
                 img.onerror = () => {
-                  img.src = ''
+                  img.src = 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
                   img.style.width = ''
                   img.style.height = ''
+                  imgBox.style.background = '#fff'
+                  imgBox.style.border = '2px solid #FED05E'
                 }
               }
 
@@ -235,6 +238,9 @@ function AppMenu(dashObj) {
               imgInput.addEventListener('change', async (e) => {
                 const fileInfo = e.target.files[0]
                 img.setAttribute('src', URL.createObjectURL(fileInfo))
+                img.style.height = 'auto'
+                img.style.width = '100%'
+                img.style.objectFit = 'cover'
 
                 const files = e.target.files
 
@@ -263,9 +269,11 @@ function AppMenu(dashObj) {
                       elementImg.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + dashObj.selectedApp + '/content/ressources/app.svg'
 
                       elementImg.onerror = () => {
-                        elementImg.src = ''
-                        elementImg.style.width = ''
-                        elementImg.style.height = ''
+                        img.src = 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                        img.style.width = ''
+                        img.style.height = ''
+                        imgBox.style.background = '#fff'
+                        imgBox.style.border = '2px solid #FED05E'
                       }
                     }
 

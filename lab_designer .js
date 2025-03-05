@@ -1028,7 +1028,10 @@ function design_mode(app) {
 
   //TOPSETTINGS
   pageWrap.style.position = 'relative'
+  designBody.appendChild(pageWrap)
 
+  let last = document.getElementById('lab-top-settings')
+  if (last) last.remove()
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
   topSettings.style.maxWidth = 'clamp(56%, 100%, 1080px)'
   topSettings.style.position = 'fixed'
@@ -1052,7 +1055,7 @@ function design_mode(app) {
   function setVpm(vpm) {
     const currentScale = lab_local_storage_object('global').classic_options.zoom
     document.querySelector('#lab-user-page').innerHTML = ""
-    page.style.scale = currentScale
+    page.style.scale = currentScale / 100
 
     if (vpm === "landscape") {
       vpm = "paysage"
@@ -1101,6 +1104,7 @@ function design_mode(app) {
     if (vpm == 'landscape' || vpm === "paysage") {
       page.style.maxWidth = 'none'
       page.style.maxHeight = 'none'
+      page.style.minHeight = '100svh'
     }
 
     if (vpm == 'portrait') {
@@ -1110,7 +1114,6 @@ function design_mode(app) {
   }
 
   if (lab_orientation == 'Landscape') {
-
     responsiveList.map(e => {
       const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn', `responsive-btn-${e}`)
 
@@ -1839,5 +1842,11 @@ async function loadImg(i, items) {
 }
 
 
+
 return design_mode
+
+
+
+
+
 

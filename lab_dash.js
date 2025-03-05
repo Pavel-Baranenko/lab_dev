@@ -755,26 +755,29 @@ function dashboard(dashObject) {
       })
 
       const previewBox = lab_design_system("div", `item-preview-${e}`, project, '', '', ["apps", "preview"])
-      previewBox.style.background = 'url(https://laboranth.tech/D/R/IMG/logoAlt.svg)'
-      previewBox.style.backgroundPosition = 'center'
-      previewBox.style.backgroundRepeat = 'no-repeat'
+      previewBox.style.display = 'flex'
+      previewBox.style.justifyContent = 'center'
+      previewBox.style.alignItems = 'center'
+      previewBox.style.overflow = 'hidden'
 
       previewBox.addEventListener("click", () => {
         lab_local_storage_object_update("global", { "ctx": "Application", "app": e, "section": "home", "externalApp": false })
         window.open(window.location.href + e + "/" + "home", "_self")
       })
       const preview = lab_design_system("img", `item-img-${e}`, previewBox, null, null)
-      preview.style.height = 100 + '%'
-      preview.style.width = 'auto'
+      preview.style.height = 'auto'
+      preview.style.width = '100%'
+      preview.style.objectFit = 'cover'
+
       preview.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + e + '/content/ressources/app.webp'
 
       preview.onerror = () => {
         preview.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + e + '/content/ressources/app.svg'
 
         preview.onerror = () => {
-          preview.src = ''
-          preview.style.width = ''
-          preview.style.height = ''
+          preview.src = 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+          preview.style.width = 'auto'
+          preview.style.height = '80%'
         }
       }
 
@@ -796,11 +799,8 @@ function dashboard(dashObject) {
           project.removeChild(document.getElementById(`apps-item-menu`))
         } else {
           const itemMenu = lab_design_system("div", `apps-item-menu`, project, '', '', ["apps", "menu"])
-
           const menuImg = lab_design_system("img", `apps-menu-img-${e}`, itemMenu, '', '', ["apps", "more"])
-
           menuImg.setAttribute("src", "https://laboranth.tech/D/R/IMG/CLA/more_vert.svg")
-
 
           menuImg.addEventListener("click", () => {
             project.removeChild(document.getElementById(`lab-apps-item-menu-${e}`))
@@ -908,39 +908,6 @@ function dashboard(dashObject) {
 
 
 
-let appList = [
-  {
-    appName: "nadncnkcndckcn",
-    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
-  },
-  {
-    appName: "aaaaaaaa"
-  },
-  {
-    appName: "vvvvvv",
-    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
-  },
-  {
-    appName: "dddddd",
-    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
-  },
-  {
-    appName: "cdcdcdcd"
-  },
-  {
-    appName: "bbbbbbbbbfd",
-    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
-  },
-  {
-    appName: "nadncnkcndckcn",
-    src: 'https://avatars.mds.yandex.net/i?id=64e8d37c49afe0f943f48d4193117957170755a7-8455861-images-thumbs&n=13'
-
-    // app
-    // owner
-  },
-]
-
-
-
-
 return dashboard
+
+
