@@ -449,7 +449,7 @@ class Designer {
       }
 
       if (obj.scripts) {
-        lab_code_injection_array(obj.scripts)
+        lab_code_injection_array(obj.scripts, true)
       }
 
 
