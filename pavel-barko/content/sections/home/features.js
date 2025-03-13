@@ -85,13 +85,15 @@ let ElementsList = {
         }
       },
       'attributes': {
-        'data-lab': "1a79a4d6"
+        'data-lab': "newFunc"
       },
-      'scripts': {
-        'type': "function",
-        'name': "1a79a4d6",
-        'value': "console.log()"
-      }
+      'scripts': [
+        {
+          'type': "function",
+          'name': "newFunc",
+          'value': "console.log('ssssssssssssssssss')"
+        }
+      ]
     },
     'section': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
@@ -419,6 +421,537 @@ let ElementsList = {
   'agency': {},
   'agency-premium': {}
 }
+let ComponentsList = {
+  'free': {
+    'button': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
+      'title': "button",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "transparent",
+                'border': "2px solid #000",
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "transparent",
+                'border': "2px solid #000",
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    'section': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "section",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-section",
+              'tag': "section",
+              'classes': "lab-empty-section",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '80px 20px',
+                'position': "relative",
+                'zIndex': 1
+              }
+            },
+            'portrait': {
+              'id': "lab-section",
+              'tag': "section",
+              'classes': "lab-empty-section",
+              'root': true,
+              'styles': {
+                'padding': '80px 20px',
+                'background': '#FFFFFF',
+                'position': "relative",
+                'zIndex': 1
+              }
+            },
+          }
+        }
+      ]
+
+    },
+    'div': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "div",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-section",
+              'tag': "div",
+              'classes': "lab-empty-section",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '20px 20px',
+                'position': "relative",
+                'zIndex': 1
+              }
+            },
+            'portrait': {
+              'id': "lab-section",
+              'tag': "div",
+              'classes': "lab-empty-section",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '20px 20px',
+                'position': "relative",
+                'zIndex': 1
+              }
+            },
+          }
+        }
+      ]
+
+    },
+    'form': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
+      'title': "form",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    'input': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "input",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              }
+            },
+            'portrait': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              }
+            },
+          }
+        }
+      ]
+
+    }
+  },
+  'laboranth': {},
+  'agency': {},
+  'agency-premium': {}
+}
+
+
 
 let ActiveMode
 let selected
@@ -436,20 +969,20 @@ class Designer {
   }
 
   static async create(TemplatesList, template_id, parent, vpm, random, id) {
+
     const T = TemplatesList[template_id].template
     let A
-
-    function readObject(temt, child) {
+    let S = TemplatesList[template_id].scripts
+    async function readObject(temt, child) {
       const obj = temt[vpm]
       const element = document.createElement(obj.tag)
-
       if (obj.root) {
         parent.appendChild(element)
         A = element
-      }
-
-      if (obj.scripts) {
-        lab_code_injection_array(obj.scripts)
+        if (S) {
+          const code = await lab_code_injection_array(S, true)
+          console.log(code);
+        }
       }
 
 
@@ -472,6 +1005,8 @@ class Designer {
       obj.text && element.appendChild(document.createTextNode(obj.text))
 
       obj.child && obj.child.forEach((e) => {
+        console.log(e);
+
         element.appendChild(readObject(e, true))
       })
 
@@ -807,6 +1342,63 @@ const elementsToolsList = {
   }
 }
 
+async function CreateComponent(component, parent, vpm, random, id) {
+
+  const T = component.template
+  let A
+  let S = component.scripts
+
+  async function readObject(temp, child) {
+
+    const obj = temp[vpm]
+    const element = document.createElement(obj.tag)
+    if (obj.root) {
+      parent.appendChild(element)
+      A = element
+      if (S) {
+        const code = await lab_code_injection_array(S, true)
+      }
+    }
+
+    element.id = id ? id : (random ? Designer.ID() : obj.id)
+
+    if (obj.classes) {
+      const classes = obj.classes.split(' ')
+      element.classList.add(...classes)
+    }
+
+    obj.attributes && Object.keys(obj.attributes).forEach(e => {
+      element.setAttribute(e, obj.attributes[e])
+    })
+    obj.styles && Object.keys(obj.styles).forEach(e => {
+      element.style[e] = obj.styles[e]
+    })
+
+    element.style.opacity = ''
+
+    obj.text && element.appendChild(document.createTextNode(obj.text))
+
+    if (obj.child && obj.child.length > 0) {
+      obj.child.forEach(async (e) => {
+
+        console.log(element);
+        let clild = await readObject(e, true)
+        console.log(clild);
+
+        element.appendChild(clild)
+      })
+    }
+
+    if (child) return element
+  }
+
+  readObject(T)
+
+  return A
+
+}
+
+
 function design_mode(app) {
   const labBody = document.querySelector('body')
   labBody.style.position = "relative"
@@ -869,32 +1461,75 @@ function design_mode(app) {
       img.style.width = '30px'
       img.style.height = '30px'
       const text = lab_design_system('span', Designer.ID(), item, e[el].title)
-
-      item.addEventListener('click', () => {
-        const coord = item.getBoundingClientRect()
-        const copy = Designer.copy(item)
-        copy.style.position = "absolute"
-        copy.style.opacity = "0.7"
-        copy.style.left = `${coord.left}px`
-        copy.style.top = `${coord.top}px`
-
-        Designer.move(copy, async () => {
-          const copyPos = copy.getBoundingClientRect()
-          const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
-          list.removeChild(copy)
-          const item = await Designer.create(e, el, page, 'landscape', true)
-          if (!['form', 'div', 'section'].includes(el)) {
-            item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
-            item.style.position = 'absolute'
-            item.style.zIndex = '1'
-          }
-        })
-      })
+      item.addEventListener('click', () => OpenList(e[el]))
     })
   }
 
-  addList(ElementsList.free, elementsWrap)
+  addList(ComponentsList.free, elementsWrap)
+
+  function OpenList(componentGroup) {
+
+    let last = document.getElementById('lab-template-list')
+    if (last) {
+      let selected = last.getAttribute('data-group')
+      last.remove()
+      if (selected != componentGroup.title) {
+        RenrerComponentsList()
+      }
+    }
+    else RenrerComponentsList()
+
+    function RenrerComponentsList() {
+      const list = componentGroup.components
+      const listing = lab_design_system('div', 'template-list', menu)
+      listing.setAttribute('data-group', componentGroup.title)
+      listing.style.width = '0'
+      listing.style.transition = 'all 0.3s linear'
+      listing.style.position = 'absolute'
+      listing.style.display = 'flex'
+      listing.style.flexDirection = 'column'
+      listing.style.gap = '30px'
+      listing.style.top = 0
+      listing.style.bottom = 0
+      listing.style.width = '240px'
+      listing.style.right = '-260px'
+      listing.style.zIndex = 9
+      listing.style.opacity = 1
+      listing.style.padding = '15px'
+      listing.style.background = '#fff'
+      listing.style.boxShadow = 'rgba(0, 0, 0, 0.08) 0px 1px 13.9px 0px'
+
+      list.forEach(async (e) => {
+        const component = await CreateComponent(e, listing, 'landscape', true)
+        component.style.cursor = 'pointer'
+        component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+
+        component.addEventListener('mousedown', () => {
+          const coord = component.getBoundingClientRect()
+          const copy = Designer.copy(component)
+          copy.style.position = "absolute"
+          copy.style.opacity = "0.7"
+          copy.style.left = `${coord.left}px`
+          copy.style.top = `${coord.top}px`
+
+          Designer.move(copy, async () => {
+            const copyPos = copy.getBoundingClientRect()
+            listing.removeChild(copy)
+            const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
+            const item = await CreateComponent(e, page, 'landscape', true)
+
+            // if (!['form', 'div', 'section'].includes(el)) {
+            //   item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
+            //   item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
+            //   item.style.position = 'absolute'
+            //   item.style.zIndex = '1'
+            // }
+          })
+        })
+      })
+      lab_fade_in_recursively(listing, 0.3)
+    }
+  }
 
   //SIDE MENU END
 
@@ -1870,11 +2505,7 @@ async function loadImg(i, items) {
 }
 
 
-console.log(readFileAsync);
-
 // return design_mode
-
-
 
 
 
@@ -1898,472 +2529,472 @@ setTimeout(() => {
 
 
 
-async function create(TemplatesList, template_id, parent, vpm, random, id) {
-  const T = TemplatesList[template_id].template
-  let A
+// async function create(TemplatesList, template_id, parent, vpm, random, id) {
+//   const T = TemplatesList[template_id].template
+//   let A
 
-  function readObject(temt, child) {
-    const obj = temt[vpm]
-    const element = document.createElement(obj.tag)
+//   function readObject(temt, child) {
+//     const obj = temt[vpm]
+//     const element = document.createElement(obj.tag)
 
-    if (obj.root) {
-      parent.appendChild(element)
-      A = element
-    }
+//     if (obj.root) {
+//       parent.appendChild(element)
+//       A = element
+//     }
 
-    if (obj.scripts) {
-      lab_code_injection_array(obj.scripts)
-    }
-
-
-    element.id = id ? id : (random ? Designer.ID() : obj.id)
-
-    if (obj.classes) {
-      const classes = obj.classes.split(' ')
-      element.classList.add(...classes)
-    }
-
-    obj.attributes && Object.keys(obj.attributes).forEach(e => {
-      element.setAttribute(e, obj.attributes[e])
-    })
-    obj.styles && Object.keys(obj.styles).forEach(e => {
-      element.style[e] = obj.styles[e]
-    })
-
-    element.style.opacity = ''
-
-    obj.text && element.appendChild(document.createTextNode(obj.text))
-
-    obj.child && obj.child.forEach((e) => {
-      element.appendChild(readObject(e, true))
-    })
-
-    if (child) return element
-  }
-
-  readObject(T)
-
-  return A
-}
+//     if (obj.scripts) {
+//       lab_code_injection_array(obj.scripts, true)
+//     }
 
 
-let Components = {
-  'free': {
-    'button': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
-      'title': "button",
-      'template': {
-        'landscape': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': 'inline',
-            'width': "fit-content",
-            'position': "relative",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
+//     element.id = id ? id : (random ? Designer.ID() : obj.id)
 
-              },
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              }
-            }
-          ]
-        },
-        'portrait': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': "flex",
-            'gap': "10px",
-            'alignItems': "center",
-            'justifyContent': "center",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              },
-              'landscape': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
-              }
-            }
-          ]
-        }
-      },
-      'attributes': {
-        'data-lab': "1a79a4d6"
-      },
-      'scripts': {
-        'type': "function",
-        'name': "1a79a4d6",
-        'value': "console.log()"
-      }
-    },
-    'section': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "section",
-      'template': {
-        'landscape': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '80px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-        'portrait': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'padding': '80px 20px',
-            'background': '#FFFFFF',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-      }
-    },
-    'div': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "div",
-      'template': {
-        'landscape': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-        'portrait': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-      }
-    },
-    'form': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
-      'title': "form",
-      'template': {
-        'landscape': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'positon': "relative",
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'position': "relative",
-            'zIndex': 1,
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
-                },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'portrait': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
-            }
-          ]
-        },
-        'portrait': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'position': "relative",
-            'zIndex': 1,
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'portrait': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'landscape': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
-                },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'portrait': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
-            }
-          ]
-        }
-      }
-    },
-    'input': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "input",
-      'template': {
-        'landscape': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
-          }
-        },
-        'portrait': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
-          }
-        },
-      }
-    }
-  },
-  'laboranth': {},
-  'agency': {},
-  'agency-premium': {}
-}
+//     if (obj.classes) {
+//       const classes = obj.classes.split(' ')
+//       element.classList.add(...classes)
+//     }
+
+//     obj.attributes && Object.keys(obj.attributes).forEach(e => {
+//       element.setAttribute(e, obj.attributes[e])
+//     })
+//     obj.styles && Object.keys(obj.styles).forEach(e => {
+//       element.style[e] = obj.styles[e]
+//     })
+
+//     element.style.opacity = ''
+
+//     obj.text && element.appendChild(document.createTextNode(obj.text))
+
+//     obj.child && obj.child.forEach((e) => {
+//       element.appendChild(readObject(e, true))
+//     })
+
+//     if (child) return element
+//   }
+
+//   readObject(T)
+
+//   return A
+// }
+
+
+// let Components = {
+//   'free': {
+//     'button': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
+//       'title': "button",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-button",
+//           'tag': "button",
+//           'root': true,
+//           'classes': "lab-button",
+//           'styles': {
+//             'padding': '10px 20px',
+//             'borderRadius': "15px",
+//             'display': 'inline',
+//             'width': "fit-content",
+//             'position': "relative",
+//             'background': "#FED05E"
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+
+//               },
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               }
+//             }
+//           ]
+//         },
+//         'portrait': {
+//           'id': "lab-button",
+//           'tag': "button",
+//           'root': true,
+//           'classes': "lab-button",
+//           'styles': {
+//             'padding': '10px 20px',
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'gap': "10px",
+//             'alignItems': "center",
+//             'justifyContent': "center",
+//             'background': "#FED05E"
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               },
+//               'landscape': {
+//                 'id': "lab-button-span",
+//                 'tag': "span",
+//                 'classes': "lab-button-span",
+//                 'styles': {
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                 },
+//                 'text': 'Button',
+//               }
+//             }
+//           ]
+//         }
+//       },
+//       'attributes': {
+//         'data-lab': "1a79a4d6"
+//       },
+//       'scripts': {
+//         'type': "function",
+//         'name': "1a79a4d6",
+//         'value': "console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')"
+//       }
+//     },
+//     'section': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "section",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-section",
+//           'tag': "section",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '80px 20px',
+//             'position': "relative",
+//             'zIndex': 1
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-section",
+//           'tag': "section",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'padding': '80px 20px',
+//             'background': '#FFFFFF',
+//             'position': "relative",
+//             'zIndex': 1
+//           }
+//         },
+//       }
+//     },
+//     'div': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "div",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-section",
+//           'tag': "div",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '20px 20px',
+//             'position': "relative",
+//             'zIndex': 1
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-section",
+//           'tag': "div",
+//           'classes': "lab-empty-section",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '20px 20px',
+//             'position': "relative",
+//             'zIndex': 1
+//           }
+//         },
+//       }
+//     },
+//     'form': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
+//       'title': "form",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-form",
+//           'tag': "form",
+//           'root': true,
+//           'styles': {
+//             'padding': '15px',
+//             'positon': "relative",
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'flexDirection': "column",
+//             'gap': "10px",
+//             'background': "#FFFFFF",
+//             'boxSizing': "border-box",
+//             'position': "relative",
+//             'zIndex': 1,
+//             'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'width': "100%",
+//                   'positon': "relative",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'positon': "relative",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'background': "#FED05E"
+//                 },
+//                 'attributes': {
+//                   'type': "button"
+//                 },
+//                 'text': 'Button'
+//               },
+//               'portrait': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'background': "#FED05E"
+//                 },
+//                 'text': 'Button'
+//               }
+//             }
+//           ]
+//         },
+//         'portrait': {
+//           'id': "lab-form",
+//           'tag': "form",
+//           'root': true,
+//           'styles': {
+//             'padding': '15px',
+//             'borderRadius': "15px",
+//             'display': "flex",
+//             'flexDirection': "column",
+//             'gap': "10px",
+//             'background': "#FFFFFF",
+//             'boxSizing': "border-box",
+//             'position': "relative",
+//             'zIndex': 1,
+//             'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+//           },
+//           'child': [
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'width': "100%",
+//                   'positon': "relative",
+//                   'boxSizing': "border-box",
+//                   'background': "#EFEFEF"
+//                 },
+//               },
+//               'portrait': {
+//                 'id': "lab-div-input",
+//                 'tag': "input",
+//                 'styles': {
+//                   'padding': '10px',
+//                   'borderRadius': "10px",
+//                   'border': "none",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'width': "100%",
+//                   'background': "#EFEFEF"
+//                 },
+//               }
+//             },
+//             {
+//               'landscape': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'positon': "relative",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'background': "#FED05E"
+//                 },
+//                 'attributes': {
+//                   'type': "button"
+//                 },
+//                 'text': 'Button'
+//               },
+//               'portrait': {
+//                 'id': "lab-button",
+//                 'tag': "button",
+//                 'styles': {
+//                   'padding': '10px 25px',
+//                   'textAlign': "center",
+//                   'borderRadius': "15px",
+//                   'fontWeight': "700",
+//                   'color': "#1C1B1F",
+//                   'boxSizing': "border-box",
+//                   'positon': "relative",
+//                   'background': "#FED05E"
+//                 },
+//                 'text': 'Button'
+//               }
+//             }
+//           ]
+//         }
+//       }
+//     },
+//     'input': {
+//       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+//       'title': "input",
+//       'template': {
+//         'landscape': {
+//           'id': "lab-input",
+//           'tag': "input",
+//           'classes': "lab-empty-input",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '10px 20px',
+//             'borderRadius': "10px",
+//             'border': "none",
+//             'outline': "none",
+//             'position': "relative"
+//           }
+//         },
+//         'portrait': {
+//           'id': "lab-input",
+//           'tag': "input",
+//           'classes': "lab-empty-input",
+//           'root': true,
+//           'styles': {
+//             'background': '#FFFFFF',
+//             'padding': '10px 20px',
+//             'borderRadius': "10px",
+//             'border': "none",
+//             'outline': "none",
+//             'position': "relative"
+//           }
+//         },
+//       }
+//     }
+//   },
+//   'laboranth': {},
+//   'agency': {},
+//   'agency-premium': {}
+// }
