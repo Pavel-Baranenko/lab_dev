@@ -571,7 +571,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                     }
                   }
 
@@ -771,7 +771,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                     }
                   }
 
@@ -965,7 +965,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                     }
                   }
 
@@ -1167,7 +1167,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                     }
                   }
 
@@ -2371,7 +2371,7 @@ let ComponentsList = {
                                   'color': "#1C1B1F",
                                 },
                                 attributes: {
-                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                                 }
                               }
 
@@ -2563,7 +2563,7 @@ let ComponentsList = {
                             'color': "#1C1B1F",
                           },
                           attributes: {
-                            'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
+                            'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
                           }
                         }
 
