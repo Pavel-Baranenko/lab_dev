@@ -421,6 +421,7 @@ let ElementsList = {
   'agency': {},
   'agency-premium': {}
 }
+
 let ComponentsList = {
   'free': {
     'button': {
@@ -519,6 +520,318 @@ let ComponentsList = {
             }
           ]
         },
+
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': 'flex',
+                'alignItems': "center",
+                'gap': '10px',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button-icon",
+                    'tag': "img",
+                    'classes': "lab-button-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                    }
+                  }
+
+                },
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': 'flex',
+                'gap': '10px',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button-icon",
+                    'tag': "img",
+                    'classes': "lab-button-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                    }
+                  }
+
+                },
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+
         {
           'template': {
             'landscape': {
@@ -602,7 +915,319 @@ let ComponentsList = {
               ]
             }
           }
-        }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "15px",
+                'display': 'flex',
+                'alignItems': "center",
+                'gap': '10px',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "transparent"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button-icon",
+                    'tag': "img",
+                    'classes': "lab-button-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                    }
+                  }
+
+                },
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "transparent"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "transparent"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "#FED05E"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': 'flex',
+                'alignItems': "center",
+                'gap': '10px',
+                'width': "fit-content",
+                'position': "relative",
+                'background': "transparent"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button-icon",
+                    'tag': "img",
+                    'classes': "lab-button-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                    }
+                  }
+
+                },
+              ]
+            },
+            'portrait': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "lab-button",
+              'styles': {
+                'padding': '10px 20px',
+                'borderRadius': "5px",
+                'display': "flex",
+                'gap': "10px",
+                'alignItems': "center",
+                'justifyContent': "center",
+                'background': "transparent"
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  },
+                  'landscape': {
+                    'id': "lab-button-span",
+                    'tag': "span",
+                    'classes': "lab-button-span",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    'text': 'Button',
+                  }
+                }
+              ]
+            }
+          },
+          'attributes': {
+            'data-lab': "newFunc"
+          },
+          'scripts': [
+            {
+              'type': "function",
+              'name': "newFunc",
+              'value': "console.log('ssssssssssssssssss')"
+            }
+          ]
+        },
+
       ]
     },
     'section': {
@@ -636,14 +1261,7 @@ let ComponentsList = {
               }
             },
           }
-        }
-      ]
-
-    },
-    'div': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "div",
-      'components': [
+        },
         {
           'template': {
             'landscape': {
@@ -903,7 +1521,525 @@ let ComponentsList = {
               ]
             }
           }
-        }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-h6",
+                    'tag': "h6",
+                    'styles': {
+                      'padding': '10px',
+                      margin: '0 0 5px 0',
+                      'border': "none",
+                      fontSize: "28px",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box"
+                    },
+                    text: "Form heading"
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-h6",
+                    'tag': "h6",
+                    'styles': {
+                      'padding': '10px',
+                      margin: '0 0 5px 0',
+                      'border': "none",
+                      fontSize: "28px",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box"
+                    },
+                    text: "Form heading"
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-wrap",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      gap: '10px',
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-div-checkbox",
+                          'tag': "input",
+                          attributes: {
+                            type: 'checkbox',
+                            name: "confirmation-checkbox"
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-div-text",
+                          'tag': "span",
+                          text: "Confirm privacy policy",
+                          attributes: {
+                            for: 'confirmation-checkbox'
+                          }
+                        }
+                      },
+                    ]
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            },
+            'portrait': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'portrait': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'portrait': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            }
+          }
+        },
       ]
     },
     'input': {
@@ -941,10 +2077,509 @@ let ComponentsList = {
               }
             },
           }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-div-input",
+              'tag': "div",
+              'classes': "lab-div-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                display: "flex",
+                gap: '5px',
+                alignItems: 'center',
+                'position': "relative"
+              },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-seacrh-icon",
+                    'tag': "img",
+                    'classes': "lab-seacrh-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/search.svg'
+                    }
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-input",
+                    'tag': "input",
+                    'classes': "lab-input",
+                    'styles': {
+                      'background': "transparent",
+                      outline: "none",
+                      width: "100%",
+                      border: "none"
+                    },
+                  }
+                },
+              ]
+            },
+            'portrait': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              }
+            },
+          }
         }
       ]
 
-    }
+    },
+    'header': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "header",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'position': "relative",
+                boxSizing: "border-box",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-logo",
+                    'tag': "a",
+                    'styles': {
+                      display: 'inline-block',
+                      marginRight: 'auto'
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-logo-img",
+                          'tag': "img",
+                          'styles': {
+                            height: "50px",
+                            width: 'auto'
+                          },
+                          attributes: {
+                            src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                          }
+                        },
+                      }
+                    ]
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-navbar",
+                    'tag': "nav",
+                    'styles': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: " 10px",
+                      borderRadius: "10px",
+                      background: "#F0F0F0",
+                      gap: '15px',
+                      width: "fit-content"
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "About",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Solutions",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Pricing",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Contacts",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              // 'styles': {
+              //   'background': '#FFFFFF',
+              //   'padding': '10px 20px',
+              //   'position': "relative",
+              //   display: 'flex',
+              //   gap: '20px',
+              //   boxSizing: "border-box",
+              //   alignItems: 'center',
+              //   justifyContent: 'space-between',
+              // },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-header-wrap",
+                    'tag': "div",
+                    'styles': {
+                      'background': '#FFFFFF',
+                      'padding': '10px 20px',
+                      'position': "relative",
+                      display: 'flex',
+                      boxSizing: "border-box",
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-logo",
+                          'tag': "a",
+                          'styles': {
+                            boxSizing: "border-box",
+                            display: 'inline-block'
+                          },
+                          child: [
+                            {
+                              'landscape': {
+                                'id': "lab-logo-img",
+                                'tag': "img",
+                                'styles': {
+                                  boxSizing: "border-box",
+                                  height: "auto",
+                                  width: '50px'
+                                },
+                                attributes: {
+                                  src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                                }
+                              },
+                            }
+                          ]
+                        },
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-button",
+                          'tag': "button",
+                          'classes': "lab-button",
+                          'styles': {
+                            'padding': '10px 20px',
+                            'borderRadius': "15px",
+                            'display': 'flex',
+                            'alignItems': "center",
+                            'gap': '10px',
+                            boxSizing: "border-box",
+                            'width': "fit-content",
+                            'position': "relative",
+                            'background': "#FED05E"
+                          },
+                          'child': [
+                            {
+                              'landscape': {
+                                'id': "lab-button-span",
+                                'tag': "span",
+                                'classes': "lab-button-span",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  boxSizing: "border-box",
+                                  'color': "#1C1B1F",
+                                },
+                                'text': 'Button',
+
+                              },
+                              'landscape': {
+                                'id': "lab-button-span",
+                                'tag': "span",
+                                'classes': "lab-button-span",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  'color': "#1C1B1F",
+                                },
+                                'text': 'Button',
+                              }
+                            },
+                            {
+                              'landscape': {
+                                'id': "lab-button-icon",
+                                'tag': "img",
+                                'classes': "lab-button-icon",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  'color': "#1C1B1F",
+                                },
+                                attributes: {
+                                  'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                                }
+                              }
+
+                            },
+                          ]
+                        },
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-button",
+                          'tag': "button",
+                          'classes': "lab-button",
+                          'styles': {
+                            'borderRadius': "15px",
+                            'display': 'flex',
+                            justifyContent: 'center',
+                            'alignItems': "center",
+                            border: "none",
+                            'width': "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            'position': "relative",
+                            'background': "#3C4CA6"
+                          },
+                          'child': [
+                            {
+                              'landscape': {
+                                'id': "lab-button-icon",
+                                'tag': "img",
+                                'classes': "lab-button-icon",
+                                'styles': {
+                                  'width': "15px",
+                                  'height': "15px",
+                                },
+                                attributes: {
+                                  'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/widgets.svg'
+                                }
+                              }
+
+                            },
+                          ]
+                        },
+                      },
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'position': "relative",
+                display: 'flex',
+                boxSizing: "border-box",
+                alignItems: 'center',
+              },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'classes': "lab-button",
+                    'styles': {
+                      'borderRadius': "15px",
+                      'display': 'flex',
+                      justifyContent: 'center',
+                      'alignItems': "center",
+                      border: "none",
+                      'width': "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      'position': "relative",
+                      'background': "#3C4CA6"
+                    },
+                    'child': [
+                      {
+                        'landscape': {
+                          'id': "lab-button-icon",
+                          'tag': "img",
+                          'classes': "lab-button-icon",
+                          'styles': {
+                            'width': "15px",
+                            'height': "15px",
+                          },
+                          attributes: {
+                            'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/widgets.svg'
+                          }
+                        }
+
+                      },
+                    ]
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-logo",
+                    'tag': "a",
+                    'styles': {
+                      boxSizing: "border-box",
+                      display: 'inline-block',
+                      margin: "0 auto"
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-logo-img",
+                          'tag': "img",
+                          'styles': {
+                            boxSizing: "border-box",
+                            height: "auto",
+                            width: '70px'
+                          },
+                          attributes: {
+                            src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                          }
+                        },
+                      }
+                    ]
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-link",
+                    'tag': "a",
+                    text: "Login",
+                    'styles': {
+                      'width': "fit-content",
+                      'position': "relative",
+                      marginRight: "10px",
+                    }
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'classes': "lab-button",
+                    'styles': {
+                      'padding': '10px 20px',
+                      'borderRadius': "15px",
+                      'display': 'flex',
+                      'alignItems': "center",
+                      'gap': '10px',
+                      boxSizing: "border-box",
+                      'width': "fit-content",
+                      'position': "relative",
+                      'background': "#FED05E"
+                    },
+                    'child': [
+                      {
+                        'landscape': {
+                          'id': "lab-button-span",
+                          'tag': "span",
+                          'classes': "lab-button-span",
+                          'styles': {
+                            'fontWeight': "700",
+                            boxSizing: "border-box",
+                            'color': "#1C1B1F",
+                          },
+                          'text': 'Button',
+
+                        },
+                        'landscape': {
+                          'id': "lab-button-span",
+                          'tag': "span",
+                          'classes': "lab-button-span",
+                          'styles': {
+                            'fontWeight': "700",
+                            'color': "#1C1B1F",
+                          },
+                          'text': 'Button',
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-button-icon",
+                          'tag': "img",
+                          'classes': "lab-button-icon",
+                          'styles': {
+                            'fontWeight': "700",
+                            'color': "#1C1B1F",
+                          },
+                          attributes: {
+                            'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                          }
+                        }
+
+                      },
+                    ]
+                  },
+                }
+              ]
+            }
+          }
+        },
+      ]
+
+    },
   },
   'laboranth': {},
   'agency': {},
@@ -981,7 +2616,6 @@ class Designer {
         A = element
         if (S) {
           const code = await lab_code_injection_array(S, true)
-          console.log(code);
         }
       }
 
@@ -1005,8 +2639,6 @@ class Designer {
       obj.text && element.appendChild(document.createTextNode(obj.text))
 
       obj.child && obj.child.forEach((e) => {
-        console.log(e);
-
         element.appendChild(readObject(e, true))
       })
 
@@ -1380,11 +3012,7 @@ async function CreateComponent(component, parent, vpm, random, id) {
 
     if (obj.child && obj.child.length > 0) {
       obj.child.forEach(async (e) => {
-
-        console.log(element);
         let clild = await readObject(e, true)
-        console.log(clild);
-
         element.appendChild(clild)
       })
     }
@@ -1503,6 +3131,13 @@ function design_mode(app) {
         const component = await CreateComponent(e, listing, 'landscape', true)
         component.style.cursor = 'pointer'
         component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+        component.style.width = 'fit-content'
+
+        if (component.clientWidth > listing.clientWidth) {
+          component.style.scale = ((210) / component.clientWidth).toFixed(2)
+          component.style.transform = 'translateX(-50%)'
+          component.style.left = '25%'
+        }
 
         component.addEventListener('mousedown', () => {
           const coord = component.getBoundingClientRect()
@@ -1518,12 +3153,12 @@ function design_mode(app) {
             const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
             const item = await CreateComponent(e, page, 'landscape', true)
 
-            // if (!['form', 'div', 'section'].includes(el)) {
-            //   item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
-            //   item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
-            //   item.style.position = 'absolute'
-            //   item.style.zIndex = '1'
-            // }
+            if (!['header', 'div', 'section'].includes((item.tagName).toLowerCase())) {
+              item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
+              item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
+              item.style.position = 'absolute'
+              item.style.zIndex = '1'
+            }
           })
         })
       })
