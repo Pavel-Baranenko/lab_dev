@@ -571,7 +571,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                     }
                   }
 
@@ -771,7 +771,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                     }
                   }
 
@@ -965,7 +965,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                     }
                   }
 
@@ -1167,7 +1167,7 @@ let ComponentsList = {
                       'color': "#1C1B1F",
                     },
                     attributes: {
-                      'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                     }
                   }
 
@@ -2371,7 +2371,7 @@ let ComponentsList = {
                                   'color': "#1C1B1F",
                                 },
                                 attributes: {
-                                  'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                                 }
                               }
 
@@ -2465,7 +2465,7 @@ let ComponentsList = {
                             'height': "15px",
                           },
                           attributes: {
-                            'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/widgets.svg'
+                            'src': 'https://laboranth.tech/D/R/IMG/CLA/widgets.svg'
                           }
                         }
 
@@ -2563,7 +2563,7 @@ let ComponentsList = {
                             'color': "#1C1B1F",
                           },
                           attributes: {
-                            'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/Arrow.png'
+                            'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.png'
                           }
                         }
 
