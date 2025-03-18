@@ -2974,7 +2974,7 @@ const elementsToolsList = {
   }
 }
 
-async function CreateComponent(component, parent, vpm, random, id) {
+async function CreateComponent(component, parent, vpm, random, escape = false, id) {
 
   const T = component.template
   let A
@@ -2998,7 +2998,9 @@ async function CreateComponent(component, parent, vpm, random, id) {
       const classes = obj.classes.split(' ')
       element.classList.add(...classes)
     }
-
+    if (escape) {
+      element.classList.add('escape')
+    }
     obj.attributes && Object.keys(obj.attributes).forEach(e => {
       element.setAttribute(e, obj.attributes[e])
     })
@@ -3128,7 +3130,7 @@ function design_mode(app) {
       listing.style.boxShadow = 'rgba(0, 0, 0, 0.08) 0px 1px 13.9px 0px'
 
       list.forEach(async (e) => {
-        const component = await CreateComponent(e, listing, 'landscape', true)
+        const component = await CreateComponent(e, listing, 'landscape', true, true)
         component.style.cursor = 'pointer'
         component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
         component.style.width = 'fit-content'
