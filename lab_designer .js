@@ -421,7 +421,7 @@ let ElementsList = {
   'agency': {},
   'agency-premium': {}
 }
-
+let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
 let ComponentsList = {
   'free': {
     'button': {
@@ -520,6 +520,7 @@ let ComponentsList = {
             }
           ]
         },
+
         {
           'template': {
             'landscape': {
@@ -629,6 +630,7 @@ let ComponentsList = {
             }
           ]
         },
+
         {
           'template': {
             'landscape': {
@@ -2269,16 +2271,6 @@ let ComponentsList = {
               'id': "lab-header",
               'tag': "header",
               'root': true,
-              // 'styles': {
-              //   'background': '#FFFFFF',
-              //   'padding': '10px 20px',
-              //   'position': "relative",
-              //   display: 'flex',
-              //   gap: '20px',
-              //   boxSizing: "border-box",
-              //   alignItems: 'center',
-              //   justifyContent: 'space-between',
-              // },
               child: [
                 {
                   'landscape': {
@@ -2407,7 +2399,7 @@ let ComponentsList = {
                                   'height': "15px",
                                 },
                                 attributes: {
-                                  'src': '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/widgets.svg'
+                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/widgets.svg'
                                 }
                               }
 
@@ -2578,12 +2570,292 @@ let ComponentsList = {
       ]
 
     },
+    'footer': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "footer",
+      'components': [
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-footer",
+              'tag': "footer",
+              'root': true,
+              'styles': {
+                'background': '#464C59',
+                'padding': '20px 50px',
+                color: '#fff',
+                width: "100%",
+                'position': "relative",
+                boxSizing: "border-box",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '45px',
+                      marginRight: 'auto'
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-span",
+                          'tag': "span",
+                          text: 'Laboranth  |  2024',
+                          'styles': {
+                            fontSize: "14px",
+                            fontWeight: '400'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: 'Legal CGU/CGV',
+                          'styles': {
+                            textDecoration: 'underline',
+                            fontSize: "14px",
+                            fontWeight: '400'
+                          }
+                        }
+                      }
+                    ]
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-email",
+                    'tag': "a",
+                    text: "info@laboranth.tech",
+                    'styles': {
+                      fontWeight: '700',
+                      fontSize: "14px"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'landscape': {
+              'id': "lab-footer",
+              'tag': "footer",
+              'root': true,
+              'styles': {
+                'background': '#1E2022',
+                'padding': '40px 70px',
+                color: '#fff',
+                borderRadius: "40px",
+                width: "calc(100% - 120px)",
+                margin: "0 auto",
+                'position': "relative",
+                boxSizing: "border-box",
+                display: 'flex',
+                justifyContent: 'space-between'
+              },
+              child: [
+                {
+                  'landscape': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px'
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-span",
+                          'tag': "span",
+                          text: 'Laboranth  |  2024',
+                          'styles': {
+                            fontSize: "14px",
+                            fontWeight: '400'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: 'Legal CGU/CGV',
+                          'styles': {
+                            textDecoration: 'underline',
+                            fontSize: "14px",
+                            fontWeight: '400'
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-email",
+                          'tag': "a",
+                          text: "info@laboranth.tech",
+                          'styles': {
+                            fontWeight: '700',
+                            fontSize: "14px"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px'
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: "E-commerce Websites",
+                          'styles': {
+                            textDecoration: "underline"
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: "Portfolio Websites",
+                          'styles': {
+                            textDecoration: "underline"
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: "Corporate Websites",
+                          'styles': {
+                            textDecoration: "underline"
+                          }
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          text: "Blogs",
+                          'styles': {
+                            textDecoration: "underline"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  'landscape': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px'
+                    },
+                    child: [
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          child: [
+                            {
+                              'landscape': {
+                                'id': "lab-link",
+                                'tag': "img",
+                                attributes: {
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/fb-icon.svg'
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          child: [
+                            {
+                              'landscape': {
+                                'id': "lab-link",
+                                'tag': "img",
+                                attributes: {
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/x-icon.svg'
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          child: [
+                            {
+                              'landscape': {
+                                'id': "lab-link",
+                                'tag': "img",
+                                attributes: {
+                                  src: "https://laboranth.tech/D/R/IMG/CLA/pinterest-icon.svg"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        'landscape': {
+                          'id': "lab-link",
+                          'tag': "a",
+                          child: [
+                            {
+                              'landscape': {
+                                'id': "lab-link",
+                                'tag': "img",
+                                attributes: {
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/instagram-icon.svg'
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                    ]
+                  }
+                },
+              ]
+            }
+          }
+        }
+      ]
+
+    },
   },
   'laboranth': {},
   'agency': {},
   'agency-premium': {}
 }
-
 
 
 let ActiveMode
@@ -2887,6 +3159,8 @@ class DesignConstructor {
     DesignConstructor.addClass(MenuBtn, 'design', 'hideMenu')
     DesignConstructor.addClass(tools, 'design', 'hideToolbar')
     DesignConstructor.addClass(topSettins, 'design', 'hideTop')
+    let Listing = document.getElementById('lab-template-list')
+    if (Listing) Listing.remove()
     document.getElementById('lab-style-box').style.marginRight = '-300px'
   }
 }
@@ -2972,7 +3246,6 @@ const elementsToolsList = {
   }
 }
 
-
 async function CreateComponent(component, parent, vpm, random, escape = false, id) {
 
   const T = component.template
@@ -3057,6 +3330,7 @@ function design_mode(app) {
   const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close', 'none', 'side-menu-open')
   menu.style.position = 'fixed'
+  menu.style.zIndex = '10000'
   menu.style.maxHeight = lab_orientation == "Portrait" ? 'calc(100% - 200px)' : "100%"
   menu.style.top = lab_orientation == 'Portrait' ? '100px' : "0"
   menu.style.borderRadius = lab_orientation == 'Portrait' ? '0 16px 16px 0' : "0"
@@ -3068,6 +3342,8 @@ function design_mode(app) {
   menuButton.addEventListener('click', () => {
     DesignConstructor.toggleClass(menu, 'design', 'side', 'hideSide')
     DesignConstructor.toggleClass(menuButton, 'design', 'showMenu', 'hideMenu')
+    let Listing = document.getElementById('lab-template-list')
+    if (Listing) Listing.remove()
     Options(options, 'sideMenu')
   })
 
@@ -3120,24 +3396,32 @@ function design_mode(app) {
       listing.style.gap = '30px'
       listing.style.top = 0
       listing.style.bottom = 0
-      listing.style.width = '240px'
-      listing.style.right = '-260px'
+      listing.style.width = '300px'
+      listing.style.right = '-320px'
       listing.style.zIndex = 9
       listing.style.opacity = 1
-      listing.style.padding = '15px'
+      listing.style.padding = '10px'
       listing.style.background = '#fff'
       listing.style.boxShadow = 'rgba(0, 0, 0, 0.08) 0px 1px 13.9px 0px'
 
       list.forEach(async (e) => {
-        const component = await CreateComponent(e, listing, 'landscape', true, true)
+        let parent = listing
+        if (['header', 'footer'].includes(e.template.landscape.tag)) {
+          const componentWrap = lab_design_system('div', 'component-wrap', listing)
+          componentWrap.style.width = '300px'
+          componentWrap.style.overflowX = 'hidden'
+          parent = componentWrap
+        }
+
+        const component = await CreateComponent(e, parent, 'landscape', true, true)
         component.style.cursor = 'pointer'
         component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-        component.style.width = 'fit-content'
 
-        if (component.clientWidth > listing.clientWidth) {
-          component.style.scale = ((210) / component.clientWidth).toFixed(2)
-          component.style.transform = 'translateX(-50%)'
-          component.style.left = '25%'
+        if (['header', 'footer'].includes(e.template.landscape.tag)) {
+          component.style.width = '600px'
+          component.style.scale = '0.5'
+          component.style.position = 'relative'
+          component.style.left = '-150px'
         }
 
         component.addEventListener('mousedown', () => {
@@ -3150,11 +3434,11 @@ function design_mode(app) {
 
           Designer.move(copy, async () => {
             const copyPos = copy.getBoundingClientRect()
-            listing.removeChild(copy)
+            copy.remove()
             const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
             const item = await CreateComponent(e, page, 'landscape', true)
 
-            if (!['header', 'div', 'section'].includes((item.tagName).toLowerCase())) {
+            if (!['header', 'div', 'section', 'footer'].includes((item.tagName).toLowerCase())) {
               item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
               item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
               item.style.position = 'absolute'
@@ -3273,15 +3557,12 @@ function design_mode(app) {
       const arrow = DesignConstructor.button(toolWrap, ['design', 'toolArrow'], '', `keyboard_arrow_down`)
       toolBtn.setAttribute('data-tool', tool)
 
-
       const list = lab_design_system('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
       tools[tool].forEach(e => {
-        let btn = lab_design_system('button', `${e.value}-wrap-btn`, list,
-          '', '', ['design', 'toolbarItem'])
-
-        const icon = lab_design_system('img', `${e.value}-wrap-icon`, btn,
-          '', '', ['design', 'icon'])
+        let btn = lab_design_system('button', `${e.value}-wrap-btn`, list, '', '', ['design', 'toolbarItem'])
+        const icon = lab_design_system('img', `${e.value}-wrap-icon`, btn, '', '', ['design', 'icon'])
         icon.setAttribute('src', e.icon)
+
         btn.addEventListener('click', () => {
           toolBtn.setAttribute('data-tool', e.value)
           toolBtn.querySelector('img').setAttribute('src', e.icon)
@@ -3622,7 +3903,6 @@ function design_mode(app) {
     Designer.removePointer()
   })
 
-
   function rgb2hex(rgb) {
     var rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
     return (rgb && rgb.length === 4) ? "#" +
@@ -3821,6 +4101,43 @@ function design_mode(app) {
 
 
           const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+
+          const width = lab_design_system('div', 'width-box', elementMenuBody, '', '', ['design', 'styleBox'])
+          const widthLabel = lab_design_system('span', 'width-label', width, 'width')
+          widthLabel.style.marginRight = '10px'
+          const widthInput = DesignConstructor.input(width, item.style.width)
+          widthInput.addEventListener('input', () => {
+            item.style.width = widthInput.value
+          })
+
+          const height = lab_design_system('div', 'height-box', elementMenuBody, '', '', ['design', 'styleBox'])
+          const heightLabel = lab_design_system('span', 'height-label', height, 'height')
+          heightLabel.style.marginRight = '10px'
+          const heightInput = DesignConstructor.input(height, item.style.height)
+          heightInput.addEventListener('input', () => {
+            item.style.height = heightInput.value
+          })
+
+          const posBox = lab_design_system('div', "position-box", elementMenuBody, '', '', ['design', 'styleBox'])
+          posBox.style.gap = '20px'
+
+          const XBox = lab_design_system('div', 'x-box', posBox, '', '', ['design', 'styleBox'])
+          XBox.style.gap = '10px'
+
+          const XLabel = lab_design_system('span', 'x-label', XBox, 'x')
+          const XInput = DesignConstructor.input(XBox, item.style.left)
+          XInput.addEventListener('input', () => {
+            item.style.left = XInput.value
+          })
+
+          const YBox = lab_design_system('div', 'y-box', posBox, '', '', ['design', 'styleBox'])
+          YBox.style.gap = '10px'
+
+          const YLabel = lab_design_system('span', 'y-label', YBox, 'y')
+          const YInput = DesignConstructor.input(YBox, item.style.left)
+          YInput.addEventListener('input', () => {
+            item.style.top = YInput.value
+          })
 
           const padding = lab_design_system('span', Designer.ID(), elementMenuBody, 'padding')
 
