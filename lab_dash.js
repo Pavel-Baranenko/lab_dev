@@ -1,18 +1,18 @@
-rootLayer = document.querySelector('body')
-
-function select(label, list, parent, value, func) {
-  const select = lab_design_system("div", `select-${value}`, parent, null, null, ["select", "box"])
-  const top = lab_design_system("div", `select-top-${value}`, select, null, null, ["select", "top"])
-  const topSpan = lab_design_system("span", `selected-${value}`, top, label, null)
-  const listing = lab_design_system("div", `select-list-${value}`, select, null, null, ["select", "list"])
-  const arrow = lab_design_system("img", `select-arrow-${value}`, top, null, null)
+function select(label, list, parent, value, func = null) {
+  const select = lab_design_system("div", `select-${value}`, parent, '', '', ["select", "box"])
+  const top = lab_design_system("div", `select-top-${value}`, select, '', '', ["select", "top"])
+  const topSpan = lab_design_system("span", `selected-${value}`, top, label)
+  const listing = lab_design_system("div", `select-list-${value}`, select, '', '', ["select", "list"])
+  const arrow = lab_design_system("img", `select-arrow-${value}`, top)
   arrow.src = "https://laboranth.tech/D/R/IMG/CLA/arrow_drop_down.svg"
 
   Object.keys(list).forEach(e => {
     const item = lab_design_system("div", `select-item-${e}-${value}`, listing, list[e], "select-item")
     item.addEventListener("click", () => {
       topSpan.innerHTML = list[e]
-      func(e)
+      if (func) {
+        func(e)
+      }
     })
   })
 
@@ -490,12 +490,13 @@ function search(array, string) {
   return Array.from(new Set(listing))
 }
 
-function input(placeholder, value, parent, func, width, style) {
-  const input = lab_design_system("input", `input-${value}`, parent, null, null, (style || ["input", "box"]))
+function input(placeholder, value, parent, func = null, width, style) {
+  const input = lab_design_system("input", `input-${value}`, parent, '', '', (style || ["input", "box"]))
   input.placeholder = placeholder
   width ? input.style.width = `${width}` : ""
-
-  input.addEventListener("input", () => func(input.value))
+  if (func) {
+    input.addEventListener("input", () => func(input.value))
+  }
   return input
 }
 
@@ -768,7 +769,13 @@ function dashboard(dashObject) {
       preview.style.height = 'auto'
       preview.style.width = '100%'
       preview.style.objectFit = 'cover'
-
+      if (direction == 'column') {
+        preview.style.width = '100px'
+        preview.style.height = '65px'
+        previewBox.style.height = 'auto'
+        previewBox.style.borderRadius = '10px'
+        // previewBox.style.background = '#FEDA31'
+      }
       preview.src = '/DB/USERS_FOLDERS/' + userLSG.uid + '/apps/' + e + '/content/ressources/app.webp'
 
       preview.onerror = () => {
@@ -778,6 +785,12 @@ function dashboard(dashObject) {
           preview.src = 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
           preview.style.width = 'auto'
           preview.style.height = '80%'
+          previewBox.style.background = 'transparent'
+
+          if (direction == 'column') {
+            preview.style.height = '60%'
+            previewBox.style.paddingLeft = '15px'
+          }
         }
       }
 
@@ -909,5 +922,3 @@ function dashboard(dashObject) {
 
 
 return dashboard
-
-

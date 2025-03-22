@@ -421,7 +421,6 @@ let ElementsList = {
   'agency': {},
   'agency-premium': {}
 }
-let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
 let ComponentsList = {
   'free': {
     'button': {
@@ -2857,7 +2856,6 @@ let ComponentsList = {
   'agency-premium': {}
 }
 
-
 let ActiveMode
 let selected
 let mouseIsDown = false
@@ -3276,6 +3274,9 @@ async function CreateComponent(component, parent, vpm, random, escape = false, i
     obj.attributes && Object.keys(obj.attributes).forEach(e => {
       element.setAttribute(e, obj.attributes[e])
     })
+
+    element.style.position = 'relative'
+
     obj.styles && Object.keys(obj.styles).forEach(e => {
       element.style[e] = obj.styles[e]
     })
@@ -3500,7 +3501,7 @@ function design_mode(app) {
   //TOOLBAR
 
   const toolBar = lab_design_system('div', "designers-bar", designBody, '', '', ['design', 'toolbar'])
-  toolBar.style.maxWidth = 'clamp(320px, 100%, 620px)'
+  toolBar.style.maxWidth = 'clamp(320px, 100%, 660px)'
   toolBar.style.gap = 'clamp(8px, 2vw, 30px)'
   toolBar.style.paddingTop = 'clamp(10px, 2vw, 18px)'
   toolBar.style.paddingBottom = 'clamp(10px, 2vw, 18px)'
@@ -3546,7 +3547,8 @@ function design_mode(app) {
     }],
     'pen': "pen",
     'text': 'text',
-    'img': "img"
+    'img': "img",
+    'ai': 'AI-icon'
   }
 
   Object.keys(tools).forEach(tool => {
@@ -3721,6 +3723,27 @@ function design_mode(app) {
   if (lab_local_storage_object('global').classic_options.vpm == 'portrait') {
     page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
   }
+  if (lab_orientation == 'Landscape') {
+    const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
+    sizeSwitcher.setAttribute('type', "range")
+    sizeSwitcher.setAttribute('min', "1")
+    sizeSwitcher.setAttribute('max', "100")
+    sizeSwitcher.setAttribute('type', "range")
+    sizeSwitcher.setAttribute('value', "100")
+    sizeSwitcher.style.width = 'clamp(10%, 12%, 130px)'
+    const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
+    size.style.width = "60px"
+    sizeSwitcher.value = options.zoom
+    page.style.scale = options.zoom / 100
+
+    sizeSwitcher.oninput = function () {
+      size.innerHTML = this.value + "%"
+      Options(options, 'zoom', this.value)
+      page.style.scale = this.value / 100
+      let pagePos = page.getBoundingClientRect()
+      page.style.transform = `translateY(-${pagePos.y}px)`
+    }
+  }
 
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box', '', 'set-page-btn')
   setPage.style.margin = lab_orientation == 'Portrait' ? '0 auto' : "0"
@@ -3794,30 +3817,9 @@ function design_mode(app) {
     lab_fade_in_recursively(list, 0.3)
   })
 
-  if (lab_orientation == 'Landscape') {
-    const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
-    sizeSwitcher.setAttribute('type', "range")
-    sizeSwitcher.setAttribute('min', "1")
-    sizeSwitcher.setAttribute('max', "100")
-    sizeSwitcher.setAttribute('type', "range")
-    sizeSwitcher.setAttribute('value', "100")
-    sizeSwitcher.style.width = 'clamp(10%, 12%, 130px)'
-    const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
-    size.style.width = "60px"
-    sizeSwitcher.value = options.zoom
-    page.style.scale = options.zoom / 100
-
-    sizeSwitcher.oninput = function () {
-      size.innerHTML = this.value + "%"
-      Options(options, 'zoom', this.value)
-      page.style.scale = this.value / 100
-      let pagePos = page.getBoundingClientRect()
-      page.style.transform = `translateY(-${pagePos.y}px)`
-    }
-  }
-
   const view = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'visibility')
   view.addEventListener('click', DesignConstructor.closeAll)
+
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
   download.addEventListener('click', () => {
     lab_local_storage_object_update('global', { openedMenu: "app_menu" })
@@ -3829,9 +3831,28 @@ function design_mode(app) {
     lab_load_component('/D/C/UI/CLA/lab_app_menu.js', appObject)
   })
 
+  const historyButtons = lab_design_system('div', 'history-button-group', topSettings)
+  historyButtons.style.display = 'flex'
+  historyButtons.style.alignItems = 'center'
+  historyButtons.style.gap = '10px'
+
+  const back = lab_design_system('button', 'back-btn', historyButtons, '', 'none', ['design', 'btn'])
+  back.style.width = '30px'
+  const backIcon = lab_design_system('img', `back-btn-icon`, back, '', 'none', ['design', 'icon'])
+  backIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/back-arrow-icon.svg`)
+
+  const next = lab_design_system('button', 'next-btn', historyButtons, '', 'none', ['design', 'btn'])
+  next.style.width = '30px'
+  const nextIcon = lab_design_system('img', `next-btn-icon`, next, '', 'none', ['design', 'icon'])
+  nextIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/next-arrow-icon.svg`)
+
+  const save = lab_design_system('button', 'save-btn', topSettings, '', 'none', ['design', 'btn'])
+  const saveIcon = lab_design_system('img', `save-btn-icon`, save, '', 'none', ['design', 'icon'])
+  saveIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/save-icon.svg`)
+  save.addEventListener('click', () => lab_save_section(options.vpm))
+
 
   const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
-
   blindTop.addEventListener('click', () => {
     DesignConstructor.toggleClass(topSettings, 'design', 'top', 'hideTop')
     Options(options, 'settingsBar')
@@ -3848,13 +3869,13 @@ function design_mode(app) {
   styleMenu.style.position = 'fixed'
   styleMenu.style.height = 100 + '%'
   styleMenu.style.right = 0
+  styleMenu.style.boxSizing = 'border-box'
   styleMenu.style.top = lab_orientation == "Portrait" ? "100px" : 0
   styleMenu.style.borderRadius = lab_orientation == "Portrait" ? "16px 0 0 16px" : 0
   if (lab_orientation == "Portrait") {
     styleMenu.style.marginRight = '-300px'
     styleMenu.style.height = 'calc(100% - 200px)'
   }
-
 
   const styleHide = lab_design_system('button', 'style-hide', styleMenu, '', 'none', ['design', 'hideStyles'])
   const styleHideIcon = lab_design_system('img', 'style-hide-icon', styleHide, '', 'none')
@@ -3909,6 +3930,20 @@ function design_mode(app) {
       ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
       ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
       ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
+  }
+
+  function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
+
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    return [r, g, b]
   }
 
   function StylesMenu(item) {
@@ -3993,8 +4028,6 @@ function design_mode(app) {
           if (item.classList.contains('lab-img-container')) {
             const fileBox = lab_design_system('div', 'file-preview-box', elementMenuBody, '', '', ['design', 'fileBox'])
             let image = item.querySelector('img')
-
-
             const fileInput = lab_design_system('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
             fileInput.style.opacity = 0
             fileInput.setAttribute('type', 'file')
@@ -4155,23 +4188,148 @@ function design_mode(app) {
             const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
           })
 
+          const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody)
+          const backgroundColorLabel = lab_design_system('span', 'background-color-label', colorSettings, 'background')
+          const backgroundTabs = lab_design_system('div', 'background-tabs', colorSettings)
+          backgroundTabs.style.display = 'flex'
+          backgroundTabs.style.justifyContent = 'space-between'
+          backgroundTabs.style.gap = '5px'
+          backgroundTabs.style.border = '4px solid rgb(242, 243, 247)'
+          backgroundTabs.style.borderRadius = '10px'
+          backgroundTabs.style.margin = '10px 0 5px 0'
+          backgroundTabs.style.padding = '5px'
 
-          const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
-          const textColor = lab_design_system('span', Designer.ID(), colorSettings, 'background')
-          const colorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
-          colorInput.setAttribute('type', 'color')
-          colorInput.setAttribute('value', css['background'])
-          if (item.tagName == 'svg') {
-            colorInput.setAttribute('value', item.getAttribute('fill'))
-          }
+          const backgroundBox = lab_design_system('div', 'background-box', colorSettings)
 
-          colorInput.addEventListener('input', () => {
-            if (item.tagName == 'svg') {
-              Designer.WriteStyle(item, 'fill', colorInput.value)
-            } else {
-              Designer.WriteStyle(item, 'background', colorInput.value)
-            }
+          const bgTabs = ['color', 'gradient', 'image']
+
+          bgTabs.forEach(e => {
+            const bgButton = lab_design_system('div', `background-tabs-${e}`, backgroundTabs, e)
+            bgButton.style.width = '30%'
+            bgButton.style.textAlign = 'center'
+            bgButton.style.fontWeight = '600'
+            bgButton.style.padding = '5px'
+            bgButton.style.cursor = 'pointer'
+            bgButton.style.position = 'relative'
+            bgButton.style.borderRadius = '5px'
+            bgButton.addEventListener('click', () => ColorTabs(e))
           })
+
+          function ColorTabs(tab = 'color') {
+            let btn = document.getElementById(`lab-background-tabs-${tab}`)
+            let last = document.querySelector('.lab-color-tab-btn-active')
+            if (last) {
+              last.style.backgroundColor = 'transparent'
+              last.classList.remove('lab-color-tab-btn-active')
+              last.style.top = 'unset'
+            }
+
+            btn.classList.add('lab-color-tab-btn-active')
+            btn.style.backgroundColor = '#FED05E'
+            btn.style.top = '1px'
+
+            backgroundBox.innerHTML = ''
+            if (tab == 'color') {
+              let colorBgPoints
+              if (!item.style.backgroundColor) {
+                colorBgPoints = ['255', '255', '255', '1']
+              }
+              else if (item.style.backgroundColor == 'transparent') {
+                colorBgPoints = ['255', '255', '255', '0']
+              }
+              else {
+                colorBgPoints = String(item.style.backgroundColor).split('(')[1].slice(0, -1).split(',')
+              }
+
+              if (colorBgPoints.length == 3) {
+                colorBgPoints[3] = '1'
+              }
+
+              const colorWrap = lab_design_system('div', "color-wrap", backgroundBox, '', '', ['design', 'styleBox'])
+              colorWrap.style.justifyContent = 'unset'
+              colorWrap.style.gap = '15px'
+              colorWrap.style.padding = '5px'
+              colorWrap.style.backgroundColor = '#F4F4F5'
+
+              const colorInputBox = lab_design_system('div', "color-wrap-box", colorWrap)
+              colorInputBox.style.display = 'flex'
+              colorInputBox.style.alignItems = 'center'
+              colorInputBox.style.gap = '5px'
+
+              const colorInput = lab_design_system('input', "input-bg-color", colorInputBox, '', '', ['design', 'colorInput'])
+              colorInput.style.width = '25px'
+              colorInput.style.height = '25px'
+              colorInput.style.margin = '0'
+              colorInput.style.padding = '0'
+              colorInput.setAttribute('type', 'color')
+              let colorString = `rgb(${colorBgPoints[0]},${colorBgPoints[1]},${colorBgPoints[2]})`
+
+              colorInput.setAttribute('value', rgb2hex(colorString))
+              const colorLabel = lab_design_system('label', "input-label-color", colorInputBox, rgb2hex(colorString))
+              colorLabel.setAttribute('for', 'lab-input-bg-color')
+
+              if (item.tagName == 'svg') {
+                colorInput.setAttribute('value', item.getAttribute('fill'))
+              }
+
+              colorInput.addEventListener('input', () => {
+                colorLabel.innerHTML = colorInput.value
+                if (item.tagName == 'svg') {
+                  Designer.WriteStyle(item, 'fill', colorInput.value)
+                } else {
+                  let colorArray = hexToRgb(colorInput.value)
+
+                  Designer.WriteStyle(item, 'background', `rgba(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]}, ${Number(colorBgPoints[3])})`)
+                }
+              })
+
+              const opacityInputBox = lab_design_system('div', "opacity-wrap-box", colorWrap)
+              colorInputBox.style.display = 'flex'
+              colorInputBox.style.alignItems = 'center'
+              colorInputBox.style.gap = '3px'
+
+              const opacityInput = lab_design_system('input', "input-opacity-color", opacityInputBox)
+              opacityInput.style.width = '45px'
+              opacityInput.style.border = 'none'
+              opacityInput.style.outline = 'none'
+              opacityInput.style.background = 'transparent'
+              opacityInput.setAttribute('type', 'number')
+              opacityInput.setAttribute('min', 0)
+              opacityInput.setAttribute('max', 100)
+
+
+              opacityInput.setAttribute('value', Number(colorBgPoints[3]) * 100)
+
+              opacityInput.addEventListener('change', () => {
+                item.style.background = `rgba(${colorBgPoints[0]}, ${colorBgPoints[1]}, ${colorBgPoints[2]}, ${opacityInput.value / 100})`
+                colorBgPoints[3] = opacityInput.value / 100
+              })
+              const opacityLabel = lab_design_system('label', "input-label-opacity", opacityInputBox, '%')
+
+
+              const removeBg = lab_design_system('button', "remove-bg-btn", colorWrap)
+              removeBg.style.background = 'transparent'
+              removeBg.style.border = 'none'
+              removeBg.style.cursor = 'pointer'
+              removeBg.style.padding = '4px'
+              removeBg.style.marginLeft = 'auto'
+
+              const removeIcon = lab_design_system('img', "remove-bg-btn-icon", removeBg)
+              removeIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
+
+              removeBg.addEventListener('click', () => {
+                colorInput.value = '#ffffff'
+                colorLabel.innerHTML = '#fff'
+                item.style.background = ''
+              })
+            }
+
+            lab_fade_in_recursively(backgroundBox, 0.3)
+          }
+          ColorTabs()
+
+
+
 
           item.getAttributeNames().forEach(n => {
             if (!['style', 'id'].includes(n)) {
