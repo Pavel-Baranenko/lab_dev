@@ -3486,11 +3486,12 @@ function design_mode(app) {
       toolBtn.setAttribute('data-tool', tool)
 
       const list = lab_design_system('div', `${tool}-list`, toolWrap, '', '', ['design', 'toolbarItemList'])
+
       tools[tool].forEach(e => {
         let btn = lab_design_system('button', `${e.value}-wrap-btn`, list, '', '', ['design', 'toolbarItem'])
+
         const icon = lab_design_system('img', `${e.value}-wrap-icon`, btn, '', '', ['design', 'icon'])
         icon.setAttribute('src', e.icon)
-
         btn.addEventListener('click', () => {
           toolBtn.setAttribute('data-tool', e.value)
           toolBtn.querySelector('img').setAttribute('src', e.icon)
@@ -3507,6 +3508,11 @@ function design_mode(app) {
     }
     else {
       toolBtn = DesignConstructor.button(toolBar, ['design', 'toolbarItem'], '', tool, 'toolBtn', `${tool}-tool`)
+
+      if (tool == 'ai') {
+        toolBtn.querySelector('img').style.width = '70%'
+      }
+
       toolBtn.setAttribute('data-tool', tool)
     }
 
@@ -3791,11 +3797,13 @@ function design_mode(app) {
   styleWrap.style.paddingTop = '75px'
   styleWrap.style.overflowY = 'scroll'
   styleWrap.style.height = '100%'
+  styleWrap.style.boxSizing = 'border-box'
   styleWrap.classList.add('lab-scrollable')
   styleMenu.style.position = 'fixed'
   styleMenu.style.height = 100 + '%'
   styleMenu.style.right = 0
   styleMenu.style.boxSizing = 'border-box'
+  styleMenu.style.paddingBottom = '40px'
   styleMenu.style.top = lab_orientation == "Portrait" ? "100px" : 0
   styleMenu.style.borderRadius = lab_orientation == "Portrait" ? "16px 0 0 16px" : 0
   if (lab_orientation == "Portrait") {
@@ -4127,6 +4135,10 @@ function design_mode(app) {
           backgroundTabs.style.padding = '5px'
 
           const backgroundBox = lab_design_system('div', 'background-box', colorSettings)
+          backgroundBox.style.display = 'flex'
+          backgroundBox.style.flexDirection = 'column'
+          backgroundBox.style.gap = '10px'
+          backgroundBox.style.paddingTop = '10px'
 
           const bgTabs = ['color', 'gradient', 'image']
 
@@ -4142,7 +4154,7 @@ function design_mode(app) {
             bgButton.addEventListener('click', () => ColorTabs(e))
           })
 
-          function ColorTabs(tab = 'color') {
+          function ColorTabs(tab = 'gradient') {
             let btn = document.getElementById(`lab-background-tabs-${tab}`)
             let last = document.querySelector('.lab-color-tab-btn-active')
             if (last) {
@@ -4233,7 +4245,6 @@ function design_mode(app) {
               })
               const opacityLabel = lab_design_system('label', "input-label-opacity", opacityInputBox, '%')
 
-
               const removeBg = lab_design_system('button', "remove-bg-btn", colorWrap)
               removeBg.style.background = 'transparent'
               removeBg.style.border = 'none'
@@ -4250,13 +4261,267 @@ function design_mode(app) {
                 item.style.background = ''
               })
             }
+            if (tab == 'image') {
+              const fileBox = lab_design_system('div', 'file-image-box', backgroundBox, '', '', ['design', 'fileBox'])
+              const fileInput = lab_design_system('input', 'file-image-input', fileBox, '', '', ['design', 'fileBoxInput'])
+              fileInput.style.opacity = 0
+              fileInput.setAttribute('type', 'file')
+              const preview = lab_design_system('img', 'file-preview', fileBox)
+              preview.style.width = '100%'
+              preview.style.height = '100%'
+              preview.style.objectFit = 'cover'
+              preview.style.zIndex = '3'
+              preview.style.pointerEvents = 'none'
+              preview.style.position = 'relative'
+              console.log(item.style.backgroundImage);
 
+              if (item.style.backgroundImage && item.style.backgroundImage.includes('url')) {
+                console.log(item.style.backgroundImage.split('url(')[1].slice(0, -1));
+                preview.setAttribute('src', item.style.backgroundImage.split('url(')[1].slice(1, -2))
+              }
+
+              fileInput.addEventListener('change', (e) => {
+                const fileInfo = e.target.files[0]
+                item.style.backgroundImage = `url(${URL.createObjectURL(fileInfo)})`
+                preview.setAttribute('src', URL.createObjectURL(fileInfo))
+              })
+
+              const bgRepeat = lab_design_system('div', 'bg-repeat', backgroundBox, '', '', ['design', 'styleBox'])
+              bgRepeat.style.gap = '10px'
+              bgRepeat.style.justifyContent = 'unset'
+              const bgRepeatLabel = lab_design_system('span', 'bg-repeat-label', bgRepeat, 'no-repeat')
+              const bgRepeatCheck = lab_design_system('input', 'bg-repeat-check', bgRepeat)
+              bgRepeatCheck.setAttribute('type', 'checkbox')
+
+              bgRepeatCheck.addEventListener('change', () => {
+                item.style.backgroundRepeat = item.style.backgroundRepeat == 'no-repeat' ? 'repeat' : "no-repeat"
+              })
+
+              const bgPos = lab_design_system('div', 'bg-pos', backgroundBox, '', '', ['design', 'styleBox'])
+              bgPos.style.gap = '10px'
+              bgPos.style.justifyContent = 'unset'
+              const bgPosLabel = lab_design_system('span', 'bg-pos-label', bgPos, 'position')
+
+              const bgPosList = ['unset', 'top', 'left', 'bottom', 'right', 'bottom', 'center']
+              const bgPosDrop = DesignConstructor.dropList(bgPos, bgPosList, 'unset', (e) => {
+                item.style.backgroundPosition = e
+              })
+
+              const bgSize = lab_design_system('div', 'bg-size', backgroundBox, '', '', ['design', 'styleBox'])
+              bgSize.style.gap = '10px'
+              bgSize.style.justifyContent = 'unset'
+              const bgSizeLabel = lab_design_system('span', 'bg-size-label', bgSize, 'size')
+
+              const bgSizeList = ['contain', 'cover', 'fill', 'auto', 'right']
+              const bgSizeDrop = DesignConstructor.dropList(bgSize, bgSizeList, 'contain', (e) => {
+                item.style.backgroundSize = e
+              })
+            }
+            if (tab == 'gradient') {
+              let gradientArray = []
+              let gradientType = 'linear'
+              let gradientAngle = 180
+              let colors = {}
+
+              const gradientTypes = ['linear', 'radial', 'conic']
+
+              if (item.style.backgroundImage && item.style.backgroundImage.includes('gradient')) {
+                gradientArray = item.style.backgroundImage.split('gradient(')[1].slice(0, -1).replaceAll(', rgb(', '#').replace('rgb(', '').replaceAll(')', '').split('#')
+
+                if (item.style.backgroundImage.includes('linear')) gradientType = 'linear'
+                else if (item.style.backgroundImage.includes('radial')) gradientType = 'radial'
+                else if (item.style.backgroundImage.includes('conic')) gradientType = 'conic'
+              }
+
+              const gradientTabs = lab_design_system('div', 'gradient-tabs', backgroundBox)
+              gradientTabs.style.display = 'flex'
+              gradientTabs.style.justifyContent = 'space-between'
+              gradientTabs.style.gap = '5px'
+              gradientTabs.style.border = '4px solid rgb(242, 243, 247)'
+              gradientTabs.style.borderRadius = '10px'
+              gradientTabs.style.margin = '0 0 5px 0'
+              gradientTabs.style.padding = '5px'
+
+              let gradient = lab_design_system('div', `gradient-background`, backgroundBox)
+
+              gradientTypes.forEach(e => {
+                const typeGradientBtn = lab_design_system('div', `gradient-tabs-${e}`, gradientTabs, e)
+                typeGradientBtn.style.width = '50%'
+                typeGradientBtn.style.textAlign = 'center'
+                typeGradientBtn.style.fontWeight = '600'
+                typeGradientBtn.style.padding = '5px'
+                typeGradientBtn.style.cursor = 'pointer'
+                typeGradientBtn.style.position = 'relative'
+                typeGradientBtn.style.borderRadius = '5px'
+                typeGradientBtn.addEventListener('click', () => GradientTypeSelect(e))
+              })
+
+              function GradientTypeSelect(type = 'linear') {
+                gradientType = type
+                let btnGradient = document.getElementById(`lab-gradient-tabs-${type}`)
+                let lastGrType = document.querySelector('.lab-gradient-tab-btn-active')
+
+                if (lastGrType) {
+                  lastGrType.style.backgroundColor = 'transparent'
+                  lastGrType.classList.remove('lab-gradient-tab-btn-active')
+                  lastGrType.style.top = 'unset'
+                }
+
+                btnGradient.classList.add('lab-gradient-tab-btn-active')
+                btnGradient.style.backgroundColor = '#FED05E'
+                btnGradient.style.top = '1px'
+
+                function Range() {
+                  if (!document.getElementById('angle-box')) {
+                    if (gradientAngle == 'circle') gradientAngle = 180
+                    const angleBox = document.createElement('div')
+                    angleBox.id = 'angle-box'
+                    angleBox.classList.add('escape')
+                    angleBox.style.display = 'flex'
+                    angleBox.style.gap = '10px'
+                    angleBox.style.alignItems = 'center'
+
+                    gradientTabs.after(angleBox)
+                    const angle = lab_design_system('input', `angle-range`, angleBox)
+                    angle.setAttribute('type', 'range')
+                    angle.setAttribute('max', '360')
+                    angle.setAttribute('min', '-360')
+                    angle.setAttribute('value', gradientAngle)
+                    angle.style.width = '100%'
+
+                    const angleVal = lab_design_system('span', `angle-range-value`, angleBox, `${gradientAngle}deg`)
+
+                    angle.addEventListener('change', () => {
+                      angleVal.innerHTML = angle.value + 'deg'
+                      gradientAngle = angle.value
+                      writeColor()
+                    })
+
+                    lab_fade_in_recursively(backgroundBox, 0.3)
+
+                  }
+                }
+
+                if (['linear', 'conic'].includes(type)) Range()
+
+                if (type == 'radial') {
+                  gradientAngle = 'circle'
+                  let angleBox = document.getElementById('angle-box')
+                  if (angleBox) angleBox.remove()
+                }
+                writeColor()
+              }
+
+              GradientTypeSelect()
+
+              const gradientColors = lab_design_system('div', `gradient-colors`, backgroundBox)
+              gradientColors.style.position = 'relative'
+              gradientColors.style.display = 'flex'
+              gradientColors.style.flexDirection = 'column'
+              gradientColors.style.gap = '10px'
+
+              const newColorBtn = lab_design_system('button', `add-new-color`, gradientColors, 'add color +')
+
+              newColorBtn.style.background = 'rgb(254, 208, 94)'
+              newColorBtn.style.padding = '10px'
+              newColorBtn.style.color = '#000'
+              newColorBtn.style.width = '100%'
+              newColorBtn.style.borderRadius = '5px'
+              newColorBtn.style.fontWeight = '700'
+              newColorBtn.style.border = 'none'
+              newColorBtn.style.cursor = 'pointer'
+              newColorBtn.addEventListener('click', () => addColor())
+
+
+              function writeColor() {
+                let gradientStr = `${gradientType}-gradient(${gradientAngle}${gradientAngle == 'circle' ? "" : "deg"}`
+
+                Object.keys(colors).forEach(j => {
+                  gradientStr += `, ${colors[j]}`
+                })
+                gradientStr += ')'
+                gradient.style.backgroundImage = gradientStr
+                if (Object.keys(colors).length > 1) {
+                  gradient.style.aspectRatio = '1.7'
+                }
+                console.log(gradientStr);
+
+                item.style.backgroundImage = gradientStr
+              }
+
+              function addColor() {
+                let id = Designer.ID()
+                const colorWrap = lab_design_system('div', `color-wrap-${id}`, gradientColors, '', '', ['design', 'styleBox'])
+                colorWrap.style.justifyContent = 'unset'
+                colorWrap.style.gap = '15px'
+                colorWrap.style.padding = '5px'
+                colorWrap.style.backgroundColor = '#F4F4F5'
+
+                const colorInputBox = lab_design_system('div', `color-wrap-box-${id}`, colorWrap)
+                colorInputBox.style.display = 'flex'
+                colorInputBox.style.alignItems = 'center'
+                colorInputBox.style.gap = '5px'
+
+                const colorInput = lab_design_system('input', `input-bg-color-${id}`, colorInputBox, '', '', ['design', 'colorInput'])
+                colorInput.style.width = '25px'
+                colorInput.style.height = '25px'
+                colorInput.style.margin = '0'
+                colorInput.style.padding = '0'
+                colorInput.setAttribute('type', 'color')
+                colorInput.setAttribute('value', '#fed05e')
+
+                colors[id] = '#fed05e'
+
+                colorInput.addEventListener('change', () => {
+                  colors[id] = colorInput.value
+                  writeColor()
+                })
+                // linear-gradient(62deg, rgba(3,64,196,1), rgba(215,36,235,1))
+
+
+
+                const colorLabel = lab_design_system('label', `label-color-${id}`, colorInputBox, colorInput.value)
+                colorLabel.setAttribute('for', `lab-input-bg-color-${id}`)
+
+                // const opacityInputBox = lab_design_system('div', `opacity-wrap-box-${id}`, colorWrap)
+                // colorInputBox.style.display = 'flex'
+                // colorInputBox.style.alignItems = 'center'
+                // colorInputBox.style.gap = '3px'
+
+                // const opacityInput = lab_design_system('input', `opacity-color-${id}`, opacityInputBox)
+                // opacityInput.style.width = '45px'
+                // opacityInput.style.border = 'none'
+                // opacityInput.style.outline = 'none'
+                // opacityInput.style.background = 'transparent'
+                // opacityInput.setAttribute('type', 'number')
+                // opacityInput.setAttribute('min', 0)
+                // opacityInput.setAttribute('max', 100)
+                // opacityInput.setAttribute('value', 100)
+
+                // const opacityLabel = lab_design_system('label', `input-label-opacity-${id}`, opacityInputBox, '%')
+                const removeBg = lab_design_system('button', `remove-bg-btn-${id}`, colorWrap)
+                removeBg.style.background = 'transparent'
+                removeBg.style.border = 'none'
+                removeBg.style.cursor = 'pointer'
+                removeBg.style.padding = '4px'
+                removeBg.style.marginLeft = 'auto'
+
+                const removeIcon = lab_design_system('img', `remove-bg-btn-icon-${id}`, removeBg)
+                removeIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
+
+                // removeBg.addEventListener('click', () => {
+                //   colorInput.value = '#ffffff'
+                //   colorLabel.innerHTML = '#fff'
+                //   item.style.background = ''
+                // })
+                writeColor()
+                lab_fade_in_recursively(gradientColors, 0.3)
+              }
+
+            }
             lab_fade_in_recursively(backgroundBox, 0.3)
           }
           ColorTabs()
-
-
-
 
           item.getAttributeNames().forEach(n => {
             if (!['style', 'id'].includes(n)) {
@@ -4527,7 +4792,6 @@ async function loadImg(i, items) {
           e.setAttribute('src', `/DB/USERS_FOLDERS/${res.uid}/apps/${res.path}/${res.mediaType}/${res.id}.webp`)
           e.id = res.id
           let opt = lab_local_storage_object('options').vpm
-          // lab_save_section(opt)
         })
         return newSrc
       })
@@ -4553,3 +4817,4 @@ setTimeout(() => {
 }, 500);
 
 
+// radial-gradient(circle, rgb(255, 0, 0), rgb(254, 208, 94), rgb(187, 0, 255))

@@ -741,7 +741,7 @@ function dashboard(dashObject) {
     const apps = lab_design_system("div", "app-list", content, '', '', ["apps", "list"])
     apps.innerHTML = ""
     apps.style.justifyContent = "unset"
-    apps.style.gap = "20px"
+    apps.style.gap = "15px"
     let len = list.length
 
     const userLSG = lab_local_storage_object('global')
@@ -921,4 +921,27 @@ function dashboard(dashObject) {
 
 
 
-return dashboard
+// return dashboard
+
+
+
+
+
+
+
+
+
+var input = document.getElementById('input');
+
+
+input.addEventListener("change", function () {
+  var file = this.files[0];
+  const img = new Image();
+  img.onload = function () {
+    var sizes = { width: this.width, height: this.height };
+    URL.revokeObjectURL(this.src);
+    console.log('onload: sizes', sizes);
+    console.log('onload: this', this);
+  }
+
+});
