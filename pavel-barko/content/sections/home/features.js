@@ -1,11 +1,10 @@
-
 let ElementsList = {
   'free': {
     'button': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
       'title': "button",
       'template': {
-        'landscape': {
+        'LANDSCAPE': {
           'id': "lab-button",
           'tag': "button",
           'root': true,
@@ -20,7 +19,7 @@ let ElementsList = {
           },
           'child': [
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button-span",
                 'tag': "span",
                 'classes': "lab-button-span",
@@ -31,7 +30,7 @@ let ElementsList = {
                 'text': 'Button',
 
               },
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button-span",
                 'tag': "span",
                 'classes': "lab-button-span",
@@ -44,7 +43,7 @@ let ElementsList = {
             }
           ]
         },
-        'portrait': {
+        'PORTRAIT': {
           'id': "lab-button",
           'tag': "button",
           'root': true,
@@ -60,7 +59,7 @@ let ElementsList = {
           },
           'child': [
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button-span",
                 'tag': "span",
                 'classes': "lab-button-span",
@@ -70,7 +69,7 @@ let ElementsList = {
                 },
                 'text': 'Button',
               },
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button-span",
                 'tag': "span",
                 'classes': "lab-button-span",
@@ -83,23 +82,13 @@ let ElementsList = {
             }
           ]
         }
-      },
-      'attributes': {
-        'data-lab': "newFunc"
-      },
-      'scripts': [
-        {
-          'type': "function",
-          'name': "newFunc",
-          'value': "console.log('ssssssssssssssssss')"
-        }
-      ]
+      }
     },
     'section': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
       'title': "section",
       'template': {
-        'landscape': {
+        'LANDSCAPE': {
           'id': "lab-section",
           'tag': "section",
           'classes': "lab-empty-section",
@@ -111,7 +100,7 @@ let ElementsList = {
             'zIndex': 1
           }
         },
-        'portrait': {
+        'PORTRAIT': {
           'id': "lab-section",
           'tag': "section",
           'classes': "lab-empty-section",
@@ -129,7 +118,7 @@ let ElementsList = {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
       'title': "div",
       'template': {
-        'landscape': {
+        'LANDSCAPE': {
           'id': "lab-section",
           'tag': "div",
           'classes': "lab-empty-section",
@@ -141,7 +130,7 @@ let ElementsList = {
             'zIndex': 1
           }
         },
-        'portrait': {
+        'PORTRAIT': {
           'id': "lab-section",
           'tag': "div",
           'classes': "lab-empty-section",
@@ -159,7 +148,7 @@ let ElementsList = {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
       'title': "form",
       'template': {
-        'landscape': {
+        'LANDSCAPE': {
           'id': "lab-form",
           'tag': "form",
           'root': true,
@@ -178,7 +167,7 @@ let ElementsList = {
           },
           'child': [
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -191,7 +180,7 @@ let ElementsList = {
                   'background': "#EFEFEF"
                 },
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -206,7 +195,7 @@ let ElementsList = {
               }
             },
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -219,7 +208,7 @@ let ElementsList = {
                   'background': "#EFEFEF"
                 },
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -234,7 +223,7 @@ let ElementsList = {
               }
             },
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button",
                 'tag': "button",
                 'styles': {
@@ -252,7 +241,7 @@ let ElementsList = {
                 },
                 'text': 'Button'
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-button",
                 'tag': "button",
                 'styles': {
@@ -270,7 +259,7 @@ let ElementsList = {
             }
           ]
         },
-        'portrait': {
+        'PORTRAIT': {
           'id': "lab-form",
           'tag': "form",
           'root': true,
@@ -288,7 +277,7 @@ let ElementsList = {
           },
           'child': [
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -301,7 +290,7 @@ let ElementsList = {
                   'background': "#EFEFEF"
                 },
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -316,7 +305,7 @@ let ElementsList = {
               }
             },
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -329,7 +318,7 @@ let ElementsList = {
                   'background': "#EFEFEF"
                 },
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-div-input",
                 'tag': "input",
                 'styles': {
@@ -344,7 +333,7 @@ let ElementsList = {
               }
             },
             {
-              'landscape': {
+              'LANDSCAPE': {
                 'id': "lab-button",
                 'tag': "button",
                 'styles': {
@@ -362,7 +351,7 @@ let ElementsList = {
                 },
                 'text': 'Button'
               },
-              'portrait': {
+              'PORTRAIT': {
                 'id': "lab-button",
                 'tag': "button",
                 'styles': {
@@ -386,7 +375,7 @@ let ElementsList = {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
       'title': "input",
       'template': {
-        'landscape': {
+        'LANDSCAPE': {
           'id': "lab-input",
           'tag': "input",
           'classes': "lab-empty-input",
@@ -400,7 +389,7 @@ let ElementsList = {
             'position': "relative"
           }
         },
-        'portrait': {
+        'PORTRAIT': {
           'id': "lab-input",
           'tag': "input",
           'classes': "lab-empty-input",
@@ -421,7 +410,8 @@ let ElementsList = {
   'agency': {},
   'agency-premium': {}
 }
-let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
+
+let oldSrc = 'https://laboranth.tech/D/R/IMG/CLA/'
 let ComponentsList = {
   'free': {
     'button': {
@@ -430,7 +420,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -445,7 +435,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -456,7 +446,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -469,7 +459,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -485,7 +475,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -495,7 +485,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -514,7 +504,7 @@ let ComponentsList = {
 
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -531,7 +521,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -542,7 +532,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -554,7 +544,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-icon",
                     'tag': "img",
                     'classes': "lab-button-icon",
@@ -570,7 +560,7 @@ let ComponentsList = {
                 },
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -586,7 +576,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -596,7 +586,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -613,7 +603,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -628,7 +618,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -639,7 +629,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -652,7 +642,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -668,7 +658,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -678,7 +668,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -695,7 +685,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -711,7 +701,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -722,7 +712,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -734,7 +724,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-icon",
                     'tag': "img",
                     'classes': "lab-button-icon",
@@ -750,7 +740,7 @@ let ComponentsList = {
                 },
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -766,7 +756,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -776,7 +766,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -794,7 +784,7 @@ let ComponentsList = {
 
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -810,7 +800,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -821,7 +811,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -834,7 +824,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -850,7 +840,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -861,7 +851,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -878,7 +868,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -895,7 +885,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -906,7 +896,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -918,7 +908,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-icon",
                     'tag': "img",
                     'classes': "lab-button-icon",
@@ -934,7 +924,7 @@ let ComponentsList = {
                 },
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -950,7 +940,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -960,7 +950,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -977,7 +967,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -992,7 +982,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1003,7 +993,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1016,7 +1006,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -1032,7 +1022,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1042,7 +1032,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1059,7 +1049,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -1076,7 +1066,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1087,7 +1077,7 @@ let ComponentsList = {
                     'text': 'Button',
 
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1099,7 +1089,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-icon",
                     'tag': "img",
                     'classes': "lab-button-icon",
@@ -1115,7 +1105,7 @@ let ComponentsList = {
                 },
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-button",
               'tag': "button",
               'root': true,
@@ -1131,7 +1121,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1141,7 +1131,7 @@ let ComponentsList = {
                     },
                     'text': 'Button',
                   },
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button-span",
                     'tag': "span",
                     'classes': "lab-button-span",
@@ -1164,7 +1154,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-section",
               'tag': "section",
               'classes': "lab-empty-section",
@@ -1176,7 +1166,7 @@ let ComponentsList = {
                 'zIndex': 1
               }
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-section",
               'tag': "section",
               'classes': "lab-empty-section",
@@ -1192,7 +1182,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-section",
               'tag': "div",
               'classes': "lab-empty-section",
@@ -1204,7 +1194,7 @@ let ComponentsList = {
                 'zIndex': 1
               }
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-section",
               'tag': "div",
               'classes': "lab-empty-section",
@@ -1227,7 +1217,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1246,7 +1236,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1259,7 +1249,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1274,7 +1264,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1287,7 +1277,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1302,7 +1292,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1320,7 +1310,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1338,7 +1328,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1356,7 +1346,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1369,7 +1359,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1384,7 +1374,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1397,7 +1387,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1412,7 +1402,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1430,7 +1420,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1452,7 +1442,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1471,7 +1461,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-h6",
                     'tag': "h6",
                     'styles': {
@@ -1487,7 +1477,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1500,7 +1490,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1515,7 +1505,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1528,7 +1518,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1543,7 +1533,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1561,7 +1551,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1579,7 +1569,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1597,7 +1587,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1610,7 +1600,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1625,7 +1615,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1638,7 +1628,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1653,7 +1643,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1671,7 +1661,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1693,7 +1683,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1712,7 +1702,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-h6",
                     'tag': "h6",
                     'styles': {
@@ -1728,7 +1718,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1741,7 +1731,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1756,7 +1746,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1769,7 +1759,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1784,7 +1774,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-wrap",
                     'tag': "div",
                     'styles': {
@@ -1797,7 +1787,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-div-checkbox",
                           'tag': "input",
                           attributes: {
@@ -1807,7 +1797,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-div-text",
                           'tag': "span",
                           text: "Confirm privacy policy",
@@ -1820,7 +1810,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1838,7 +1828,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1856,7 +1846,7 @@ let ComponentsList = {
                 }
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
@@ -1874,7 +1864,7 @@ let ComponentsList = {
               },
               'child': [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1887,7 +1877,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1902,7 +1892,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1915,7 +1905,7 @@ let ComponentsList = {
                       'background': "#EFEFEF"
                     },
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-div-input",
                     'tag': "input",
                     'styles': {
@@ -1930,7 +1920,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1948,7 +1938,7 @@ let ComponentsList = {
                     },
                     'text': 'Button'
                   },
-                  'portrait': {
+                  'PORTRAIT': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
@@ -1976,7 +1966,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-input",
               'tag': "input",
               'classes': "lab-empty-input",
@@ -1990,7 +1980,7 @@ let ComponentsList = {
                 'position': "relative"
               }
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-input",
               'tag': "input",
               'classes': "lab-empty-input",
@@ -2008,7 +1998,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-div-input",
               'tag': "div",
               'classes': "lab-div-input",
@@ -2024,7 +2014,7 @@ let ComponentsList = {
               },
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-seacrh-icon",
                     'tag': "img",
                     'classes': "lab-seacrh-icon",
@@ -2038,7 +2028,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-input",
                     'tag': "input",
                     'classes': "lab-input",
@@ -2052,7 +2042,7 @@ let ComponentsList = {
                 },
               ]
             },
-            'portrait': {
+            'PORTRAIT': {
               'id': "lab-input",
               'tag': "input",
               'classes': "lab-empty-input",
@@ -2077,7 +2067,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-header",
               'tag': "header",
               'root': true,
@@ -2092,7 +2082,7 @@ let ComponentsList = {
               },
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-logo",
                     'tag': "a",
                     'styles': {
@@ -2101,7 +2091,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-logo-img",
                           'tag': "img",
                           'styles': {
@@ -2117,7 +2107,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-navbar",
                     'tag': "nav",
                     'styles': {
@@ -2131,7 +2121,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-nav-link",
                           'tag': "a",
                           text: "About",
@@ -2145,7 +2135,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-nav-link",
                           'tag': "a",
                           text: "Solutions",
@@ -2159,7 +2149,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-nav-link",
                           'tag': "a",
                           text: "Pricing",
@@ -2173,7 +2163,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-nav-link",
                           'tag': "a",
                           text: "Contacts",
@@ -2195,13 +2185,13 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-header",
               'tag': "header",
               'root': true,
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-header-wrap",
                     'tag': "div",
                     'styles': {
@@ -2215,7 +2205,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-logo",
                           'tag': "a",
                           'styles': {
@@ -2224,7 +2214,7 @@ let ComponentsList = {
                           },
                           child: [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-logo-img",
                                 'tag': "img",
                                 'styles': {
@@ -2241,7 +2231,7 @@ let ComponentsList = {
                         },
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button",
                           'tag': "button",
                           'classes': "lab-button",
@@ -2258,7 +2248,7 @@ let ComponentsList = {
                           },
                           'child': [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-button-span",
                                 'tag': "span",
                                 'classes': "lab-button-span",
@@ -2270,7 +2260,7 @@ let ComponentsList = {
                                 'text': 'Button',
 
                               },
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-button-span",
                                 'tag': "span",
                                 'classes': "lab-button-span",
@@ -2282,7 +2272,7 @@ let ComponentsList = {
                               }
                             },
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-button-icon",
                                 'tag': "img",
                                 'classes': "lab-button-icon",
@@ -2300,7 +2290,7 @@ let ComponentsList = {
                         },
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button",
                           'tag': "button",
                           'classes': "lab-button",
@@ -2318,7 +2308,7 @@ let ComponentsList = {
                           },
                           'child': [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-button-icon",
                                 'tag': "img",
                                 'classes': "lab-button-icon",
@@ -2344,7 +2334,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-header",
               'tag': "header",
               'root': true,
@@ -2358,7 +2348,7 @@ let ComponentsList = {
               },
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'classes': "lab-button",
@@ -2376,7 +2366,7 @@ let ComponentsList = {
                     },
                     'child': [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button-icon",
                           'tag': "img",
                           'classes': "lab-button-icon",
@@ -2394,7 +2384,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-logo",
                     'tag': "a",
                     'styles': {
@@ -2404,7 +2394,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-logo-img",
                           'tag': "img",
                           'styles': {
@@ -2421,7 +2411,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-link",
                     'tag': "a",
                     text: "Login",
@@ -2433,7 +2423,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'classes': "lab-button",
@@ -2450,7 +2440,7 @@ let ComponentsList = {
                     },
                     'child': [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button-span",
                           'tag': "span",
                           'classes': "lab-button-span",
@@ -2462,7 +2452,7 @@ let ComponentsList = {
                           'text': 'Button',
 
                         },
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button-span",
                           'tag': "span",
                           'classes': "lab-button-span",
@@ -2474,7 +2464,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-button-icon",
                           'tag': "img",
                           'classes': "lab-button-icon",
@@ -2504,7 +2494,7 @@ let ComponentsList = {
       'components': [
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-footer",
               'tag': "footer",
               'root': true,
@@ -2521,7 +2511,7 @@ let ComponentsList = {
               },
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div",
                     'tag': "div",
                     'styles': {
@@ -2532,7 +2522,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-span",
                           'tag': "span",
                           text: 'Laboranth  |  2024',
@@ -2543,7 +2533,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: 'Legal CGU/CGV',
@@ -2558,7 +2548,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-email",
                     'tag': "a",
                     text: "info@laboranth.tech",
@@ -2574,7 +2564,7 @@ let ComponentsList = {
         },
         {
           'template': {
-            'landscape': {
+            'LANDSCAPE': {
               'id': "lab-footer",
               'tag': "footer",
               'root': true,
@@ -2592,7 +2582,7 @@ let ComponentsList = {
               },
               child: [
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div",
                     'tag': "div",
                     'styles': {
@@ -2602,7 +2592,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-span",
                           'tag': "span",
                           text: 'Laboranth  |  2024',
@@ -2613,7 +2603,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: 'Legal CGU/CGV',
@@ -2625,7 +2615,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-email",
                           'tag': "a",
                           text: "info@laboranth.tech",
@@ -2639,7 +2629,7 @@ let ComponentsList = {
                   },
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div",
                     'tag': "div",
                     'styles': {
@@ -2649,7 +2639,7 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: "E-commerce Websites",
@@ -2659,7 +2649,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: "Portfolio Websites",
@@ -2669,7 +2659,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: "Corporate Websites",
@@ -2679,7 +2669,7 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           text: "Blogs",
@@ -2692,7 +2682,7 @@ let ComponentsList = {
                   }
                 },
                 {
-                  'landscape': {
+                  'LANDSCAPE': {
                     'id': "lab-div",
                     'tag': "div",
                     'styles': {
@@ -2702,12 +2692,12 @@ let ComponentsList = {
                     },
                     child: [
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           child: [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
@@ -2719,12 +2709,12 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           child: [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
@@ -2736,12 +2726,12 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           child: [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
@@ -2753,12 +2743,12 @@ let ComponentsList = {
                         }
                       },
                       {
-                        'landscape': {
+                        'LANDSCAPE': {
                           'id': "lab-link",
                           'tag': "a",
                           child: [
                             {
-                              'landscape': {
+                              'LANDSCAPE': {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
@@ -3097,7 +3087,7 @@ const elementsToolsList = {
     'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "span",
     'template': {
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-text",
         'tag': "span",
         'classes': "lab-text",
@@ -3107,7 +3097,7 @@ const elementsToolsList = {
           'position': "relative",
         }
       },
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-text",
         'tag': "span",
         'classes': "lab-text",
@@ -3123,7 +3113,7 @@ const elementsToolsList = {
     'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "img",
     'template': {
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-img",
         'tag': "img",
         'classes': "lab-img",
@@ -3134,7 +3124,7 @@ const elementsToolsList = {
           'objectPosition': "50% 50%"
         }
       },
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-img",
         'tag': "img",
         'classes': "lab-img",
@@ -3151,7 +3141,7 @@ const elementsToolsList = {
     'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
     'title': "svg",
     'template': {
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-svg",
         'tag': "svg",
         'classes': "lab-svg",
@@ -3160,7 +3150,7 @@ const elementsToolsList = {
           'position': "relative"
         }
       },
-      'landscape': {
+      'LANDSCAPE': {
         'id': "lab-svg",
         'tag': "svg",
         'classes': "lab-svg",
@@ -3245,7 +3235,7 @@ function design_mode(app) {
   const designBody = document.querySelector('body')
 
   let options = lab_local_storage_object("global").classic_options || {
-    'vpm': "landscape",
+    'vpm': "LANDSCAPE",
     'zoom': 100,
     'toolBar': true,
     'settingsBar': true,
@@ -3258,12 +3248,12 @@ function design_mode(app) {
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close', 'none', 'side-menu-open')
   menu.style.position = 'fixed'
   menu.style.zIndex = '10000'
-  menu.style.maxHeight = lab_orientation == "Portrait" ? 'calc(100% - 200px)' : "100%"
-  menu.style.top = lab_orientation == 'Portrait' ? '100px' : "0"
-  menu.style.borderRadius = lab_orientation == 'Portrait' ? '0 16px 16px 0' : "0"
-  menu.style.paddingTop = lab_orientation == 'Portrait' ? '0' : "60px"
+  menu.style.maxHeight = lab_orientation == "PORTRAIT" ? 'calc(100% - 200px)' : "100%"
+  menu.style.top = lab_orientation == 'PORTRAIT' ? '100px' : "0"
+  menu.style.borderRadius = lab_orientation == 'PORTRAIT' ? '0 16px 16px 0' : "0"
+  menu.style.paddingTop = lab_orientation == 'PORTRAIT' ? '0' : "60px"
 
-  menuButton.style.top = lab_orientation == 'Portrait' ? 'calc(100% - 40px)' : "-4px"
+  menuButton.style.top = lab_orientation == 'PORTRAIT' ? 'calc(100% - 40px)' : "-4px"
   menuButton.style.zIndex = 10
 
   menuButton.addEventListener('click', () => {
@@ -3333,18 +3323,18 @@ function design_mode(app) {
 
       list.forEach(async (e) => {
         let parent = listing
-        if (['header', 'footer'].includes(e.template.landscape.tag)) {
+        if (['header', 'footer'].includes(e.template.LANDSCAPE.tag)) {
           const componentWrap = lab_design_system('div', 'component-wrap', listing)
           componentWrap.style.width = '300px'
           componentWrap.style.overflowX = 'hidden'
           parent = componentWrap
         }
 
-        const component = await CreateComponent(e, parent, 'landscape', true, true)
+        const component = await CreateComponent(e, parent, 'LANDSCAPE', true, true)
         component.style.cursor = 'pointer'
         component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
 
-        if (['header', 'footer'].includes(e.template.landscape.tag)) {
+        if (['header', 'footer'].includes(e.template.LANDSCAPE.tag)) {
           component.style.width = '600px'
           component.style.scale = '0.5'
           component.style.position = 'relative'
@@ -3363,7 +3353,7 @@ function design_mode(app) {
             const copyPos = copy.getBoundingClientRect()
             copy.remove()
             const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
-            const item = await CreateComponent(e, page, 'landscape', true)
+            const item = await CreateComponent(e, page, 'LANDSCAPE', true)
 
             if (!['header', 'div', 'section', 'footer'].includes((item.tagName).toLowerCase())) {
               item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
@@ -3532,12 +3522,12 @@ function design_mode(app) {
   blind.addEventListener('click', () => {
     DesignConstructor.toggleClass(toolBar, 'design', 'toolbar', 'hideToolbar')
     Options(options, 'toolBar')
-    if (lab_orientation == "Portrait") {
+    if (lab_orientation == "PORTRAIT") {
       toolBar.style.bottom = toolBar.style.bottom == "30px" ? "10px" : "-78px"
     }
   })
 
-  toolBar.style.bottom = lab_orientation == "Portrait" ? "10px" : "30px"
+  toolBar.style.bottom = lab_orientation == "PORTRAIT" ? "10px" : "30px"
   if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
 
   //TOPSETTINGS
@@ -3564,15 +3554,15 @@ function design_mode(app) {
     lab_load_component('/D/C/UI/CLA/lab_app_menu.js', appObject)
   })
 
-  const responsiveList = ["landscape", "portrait"]
+  const responsiveList = ["LANDSCAPE", "PORTRAIT"]
 
   function setVpm(vpm) {
     const currentScale = lab_local_storage_object('global').classic_options.zoom
     document.querySelector('#lab-user-page').innerHTML = ""
     page.style.scale = currentScale / 100
 
-    if (vpm === "landscape") {
-      vpm = "paysage"
+    if (vpm === "LANDSCAPE") {
+      vpm = "LANDSCAPE"
     }
 
     let elements = app.elements[vpm].filter(el => el.id != "lab-user-page" && el.id != "lab-user-wrap")
@@ -3615,19 +3605,19 @@ function design_mode(app) {
     })
 
     Designer.removePointer()
-    if (vpm == 'landscape' || vpm === "paysage") {
+    if (vpm == 'LANDSCAPE' || vpm === "LANDSCAPE") {
       page.style.maxWidth = 'none'
       page.style.maxHeight = 'none'
       page.style.minHeight = '100svh'
     }
 
-    if (vpm == 'portrait') {
+    if (vpm == 'PORTRAIT') {
       page.style.scale = 0.7
       page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
     }
   }
 
-  if (lab_orientation == 'Landscape') {
+  if (lab_orientation == 'LANDSCAPE') {
     responsiveList.map(e => {
       const btn = DesignConstructor.button(topSettings, ['design', 'screenBtn'], '', e, 'screen-btn', `responsive-btn-${e}`)
 
@@ -3652,10 +3642,10 @@ function design_mode(app) {
     })
   }
 
-  if (lab_local_storage_object('global').classic_options.vpm == 'portrait') {
+  if (lab_local_storage_object('global').classic_options.vpm == 'PORTRAIT') {
     page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
   }
-  if (lab_orientation == 'Landscape') {
+  if (lab_orientation == 'LANDSCAPE') {
     const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
     sizeSwitcher.setAttribute('type', "range")
     sizeSwitcher.setAttribute('min', "1")
@@ -3678,7 +3668,7 @@ function design_mode(app) {
   }
 
   const setPage = DesignConstructor.button(topSettings, ['design', 'setPage'], '', 'page-box', '', 'set-page-btn')
-  setPage.style.margin = lab_orientation == 'Portrait' ? '0 auto' : "0"
+  setPage.style.margin = lab_orientation == 'PORTRAIT' ? '0 auto' : "0"
 
   setPage.appendChild(document.createTextNode(sectionElementsObject.section))
   const arrow = lab_design_system('img', 'page-arrow', setPage)
@@ -3804,9 +3794,9 @@ function design_mode(app) {
   styleMenu.style.right = 0
   styleMenu.style.boxSizing = 'border-box'
   styleMenu.style.paddingBottom = '40px'
-  styleMenu.style.top = lab_orientation == "Portrait" ? "100px" : 0
-  styleMenu.style.borderRadius = lab_orientation == "Portrait" ? "16px 0 0 16px" : 0
-  if (lab_orientation == "Portrait") {
+  styleMenu.style.top = lab_orientation == "PORTRAIT" ? "100px" : 0
+  styleMenu.style.borderRadius = lab_orientation == "PORTRAIT" ? "16px 0 0 16px" : 0
+  if (lab_orientation == "PORTRAIT") {
     styleMenu.style.marginRight = '-300px'
     styleMenu.style.height = 'calc(100% - 200px)'
   }
@@ -3830,7 +3820,7 @@ function design_mode(app) {
 
   const codeWrapper = lab_design_system('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
 
-  codeMenu.style.top = lab_orientation == "Portrait" ? '100px' : "0"
+  codeMenu.style.top = lab_orientation == "PORTRAIT" ? '100px' : "0"
   codeMenu.style.width = 'clamp(320px, 100%, 950px)'
   codeMenu.style.boxSizing = 'border-box'
 
@@ -3838,7 +3828,7 @@ function design_mode(app) {
     codeWrapper.innerHTML = ''
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
     DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
-    codeMenu.style.top = lab_orientation == "Portrait" ? '100px' : "0"
+    codeMenu.style.top = lab_orientation == "PORTRAIT" ? '100px' : "0"
 
     document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
       codeWrapper.innerText += e + '>\n            '
@@ -3930,11 +3920,12 @@ function design_mode(app) {
 
       const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
       const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
-      const menuSettings = ['general', 'additional']
+      const menuSettings = ['general', 'bg', 'additional', 'effects', 'data']
       const activeSettings = 'general'
 
       menuSettings.forEach((e) => {
-        const btn = lab_design_system('button', Designer.ID(), elementMenuButtons, e, 'element-menu-btn', ['design', 'StyleBtn'])
+        const btn = lab_design_system('button', Designer.ID(), elementMenuButtons, '', 'element-menu-btn', ['design', 'StyleBtn'])
+        btn.style.flex = '0 1 20%'
         if (e == activeSettings) {
           btn.classList.add('active')
           btn.style.background = '#F7F7F7'
@@ -4070,18 +4061,18 @@ function design_mode(app) {
 
           const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
 
-          const width = lab_design_system('div', 'width-box', elementMenuBody, '', '', ['design', 'styleBox'])
-          const widthLabel = lab_design_system('span', 'width-label', width, 'width')
-          widthLabel.style.marginRight = '10px'
-          const widthInput = DesignConstructor.input(width, item.style.width)
+          const sizeBox = lab_design_system('div', 'width-box', elementMenuBody, '', '', ['design', 'styleBox'])
+          sizeBox.style.gap = '20px'
+          const widthInput = DesignConstructor.input(sizeBox, item.style.width)
+          widthInput.placeholder = 'width'
+          widthInput.style.width = 'calc(50% - 10px)'
           widthInput.addEventListener('input', () => {
             item.style.width = widthInput.value
           })
 
-          const height = lab_design_system('div', 'height-box', elementMenuBody, '', '', ['design', 'styleBox'])
-          const heightLabel = lab_design_system('span', 'height-label', height, 'height')
-          heightLabel.style.marginRight = '10px'
-          const heightInput = DesignConstructor.input(height, item.style.height)
+          const heightInput = DesignConstructor.input(sizeBox, item.style.height)
+          heightInput.placeholder = 'height'
+          heightInput.style.width = 'calc(50% - 10px)'
           heightInput.addEventListener('input', () => {
             item.style.height = heightInput.value
           })
@@ -4107,6 +4098,16 @@ function design_mode(app) {
             item.style.top = YInput.value
           })
 
+
+          const ZBox = lab_design_system('div', 'z-box', posBox, '', '', ['design', 'styleBox'])
+          ZBox.style.gap = '10px'
+
+          const ZLabel = lab_design_system('span', 'z-label', ZBox, 'z')
+          const ZInput = DesignConstructor.input(ZBox, item.style.zIndex)
+          ZInput.addEventListener('input', () => {
+            item.style.zIndex = ZInput.value
+          })
+
           const padding = lab_design_system('span', Designer.ID(), elementMenuBody, 'padding')
 
           const paddingBox = lab_design_system('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
@@ -4123,8 +4124,39 @@ function design_mode(app) {
             const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
           })
 
+
+          item.getAttributeNames().forEach(n => {
+            if (!['style', 'id'].includes(n)) {
+              const wrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
+              const name = lab_design_system('span', Designer.ID(), wrap, n)
+              name.style.marginRight = '10px'
+              if (n != 'class') {
+                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              } else {
+                let attrubuteInput = DesignConstructor.input(wrap, '')
+                let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
+                let classes = String(item.getAttribute(n)).split(' ')
+
+                classes.forEach(e => {
+                  if (!systemClasses.includes(e)) {
+                    attrubuteInput.value += e + ' '
+                  }
+                })
+                attrubuteInput.addEventListener('input', () => {
+                  item.setAttribute(n, attrubuteInput.value)
+                })
+              }
+            }
+          })
+
+        }
+        if (param == 'bg') {
+
           const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody)
-          const backgroundColorLabel = lab_design_system('span', 'background-color-label', colorSettings, 'background')
+          const backgroundColorLabel = lab_design_system('strong', 'background-color-label', colorSettings, 'background')
           const backgroundTabs = lab_design_system('div', 'background-tabs', colorSettings)
           backgroundTabs.style.display = 'flex'
           backgroundTabs.style.justifyContent = 'space-between'
@@ -4154,7 +4186,7 @@ function design_mode(app) {
             bgButton.addEventListener('click', () => ColorTabs(e))
           })
 
-          function ColorTabs(tab = 'gradient') {
+          function ColorTabs(tab = 'color') {
             let btn = document.getElementById(`lab-background-tabs-${tab}`)
             let last = document.querySelector('.lab-color-tab-btn-active')
             if (last) {
@@ -4273,10 +4305,8 @@ function design_mode(app) {
               preview.style.zIndex = '3'
               preview.style.pointerEvents = 'none'
               preview.style.position = 'relative'
-              console.log(item.style.backgroundImage);
 
               if (item.style.backgroundImage && item.style.backgroundImage.includes('url')) {
-                console.log(item.style.backgroundImage.split('url(')[1].slice(0, -1));
                 preview.setAttribute('src', item.style.backgroundImage.split('url(')[1].slice(1, -2))
               }
 
@@ -4318,7 +4348,6 @@ function design_mode(app) {
               })
             }
             if (tab == 'gradient') {
-              let gradientArray = []
               let gradientType = 'linear'
               let gradientAngle = 180
               let colors = {}
@@ -4391,7 +4420,7 @@ function design_mode(app) {
 
                     const angleVal = lab_design_system('span', `angle-range-value`, angleBox, `${gradientAngle}deg`)
 
-                    angle.addEventListener('change', () => {
+                    angle.addEventListener('input', () => {
                       angleVal.innerHTML = angle.value + 'deg'
                       gradientAngle = angle.value
                       writeColor()
@@ -4444,7 +4473,6 @@ function design_mode(app) {
                 if (Object.keys(colors).length > 1) {
                   gradient.style.aspectRatio = '1.7'
                 }
-                console.log(gradientStr);
 
                 item.style.backgroundImage = gradientStr
               }
@@ -4476,29 +4504,10 @@ function design_mode(app) {
                   colors[id] = colorInput.value
                   writeColor()
                 })
-                // linear-gradient(62deg, rgba(3,64,196,1), rgba(215,36,235,1))
-
-
 
                 const colorLabel = lab_design_system('label', `label-color-${id}`, colorInputBox, colorInput.value)
                 colorLabel.setAttribute('for', `lab-input-bg-color-${id}`)
 
-                // const opacityInputBox = lab_design_system('div', `opacity-wrap-box-${id}`, colorWrap)
-                // colorInputBox.style.display = 'flex'
-                // colorInputBox.style.alignItems = 'center'
-                // colorInputBox.style.gap = '3px'
-
-                // const opacityInput = lab_design_system('input', `opacity-color-${id}`, opacityInputBox)
-                // opacityInput.style.width = '45px'
-                // opacityInput.style.border = 'none'
-                // opacityInput.style.outline = 'none'
-                // opacityInput.style.background = 'transparent'
-                // opacityInput.setAttribute('type', 'number')
-                // opacityInput.setAttribute('min', 0)
-                // opacityInput.setAttribute('max', 100)
-                // opacityInput.setAttribute('value', 100)
-
-                // const opacityLabel = lab_design_system('label', `input-label-opacity-${id}`, opacityInputBox, '%')
                 const removeBg = lab_design_system('button', `remove-bg-btn-${id}`, colorWrap)
                 removeBg.style.background = 'transparent'
                 removeBg.style.border = 'none'
@@ -4509,11 +4518,11 @@ function design_mode(app) {
                 const removeIcon = lab_design_system('img', `remove-bg-btn-icon-${id}`, removeBg)
                 removeIcon.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/close.svg')
 
-                // removeBg.addEventListener('click', () => {
-                //   colorInput.value = '#ffffff'
-                //   colorLabel.innerHTML = '#fff'
-                //   item.style.background = ''
-                // })
+                removeBg.addEventListener('click', () => {
+                  colorWrap.remove()
+                  delete colors[id]
+                  writeColor()
+                })
                 writeColor()
                 lab_fade_in_recursively(gradientColors, 0.3)
               }
@@ -4523,31 +4532,129 @@ function design_mode(app) {
           }
           ColorTabs()
 
-          item.getAttributeNames().forEach(n => {
-            if (!['style', 'id'].includes(n)) {
-              const wrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-              const name = lab_design_system('span', Designer.ID(), wrap, n)
-              name.style.marginRight = '10px'
-              if (n != 'class') {
-                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              } else {
-                let attrubuteInput = DesignConstructor.input(wrap, '')
-                let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
-                let classes = String(item.getAttribute(n)).split(' ')
+          let shadows = [0, 0, 0, 0]
+          let shadowColors = '#000'
+          function whriteShadow() {
+            item.style.boxShadow = `${shadows[0]}px ${shadows[1]}px ${shadows[2]}px ${shadows[3]}px ${shadowColors}`
+          }
+          const shadowLabel = lab_design_system('strong', 'shadow-label', elementMenuBody, 'box-shadows')
 
-                classes.forEach(e => {
-                  if (!systemClasses.includes(e)) {
-                    attrubuteInput.value += e + ' '
-                  }
-                })
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              }
-            }
+          const xOffset = lab_design_system('span', 'x-offset', elementMenuBody, 'Horizontal offset')
+          const xOffsetBox = lab_design_system('span', 'x-offset-box', elementMenuBody)
+          xOffsetBox.style.display = 'flex'
+          xOffsetBox.style.gap = '10px'
+
+          const xOffsetInput = lab_design_system('input', `x-offset-range`, xOffsetBox)
+          xOffsetInput.setAttribute('type', 'range')
+          xOffsetInput.setAttribute('max', '100')
+          xOffsetInput.setAttribute('min', '-100')
+          xOffsetInput.setAttribute('value', 0)
+          xOffsetInput.style.width = '100%'
+
+          const xOffsetVal = lab_design_system('span', `x-offset-value`, xOffsetBox, `0`)
+
+          xOffsetInput.addEventListener('input', () => {
+            xOffsetVal.innerHTML = xOffsetInput.value + 'px'
+            shadows[0] = xOffsetInput.value
+            whriteShadow()
+          })
+
+          const yOffset = lab_design_system('span', 'y-offset', elementMenuBody, 'Vertical offset')
+          const yOffsetBox = lab_design_system('span', 'y-offset-box', elementMenuBody)
+          yOffsetBox.style.display = 'flex'
+          yOffsetBox.style.gap = '10px'
+
+          const yOffsetInput = lab_design_system('input', `y-offset-range`, yOffsetBox)
+          yOffsetInput.setAttribute('type', 'range')
+          yOffsetInput.setAttribute('max', '100')
+          yOffsetInput.setAttribute('min', '-100')
+          yOffsetInput.setAttribute('value', 0)
+          yOffsetInput.style.width = '100%'
+
+          const yOffsetVal = lab_design_system('span', `y-offset-value`, yOffsetBox, `0`)
+
+          yOffsetInput.addEventListener('input', () => {
+            yOffsetVal.innerHTML = yOffsetInput.value + 'px'
+            shadows[1] = yOffsetInput.value
+            whriteShadow()
+          })
+
+          const blur = lab_design_system('span', 'blur-shadow', elementMenuBody, 'Blurring')
+          const blurBox = lab_design_system('span', 'blur-shadow-box', elementMenuBody)
+          blurBox.style.display = 'flex'
+          blurBox.style.gap = '10px'
+
+          const blurInput = lab_design_system('input', `blur-shadow-range`, blurBox)
+          blurInput.setAttribute('type', 'range')
+          blurInput.setAttribute('max', '100')
+          blurInput.setAttribute('min', '-100')
+          blurInput.setAttribute('value', 0)
+          blurInput.style.width = '100%'
+
+          const blurVal = lab_design_system('span', `blur-shadow-value`, blurBox, `0`)
+
+          blurInput.addEventListener('input', () => {
+            blurVal.innerHTML = blurInput.value + 'px'
+            shadows[2] = blurInput.value
+            whriteShadow()
+          })
+
+
+          const stretc = lab_design_system('span', 'stretc-shadow', elementMenuBody, 'Stretching')
+          const stretcBox = lab_design_system('span', 'stretc-shadow-box', elementMenuBody)
+          stretcBox.style.display = 'flex'
+          stretcBox.style.gap = '10px'
+
+          const stretcInput = lab_design_system('input', `stretc-shadow-range`, stretcBox)
+          stretcInput.setAttribute('type', 'range')
+          stretcInput.setAttribute('max', '100')
+          stretcInput.setAttribute('min', '-100')
+          stretcInput.setAttribute('value', 0)
+          stretcInput.style.width = '100%'
+
+          const stretcVal = lab_design_system('span', `stretc-shadow-value`, stretcBox, `0`)
+
+          stretcInput.addEventListener('input', () => {
+            shadows[3] = stretcInput.value
+            stretcVal.innerHTML = stretcInput.value + 'px'
+            whriteShadow()
+          })
+
+          const shadowColorBox = lab_design_system('div', 'color-shadow-box', elementMenuBody)
+          const shadowColor = lab_design_system('span', 'color-shadow', shadowColorBox, 'Color')
+          shadowColorBox.style.display = 'flex'
+          shadowColorBox.style.gap = '10px'
+          shadowColorBox.style.border = 'none'
+          shadowColorBox.style.justifyContent = 'space-between'
+
+          const shadowColorInput = lab_design_system('input', `shadow-color-range`, shadowColorBox)
+          shadowColorInput.setAttribute('type', 'color')
+
+          shadowColorInput.addEventListener('input', () => {
+            shadowColors = shadowColorInput.value
+            whriteShadow()
+          })
+
+          const border = lab_design_system('strong', 'border', elementMenuBody, 'Border radius')
+          const borderGrid = lab_design_system('div', "border-box", elementMenuBody, '', '', ['design', 'grid-box'])
+
+          const borderTop = DesignConstructor.input(borderGrid, item.style.borderTopLeftRadius, '', '', { el: item, style: `borderTopLeftRadius` })
+          const borderTopRight = DesignConstructor.input(borderGrid, item.style.borderTopRightRadius, '', '', { el: item, style: `borderTopRightRadius` })
+          const borderBottomRigth = DesignConstructor.input(borderGrid, item.style.borderBottomRightRadius, '', '', { el: item, style: `borderBottomRightRadius` })
+          const borderBottomLEft = DesignConstructor.input(borderGrid, item.style.borderBottomLeftRadius, '', '', { el: item, style: `borderBottomLeftRadius` })
+
+          const borderColorBox = lab_design_system('div', 'color-border-box', elementMenuBody)
+          const borderColor = lab_design_system('span', 'color-border', borderColorBox, 'Border-color')
+          borderColorBox.style.display = 'flex'
+          borderColorBox.style.gap = '10px'
+          borderColorBox.style.border = 'none'
+          borderColorBox.style.justifyContent = 'space-between'
+
+          const borderColorInput = lab_design_system('input', `border-color-range`, borderColorBox)
+          borderColorInput.setAttribute('type', 'color')
+
+          borderColorInput.addEventListener('input', () => {
+            item.style.borderColor = borderColorInput.value
           })
 
         }
@@ -4707,7 +4814,7 @@ function mode(modeName) {
       mouse = false
       startCoords = null
       if (modeName == 'text') {
-        const item = await Designer.create(elementsToolsList, types[modeName], page, 'landscape', true)
+        const item = await Designer.create(elementsToolsList, types[modeName], page, 'LANDSCAPE', true)
         item.style.position = 'absolute'
         item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
         item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
@@ -4726,7 +4833,7 @@ function mode(modeName) {
             itemBox.classList.add('lab-img-container')
             itemBox.id = Designer.ID()
 
-            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'landscape', true)
+            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'LANDSCAPE', true)
             itemBox.style.position = 'absolute'
             itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
             itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
@@ -4811,10 +4918,8 @@ async function loadImg(i, items) {
 
 
 
+
 setTimeout(() => {
   document.querySelector('body').innerHTML = ''
   design_mode()
 }, 500);
-
-
-// radial-gradient(circle, rgb(255, 0, 0), rgb(254, 208, 94), rgb(187, 0, 255))
