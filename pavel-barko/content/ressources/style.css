@@ -1,7 +1,23 @@
-#lab-img-input {
-  width: 0;
+.trash {
+  font-size: 24px;
 }
 
-* {
-  user-select: none !important;
+#background {
+  background-color: indigo;
+}
+
+.background {
+  padding: 100px;
+}
+
+.background:hover {
+  background-color: red !important;
+}
+
+.background:after {
+  background-color: red !important;
+}
+
+.link {
+  color: red;
 }

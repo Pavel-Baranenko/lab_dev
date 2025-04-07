@@ -1,419 +1,1594 @@
-let ElementsList = {
-  'free': {
-    'button': {
+// let oldSrc = 'https://laboranth.tech/D/R/IMG/CLA/'
+let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
+
+let ComponentsList = {
+  free: {
+    button: {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
       'title': "button",
-      'template': {
-        'LANDSCAPE': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': 'inline',
-            'width': "fit-content",
-            'position': "relative",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'LANDSCAPE': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
+      components: [
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "right-angles",
+              text: 'Write here',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 16px',
+                height: '40px',
+                border: 'none',
+                whiteSpace: 'nowrap',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                color: '#fff',
+                cursor: 'pointer',
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "right-angles",
+              text: 'Write here',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 16px',
+                height: '40px',
+                border: 'none',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                whiteSpace: 'nowrap',
+                color: '#fff',
+                cursor: 'pointer',
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "rounded-corners",
+              'tag': "button",
+              'root': true,
+              'classes': "rounded-corners",
+              text: 'Write here',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 16px',
+                whiteSpace: 'nowrap',
+                height: '40px',
+                border: 'none',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                color: '#fff',
+                cursor: 'pointer',
+                'display': 'inline',
+                'width': "fit-content",
+                'borderRadius': "20px",
+                'position': "relative",
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-button",
+              'tag': "button",
+              'root': true,
+              'classes': "right-angles",
+              text: 'Write here',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 16px',
+                height: '40px',
+                border: 'none',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                color: '#fff',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+                'borderRadius': "20px",
+                'display': 'inline',
+                'width': "fit-content",
+                'position': "relative",
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "icon",
+              'tag': "button",
+              'root': true,
+              'classes': "icon",
+              text: '+',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 8px',
+                height: '40px',
+                whiteSpace: 'nowrap',
+                width: '40px',
+                border: 'none',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1.5rem, 3svw, 24px)',
+                color: '#fff',
+                cursor: 'pointer',
+                'borderRadius': "50%",
+                'position': "relative",
+              }
+            },
+            'PORTRAIT': {
+              'id': "icon",
+              'tag': "button",
+              'root': true,
+              'classes': "icon",
+              text: '+',
+              'styles': {
+                backgroundColor: 'rgb(37, 37, 37)',
+                'padding': '0 8px',
+                height: '40px',
+                whiteSpace: 'nowrap',
+                width: '40px',
+                border: 'none',
+                fontFamily: 'system-ui',
+                fontSize: 'clamp(1.5rem, 3svw, 24px)',
+                color: '#fff',
+                cursor: 'pointer',
+                'borderRadius': "50%",
+                'position': "relative",
+              }
+            }
+          }
+        },
+      ]
+    },
+    'input': {
 
+      //       1) Text
+      // 2) Checkbox
+      // 3) Radio
+      // 4) Select
+      // 4) Color
+      // date
+      // email
+      // file
+      // number
+      // password
+      // range
+      // time
+
+
+      // 1) Sign in (eye) UI
+      // 2) Log in UI
+      // 3) Contact UI
+
+
+
+
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "input",
+      'components': [
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
               },
-              'LANDSCAPE': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
+              attributes: {
+                type: "text",
+                placeholder: "text"
               }
-            }
-          ]
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              }
+            },
+          }
         },
-        'PORTRAIT': {
-          'id': "lab-button",
-          'tag': "button",
-          'root': true,
-          'classes': "lab-button",
-          'styles': {
-            'padding': '10px 20px',
-            'borderRadius': "15px",
-            'display': "flex",
-            'gap': "10px",
-            'alignItems': "center",
-            'justifyContent': "center",
-            'background': "#FED05E"
-          },
-          'child': [
-            {
-              'LANDSCAPE': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                },
-                'text': 'Button',
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-div-input",
+              'tag': "div",
+              'classes': "lab-div-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                display: "flex",
+                gap: '5px',
+                alignItems: 'center',
+                'position': "relative"
               },
-              'LANDSCAPE': {
-                'id': "lab-button-span",
-                'tag': "span",
-                'classes': "lab-button-span",
-                'styles': {
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-seacrh-icon",
+                    'tag': "img",
+                    'classes': "lab-seacrh-icon",
+                    'styles': {
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                    },
+                    attributes: {
+                      'src': 'https://laboranth.tech/D/R/IMG/CLA/search.svg'
+                    }
+                  },
                 },
-                'text': 'Button',
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-input",
+                    'tag': "input",
+                    'classes': "lab-input",
+                    'styles': {
+                      'background': "transparent",
+                      outline: "none",
+                      width: "100%",
+                      border: "none"
+                    },
+                  }
+                },
+              ]
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
               }
-            }
-          ]
+            },
+          }
         }
-      }
-    },
-    'section': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "section",
-      'template': {
-        'LANDSCAPE': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '80px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-        'PORTRAIT': {
-          'id': "lab-section",
-          'tag': "section",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'padding': '80px 20px',
-            'background': '#FFFFFF',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-      }
-    },
-    'div': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "div",
-      'template': {
-        'LANDSCAPE': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-        'PORTRAIT': {
-          'id': "lab-section",
-          'tag': "div",
-          'classes': "lab-empty-section",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '20px 20px',
-            'position': "relative",
-            'zIndex': 1
-          }
-        },
-      }
+      ]
+
     },
     'form': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
       'title': "form",
-      'template': {
-        'LANDSCAPE': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'positon': "relative",
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'position': "relative",
-            'zIndex': 1,
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'LANDSCAPE': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
+      'components': [
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
               },
-              'PORTRAIT': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-h6",
+                    'tag': "h6",
+                    'styles': {
+                      'padding': '10px',
+                      margin: '0 0 5px 0',
+                      'border': "none",
+                      fontSize: "28px",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box"
+                    },
+                    text: "Sign in"
+                  }
                 },
-              }
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Sign in'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
             },
-            {
-              'LANDSCAPE': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
+            'PORTRAIT': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
               },
-              'PORTRAIT': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
                 },
-              }
-            },
-            {
-              'LANDSCAPE': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
                 },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'PORTRAIT': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
             }
-          ]
-        },
-        'PORTRAIT': {
-          'id': "lab-form",
-          'tag': "form",
-          'root': true,
-          'styles': {
-            'padding': '15px',
-            'borderRadius': "15px",
-            'display': "flex",
-            'flexDirection': "column",
-            'gap': "10px",
-            'background': "#FFFFFF",
-            'boxSizing': "border-box",
-            'position': "relative",
-            'zIndex': 1,
-            'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-          },
-          'child': [
-            {
-              'LANDSCAPE': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'PORTRAIT': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'positon': "relative",
-                  'width': "100%",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'LANDSCAPE': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'width': "100%",
-                  'positon': "relative",
-                  'boxSizing': "border-box",
-                  'background': "#EFEFEF"
-                },
-              },
-              'PORTRAIT': {
-                'id': "lab-div-input",
-                'tag': "input",
-                'styles': {
-                  'padding': '10px',
-                  'borderRadius': "10px",
-                  'border': "none",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'width': "100%",
-                  'background': "#EFEFEF"
-                },
-              }
-            },
-            {
-              'LANDSCAPE': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'positon': "relative",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'background': "#FED05E"
-                },
-                'attributes': {
-                  'type': "button"
-                },
-                'text': 'Button'
-              },
-              'PORTRAIT': {
-                'id': "lab-button",
-                'tag': "button",
-                'styles': {
-                  'padding': '10px 25px',
-                  'textAlign': "center",
-                  'borderRadius': "15px",
-                  'fontWeight': "700",
-                  'color': "#1C1B1F",
-                  'boxSizing': "border-box",
-                  'positon': "relative",
-                  'background': "#FED05E"
-                },
-                'text': 'Button'
-              }
-            }
-          ]
-        }
-      }
-    },
-    'input': {
-      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
-      'title': "input",
-      'template': {
-        'LANDSCAPE': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
           }
         },
-        'PORTRAIT': {
-          'id': "lab-input",
-          'tag': "input",
-          'classes': "lab-empty-input",
-          'root': true,
-          'styles': {
-            'background': '#FFFFFF',
-            'padding': '10px 20px',
-            'borderRadius': "10px",
-            'border': "none",
-            'outline': "none",
-            'position': "relative"
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-h6",
+                    'tag': "h6",
+                    'styles': {
+                      'padding': '10px',
+                      margin: '0 0 5px 0',
+                      'border': "none",
+                      fontSize: "28px",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box"
+                    },
+                    text: "Log in"
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Login'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            },
+            'PORTRAIT': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            }
           }
         },
-      }
-    }
-  },
-  'laboranth': {},
-  'agency': {},
-  'agency-premium': {}
-}
 
-let oldSrc = 'https://laboranth.tech/D/R/IMG/CLA/'
-let ComponentsList = {
-  'free': {
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'positon': "relative",
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-h6",
+                    'tag': "h6",
+                    'styles': {
+                      'padding': '10px',
+                      margin: '0 0 5px 0',
+                      'border': "none",
+                      fontSize: "28px",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box"
+                    },
+                    text: "Contact"
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-wrap",
+                    'tag': "div",
+                    'styles': {
+                      display: 'flex',
+                      gap: '10px',
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-div-checkbox",
+                          'tag': "input",
+                          attributes: {
+                            type: 'checkbox',
+                            name: "confirmation-checkbox"
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-div-text",
+                          'tag': "span",
+                          text: "Confirm privacy policy",
+                          attributes: {
+                            for: 'confirmation-checkbox'
+                          }
+                        }
+                      },
+                    ]
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Send'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            },
+            'PORTRAIT': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'padding': '15px',
+                'borderRadius': "15px",
+                'display': "flex",
+                'flexDirection': "column",
+                'gap': "10px",
+                'background': "#FFFFFF",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+              },
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'positon': "relative",
+                      'width': "100%",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'width': "100%",
+                      'positon': "relative",
+                      'boxSizing': "border-box",
+                      'background': "#EFEFEF"
+                    },
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-div-input",
+                    'tag': "input",
+                    'styles': {
+                      'padding': '10px',
+                      'borderRadius': "10px",
+                      'border': "none",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'width': "100%",
+                      'background': "#EFEFEF"
+                    },
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'positon': "relative",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'background': "#FED05E"
+                    },
+                    'attributes': {
+                      'type': "button"
+                    },
+                    'text': 'Button'
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'styles': {
+                      'padding': '10px 25px',
+                      'textAlign': "center",
+                      'borderRadius': "15px",
+                      'fontWeight': "700",
+                      'color': "#1C1B1F",
+                      'boxSizing': "border-box",
+                      'positon': "relative",
+                      'background': "#FED05E"
+                    },
+                    'text': 'Button'
+                  }
+                }
+              ]
+            }
+          }
+        },
+      ]
+    },
+    'header': {
+      'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
+      'title': "header",
+      'components': [
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'position': "relative",
+                boxSizing: "border-box",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              },
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-logo",
+                    'tag': "a",
+                    'styles': {
+                      display: 'inline-block',
+                      marginRight: 'auto'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-logo-img",
+                          'tag': "img",
+                          'styles': {
+                            height: "50px",
+                            width: 'auto'
+                          },
+                          attributes: {
+                            src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                          }
+                        },
+                      }
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-navbar",
+                    'tag': "nav",
+                    'styles': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: " 10px",
+                      borderRadius: "10px",
+                      background: "#F0F0F0",
+                      gap: '15px',
+                      width: "fit-content"
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "home",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "about",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "services",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "use cases",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'position': "relative",
+                boxSizing: "border-box",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              },
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-logo",
+                    'tag': "a",
+                    'styles': {
+                      display: 'inline-block',
+                      marginRight: 'auto'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-logo-img",
+                          'tag': "img",
+                          'styles': {
+                            height: "50px",
+                            width: 'auto'
+                          },
+                          attributes: {
+                            src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                          }
+                        },
+                      }
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-navbar",
+                    'tag': "nav",
+                    'styles': {
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: " 10px",
+                      borderRadius: "10px",
+                      background: "#F0F0F0",
+                      gap: '15px',
+                      width: "fit-content"
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "About",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Solutions",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Pricing",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-nav-link",
+                          'tag': "a",
+                          text: "Contacts",
+                          'styles': {
+                            color: "#000",
+                            textDecoration: 'none'
+                          },
+                          attributes: {
+                            href: '#'
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-header-wrap",
+                    'tag': "div",
+                    'styles': {
+                      'background': '#FFFFFF',
+                      'padding': '10px 20px',
+                      'position': "relative",
+                      display: 'flex',
+                      boxSizing: "border-box",
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-logo",
+                          'tag': "a",
+                          'styles': {
+                            boxSizing: "border-box",
+                            display: 'inline-block'
+                          },
+                          child: [
+                            {
+                              'LANDSCAPE': {
+                                'id': "lab-logo-img",
+                                'tag': "img",
+                                'styles': {
+                                  boxSizing: "border-box",
+                                  height: "auto",
+                                  width: '50px'
+                                },
+                                attributes: {
+                                  src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                                }
+                              },
+                            }
+                          ]
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-button",
+                          'tag': "button",
+                          'classes': "lab-button",
+                          'styles': {
+                            'padding': '10px 20px',
+                            'borderRadius': "15px",
+                            'display': 'flex',
+                            'alignItems': "center",
+                            'gap': '10px',
+                            boxSizing: "border-box",
+                            'width': "fit-content",
+                            'position': "relative",
+                            'background': "#FED05E"
+                          },
+                          'child': [
+                            {
+                              'LANDSCAPE': {
+                                'id': "lab-button-span",
+                                'tag': "span",
+                                'classes': "lab-button-span",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  boxSizing: "border-box",
+                                  'color': "#1C1B1F",
+                                },
+                                'text': 'Button',
+
+                              },
+                              'LANDSCAPE': {
+                                'id': "lab-button-span",
+                                'tag': "span",
+                                'classes': "lab-button-span",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  'color': "#1C1B1F",
+                                },
+                                'text': 'Button',
+                              }
+                            },
+                            {
+                              'LANDSCAPE': {
+                                'id': "lab-button-icon",
+                                'tag': "img",
+                                'classes': "lab-button-icon",
+                                'styles': {
+                                  'fontWeight': "700",
+                                  'color': "#1C1B1F",
+                                },
+                                attributes: {
+                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
+                                }
+                              }
+
+                            },
+                          ]
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-button",
+                          'tag': "button",
+                          'classes': "lab-button",
+                          'styles': {
+                            'borderRadius': "15px",
+                            'display': 'flex',
+                            justifyContent: 'center',
+                            'alignItems': "center",
+                            border: "none",
+                            'width': "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            'position': "relative",
+                            'background': "#3C4CA6"
+                          },
+                          'child': [
+                            {
+                              'LANDSCAPE': {
+                                'id': "lab-button-icon",
+                                'tag': "img",
+                                'classes': "lab-button-icon",
+                                'styles': {
+                                  'width': "15px",
+                                  'height': "15px",
+                                },
+                                attributes: {
+                                  'src': 'https://laboranth.tech/D/R/IMG/CLA/widgets.svg'
+                                }
+                              }
+
+                            },
+                          ]
+                        },
+                      },
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-header",
+              'tag': "header",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'position': "relative",
+                display: 'flex',
+                boxSizing: "border-box",
+                alignItems: 'center',
+              },
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'classes': "lab-button",
+                    'styles': {
+                      'borderRadius': "15px",
+                      'display': 'flex',
+                      justifyContent: 'center',
+                      'alignItems': "center",
+                      border: "none",
+                      'width': "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      'position': "relative",
+                      'background': "#3C4CA6"
+                    },
+                    'child': [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-button-icon",
+                          'tag': "img",
+                          'classes': "lab-button-icon",
+                          'styles': {
+                            'width': "15px",
+                            'height': "15px",
+                          },
+                          attributes: {
+                            'src': 'https://laboranth.tech/D/R/IMG/CLA/widgets.svg'
+                          }
+                        }
+
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-logo",
+                    'tag': "a",
+                    'styles': {
+                      boxSizing: "border-box",
+                      display: 'inline-block',
+                      margin: "0 auto"
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-logo-img",
+                          'tag': "img",
+                          'styles': {
+                            boxSizing: "border-box",
+                            height: "auto",
+                            width: '70px'
+                          },
+                          attributes: {
+                            src: 'https://laboranth.tech/D/R/IMG/logoAlt.svg'
+                          }
+                        },
+                      }
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-link",
+                    'tag': "a",
+                    text: "Login",
+                    'styles': {
+                      'width': "fit-content",
+                      'position': "relative",
+                      marginRight: "10px",
+                    }
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-button",
+                    'tag': "button",
+                    'classes': "lab-button",
+                    'styles': {
+                      'padding': '10px 20px',
+                      'borderRadius': "15px",
+                      'display': 'flex',
+                      'alignItems': "center",
+                      'gap': '10px',
+                      boxSizing: "border-box",
+                      'width': "fit-content",
+                      'position': "relative",
+                      'background': "#FED05E"
+                    },
+                    'child': [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-button-span",
+                          'tag': "span",
+                          'classes': "lab-button-span",
+                          'styles': {
+                            'fontWeight': "700",
+                            boxSizing: "border-box",
+                            'color': "#1C1B1F",
+                          },
+                          'text': 'Button',
+
+                        },
+                        'LANDSCAPE': {
+                          'id': "lab-button-span",
+                          'tag': "span",
+                          'classes': "lab-button-span",
+                          'styles': {
+                            'fontWeight': "700",
+                            'color': "#1C1B1F",
+                          },
+                          'text': 'Button',
+                        }
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-button-icon",
+                          'tag': "img",
+                          'classes': "lab-button-icon",
+                          'styles': {
+                            'fontWeight': "700",
+                            'color': "#1C1B1F",
+                          },
+                          attributes: {
+                            'src': 'https://laboranth.tech/D/R/IMG/CLA/Arrow.svg'
+                          }
+                        }
+
+                      },
+                    ]
+                  },
+                }
+              ]
+            }
+          }
+        },
+      ]
+
+    },
+  },
+  'lab': {
     'button': {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/add_user.svg`,
       'title': "button",
@@ -499,9 +1674,7 @@ let ComponentsList = {
               ]
             }
           }
-
         },
-
         {
           'template': {
             'LANDSCAPE': {
@@ -2701,7 +3874,7 @@ let ComponentsList = {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
-                                  src: oldSrc + 'fb-icon.svg'
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/fb-icon.svg'
                                 }
                               }
                             }
@@ -2718,7 +3891,7 @@ let ComponentsList = {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
-                                  src: oldSrc + 'x-icon.svg'
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/x-icon.svg'
                                 }
                               }
                             }
@@ -2735,7 +3908,7 @@ let ComponentsList = {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
-                                  src: oldSrc + "pinterest-icon.svg"
+                                  src: "https://laboranth.tech/D/R/IMG/CLA/pinterest-icon.svg"
                                 }
                               }
                             }
@@ -2752,7 +3925,7 @@ let ComponentsList = {
                                 'id': "lab-link",
                                 'tag': "img",
                                 attributes: {
-                                  src: oldSrc + 'instagram-icon.svg'
+                                  src: 'https://laboranth.tech/D/R/IMG/CLA/instagram-icon.svg'
                                 }
                               }
                             }
@@ -2775,11 +3948,15 @@ let ComponentsList = {
   'agency-premium': {}
 }
 
+
+
 let ActiveMode
 let selected
 let mouseIsDown = false
+
 const pageWrap = document.querySelector('#lab-user-page-wrap')
 const page = document.querySelector('#lab-user-page')
+
 const uditableTags = ["SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "P", "I", "B", "STRONG", "FONT", "EM", "SMALL", "SUP", "SUB", "Q", "BLOCKQUOTE"]
 
 class Designer {
@@ -2788,53 +3965,6 @@ class Designer {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
     }
     return ('lab-element' + S4() + S4() + S4() + S4() + S4());
-  }
-
-  static async create(TemplatesList, template_id, parent, vpm, random, id) {
-
-    const T = TemplatesList[template_id].template
-    let A
-    let S = TemplatesList[template_id].scripts
-    async function readObject(temt, child) {
-      const obj = temt[vpm]
-      const element = document.createElement(obj.tag)
-      if (obj.root) {
-        parent.appendChild(element)
-        A = element
-        if (S) {
-          const code = await lab_code_injection_array(S, true)
-        }
-      }
-
-
-      element.id = id ? id : (random ? Designer.ID() : obj.id)
-
-      if (obj.classes) {
-        const classes = obj.classes.split(' ')
-        element.classList.add(...classes)
-      }
-
-      obj.attributes && Object.keys(obj.attributes).forEach(e => {
-        element.setAttribute(e, obj.attributes[e])
-      })
-      obj.styles && Object.keys(obj.styles).forEach(e => {
-        element.style[e] = obj.styles[e]
-      })
-
-      element.style.opacity = ''
-
-      obj.text && element.appendChild(document.createTextNode(obj.text))
-
-      obj.child && obj.child.forEach((e) => {
-        element.appendChild(readObject(e, true))
-      })
-
-      if (child) return element
-    }
-
-    readObject(T)
-
-    return A
   }
 
   static async hover(element) {
@@ -2856,8 +3986,6 @@ class Designer {
   }
 
   static async removePointer() {
-    if (document.getElementById('lab-HoverBox')) document.getElementById('lab-HoverBox').remove()
-    if (document.getElementById('lab-HoverBoxbtn')) document.getElementById('lab-HoverBoxbtn').remove()
     if (document.getElementById('lab-pointer')) document.getElementById('lab-pointer').remove()
   }
 
@@ -2897,29 +4025,6 @@ class Designer {
     moveArea.addEventListener(endListener, removeListeners, false)
   }
 
-  static Proportions(element, child, parent, alignment) {
-    const parentPos = parent.getBoundingClientRect();
-    const elementPos = child.getBoundingClientRect();
-
-    if (alignment.vert && alignment.vert == 'full') {
-      element.style.left = (elementPos.left - parentPos.left) / parentPos.width * 100 + '%'
-      element.style.width = elementPos.width / parentPos.width * 100 + '%'
-    }
-    if (alignment.hor == 'full') {
-      element.style.top = (elementPos.top - parentPos.top) / parentPos.height * 100 + '%'
-      element.style.height = elementPos.height / parentPos.height * 100 + '%'
-    }
-
-    Object.keys(alignment).forEach(e => {
-      if (['left', 'top'].includes(e)) {
-        const orientation = ['left'].includes(e) ? 'width' : 'height'
-        const axis = ['left'].includes(e) ? 'x' : 'y'
-
-        element.style[e] = ((elementPos[axis] - parentPos[axis] + (axis == 'x' ? elementPos.width : 0) + alignment[e]) / parentPos[orientation] * 100 + '%');
-      }
-    })
-  }
-
   static WriteStyle(element, styleName, styleValue) {
     element.style[styleName] = styleValue
     Designer.removePointer()
@@ -2936,7 +4041,7 @@ class DesignConstructor {
     return btn;
   }
 
-  static input(parent, value, placeholder, icon, params, className = 'none', styles, id = Designer.ID()) {
+  static input(parent, value, placeholder, icon, params, id = Designer.ID()) {
     const wrap = lab_design_system('div', id, parent, '', '', ['design', 'inputWrap'])
     if (icon) {
       const innerIcon = lab_design_system('img', id, wrap, '', '', ['design', 'icon'])
@@ -2987,7 +4092,7 @@ class DesignConstructor {
   }
 
   static async createOptions(element, parent) {
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn', 'lab-user-page']
+    const stopList = ['lab-user-page']
     if (isRotating || mouseIsDown) return
     if (!stopList.includes(element.id)) {
       await Designer.removePointer()
@@ -3080,8 +4185,224 @@ class DesignConstructor {
     if (Listing) Listing.remove()
     document.getElementById('lab-style-box').style.marginRight = '-300px'
   }
+
+  static ImageBox() {
+    const fileBox = lab_design_system('div', 'file-preview-box', parent, '', '', ['design', 'fileBox'])
+    let image = item.querySelector('img')
+    const fileInput = lab_design_system('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
+    fileInput.style.opacity = 0
+    fileInput.setAttribute('type', 'file')
+    const preview = lab_design_system('img', 'file-preview', fileBox)
+    preview.style.width = '100%'
+    preview.style.height = '100%'
+    preview.style.objectFit = 'cover'
+    preview.style.zIndex = '3'
+    preview.style.pointerEvents = 'none'
+    preview.style.position = 'relative'
+    preview.setAttribute('src', image.src)
+
+    fileInput.addEventListener('change', async (i) => {
+      await loadImg(Array.from(i.target.files)[0], [image, preview])
+    })
+
+    const srcWrap = lab_design_system('div', Designer.ID(), parent, '', '', ['design', 'styleBox'])
+    const fileSrc = lab_design_system('span', Designer.ID(), srcWrap, 'src')
+    fileSrc.style.marginRight = '10px'
+    let attrubuteInput = DesignConstructor.input(srcWrap, image.src)
+    attrubuteInput.addEventListener('input', () => {
+      image.setAttribute('src', attrubuteInput.value)
+    })
+
+    const objFit = DesignConstructor.dropList(parent, ['cover', 'fill', 'contain', 'none', 'scale-down'], image.style.objectFit, (e) => Designer.WriteStyle(image, 'objectFit', e))
+
+    const horizontal = lab_design_system('div', Designer.ID(), parent, '', '', ['design', 'styleBox'])
+    const horizontalLabel = lab_design_system('span', Designer.ID(), horizontal, 'horizontal')
+    horizontalLabel.style.marginRight = '10px'
+    horizontalLabel.style.minWidth = '50%'
+    let imagePos = image.style.objectPosition.split(' ')
+
+    let horizontalInput = DesignConstructor.input(horizontal, imagePos[0].replace('%', ''), '%')
+    horizontalInput.setAttribute('type', 'number')
+    horizontalInput.addEventListener('input', () => {
+      image.style.objectPosition = horizontalInput.value + "% " + image.style.objectPosition.split(' ')[1]
+    })
+    const imgWidth = lab_design_system('div', 'image-width', parent, '', '', ['design', 'styleBox'])
+    const imgWidthLabel = lab_design_system('span', 'image-width-label', imgWidth, 'width')
+    imgWidthLabel.style.marginRight = '10px'
+    imgWidthLabel.style.minWidth = '50%'
+
+    let imgWidthInput = DesignConstructor.input(imgWidth, image.style.width.replace("%", ''), '%')
+    imgWidthInput.setAttribute('type', 'number')
+    imgWidthInput.addEventListener('input', () => {
+      image.style.width = imgWidthInput.value + '%'
+    })
+
+    const imgHeight = lab_design_system('div', 'image-height', parent, '', '', ['design', 'styleBox'])
+    const imgHeightLabel = lab_design_system('span', 'image-height-label', imgHeight, 'height')
+    imgHeightLabel.style.marginRight = '10px'
+    imgHeightLabel.style.minWidth = '50%'
+
+    let imgHeightInput = DesignConstructor.input(imgHeight, image.style.height.replace("%", ''), '%')
+    imgHeightInput.setAttribute('type', 'number')
+    imgHeightInput.addEventListener('input', () => {
+      image.style.height = imgHeightInput.value + '%'
+    })
+
+    const vertical = lab_design_system('div', Designer.ID(), parent, '', '', ['design', 'styleBox'])
+    const verticalLabel = lab_design_system('span', Designer.ID(), vertical, 'vertical')
+    verticalLabel.style.marginRight = '10px'
+    verticalLabel.style.minWidth = '50%'
+
+    let verticalInput = DesignConstructor.input(vertical, imagePos[1].replace('%', ''), '%')
+    verticalInput.setAttribute('type', 'number')
+
+    verticalInput.addEventListener('input', () => {
+      image.style.objectPosition = image.style.objectPosition.split(' ')[0] + " " + verticalInput.value + "%"
+    })
+
+    const aspect = lab_design_system('div', 'image-aspect', parent, '', '', ['design', 'styleBox'])
+    const aspectLabel = lab_design_system('span', 'image-aspect-label', aspect, 'aspect-ratio')
+    aspectLabel.style.marginRight = '10px'
+    aspectLabel.style.minWidth = '50%'
+
+    let aspectInput = DesignConstructor.input(aspect, image.style.aspectRatio.split(' ')[0])
+    aspectInput.setAttribute('type', 'number')
+
+    aspectInput.addEventListener('input', () => {
+      image.style.aspectRatio = aspectInput.value
+    })
+  }
+
+  static generalStyles(item, parent) {
+    const idInput = DesignConstructor.input(parent, "#" + item.id, '#')
+    idInput.addEventListener('input', () => {
+      item.id = idInput.value.trim().replace('#', '')
+    })
+
+    if (item.classList.contains('lab-img-container')) DesignConstructor.ImageBox(item, parent)
+
+    else {
+      const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
+
+      const tag = DesignConstructor.dropList(parent, tagList, item.tagName, (e) => {
+        let newEl = document.createElement(e)
+        item.getAttributeNames().forEach(n => {
+          newEl.setAttribute(n, item.getAttribute(n))
+        })
+        newEl.innerHTML = item.innerHTML
+        item.replaceWith(newEl)
+        item = newEl
+      })
+    }
+
+    const settings = lab_design_system('div', "menu-style-settings", parent, '', '', ['design', 'styleGrid'])
+
+    const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
+
+    const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
+
+    const sizeBox = lab_design_system('div', 'width-box', parent, '', '', ['design', 'styleBox'])
+    sizeBox.style.gap = '20px'
+    const widthInput = DesignConstructor.input(sizeBox, item.style.width)
+    widthInput.placeholder = 'width'
+    widthInput.style.width = 'calc(50% - 10px)'
+    widthInput.addEventListener('input', () => {
+      item.style.width = widthInput.value
+    })
+
+    const heightInput = DesignConstructor.input(sizeBox, item.style.height)
+    heightInput.placeholder = 'height'
+    heightInput.style.width = 'calc(50% - 10px)'
+    heightInput.addEventListener('input', () => {
+      item.style.height = heightInput.value
+    })
+
+    const posBox = lab_design_system('div', "position-box", parent, '', '', ['design', 'styleBox'])
+    posBox.style.gap = '20px'
+
+    const XBox = lab_design_system('div', 'x-box', posBox, '', '', ['design', 'styleBox'])
+    XBox.style.gap = '10px'
+
+    const XLabel = lab_design_system('span', 'x-label', XBox, 'x')
+    const XInput = DesignConstructor.input(XBox, item.style.left)
+    XInput.addEventListener('input', () => {
+      item.style.left = XInput.value
+    })
+
+    const YBox = lab_design_system('div', 'y-box', posBox, '', '', ['design', 'styleBox'])
+    YBox.style.gap = '10px'
+
+    const YLabel = lab_design_system('span', 'y-label', YBox, 'y')
+    const YInput = DesignConstructor.input(YBox, item.style.left)
+    YInput.addEventListener('input', () => {
+      item.style.top = YInput.value
+    })
+
+    const ZBox = lab_design_system('div', 'z-box', posBox, '', '', ['design', 'styleBox'])
+    ZBox.style.gap = '10px'
+
+    const ZLabel = lab_design_system('span', 'z-label', ZBox, 'z')
+    const ZInput = DesignConstructor.input(ZBox, item.style.zIndex)
+
+    ZInput.addEventListener('input', () => {
+      item.style.zIndex = ZInput.value
+    })
+
+    const padding = lab_design_system('span', 'padding-box-label', parent, 'padding')
+
+    const paddingBox = lab_design_system('div', "padding-box", parent, '', '', ['design', 'grid-box'])
+    const margin = lab_design_system('span', 'margin-box-label', parent, 'margin')
+    const marginBox = lab_design_system('div', "margin-box", parent, '', '', ['design', 'grid-box'])
+
+    const PositionsList = ['top', 'right', 'bottom', 'left']
+
+    PositionsList.forEach(e => {
+      const padInput = DesignConstructor.input(paddingBox, item.style[`padding${capitalizeFirstLetter(e)}`])
+      padInput.addEventListener('input', () => {
+        item.style[`padding${capitalizeFirstLetter(e)}`] = padInput.value
+      })
+    })
+
+    PositionsList.forEach(e => {
+      const marInput = DesignConstructor.input(marginBox, item.style[`margin${capitalizeFirstLetter(e)}`])
+      marInput.addEventListener('input', () => {
+        item.style[`margin${capitalizeFirstLetter(e)}`] = marInput.value
+      })
+    })
+
+
+    item.getAttributeNames().forEach(n => {
+      if (!['style', 'id'].includes(n)) {
+        const wrap = lab_design_system('div', Designer.ID(), parent, '', '', ['design', 'styleBox'])
+        const name = lab_design_system('span', Designer.ID(), wrap, n)
+        name.style.marginRight = '10px'
+
+        if (n != 'class') {
+          let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
+          attrubuteInput.addEventListener('input', () => {
+            item.setAttribute(n, attrubuteInput.value)
+          })
+        } else {
+          let attrubuteInput = DesignConstructor.input(wrap, '')
+          let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
+          let classes = String(item.getAttribute(n)).split(' ')
+
+          classes.forEach(e => {
+            if (!systemClasses.includes(e)) {
+              attrubuteInput.value += e + ' '
+            }
+          })
+          attrubuteInput.addEventListener('input', () => {
+            item.setAttribute(n, attrubuteInput.value)
+          })
+        }
+      }
+    })
+
+  }
 }
 
+//FOR TOOLBAR ELEMENTS
 const elementsToolsList = {
   'span': {
     'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
@@ -3218,6 +4539,11 @@ async function CreateComponent(component, parent, vpm, random, escape = false, i
 
 }
 
+function Options(obj, key, value) {
+  obj[key] = value ? value : !obj[key]
+  lab_local_storage_object_update("global", { classic_options: obj })
+}
+
 function design_mode(app) {
   const labBody = document.querySelector('body')
   labBody.style.position = "relative"
@@ -3225,12 +4551,6 @@ function design_mode(app) {
   labBody.style.display = "flex"
   labBody.style.width = "100svw"
   labBody.style.height = "100svh"
-
-
-  function Options(obj, key, value) {
-    obj[key] = value ? value : !obj[key]
-    lab_local_storage_object_update("global", { classic_options: obj })
-  }
 
   const designBody = document.querySelector('body')
 
@@ -3290,7 +4610,6 @@ function design_mode(app) {
   addList(ComponentsList.free, elementsWrap)
 
   function OpenList(componentGroup) {
-
     let last = document.getElementById('lab-template-list')
     if (last) {
       let selected = last.getAttribute('data-group')
@@ -3303,23 +4622,8 @@ function design_mode(app) {
 
     function RenrerComponentsList() {
       const list = componentGroup.components
-      const listing = lab_design_system('div', 'template-list', menu)
+      const listing = lab_design_system('div', 'template-list', menu, '', '', ['design', 'templateList'])
       listing.setAttribute('data-group', componentGroup.title)
-      listing.style.width = '0'
-      listing.style.transition = 'all 0.3s linear'
-      listing.style.position = 'absolute'
-      listing.style.display = 'flex'
-      listing.style.flexDirection = 'column'
-      listing.style.gap = '30px'
-      listing.style.top = 0
-      listing.style.bottom = 0
-      listing.style.width = '300px'
-      listing.style.right = '-320px'
-      listing.style.zIndex = 9
-      listing.style.opacity = 1
-      listing.style.padding = '10px'
-      listing.style.background = '#fff'
-      listing.style.boxShadow = 'rgba(0, 0, 0, 0.08) 0px 1px 13.9px 0px'
 
       list.forEach(async (e) => {
         let parent = listing
@@ -3379,8 +4683,7 @@ function design_mode(app) {
 
   page.addEventListener('click', (e) => {
     let element = document.elementFromPoint(e.clientX, e.clientY)
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
-    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+    if (!element.classList.contains('lab-none')) {
       StylesMenu(document.elementFromPoint(e.clientX, e.clientY))
     }
   })
@@ -3388,16 +4691,16 @@ function design_mode(app) {
   page.addEventListener('mousedown', () => {
     mouseIsDown = true
   })
+
   page.addEventListener('mouseup', () => {
     mouseIsDown = false
   })
 
-
   page.addEventListener('contextmenu', function (e) {
     e.preventDefault()
     let element = document.elementFromPoint(e.clientX, e.clientY)
-    const stopList = ['lab-HoverBox', 'lab-HoverBoxbtn-icon', 'lab-HoverBoxbtn']
-    if (!stopList.includes(element.id) && !element.classList.contains('lab-none')) {
+
+    if (!element.classList.contains('lab-none')) {
       const BlockOptions = {
         'copy': "Copy",
         'drag': "Move",
@@ -3417,21 +4720,8 @@ function design_mode(app) {
   //TOOLBAR
 
   const toolBar = lab_design_system('div', "designers-bar", designBody, '', '', ['design', 'toolbar'])
-  toolBar.style.maxWidth = 'clamp(320px, 100%, 660px)'
-  toolBar.style.gap = 'clamp(8px, 2vw, 30px)'
-  toolBar.style.paddingTop = 'clamp(10px, 2vw, 18px)'
-  toolBar.style.paddingBottom = 'clamp(10px, 2vw, 18px)'
-  toolBar.style.paddingLeft = 'clamp(25px, 2vw, 40px)'
-  toolBar.style.paddingRight = 'clamp(25px, 2vw, 40px)'
 
-  const prewiewTool = lab_design_system('div', "prewiew-tool", toolBar)
-  prewiewTool.style.position = 'absolute'
-  prewiewTool.style.top = '-30px'
-  prewiewTool.style.opacity = '0'
-  prewiewTool.style.pointerEvents = 'none'
-  prewiewTool.style.left = '50%'
-  prewiewTool.style.transform = 'translatex(-50%)'
-  prewiewTool.style.transition = 'all 0.3s linear'
+  const prewiewTool = lab_design_system('div', "prewiew-tool", toolBar, '', '', ['design', 'prewiewTool'])
 
   const tools = {
     'cursor': [{
@@ -3537,12 +4827,7 @@ function design_mode(app) {
   let last = document.getElementById('lab-top-settings')
   if (last) last.remove()
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
-  topSettings.style.maxWidth = 'clamp(56%, 100%, 1080px)'
-  topSettings.style.position = 'fixed'
-  topSettings.style.paddingLeft = 'clamp(10px, 2svw, 40px)'
-  topSettings.style.paddingRight = 'clamp(10px, 2svw, 40px)'
-  topSettings.style.gap = '0'
-  topSettings.style.cursor = 'pointer'
+
 
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white', 'none', 'settings-open-app-menu')
   settingsBtn.addEventListener('click', () => {
@@ -3605,7 +4890,8 @@ function design_mode(app) {
     })
 
     Designer.removePointer()
-    if (vpm == 'LANDSCAPE' || vpm === "LANDSCAPE") {
+
+    if (vpm == 'LANDSCAPE') {
       page.style.maxWidth = 'none'
       page.style.maxHeight = 'none'
       page.style.minHeight = '100svh'
@@ -3645,14 +4931,16 @@ function design_mode(app) {
   if (lab_local_storage_object('global').classic_options.vpm == 'PORTRAIT') {
     page.style.minHeight = page.getBoundingClientRect().width * 1.8 + 'px'
   }
+
   if (lab_orientation == 'LANDSCAPE') {
-    const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, null, null)
+    const sizeSwitcher = lab_design_system('input', 'sliderRange', topSettings, '', 'styled-input')
     sizeSwitcher.setAttribute('type', "range")
     sizeSwitcher.setAttribute('min', "1")
     sizeSwitcher.setAttribute('max', "100")
     sizeSwitcher.setAttribute('type', "range")
     sizeSwitcher.setAttribute('value', "100")
     sizeSwitcher.style.width = 'clamp(10%, 12%, 130px)'
+    sizeSwitcher.style.background = '#fff'
     const size = lab_design_system('div', 'screen-size', topSettings, options.zoom + '%', '', ['design', 'pixelView'])
     size.style.width = "60px"
     sizeSwitcher.value = options.zoom
@@ -3688,6 +4976,7 @@ function design_mode(app) {
         btn.setAttribute('href', `./${e}`)
       }
     })
+
     const add = lab_design_system('button', `add-page-btn`, list, '+', '', ['design', 'pageLink'])
     add.style.background = '#FED05E'
     add.style.color = '#000'
@@ -3743,6 +5032,7 @@ function design_mode(app) {
   view.addEventListener('click', DesignConstructor.closeAll)
 
   const download = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'download')
+
   download.addEventListener('click', () => {
     lab_local_storage_object_update('global', { openedMenu: "app_menu" })
     const userLSG = lab_local_storage_object('global')
@@ -3761,18 +5051,17 @@ function design_mode(app) {
   const back = lab_design_system('button', 'back-btn', historyButtons, '', 'none', ['design', 'btn'])
   back.style.width = '30px'
   const backIcon = lab_design_system('img', `back-btn-icon`, back, '', 'none', ['design', 'icon'])
-  backIcon.setAttribute('src', `${oldSrc}back-arrow-icon.svg`)
+  backIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/back-arrow-icon.svg`)
 
   const next = lab_design_system('button', 'next-btn', historyButtons, '', 'none', ['design', 'btn'])
   next.style.width = '30px'
   const nextIcon = lab_design_system('img', `next-btn-icon`, next, '', 'none', ['design', 'icon'])
-  nextIcon.setAttribute('src', `${oldSrc}next-arrow-icon.svg`)
+  nextIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/next-arrow-icon.svg`)
 
   const save = lab_design_system('button', 'save-btn', topSettings, '', 'none', ['design', 'btn'])
   const saveIcon = lab_design_system('img', `save-btn-icon`, save, '', 'none', ['design', 'icon'])
-  saveIcon.setAttribute('src', `${oldSrc}save-icon.svg`)
+  saveIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/save-icon.svg`)
   save.addEventListener('click', () => lab_save_section(options.vpm))
-
 
   const blindTop = lab_design_system('button', "blind-btn", topSettings, '', '', ['design', 'blind'])
   blindTop.addEventListener('click', () => {
@@ -3783,17 +5072,10 @@ function design_mode(app) {
   if (!options.settingsBar) DesignConstructor.addClass(topSettings, 'design', 'hideTop')
 
   const styleMenu = lab_design_system('div', 'style-box', designBody, '', 'none ', ['design', 'styleWrapper'])
-  const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none')
-  styleWrap.style.paddingTop = '75px'
-  styleWrap.style.overflowY = 'scroll'
-  styleWrap.style.height = '100%'
-  styleWrap.style.boxSizing = 'border-box'
+  const styleWrap = lab_design_system('div', 'style-wrap', styleMenu, '', 'none', ['design', 'styleWrap'])
   styleWrap.classList.add('lab-scrollable')
-  styleMenu.style.position = 'fixed'
-  styleMenu.style.height = 100 + '%'
-  styleMenu.style.right = 0
-  styleMenu.style.boxSizing = 'border-box'
-  styleMenu.style.paddingBottom = '40px'
+
+
   styleMenu.style.top = lab_orientation == "PORTRAIT" ? "100px" : 0
   styleMenu.style.borderRadius = lab_orientation == "PORTRAIT" ? "16px 0 0 16px" : 0
   if (lab_orientation == "PORTRAIT") {
@@ -3912,6 +5194,7 @@ function design_mode(app) {
       lastSelected.classList.remove('lab-selectedItem')
       renderMenu()
     }
+
     if (!lastSelected) renderMenu()
 
     function renderMenu() {
@@ -3920,12 +5203,31 @@ function design_mode(app) {
 
       const elementMenuButtons = lab_design_system('div', "elementMenu-buttons", box, '', '', ['design', 'StyleButtons'])
       const elementMenuBody = lab_design_system('div', "elementMenuBody", box, '', '', ['design', 'elementMenuBody'])
-      const menuSettings = ['general', 'bg', 'additional', 'effects', 'data']
-      const activeSettings = 'general'
+      const menuSettings = ['position', 'coloring', 'text', 'styles', 'data']
+      const activeSettings = 'position'
 
       menuSettings.forEach((e) => {
-        const btn = lab_design_system('button', Designer.ID(), elementMenuButtons, '', 'element-menu-btn', ['design', 'StyleBtn'])
+        const btn = lab_design_system('button', `${e}-tab-btn`, elementMenuButtons, '', 'element-menu-btn', ['design', 'StyleBtn'])
         btn.style.flex = '0 1 20%'
+        btn.style.display = 'flex'
+        btn.style.alignItems = 'center'
+        btn.style.justifyContent = 'center'
+
+        const btnIcon = lab_design_system('img', `${e}-tab-icon`, btn)
+        btnIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/${e}-icon.svg`)
+        btnIcon.style.position = 'relative'
+        btnIcon.style.width = 'auto'
+        btnIcon.style.height = '24px'
+
+        if (e == 'text') {
+          btnIcon.style.height = '28px'
+          btnIcon.style.bottom = '-2px'
+        }
+        if (e == 'styles') {
+          btnIcon.style.height = '32px'
+        }
+
+
         if (e == activeSettings) {
           btn.classList.add('active')
           btn.style.background = '#F7F7F7'
@@ -3937,227 +5239,23 @@ function design_mode(app) {
             let last = document.querySelector('.lab-element-menu-btn.active')
             last.classList.remove('active')
             last.style.background = '#E5E5E5'
-            StyleSection(e)
             btn.classList.add('active')
             btn.style.background = '#F7F7F7'
+            StyleSection(e)
           }
         })
       })
 
       function StyleSection(param) {
+        const userLSG = lab_local_storage_object('global')
+
         elementMenuBody.innerHTML = ''
-        if (param == 'general') {
-          const idInput = DesignConstructor.input(elementMenuBody, "#" + item.id, '#')
-          idInput.addEventListener('input', () => {
-            item.id = idInput.value.trim().replace('#', '')
-          })
-          if (item.classList.contains('lab-img-container')) {
-            const fileBox = lab_design_system('div', 'file-preview-box', elementMenuBody, '', '', ['design', 'fileBox'])
-            let image = item.querySelector('img')
-            const fileInput = lab_design_system('input', 'file-preview-input', fileBox, '', '', ['design', 'fileBoxInput'])
-            fileInput.style.opacity = 0
-            fileInput.setAttribute('type', 'file')
-            const preview = lab_design_system('img', 'file-preview', fileBox)
-            preview.style.width = '100%'
-            preview.style.height = '100%'
-            preview.style.objectFit = 'cover'
-            preview.style.zIndex = '3'
-            preview.style.pointerEvents = 'none'
-            preview.style.position = 'relative'
-            preview.setAttribute('src', image.src)
+        if (param == 'position') DesignConstructor.generalStyles(item, elementMenuBody)
 
-            fileInput.addEventListener('change', (i) => {
-              async function setSrc() {
-                await loadImg(Array.from(i.target.files)[0], [image, preview])
-              }
-              setSrc()
-            })
-
-            const srcWrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const fileSrc = lab_design_system('span', Designer.ID(), srcWrap, 'src')
-            fileSrc.style.marginRight = '10px'
-            let attrubuteInput = DesignConstructor.input(srcWrap, image.src)
-            attrubuteInput.addEventListener('input', () => {
-              image.setAttribute('src', attrubuteInput.value)
-            })
-
-            const objFit = DesignConstructor.dropList(elementMenuBody, ['cover', 'fill', 'contain', 'none', 'scale-down'], image.style.objectFit, (e) => Designer.WriteStyle(image, 'objectFit', e))
-
-            const horizontal = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const horizontalLabel = lab_design_system('span', Designer.ID(), horizontal, 'horizontal')
-            horizontalLabel.style.marginRight = '10px'
-            horizontalLabel.style.minWidth = '50%'
-            let imagePos = image.style.objectPosition.split(' ')
-
-            let horizontalInput = DesignConstructor.input(horizontal, imagePos[0].replace('%', ''), '%')
-            horizontalInput.setAttribute('type', 'number')
-            horizontalInput.addEventListener('input', () => {
-              image.style.objectPosition = horizontalInput.value + "% " + image.style.objectPosition.split(' ')[1]
-            })
-            const imgWidth = lab_design_system('div', 'image-width', elementMenuBody, '', '', ['design', 'styleBox'])
-            const imgWidthLabel = lab_design_system('span', 'image-width-label', imgWidth, 'width')
-            imgWidthLabel.style.marginRight = '10px'
-            imgWidthLabel.style.minWidth = '50%'
-
-            let imgWidthInput = DesignConstructor.input(imgWidth, image.style.width.replace("%", ''), '%')
-            imgWidthInput.setAttribute('type', 'number')
-            imgWidthInput.addEventListener('input', () => {
-              image.style.width = imgWidthInput.value + '%'
-            })
-
-            const imgHeight = lab_design_system('div', 'image-height', elementMenuBody, '', '', ['design', 'styleBox'])
-            const imgHeightLabel = lab_design_system('span', 'image-height-label', imgHeight, 'height')
-            imgHeightLabel.style.marginRight = '10px'
-            imgHeightLabel.style.minWidth = '50%'
-
-            let imgHeightInput = DesignConstructor.input(imgHeight, image.style.height.replace("%", ''), '%')
-            imgHeightInput.setAttribute('type', 'number')
-            imgHeightInput.addEventListener('input', () => {
-              image.style.height = imgHeightInput.value + '%'
-            })
-
-
-            const vertical = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-            const verticalLabel = lab_design_system('span', Designer.ID(), vertical, 'vertical')
-            verticalLabel.style.marginRight = '10px'
-            verticalLabel.style.minWidth = '50%'
-
-            let verticalInput = DesignConstructor.input(vertical, imagePos[1].replace('%', ''), '%')
-            verticalInput.setAttribute('type', 'number')
-
-            verticalInput.addEventListener('input', () => {
-              image.style.objectPosition = image.style.objectPosition.split(' ')[0] + " " + verticalInput.value + "%"
-            })
-
-
-            const aspect = lab_design_system('div', 'image-aspect', elementMenuBody, '', '', ['design', 'styleBox'])
-            const aspectLabel = lab_design_system('span', 'image-aspect-label', aspect, 'aspect-ratio')
-            aspectLabel.style.marginRight = '10px'
-            aspectLabel.style.minWidth = '50%'
-
-            let aspectInput = DesignConstructor.input(aspect, image.style.aspectRatio.split(' ')[0])
-            aspectInput.setAttribute('type', 'number')
-
-            aspectInput.addEventListener('input', () => {
-              image.style.aspectRatio = aspectInput.value
-            })
-
-          } else {
-            const tagList = ['div', 'section', 'p', 'span', 'a', 'button', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'form', 'input', 'ul', 'ol', 'li', 'font', 'i', 'strong', 'strike']
-            const tag = DesignConstructor.dropList(elementMenuBody, tagList, item.tagName, (e) => {
-              let newEl = document.createElement(e)
-              item.getAttributeNames().forEach(n => {
-                newEl.setAttribute(n, item.getAttribute(n))
-              })
-              newEl.innerHTML = item.innerHTML
-              item.replaceWith(newEl)
-              item = newEl
-            })
-          }
-
-          const settings = lab_design_system('div', "menu-style-settings", elementMenuBody, '', '', ['design', 'styleGrid'])
-          const display = DesignConstructor.dropList(settings, ['flex', 'inline', 'block'], item.style.display, (e) => Designer.WriteStyle(item, 'display', e))
-
-
-          const pos = DesignConstructor.dropList(settings, ['absolute', 'fixed', 'relative'], item.style.position, (e) => Designer.WriteStyle(item, 'position', e))
-
-          const sizeBox = lab_design_system('div', 'width-box', elementMenuBody, '', '', ['design', 'styleBox'])
-          sizeBox.style.gap = '20px'
-          const widthInput = DesignConstructor.input(sizeBox, item.style.width)
-          widthInput.placeholder = 'width'
-          widthInput.style.width = 'calc(50% - 10px)'
-          widthInput.addEventListener('input', () => {
-            item.style.width = widthInput.value
-          })
-
-          const heightInput = DesignConstructor.input(sizeBox, item.style.height)
-          heightInput.placeholder = 'height'
-          heightInput.style.width = 'calc(50% - 10px)'
-          heightInput.addEventListener('input', () => {
-            item.style.height = heightInput.value
-          })
-
-          const posBox = lab_design_system('div', "position-box", elementMenuBody, '', '', ['design', 'styleBox'])
-          posBox.style.gap = '20px'
-
-          const XBox = lab_design_system('div', 'x-box', posBox, '', '', ['design', 'styleBox'])
-          XBox.style.gap = '10px'
-
-          const XLabel = lab_design_system('span', 'x-label', XBox, 'x')
-          const XInput = DesignConstructor.input(XBox, item.style.left)
-          XInput.addEventListener('input', () => {
-            item.style.left = XInput.value
-          })
-
-          const YBox = lab_design_system('div', 'y-box', posBox, '', '', ['design', 'styleBox'])
-          YBox.style.gap = '10px'
-
-          const YLabel = lab_design_system('span', 'y-label', YBox, 'y')
-          const YInput = DesignConstructor.input(YBox, item.style.left)
-          YInput.addEventListener('input', () => {
-            item.style.top = YInput.value
-          })
-
-
-          const ZBox = lab_design_system('div', 'z-box', posBox, '', '', ['design', 'styleBox'])
-          ZBox.style.gap = '10px'
-
-          const ZLabel = lab_design_system('span', 'z-label', ZBox, 'z')
-          const ZInput = DesignConstructor.input(ZBox, item.style.zIndex)
-          ZInput.addEventListener('input', () => {
-            item.style.zIndex = ZInput.value
-          })
-
-          const padding = lab_design_system('span', Designer.ID(), elementMenuBody, 'padding')
-
-          const paddingBox = lab_design_system('div', "padding-box", elementMenuBody, '', '', ['design', 'grid-box'])
-          const margin = lab_design_system('span', Designer.ID(), elementMenuBody, 'margin')
-          const marginBox = lab_design_system('div', "margin-box", elementMenuBody, '', '', ['design', 'grid-box'])
-
-          const padList = ['top', 'right', 'bottom', 'left']
-
-          padList.forEach(e => {
-            const padInput = DesignConstructor.input(paddingBox, css[`padding-${e}`], '', '', { el: item, style: `padding${capitalizeFirstLetter(e)}` })
-          })
-
-          padList.forEach(e => {
-            const marInput = DesignConstructor.input(marginBox, css[`margin-${e}`], '', '', { el: item, style: `margin${capitalizeFirstLetter(e)}` })
-          })
-
-
-          item.getAttributeNames().forEach(n => {
-            if (!['style', 'id'].includes(n)) {
-              const wrap = lab_design_system('div', Designer.ID(), elementMenuBody, '', '', ['design', 'styleBox'])
-              const name = lab_design_system('span', Designer.ID(), wrap, n)
-              name.style.marginRight = '10px'
-              if (n != 'class') {
-                let attrubuteInput = DesignConstructor.input(wrap, item.getAttribute(n))
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              } else {
-                let attrubuteInput = DesignConstructor.input(wrap, '')
-                let systemClasses = ['lab-selectedItem', 'lab-active-element', 'lab-img-container']
-                let classes = String(item.getAttribute(n)).split(' ')
-
-                classes.forEach(e => {
-                  if (!systemClasses.includes(e)) {
-                    attrubuteInput.value += e + ' '
-                  }
-                })
-                attrubuteInput.addEventListener('input', () => {
-                  item.setAttribute(n, attrubuteInput.value)
-                })
-              }
-            }
-          })
-
-        }
-        if (param == 'bg') {
-
+        if (param == 'coloring') {
           const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody)
-          const backgroundColorLabel = lab_design_system('strong', 'background-color-label', colorSettings, 'background')
-          const backgroundTabs = lab_design_system('div', 'background-tabs', colorSettings)
+          const backgroundColorLabel = lab_design_system('strong', 'bg-color-label', colorSettings, 'background')
+          const backgroundTabs = lab_design_system('div', 'bg-tabs', colorSettings)
           backgroundTabs.style.display = 'flex'
           backgroundTabs.style.justifyContent = 'space-between'
           backgroundTabs.style.gap = '5px'
@@ -4166,7 +5264,7 @@ function design_mode(app) {
           backgroundTabs.style.margin = '10px 0 5px 0'
           backgroundTabs.style.padding = '5px'
 
-          const backgroundBox = lab_design_system('div', 'background-box', colorSettings)
+          const backgroundBox = lab_design_system('div', 'bg-box', colorSettings)
           backgroundBox.style.display = 'flex'
           backgroundBox.style.flexDirection = 'column'
           backgroundBox.style.gap = '10px'
@@ -4175,7 +5273,7 @@ function design_mode(app) {
           const bgTabs = ['color', 'gradient', 'image']
 
           bgTabs.forEach(e => {
-            const bgButton = lab_design_system('div', `background-tabs-${e}`, backgroundTabs, e)
+            const bgButton = lab_design_system('div', `bg-tabs-${e}`, backgroundTabs, e)
             bgButton.style.width = '30%'
             bgButton.style.textAlign = 'center'
             bgButton.style.fontWeight = '600'
@@ -4187,7 +5285,7 @@ function design_mode(app) {
           })
 
           function ColorTabs(tab = 'color') {
-            let btn = document.getElementById(`lab-background-tabs-${tab}`)
+            let btn = document.getElementById(`lab-bg-tabs-${tab}`)
             let last = document.querySelector('.lab-color-tab-btn-active')
             if (last) {
               last.style.backgroundColor = 'transparent'
@@ -4211,7 +5309,6 @@ function design_mode(app) {
               else {
                 colorBgPoints = String(item.style.backgroundColor).split('(')[1].slice(0, -1).split(',')
               }
-
               if (colorBgPoints.length == 3) {
                 colorBgPoints[3] = '1'
               }
@@ -4227,7 +5324,7 @@ function design_mode(app) {
               colorInputBox.style.alignItems = 'center'
               colorInputBox.style.gap = '5px'
 
-              const colorInput = lab_design_system('input', "input-bg-color", colorInputBox, '', '', ['design', 'colorInput'])
+              const colorInput = lab_design_system('input', "input-bg-color", colorInputBox, '', 'color-input', ['design', 'colorInput'])
               colorInput.style.width = '25px'
               colorInput.style.height = '25px'
               colorInput.style.margin = '0'
@@ -4271,7 +5368,7 @@ function design_mode(app) {
 
               opacityInput.setAttribute('value', Number(colorBgPoints[3]) * 100)
 
-              opacityInput.addEventListener('change', () => {
+              opacityInput.addEventListener('input', () => {
                 item.style.background = `rgba(${colorBgPoints[0]}, ${colorBgPoints[1]}, ${colorBgPoints[2]}, ${opacityInput.value / 100})`
                 colorBgPoints[3] = opacityInput.value / 100
               })
@@ -4411,7 +5508,7 @@ function design_mode(app) {
                     angleBox.style.alignItems = 'center'
 
                     gradientTabs.after(angleBox)
-                    const angle = lab_design_system('input', `angle-range`, angleBox)
+                    const angle = lab_design_system('input', `angle-range`, angleBox, '', 'styled-input')
                     angle.setAttribute('type', 'range')
                     angle.setAttribute('max', '360')
                     angle.setAttribute('min', '-360')
@@ -4490,7 +5587,7 @@ function design_mode(app) {
                 colorInputBox.style.alignItems = 'center'
                 colorInputBox.style.gap = '5px'
 
-                const colorInput = lab_design_system('input', `input-bg-color-${id}`, colorInputBox, '', '', ['design', 'colorInput'])
+                const colorInput = lab_design_system('input', `input-bg-color-${id}`, colorInputBox, '', 'color-input', ['design', 'colorInput'])
                 colorInput.style.width = '25px'
                 colorInput.style.height = '25px'
                 colorInput.style.margin = '0'
@@ -4500,7 +5597,7 @@ function design_mode(app) {
 
                 colors[id] = '#fed05e'
 
-                colorInput.addEventListener('change', () => {
+                colorInput.addEventListener('input', () => {
                   colors[id] = colorInput.value
                   writeColor()
                 })
@@ -4543,15 +5640,18 @@ function design_mode(app) {
           const xOffsetBox = lab_design_system('span', 'x-offset-box', elementMenuBody)
           xOffsetBox.style.display = 'flex'
           xOffsetBox.style.gap = '10px'
+          xOffsetBox.style.alignItems = 'center'
 
-          const xOffsetInput = lab_design_system('input', `x-offset-range`, xOffsetBox)
+          const xOffsetInput = lab_design_system('input', `x-offset-range`, xOffsetBox, '', 'styled-input')
           xOffsetInput.setAttribute('type', 'range')
           xOffsetInput.setAttribute('max', '100')
           xOffsetInput.setAttribute('min', '-100')
           xOffsetInput.setAttribute('value', 0)
           xOffsetInput.style.width = '100%'
 
-          const xOffsetVal = lab_design_system('span', `x-offset-value`, xOffsetBox, `0`)
+          const xOffsetVal = lab_design_system('p', `x-offset-value`, xOffsetBox, `0`)
+          xOffsetVal.style.minWidth = '50px'
+          xOffsetVal.style.margin = '0'
 
           xOffsetInput.addEventListener('input', () => {
             xOffsetVal.innerHTML = xOffsetInput.value + 'px'
@@ -4563,15 +5663,18 @@ function design_mode(app) {
           const yOffsetBox = lab_design_system('span', 'y-offset-box', elementMenuBody)
           yOffsetBox.style.display = 'flex'
           yOffsetBox.style.gap = '10px'
+          yOffsetBox.style.alignItems = 'center'
 
-          const yOffsetInput = lab_design_system('input', `y-offset-range`, yOffsetBox)
+          const yOffsetInput = lab_design_system('input', `y-offset-range`, yOffsetBox, '', 'styled-input')
           yOffsetInput.setAttribute('type', 'range')
           yOffsetInput.setAttribute('max', '100')
           yOffsetInput.setAttribute('min', '-100')
           yOffsetInput.setAttribute('value', 0)
           yOffsetInput.style.width = '100%'
 
-          const yOffsetVal = lab_design_system('span', `y-offset-value`, yOffsetBox, `0`)
+          const yOffsetVal = lab_design_system('p', `y-offset-value`, yOffsetBox, `0`)
+          yOffsetVal.style.minWidth = '50px'
+          yOffsetVal.style.margin = '0'
 
           yOffsetInput.addEventListener('input', () => {
             yOffsetVal.innerHTML = yOffsetInput.value + 'px'
@@ -4583,15 +5686,18 @@ function design_mode(app) {
           const blurBox = lab_design_system('span', 'blur-shadow-box', elementMenuBody)
           blurBox.style.display = 'flex'
           blurBox.style.gap = '10px'
+          blurBox.style.alignItems = 'center'
 
-          const blurInput = lab_design_system('input', `blur-shadow-range`, blurBox)
+          const blurInput = lab_design_system('input', `blur-shadow-range`, blurBox, '', 'styled-input')
           blurInput.setAttribute('type', 'range')
           blurInput.setAttribute('max', '100')
           blurInput.setAttribute('min', '-100')
           blurInput.setAttribute('value', 0)
           blurInput.style.width = '100%'
 
-          const blurVal = lab_design_system('span', `blur-shadow-value`, blurBox, `0`)
+          const blurVal = lab_design_system('p', `blur-shadow-value`, blurBox, `0`)
+          blurVal.style.minWidth = '50px'
+          blurVal.style.margin = '0'
 
           blurInput.addEventListener('input', () => {
             blurVal.innerHTML = blurInput.value + 'px'
@@ -4604,15 +5710,18 @@ function design_mode(app) {
           const stretcBox = lab_design_system('span', 'stretc-shadow-box', elementMenuBody)
           stretcBox.style.display = 'flex'
           stretcBox.style.gap = '10px'
+          stretcBox.style.alignItems = 'center'
 
-          const stretcInput = lab_design_system('input', `stretc-shadow-range`, stretcBox)
+          const stretcInput = lab_design_system('input', `stretc-shadow-range`, stretcBox, '', 'styled-input')
           stretcInput.setAttribute('type', 'range')
           stretcInput.setAttribute('max', '100')
           stretcInput.setAttribute('min', '-100')
           stretcInput.setAttribute('value', 0)
           stretcInput.style.width = '100%'
 
-          const stretcVal = lab_design_system('span', `stretc-shadow-value`, stretcBox, `0`)
+          const stretcVal = lab_design_system('p', `stretc-shadow-value`, stretcBox, `0`)
+          stretcVal.style.minWidth = '50px'
+          stretcVal.style.margin = '0'
 
           stretcInput.addEventListener('input', () => {
             shadows[3] = stretcInput.value
@@ -4627,7 +5736,7 @@ function design_mode(app) {
           shadowColorBox.style.border = 'none'
           shadowColorBox.style.justifyContent = 'space-between'
 
-          const shadowColorInput = lab_design_system('input', `shadow-color-range`, shadowColorBox)
+          const shadowColorInput = lab_design_system('input', `shadow-color-range`, shadowColorBox, '', 'color-input')
           shadowColorInput.setAttribute('type', 'color')
 
           shadowColorInput.addEventListener('input', () => {
@@ -4643,23 +5752,23 @@ function design_mode(app) {
           const borderBottomRigth = DesignConstructor.input(borderGrid, item.style.borderBottomRightRadius, '', '', { el: item, style: `borderBottomRightRadius` })
           const borderBottomLEft = DesignConstructor.input(borderGrid, item.style.borderBottomLeftRadius, '', '', { el: item, style: `borderBottomLeftRadius` })
 
-          const borderColorBox = lab_design_system('div', 'color-border-box', elementMenuBody,)
+          const borderColorBox = lab_design_system('div', 'color-border-box', elementMenuBody)
           const borderColor = lab_design_system('span', 'color-border', borderColorBox, 'Border-color')
           borderColorBox.style.display = 'flex'
           borderColorBox.style.gap = '10px'
           borderColorBox.style.border = 'none'
           borderColorBox.style.justifyContent = 'space-between'
 
-          const borderColorInput = lab_design_system('input', `border-color-range`, borderColorBox)
+          const borderColorInput = lab_design_system('input', `border-color-range`, borderColorBox, '', 'color-input')
           borderColorInput.setAttribute('type', 'color')
 
           borderColorInput.addEventListener('input', () => {
             item.style.borderColor = borderColorInput.value
           })
 
-
         }
-        if (param == 'additional') {
+
+        if (param == 'text') {
           const fontFamily = DesignConstructor.dropList(elementMenuBody, ['Arial', 'Arial2', 'Arial3'], css['font-family'], (e) => Designer.WriteStyle(item, 'fontFamily', e))
 
           const fontSettings = lab_design_system('div', "fontSettings", elementMenuBody, '', '', ['design', 'styleGrid'])
@@ -4690,12 +5799,131 @@ function design_mode(app) {
 
           const colorSettings = lab_design_system('div', "colorSettings", elementMenuBody, '', '', ['design', 'styleBox'])
           const textColor = lab_design_system('span', "text-color", colorSettings, 'Text color')
-          const textColorInput = lab_design_system('input', "input-text-color", colorSettings, '', '', ['design', 'colorInput'])
+          const textColorInput = lab_design_system('input', "input-text-color", colorSettings, '', 'color-input', ['design', 'colorInput'])
           textColorInput.setAttribute('type', 'color')
           textColorInput.setAttribute('value', css['color'])
           textColorInput.addEventListener('input', () => {
             Designer.WriteStyle(item, 'color', textColorInput.value)
           })
+        }
+
+        if (param == 'styles') {
+          let cssText = ''
+          let tempCSS = document.getElementById('lab-temp-css')
+
+          const cssLabel = lab_design_system('strong', "css-label", elementMenuBody, 'CSS')
+          const cssBox = lab_design_system('strong', "css-box", elementMenuBody, '', 'scrollable')
+          cssBox.setAttribute('contenteditable', true)
+          cssBox.style.borderRadius = '25px'
+          cssBox.style.outline = 'none'
+          cssBox.style.minHeight = '130px'
+          cssBox.style.background = '#F7F7F7'
+          cssBox.style.padding = '20px'
+          cssBox.style.overflowY = 'scroll'
+
+          socket.emit(`askCSSFile`, userLSG, e => {
+            if (e.success) {
+              cssText = e.data
+              let formatedItemCss = ''
+              let itemClass = item.className.split(' ').find(p => cssText.includes(`.${p}`))
+
+              let checkId = false
+              let checkClass = false
+
+              function searchStyle() {
+
+                checkId = cssText.includes(`#${item.id} `) || cssText.includes(`#${item.id}{`) || cssText.includes(`#${item.id}:`)
+                checkClass = cssText.includes(`.${itemClass}`)
+
+                if (!checkId && !checkClass) return
+
+                if (checkId) {
+                  let a = cssText.indexOf(`#${item.id} `)
+                  let b = cssText.indexOf(`#${item.id}{`)
+                  let c = cssText.indexOf(`#${item.id}:`)
+
+                  let startValue = (a > -1 ? a : null) || (b > -1 ? b : null) || (c > -1 ? c : null)
+
+                  let sctyleStr = cssText.substring(
+                    startValue,
+                    cssText.indexOf("}", startValue) + 1
+                  )
+
+                  cssText = cssText.substring(0, startValue) + cssText.substring(cssText.indexOf("}", startValue) + 1);
+
+                  formatedItemCss += sctyleStr
+                }
+
+                if (checkClass) {
+                  let a = cssText.indexOf(`.${itemClass} `)
+                  let b = cssText.indexOf(`.${itemClass}{`)
+                  let c = cssText.indexOf(`.${itemClass}:`)
+                  let startValue = (a > -1 ? a : null) || (b > -1 ? b : null) || (c > -1 ? c : null)
+
+                  if (startValue == -1) checkClass = false
+
+                  let styleStr = cssText.substring(
+                    startValue,
+                    cssText.indexOf("}", startValue) + 1
+                  )
+
+                  cssText = cssText.substring(0, startValue) + cssText.substring(cssText.indexOf("}", startValue) + 1);
+
+                  formatedItemCss += styleStr
+                }
+                searchStyle()
+              }
+              searchStyle()
+
+              let text = formatedItemCss.replaceAll('{', '{<br>').replaceAll('}', '<br>}<br>')
+              let textArray = text.split('<br>')
+              let newCssString = ''
+              textArray.forEach((p, index) => {
+                if (!p.includes('{') && !p.includes('}')) {
+                  textArray[index] = `    ${p}<br>`
+                } else {
+                  textArray[index] = p + '<br>'
+                }
+                newCssString += textArray[index]
+              })
+
+              cssBox.innerHTML = newCssString
+            }
+          })
+
+          cssBox.addEventListener('input', () => {
+            let boxText = cssBox.innerHTML
+
+            tempCSS.innerHTML += cssBox.innerHTML.replaceAll('<br>', '')
+            let checkId = boxText.includes(`#${item.id} `) || boxText.includes(`#${item.id}{`)
+            let checkClass = item.className.split(' ').find(p => boxText.includes(`.${p} ` || boxText.includes(`.${p}{`)))
+
+            if (checkId || checkClass) {
+              if (checkId) {
+                let startValue = cssText.indexOf(`#${item.id} `) || cssText.indexOf(`#${item.id}{`) || cssText.indexOf(`#${item.id}:`)
+
+                let sctyleStr = cssText.substring(
+                  startValue,
+                  cssText.indexOf("}", startValue) + 1
+                )
+                cssText.replace(sctyleStr, '')
+              }
+
+              if (checkClass) {
+                let startValue = cssText.indexOf(`.${checkClass} `) || cssText.indexOf(`.${checkClass}{`) || cssText.indexOf(`.${checkClass}:`)
+
+                let sctyleStr = cssText.substring(
+                  startValue,
+                  cssText.indexOf("}", startValue) + 1
+                )
+                cssText.replace(sctyleStr, '')
+              }
+            }
+
+            userLSG.string = cssBox.innerHTML.replaceAll('<br>', '')
+            socket.emit('saveCSS', userLSG)
+          })
+
         }
         lab_fade_in_recursively(elementMenuBody, 0.2)
       }
@@ -4703,6 +5931,11 @@ function design_mode(app) {
       lab_fade_in_recursively(box, 0.3)
     }
   }
+
+  const TempCss = lab_design_system('style', 'temp-css', document.querySelector('body'))
+  TempCss.position = 'absolute'
+  TempCss.left = '-999999999999px'
+  TempCss.top = '-999999999999px'
 }
 
 function selectTool(toolName) {
@@ -4789,7 +6022,6 @@ function mode(modeName) {
         area.style.opacity = ''
 
         page.addEventListener('mouseup', CreateEl)
-
       }
       page.addEventListener('mousedown', start)
     }
@@ -4815,7 +6047,7 @@ function mode(modeName) {
       mouse = false
       startCoords = null
       if (modeName == 'text') {
-        const item = await Designer.create(elementsToolsList, types[modeName], page, 'LANDSCAPE', true)
+        const item = await CreateComponent(elementsToolsList.span, page, 'LANDSCAPE', true)
         item.style.position = 'absolute'
         item.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
         item.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
@@ -4833,8 +6065,8 @@ function mode(modeName) {
             const itemBox = document.createElement('div')
             itemBox.classList.add('lab-img-container')
             itemBox.id = Designer.ID()
+            const item = await CreateComponent(elementsToolsList.img, itemBox, 'LANDSCAPE', true)
 
-            const item = await Designer.create(elementsToolsList, types[modeName], itemBox, 'LANDSCAPE', true)
             itemBox.style.position = 'absolute'
             itemBox.style.top = (areaPos.y - pagePos.y) / pagePos.height * 100 + '%'
             itemBox.style.left = (areaPos.x - pagePos.x) / pagePos.width * 100 + '%'
@@ -4857,9 +6089,9 @@ function mode(modeName) {
             input.removeEventListener('change', IMG)
           }
         }
-
         input.addEventListener('change', IMG)
       }
+
       area.remove()
     }
   }
@@ -4916,6 +6148,8 @@ async function loadImg(i, items) {
 
 
 return design_mode
+
+
 
 
 
