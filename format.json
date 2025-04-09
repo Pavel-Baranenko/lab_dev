@@ -1,0 +1,94 @@
+{
+  "buttons": [
+    {
+      "LANDSCAPE": {
+        "id": "lab-button",
+        "tag": "button",
+        "root": true,
+        "classes": "right-angles",
+        "text": "Write here",
+        "styles": {
+          "backgroundColor": "rgb(37, 37, 37)",
+          "padding": "0 16px",
+          "height": "40px",
+          "border": "none",
+          "whiteSpace": "nowrap",
+          "fontFamily": "system-ui",
+          "fontSize": "clamp(1rem, 1.5svw, 16px)",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "inline",
+          "width": "fit-content",
+          "position": "relative"
+        }
+      },
+      "PORTRAIT": {
+        "id": "lab-button",
+        "tag": "button",
+        "root": true,
+        "classes": "right-angles",
+        "text": "Write here",
+        "styles": {
+          "backgroundColor": "rgb(37, 37, 37)",
+          "padding": "0 16px",
+          "height": "40px",
+          "border": "none",
+          "fontFamily": "system-ui",
+          "fontSize": "clamp(1rem, 1.5svw, 16px)",
+          "whiteSpace": "nowrap",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "inline",
+          "width": "fit-content",
+          "position": "relative"
+        }
+      }
+    },
+    {
+      "template": {
+        "LANDSCAPE": {
+          "id": "rounded-corners",
+          "tag": "button",
+          "root": true,
+          "classes": "rounded-corners",
+          "text": "Write here",
+          "styles": {
+            "backgroundColor": "rgb(37, 37, 37)",
+            "padding": "0 16px",
+            "whiteSpace": "nowrap",
+            "height": "40px",
+            "border": "none",
+            "fontFamily": "system-ui",
+            "fontSize": "clamp(1rem, 1.5svw, 16px)",
+            "color": "#fff",
+            "cursor": "pointer",
+            "display": "inline",
+            "width": "fit-content",
+            "borderRadius": "20px",
+            "position": "relative"
+          }
+        },
+        "PORTRAIT": {
+          "id": "lab-button",
+          "tag": "button",
+          "root": true,
+          "classes": "right-angles",
+          "text": "Write here",
+          "styles": {
+            "backgroundColor": "rgb(37, 37, 37)",
+            "padding": "0 16px",
+            "height": "40px",
+            "border": "none",
+            "fontFamily": "system-ui",
+            "fontSize": "clamp(1rem, 1.5svw, 16px)",
+            "color": "#fff",
+            "whiteSpace": "nowrap",
+            "cursor": "pointer",
+            "borderRadius": "20px",
+            "display": "inline",
+            "width": "fit-content",
+            "position": "relative"
+          }
+        }
+      }
+    },
