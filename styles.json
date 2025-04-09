@@ -1785,7 +1785,7 @@
       "default": {
         "position": "absolute",
         "top": 0,
-        "left": "-63px",
+        "left": "-1px",
         "border": "none",
         "cursor": "pointer",
         "width": "62px",
@@ -1796,11 +1796,6 @@
         "borderRadius": "30px 0px 30px 30px",
         "opacity": "0px",
         "backgroundColor": "#FED05E"
-      }
-    },
-    "codeBoxShowActive": {
-      "default": {
-        "left": "-1px"
       }
     },
     "codeWrapper": {

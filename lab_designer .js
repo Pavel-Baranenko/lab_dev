@@ -1,5 +1,4 @@
-// let oldSrc = 'https://laboranth.tech/D/R/IMG/CLA/'
-let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
+
 
 let ComponentsList = {
   free: {
@@ -149,29 +148,7 @@ let ComponentsList = {
         },
       ]
     },
-    'input': {
-
-      //       1) Text
-      // 2) Checkbox
-      // 3) Radio
-      // 4) Select
-      // 4) Color
-      // date
-      // email
-      // file
-      // number
-      // password
-      // range
-      // time
-
-
-      // 1) Sign in (eye) UI
-      // 2) Log in UI
-      // 3) Contact UI
-
-
-
-
+    input: {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
       'title': "input",
       'components': [
@@ -207,6 +184,10 @@ let ComponentsList = {
                 'border': "none",
                 'outline': "none",
                 'position': "relative"
+              },
+              attributes: {
+                type: "text",
+                placeholder: "text"
               }
             },
           }
@@ -272,11 +253,415 @@ let ComponentsList = {
               }
             },
           }
-        }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "text",
+                name: "email",
+                placeholder: "Email"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "text",
+                name: "email",
+                placeholder: "Email"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "number",
+                placeholder: "Number"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "number",
+                placeholder: "Number"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "password",
+                placeholder: "Password"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              'styles': {
+                'background': '#FFFFFF',
+                'padding': '10px 20px',
+                'borderRadius': "10px",
+                'border': "none",
+                'outline': "none",
+                'position': "relative"
+              },
+              attributes: {
+                type: "password",
+                placeholder: "Password"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "radio"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "radio"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "checkbox"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "checkbox"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "date"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "date"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "time"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "time"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "time"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "time"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "range"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-empty-input",
+              'root': true,
+              attributes: {
+                type: "range"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-color-input",
+              'root': true,
+              attributes: {
+                type: "color"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-color-input",
+              'root': true,
+              attributes: {
+                type: "color"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-color-input",
+              'root': true,
+              attributes: {
+                type: "file"
+              }
+            },
+            'PORTRAIT': {
+              'id': "lab-input",
+              'tag': "input",
+              'classes': "lab-color-input",
+              'root': true,
+              attributes: {
+                type: "file"
+              }
+            },
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-select",
+              'tag': "select",
+              'classes': "lab-select",
+              'root': true,
+              attributes: {
+                name: "select"
+              },
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option1'
+                    },
+                    text: "Option"
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option1'
+                    },
+                    text: "Option"
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option2'
+                    },
+                    text: "Extreme long option"
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option2'
+                    },
+                    text: "Extreme long option"
+                  }
+                }
+              ]
+            },
+            'PORTRAIT': {
+              'id': "lab-select",
+              'tag': "select",
+              'classes': "lab-select",
+              'root': true,
+              attributes: {
+                name: "select"
+              },
+              child: [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option1'
+                    },
+                    text: "Option"
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option1'
+                    },
+                    text: "Option"
+                  }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option2'
+                    },
+                    text: "Extreme long option"
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-option",
+                    'tag': "option",
+                    'classes': "lab-option",
+                    attributes: {
+                      value: 'option2'
+                    },
+                    text: "Extreme long option"
+                  }
+                },
+              ]
+            },
+          }
+        },
       ]
 
     },
-    'form': {
+    form: {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/form.svg`,
       'title': "form",
       'components': [
@@ -287,13 +672,14 @@ let ComponentsList = {
               'tag': "form",
               'root': true,
               'styles': {
-                'padding': '15px',
+                'maxWidth': '30svw',
+                width: "100%",
                 'positon': "relative",
-                'borderRadius': "15px",
+                'borderRadius': "0px 0px 50px 50px",
                 'display': "flex",
                 'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
+                'gap': "16px",
+                'background': "rgb(37, 37, 37)",
                 'boxSizing': "border-box",
                 'position': "relative",
                 'zIndex': 1,
@@ -302,747 +688,1087 @@ let ComponentsList = {
               'child': [
                 {
                   'LANDSCAPE': {
-                    'id': "lab-div-h6",
-                    'tag': "h6",
+                    'id': "lab-h3",
+                    'tag': "h3",
                     'styles': {
-                      'padding': '10px',
-                      margin: '0 0 5px 0',
-                      'border': "none",
-                      fontSize: "28px",
                       'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box"
+                      width: '100%',
+                      color: '#fff',
+                      fontWeight: 'normal',
+                      textAlign: "center",
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
                     },
-                    text: "Sign in"
+                    text: "Create your account"
+                  },
+                  'PORTRAIT': {
+                    'id': "lab-h3",
+                    'tag': "h3",
+                    'styles': {
+                      'positon': "relative",
+                      width: '100%',
+                      color: '#fff',
+                      fontWeight: 'normal',
+                      textAlign: "center",
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
+                    },
+                    text: "Create your account"
                   }
                 },
                 {
                   'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
-                      'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
-                    },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Sign in'
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
-              ]
-            },
-            'PORTRAIT': {
-              'id': "lab-form",
-              'tag': "form",
-              'root': true,
-              'styles': {
-                'padding': '15px',
-                'borderRadius': "15px",
-                'display': "flex",
-                'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
-                'boxSizing': "border-box",
-                'position': "relative",
-                'zIndex': 1,
-                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-              },
-              'child': [
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
-                      'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
-                    },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Button'
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          'template': {
-            'LANDSCAPE': {
-              'id': "lab-form",
-              'tag': "form",
-              'root': true,
-              'styles': {
-                'padding': '15px',
-                'positon': "relative",
-                'borderRadius': "15px",
-                'display': "flex",
-                'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
-                'boxSizing': "border-box",
-                'position': "relative",
-                'zIndex': 1,
-                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-              },
-              'child': [
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-h6",
-                    'tag': "h6",
-                    'styles': {
-                      'padding': '10px',
-                      margin: '0 0 5px 0',
-                      'border': "none",
-                      fontSize: "28px",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box"
-                    },
-                    text: "Log in"
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
-                      'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
-                    },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Login'
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
-              ]
-            },
-            'PORTRAIT': {
-              'id': "lab-form",
-              'tag': "form",
-              'root': true,
-              'styles': {
-                'padding': '15px',
-                'borderRadius': "15px",
-                'display': "flex",
-                'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
-                'boxSizing': "border-box",
-                'position': "relative",
-                'zIndex': 1,
-                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-              },
-              'child': [
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
-                      'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
-                    },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Button'
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
-              ]
-            }
-          }
-        },
-
-        {
-          'template': {
-            'LANDSCAPE': {
-              'id': "lab-form",
-              'tag': "form",
-              'root': true,
-              'styles': {
-                'padding': '15px',
-                'positon': "relative",
-                'borderRadius': "15px",
-                'display': "flex",
-                'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
-                'boxSizing': "border-box",
-                'position': "relative",
-                'zIndex': 1,
-                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
-              },
-              'child': [
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-h6",
-                    'tag': "h6",
-                    'styles': {
-                      'padding': '10px',
-                      margin: '0 0 5px 0',
-                      'border': "none",
-                      fontSize: "28px",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box"
-                    },
-                    text: "Contact"
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
-                      'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
-                    },
-                  },
-                  'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
-                    'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
-                    },
-                  }
-                },
-                {
-                  'LANDSCAPE': {
-                    'id': "lab-div-wrap",
+                    'id': "lab-div",
                     'tag': "div",
                     'styles': {
-                      display: 'flex',
-                      gap: '10px',
-                      'border': "none",
-                      'width': "100%",
                       'positon': "relative",
-                      'boxSizing': "border-box",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid white'
                     },
                     child: [
                       {
                         'LANDSCAPE': {
-                          'id': "lab-div-checkbox",
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your name"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your name"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "name",
+                            placeholder: "Name"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "name",
+                            placeholder: "Name"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid white'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "email",
+                            placeholder: "email"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "email",
+                            placeholder: "email"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid white'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Choose your password"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Choose your password"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid white'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Repeat your password"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: 'white',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Repeat your password"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      gap: '8px',
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
                           'tag': "input",
                           attributes: {
-                            type: 'checkbox',
-                            name: "confirmation-checkbox"
+                            type: "checkbox",
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          attributes: {
+                            type: "checkbox",
                           }
                         }
                       },
                       {
                         'LANDSCAPE': {
-                          'id': "lab-div-text",
-                          'tag': "span",
-                          text: "Confirm privacy policy",
-                          attributes: {
-                            for: 'confirmation-checkbox'
-                          }
+                          'id': "lab-label",
+                          'tag': "label",
+                          styles: {
+                            color: "#fff",
+                          },
+                          text: "I agree all statements in Terms of service"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          styles: {
+                            color: "#fff",
+                          },
+                          text: "I agree all statements in Terms of service"
                         }
                       },
                     ]
-                  }
+                  },
                 },
                 {
                   'LANDSCAPE': {
-                    'id': "lab-button",
-                    'tag': "button",
+                    'id': "lab-div",
+                    'tag': "div",
                     'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
+                      position: 'relative',
+                      display: 'flex',
+                      top: '0svh',
+                      left: '50%',
+                      transform: ' translateX(-50%)',
+                      backgroundColor: 'white',
+                      opacity: 1,
+                      width: 'fit-content',
+                      whiteSpace: 'nowrap',
+                      height: '40px',
+                      padding: '0px 16px',
+                      border: 'none',
+                      borderRadius: '20px',
+                      color: 'rgb(37, 37, 37)',
+                      cursor: 'pointer',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      fontFamily: 'system-ui',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '16px',
                     },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Send'
+                    text: "Sign up"
                   },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
+                },
               ]
-            },
-            'PORTRAIT': {
+            }
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
               'id': "lab-form",
               'tag': "form",
               'root': true,
               'styles': {
-                'padding': '15px',
-                'borderRadius': "15px",
+                'maxWidth': '30svw',
+                width: "100%",
+                'positon': "relative",
+                'borderRadius': "0px 0px 50px 50px",
                 'display': "flex",
+                boxShadow: 'rgba(128, 128, 128, 0.4) 5px 5px 5px 0px',
                 'flexDirection': "column",
-                'gap': "10px",
-                'background': "#FFFFFF",
+                'gap': "16px",
+                'background': "#fff",
                 'boxSizing': "border-box",
                 'position': "relative",
                 'zIndex': 1,
-                'boxShadow': '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
               },
               'child': [
                 {
                   'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
+                    'id': "lab-h3",
+                    'tag': "h3",
                     'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
                       'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
+                      width: '100%',
+                      color: '#000',
+                      fontWeight: 'normal',
+                      textAlign: "center",
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
                     },
+                    text: "Member Login"
                   },
                   'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
+                    'id': "lab-h3",
+                    'tag': "h3",
                     'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
                       'positon': "relative",
-                      'width': "100%",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
+                      width: '100%',
+                      color: '#000',
+                      fontWeight: 'normal',
+                      textAlign: "center",
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
                     },
+                    text: "Member Login"
                   }
                 },
                 {
                   'LANDSCAPE': {
-                    'id': "lab-div-input",
-                    'tag': "input",
+                    'id': "lab-div",
+                    'tag': "div",
                     'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'width': "100%",
                       'positon': "relative",
-                      'boxSizing': "border-box",
-                      'background': "#EFEFEF"
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid #000'
                     },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "email",
+                            placeholder: "email"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "email",
+                            placeholder: "email"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      width: '80%',
+                      left: '10%',
+                      height: '15%',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                      borderBottom: '1px solid #000'
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Choose your password"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            height: '30%',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Choose your password"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: 'transparent',
+                            border: "none",
+                            outline: 'none'
+                          },
+                          attributes: {
+                            name: "password",
+                            placeholder: "Password"
+                          }
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      position: 'relative',
+                      display: 'flex',
+                      top: '0svh',
+                      left: '50%',
+                      transform: ' translateX(-50%)',
+                      backgroundColor: 'rgb(37, 37, 37)',
+                      opacity: 1,
+                      width: 'fit-content',
+                      whiteSpace: 'nowrap',
+                      height: '40px',
+                      padding: '0px 16px',
+                      border: 'none',
+                      borderRadius: '20px',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      fontFamily: 'system-ui',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '16px',
+                    },
+                    text: "Login"
+                  },
+                },
+              ]
+            }
+          }
+        },
+        {
+          'template': {
+            'LANDSCAPE': {
+              'id': "lab-form",
+              'tag': "form",
+              'root': true,
+              'styles': {
+                'maxWidth': '25svw',
+                width: "100%",
+                padding: '20px',
+                'positon': "relative",
+                'borderRadius': "8px",
+                'display': "flex",
+                boxShadow: 'rgba(37, 37, 37, 0.2) 0px 0px 10px',
+                'flexDirection': "column",
+                'gap': "8px",
+                'background': "rgb(239, 239, 239)",
+                'boxSizing': "border-box",
+                'position': "relative",
+                'zIndex': 1,
+              },
+              'child': [
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-h3",
+                    'tag': "h3",
+                    'styles': {
+                      'positon': "relative",
+                      width: '100%',
+                      color: '#000',
+                      fontWeight: 'normal',
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
+                    },
+                    text: "Get in touch!"
                   },
                   'PORTRAIT': {
-                    'id': "lab-div-input",
-                    'tag': "input",
+                    'id': "lab-h3",
+                    'tag': "h3",
                     'styles': {
-                      'padding': '10px',
-                      'borderRadius': "10px",
-                      'border': "none",
-                      'boxSizing': "border-box",
                       'positon': "relative",
-                      'width': "100%",
-                      'background': "#EFEFEF"
+                      width: '100%',
+                      color: '#000',
+                      fontWeight: 'normal',
+                      margin: 0,
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(2rem, 3svw, 32px)',
                     },
+                    text: "Get in touch!"
                   }
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Your email"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: '#fff',
+                            border: "none",
+                            outline: 'none',
+                            width: '100%',
+                            borderRadius: '5px',
+                            color: "#000"
+                          }
+                        },
+                        attributes: {
+                          name: "name",
+                          placeholder: "Enter your full name"
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Email Address"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Email Address"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "input",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: '#fff',
+                            border: "none",
+                            outline: 'none',
+                            width: '100%',
+                            borderRadius: '5px',
+                            color: "#000"
+                          }
+                        },
+                        attributes: {
+                          name: "email",
+                          placeholder: "Enter your email address"
+                        }
+                      },
+                    ]
+                  },
+                },
+                {
+                  'LANDSCAPE': {
+                    'id': "lab-div",
+                    'tag': "div",
+                    'styles': {
+                      'positon': "relative",
+                      display: 'flex',
+                      opacity: 1,
+                      margin: '0px',
+                      fontWeight: 'normal',
+                      fontFamily: 'system-ui',
+                      fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: '8px',
+                    },
+                    child: [
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Message"
+                        },
+                        'PORTRAIT': {
+                          'id': "lab-label",
+                          'tag': "label",
+                          'styles': {
+                            position: 'relative',
+                            display: 'flex',
+                            color: '#000',
+                            opacity: 1,
+                            margin: '0px',
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(1rem, 1.5svw, 16px)',
+                          },
+                          text: "Message"
+                        },
+                      },
+                      {
+                        'LANDSCAPE': {
+                          'id': "lab-input",
+                          'tag': "textarea",
+                          'styles': {
+                            position: 'relative',
+                            opacity: 1,
+                            fontWeight: 'normal',
+                            fontFamily: 'system-ui',
+                            fontSize: 'clamp(0.8rem, 1.3svw, 14px)',
+                            backgroundColor: '#fff',
+                            border: "none",
+                            outline: 'none',
+                            width: '100%',
+                            borderRadius: '5px',
+                            color: "#000"
+                          }
+                        },
+                        attributes: {
+                          name: "message",
+                          placeholder: "Write your message here..."
+                        }
+                      },
+                    ]
+                  },
                 },
                 {
                   'LANDSCAPE': {
                     'id': "lab-button",
                     'tag': "button",
                     'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
                       'positon': "relative",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'background': "#FED05E"
+                      padding: '10px',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontSize: '16px',
+                      backgroundColor: 'rgb(128, 128, 128)',
+                      color: 'rgb(255, 255, 255)',
+                      marginTop: '10px',
                     },
-                    'attributes': {
-                      'type': "button"
-                    },
-                    'text': 'Button'
+                    text: "Send Message"
                   },
-                  'PORTRAIT': {
-                    'id': "lab-button",
-                    'tag': "button",
-                    'styles': {
-                      'padding': '10px 25px',
-                      'textAlign': "center",
-                      'borderRadius': "15px",
-                      'fontWeight': "700",
-                      'color': "#1C1B1F",
-                      'boxSizing': "border-box",
-                      'positon': "relative",
-                      'background': "#FED05E"
-                    },
-                    'text': 'Button'
-                  }
-                }
+                },
               ]
             }
           }
         },
       ]
     },
-    'header': {
+    header: {
       'icon': `https://laboranth.tech/D/R/IMG/CLA/grid.svg`,
       'title': "header",
       'components': [
@@ -3949,7 +4675,6 @@ let ComponentsList = {
 }
 
 
-
 let ActiveMode
 let selected
 let mouseIsDown = false
@@ -4348,10 +5073,10 @@ class DesignConstructor {
       item.style.zIndex = ZInput.value
     })
 
-    const padding = lab_design_system('span', 'padding-box-label', parent, 'padding')
+    const padding = lab_design_system('strong', 'padding-box-label', parent, 'padding')
 
     const paddingBox = lab_design_system('div', "padding-box", parent, '', '', ['design', 'grid-box'])
-    const margin = lab_design_system('span', 'margin-box-label', parent, 'margin')
+    const margin = lab_design_system('strong', 'margin-box-label', parent, 'margin')
     const marginBox = lab_design_system('div', "margin-box", parent, '', '', ['design', 'grid-box'])
 
     const PositionsList = ['top', 'right', 'bottom', 'left']
@@ -4370,6 +5095,7 @@ class DesignConstructor {
       })
     })
 
+    const attributesLabel = lab_design_system('strong', 'attributes-label', parent, 'attributes')
 
     item.getAttributeNames().forEach(n => {
       if (!['style', 'id'].includes(n)) {
@@ -4399,6 +5125,34 @@ class DesignConstructor {
       }
     })
 
+    const attributes = lab_design_system('div', 'attributes', parent)
+    const attributesBox = lab_design_system('div', 'attributes-add-box', parent, '', '', ['design', 'styleBox'])
+    const addlabel = lab_design_system('span', 'attributes-add-label', attributesBox, 'add attribute')
+    const addAtBtn = lab_design_system('button', 'attributes-add-btn', attributesBox, '+')
+    addAtBtn.style.background = '#FED05E'
+    addAtBtn.style.color = '#000'
+    addAtBtn.style.cursor = 'pointer'
+    addAtBtn.style.border = 'none'
+    addAtBtn.style.width = '20px'
+    addAtBtn.style.height = '20px'
+    addAtBtn.style.borderRadius = '50%'
+
+    addAtBtn.addEventListener('click', addAttribute)
+    function addAttribute() {
+      let id = Designer.ID()
+      const wrap = lab_design_system('div', id, attributes, '', '', ['design', 'styleBox'])
+      wrap.style.marginBottom = '10px'
+      wrap.style.gap = '10px'
+
+      const nameWrap = lab_design_system('div', `${id}-name-wrap`, wrap, '', '', ['design', 'inputWrap'])
+      const name = lab_design_system('input', `name-${id}`, nameWrap, '', '', ['design', 'input'])
+
+      const inputWrap = lab_design_system('div', `${id}-input-wrap`, wrap, '', '', ['design', 'inputWrap'])
+      const input = lab_design_system('input', `input-${id}`, inputWrap, '', '', ['design', 'input'])
+      input.addEventListener('input', () => {
+        item.setAttribute(name.value, input.value)
+      })
+    }
   }
 }
 
@@ -4490,6 +5244,7 @@ async function CreateComponent(component, parent, vpm, random, escape = false, i
   let S = component.scripts
 
   async function readObject(temp, child) {
+    console.log(temp);
 
     const obj = temp[vpm]
     const element = document.createElement(obj.tag)
@@ -4622,7 +5377,8 @@ function design_mode(app) {
 
     function RenrerComponentsList() {
       const list = componentGroup.components
-      const listing = lab_design_system('div', 'template-list', menu, '', '', ['design', 'templateList'])
+      const listing = lab_design_system('div', 'template-list', menu, '', 'scrollable', ['design', 'templateList'])
+      listing.style.overflowY = 'scroll'
       listing.setAttribute('data-group', componentGroup.title)
 
       list.forEach(async (e) => {
@@ -4827,7 +5583,11 @@ function design_mode(app) {
   let last = document.getElementById('lab-top-settings')
   if (last) last.remove()
   const topSettings = lab_design_system('div', "top-settings", pageWrap, '', '', ['design', 'top'])
-
+  const homeBtn = lab_design_system('a', "top-home", topSettings, '', '', ['design', 'btn'])
+  const homeBtnIcon = lab_design_system('img', "top-home-icon", homeBtn, '', '', ['design', 'icon'])
+  homeBtn.setAttribute('href', `/`)
+  homeBtnIcon.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/back-icon.svg`)
+  homeBtnIcon.style.width = '24px'
 
   const settingsBtn = DesignConstructor.button(topSettings, ['design', 'btn'], '', 'settings-white', 'none', 'settings-open-app-menu')
   settingsBtn.addEventListener('click', () => {
@@ -5094,11 +5854,11 @@ function design_mode(app) {
     styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
   })
 
-  StylesMenu(page)
   //CODE MENU
 
   const codeMenu = lab_design_system('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
-  const codeMenuButton = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
+  const codeMenuBtn = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
+
 
   const codeWrapper = lab_design_system('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
 
@@ -5106,16 +5866,16 @@ function design_mode(app) {
   codeMenu.style.width = 'clamp(320px, 100%, 950px)'
   codeMenu.style.boxSizing = 'border-box'
 
-  codeMenuButton.addEventListener('click', () => {
+  function closeCodeMenu() {
     codeWrapper.innerHTML = ''
     DesignConstructor.toggleClass(codeMenu, 'design', 'codeBox', 'codeBoxActive')
-    DesignConstructor.toggleClass(codeMenuButton, 'design', 'codeBoxShow', 'codeBoxShowActive')
     codeMenu.style.top = lab_orientation == "PORTRAIT" ? '100px' : "0"
 
     document.getElementById('lab-user-page').innerHTML.split('>').forEach(e => {
       codeWrapper.innerText += e + '>\n            '
     })
-  })
+  }
+  codeMenuBtn.addEventListener('click', () => closeCodeMenu())
 
 
   //CODE MENU END
@@ -5153,9 +5913,17 @@ function design_mode(app) {
     return [r, g, b]
   }
 
+
+
   function StylesMenu(item) {
     const lastSelected = document.querySelector('.lab-selectedItem')
     const box = document.getElementById('lab-style-wrap')
+    const styleMenuBox = document.getElementById('lab-style-box')
+    const codeMenuButton = DesignConstructor.button(styleMenuBox, ['design', 'codeBoxShow'], '', 'code-btn')
+    codeMenuButton.style.left = 'unset'
+    codeMenuButton.style.right = '0'
+    codeMenuButton.addEventListener('click', () => closeCodeMenu())
+
     const itemStyles = window.getComputedStyle(item)
     selectedElementChangeId = item
 
@@ -5932,6 +6700,8 @@ function design_mode(app) {
     }
   }
 
+  StylesMenu(page)
+
   const TempCss = lab_design_system('style', 'temp-css', document.querySelector('body'))
   TempCss.position = 'absolute'
   TempCss.left = '-999999999999px'
@@ -6148,9 +6918,5 @@ async function loadImg(i, items) {
 
 
 return design_mode
-
-
-
-
 
 
