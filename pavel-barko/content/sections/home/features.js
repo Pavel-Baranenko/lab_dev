@@ -1,3 +1,6 @@
+
+
+
 // let oldSrc = 'https://laboranth.tech/D/R/IMG/CLA/'
 let oldSrc = '/DB/USERS_FOLDERS/BHCJFJFCJHBBI_809/apps/pavel-barko/content/sections/home/img/'
 
@@ -1617,10 +1620,574 @@ let ComponentsList = {
         ]
       }
     }
+  ],
+  "footers": [
+    {
+      "LANDSCAPE": {
+        "id": "lab-footer",
+        "tag": "footer",
+        "root": true,
+        "styles": {
+          "background": "#464C59",
+          "padding": "20px 50px",
+          "color": "#fff",
+          "width": "100%",
+          "position": "relative",
+          "boxSizing": "border-box",
+          "display": "flex",
+          "alignItems": "center",
+          "justifyContent": "space-between"
+        },
+        "child": [
+          {
+            "LANDSCAPE": {
+              "id": "lab-div",
+              "tag": "div",
+              "styles": {
+                "display": "flex",
+                "alignItems": "center",
+                "gap": "45px",
+                "marginRight": "auto"
+              },
+              "child": [
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-span",
+                    "tag": "span",
+                    "text": "Laboranth  |  2024",
+                    "styles": {
+                      "fontSize": "14px",
+                      "fontWeight": "400"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "Legal CGU/CGV",
+                    "styles": {
+                      "textDecoration": "underline",
+                      "fontSize": "14px",
+                      "fontWeight": "400"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-email",
+              "tag": "a",
+              "text": "info@laboranth.tech",
+              "styles": {
+                "fontWeight": "700",
+                "fontSize": "14px"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "LANDSCAPE": {
+        "id": "lab-footer",
+        "tag": "footer",
+        "root": true,
+        "styles": {
+          "background": "#1E2022",
+          "padding": "40px 70px",
+          "color": "#fff",
+          "borderRadius": "40px",
+          "width": "calc(100% - 120px)",
+          "margin": "0 auto",
+          "position": "relative",
+          "boxSizing": "border-box",
+          "display": "flex",
+          "justifyContent": "space-between"
+        },
+        "child": [
+          {
+            "LANDSCAPE": {
+              "id": "lab-div",
+              "tag": "div",
+              "styles": {
+                "display": "flex",
+                "flexDirection": "column",
+                "gap": "10px"
+              },
+              "child": [
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-span",
+                    "tag": "span",
+                    "text": "Laboranth  |  2024",
+                    "styles": {
+                      "fontSize": "14px",
+                      "fontWeight": "400"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "Legal CGU/CGV",
+                    "styles": {
+                      "textDecoration": "underline",
+                      "fontSize": "14px",
+                      "fontWeight": "400"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-email",
+                    "tag": "a",
+                    "text": "info@laboranth.tech",
+                    "styles": {
+                      "fontWeight": "700",
+                      "fontSize": "14px"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-div",
+              "tag": "div",
+              "styles": {
+                "display": "flex",
+                "flexDirection": "column",
+                "gap": "10px"
+              },
+              "child": [
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "E-commerce Websites",
+                    "styles": {
+                      "textDecoration": "underline"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "Portfolio Websites",
+                    "styles": {
+                      "textDecoration": "underline"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "Corporate Websites",
+                    "styles": {
+                      "textDecoration": "underline"
+                    }
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "text": "Blogs",
+                    "styles": {
+                      "textDecoration": "underline"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-div",
+              "tag": "div",
+              "styles": {
+                "display": "flex",
+                "alignItems": "center",
+                "gap": "10px"
+              },
+              "child": [
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "child": [
+                      {
+                        "LANDSCAPE": {
+                          "id": "lab-link",
+                          "tag": "img",
+                          "attributes": {
+                            "src": "https://laboranth.tech/D/R/IMG/CLA/fb-icon.svg"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "child": [
+                      {
+                        "LANDSCAPE": {
+                          "id": "lab-link",
+                          "tag": "img",
+                          "attributes": {
+                            "src": "https://laboranth.tech/D/R/IMG/CLA/x-icon.svg"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "child": [
+                      {
+                        "LANDSCAPE": {
+                          "id": "lab-link",
+                          "tag": "img",
+                          "attributes": {
+                            "src": "https://laboranth.tech/D/R/IMG/CLA/pinterest-icon.svg"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-link",
+                    "tag": "a",
+                    "child": [
+                      {
+                        "LANDSCAPE": {
+                          "id": "lab-link",
+                          "tag": "img",
+                          "attributes": {
+                            "src": "https://laboranth.tech/D/R/IMG/CLA/instagram-icon.svg"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "containers": [
+    {
+      "LANDSCAPE": {
+        "id": "lab-section",
+        "tag": "section",
+        "classes": "lab-empty-section",
+        "root": true,
+        "styles": {
+          "background": "#FFFFFF",
+          "padding": "80px 20px",
+          "position": "relative",
+          "zIndex": 1
+        }
+      }
+    },
+    {
+      "LANDSCAPE": {
+        "id": "lab-section",
+        "tag": "div",
+        "classes": "lab-empty-section",
+        "root": true,
+        "styles": {
+          "background": "#FFFFFF",
+          "padding": "20px 20px",
+          "position": "relative",
+          "zIndex": 1
+        }
+      }
+    },
+    {
+      "LANDSCAPE": {
+        "id": "lab-accordion",
+        "tag": "div",
+        "classes": "lab-accordion",
+        "root": true,
+        "styles": {
+          "background": "#FFFFFF",
+          "borderRadius": "30px",
+          "width": "650px",
+          "padding": "0",
+          "position": "relative",
+          "zIndex": 1
+        },
+        "child": [
+          {
+            "LANDSCAPE": {
+              "id": "lab-accordion-top",
+              "tag": "div",
+              "classes": "lab-accordion-top",
+              "styles": {
+                "display": "flex",
+                "alignItems": "center",
+                "boxSizing": "border-box",
+                "gap": "20px",
+                "padding": "0 20px 0 0",
+                "position": "relative",
+                "zIndex": 1,
+                "borderRadius": "80px"
+              },
+              "child": [
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-accordion-icon-wrap",
+                    "tag": "div",
+                    "classes": "lab-accordion-icon-wrap",
+                    "styles": {
+                      "position": "relative",
+                      "background": "#59BCC1",
+                      "display": "flex",
+                      "boxSizing": "border-box",
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                      "width": "60px",
+                      "height": "60px",
+                      "borderRadius": "80px",
+                      "zIndex": 1
+                    },
+                    "child": [
+                      {
+                        "LANDSCAPE": {
+                          "id": "lab-accordion-icon",
+                          "tag": "img",
+                          "classes": "lab-accordion-icon",
+                          "styles": {
+                            "position": "relative",
+                            "width": "28px",
+                            "height": "28px",
+                            "zIndex": 1
+                          },
+                          "attributes": {
+                            "src": "https://laboranth.tech/D/R/IMG/CLA/accordion-icon.svg"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-accordion-heading",
+                    "tag": "span",
+                    "classes": "lab-accordion-heading",
+                    "styles": {
+                      "position": "relative",
+                      "fontSize": "clamp(12px, 2vw, 24px)",
+                      "color": "#000",
+                      "zIndex": 1
+                    },
+                    "text": "Accordion heading"
+                  }
+                },
+                {
+                  "LANDSCAPE": {
+                    "id": "lab-accordion-arrow",
+                    "tag": "img",
+                    "classes": "lab-accordion-arrow",
+                    "styles": {
+                      "width": "30px",
+                      "height": "30px",
+                      "position": "relative",
+                      "zIndex": 1,
+                      "transform": "rotate(-180deg)",
+                      "marginLeft": "auto",
+                      "cursor": "pointer"
+                    },
+                    "attributes": {
+                      "src": "https://laboranth.tech/D/R/IMG/CLA/accordion-arrow-icon.svg"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-accordion-box",
+              "tag": "p",
+              "classes": "lab-accordion-box",
+              "styles": {
+                "background": "#FFFFFF",
+                "width": "100%",
+                "padding": "20px",
+                "margin": 0,
+                "boxSizing": "border-box",
+                "position": "relative",
+                "zIndex": 1,
+                "borderRadius": "0 0 30px 30px"
+              },
+              "text": "Easily navigate the interface without technical expertise.\nDrag-and-drop functionality and pre-designed templates for quick setup.\nStep-by-step guides and helpful tips."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "LANDSCAPE": {
+        "id": "lab-carousel",
+        "tag": "div",
+        "classes": "lab-carousel",
+        "root": true,
+        "styles": {
+          "width": "100%",
+          "overflowX": "scroll",
+          "display": "flex",
+          "position": "relative",
+          "zIndex": 1,
+          "scrollSnapType": "x mandatory"
+        },
+        "child": [
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-1.png"
+              }
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-2.png"
+              }
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-3.png"
+              }
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-4.png"
+              }
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-5.png"
+              }
+            }
+          },
+          {
+            "LANDSCAPE": {
+              "id": "lab-carousel-img",
+              "tag": "img",
+              "classes": "lab-carousel-img",
+              "styles": {
+                "width": "33%",
+                "position": "relative",
+                "zIndex": 1,
+                "scrollSnapAlign": "center"
+              },
+              "attributes": {
+                "src": "https://laboranth.tech/D/R/IMG/CLA/carousel-img-6.png"
+              }
+            }
+          }
+        ]
+      }
+    }
   ]
 }
 
+// lab_code_injection_array(descriptorArray)
 
+// lab_code_injection_array(descriptorArray)
+// const descriptorArray = [
+//   {
+//     type: "const",
+//     name: "userLSG",
+//     value: "lab_local_storage_object('global')"
+//   },
+//   {
+//     type: "let",
+//     name: p.mouseEvent.target.id,
+//     value: `document.querySelector('#' + '${p.mouseEvent.target.id}')`
+//   },
+//   {
+//     type: "function",
+//     name: "redirectTo_" + s,
+//     value: `if(userLSG.env === "DEV") {
+//                             ${p.mouseEvent.target.id}.addEventListener('click', e => {
+//                               window.open("http://localhost:1111/" + userLSG.app + "/" + '${s}', "_self")
+//                             })
+//                         }`
+//   }
+// ]
 let ActiveMode
 let selected
 let mouseIsDown = false
@@ -2336,7 +2903,7 @@ function design_mode(app) {
         component.style.cursor = 'pointer'
         component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
 
-        if (['header', 'footer'].includes(e.LANDSCAPE.tag)) {
+        if (['header', 'footer', 'div', 'section'].includes(e.LANDSCAPE.tag)) {
           component.style.width = '600px'
           component.style.scale = '0.5'
           component.style.position = 'relative'
