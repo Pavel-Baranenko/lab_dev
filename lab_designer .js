@@ -1,5 +1,3 @@
-// ComponentsList
-
 let ActiveMode
 let selected
 let mouseIsDown = false
@@ -481,7 +479,7 @@ class DesignConstructor {
   }
 }
 
-//FOR TOOLBAR ELEMENTS
+// TOOLBAR ELEMENTS
 const elementsToolsList = {
   'span': {
     'icon': `https://laboranth.tech/D/R/IMG/CLA/arrow_menu_close.svg`,
@@ -639,7 +637,7 @@ function design_mode(app) {
     'sideMenu': true,
   }
 
-  //SIDE MENU
+  // SIDE MENU
 
   const menu = lab_design_system('div', 'side-menu', designBody, '', 'scrollable', ['design', 'side'])
   const menuButton = DesignConstructor.button(menu, ['design', 'showMenu'], '', 'arrow_menu_close', 'none', 'side-menu-open')
@@ -668,92 +666,160 @@ function design_mode(app) {
 
   const elementsBox = lab_design_system('div', "elements-box", menu, '', 'scrollable', ['design', 'elementsBox'])
 
-  const elementsTitle = lab_design_system('span', 'elements-box-heading', elementsBox, "Elements", '', ['design', 'templatesHeading'])
+  const elementsTitle = lab_design_system('span', 'elements-box-heading', elementsBox, app.lngData.components, '', ['design', 'templatesHeading'])
   const elementsWrap = lab_design_system('div', 'elements-box-wrap', elementsBox, '', '', ['design', 'templates'])
 
-  function addList(e, list) {
-    Object.keys(e).map(el => {
-      const item = lab_design_system('div', Designer.ID(), list, '', '', ['design', 'template'])
-      const icon = lab_design_system('div', Designer.ID(), item, '', '', ['design', 'templateIcon'])
-      const img = lab_design_system('img', Designer.ID(), icon)
-      img.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
-      img.style.width = '30px'
-      img.style.height = '30px'
-      const text = lab_design_system('span', Designer.ID(), item, el)
-      item.addEventListener('click', () => OpenList(e[el]))
-    })
-  }
+  const headersComponents = lab_design_system('div', 'headers-components', elementsWrap, '', '', ['design', 'template'])
+  const headersComponentsIcon = lab_design_system('div', 'headers-components-icon', headersComponents, '', '', ['design', 'templateIcon'])
+  const headersComponentsImg = lab_design_system('img', 'headers-components-img', headersComponentsIcon)
+  headersComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  headersComponentsImg.style.width = '30px'
+  headersComponentsImg.style.height = '30px'
 
-  addList(ComponentsList, elementsWrap)
+  const headersComponentsLabel = lab_design_system('span', 'headers-components-label', headersComponents, app.lngData.headers)
+  headersComponents.addEventListener('click', () => OpenList('headers'))
 
-  function OpenList(componentGroup) {
+  const buttonsComponents = lab_design_system('div', 'buttons-components', elementsWrap, '', '', ['design', 'template'])
+  const buttonsComponentsIcon = lab_design_system('div', 'buttons-components-icon', buttonsComponents, '', '', ['design', 'templateIcon'])
+  const buttonsComponentsImg = lab_design_system('img', 'buttons-components-img', buttonsComponentsIcon)
+  buttonsComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  buttonsComponentsImg.style.width = '30px'
+  buttonsComponentsImg.style.height = '30px'
+
+  const buttonsComponentsLabel = lab_design_system('span', 'buttons-components-label', buttonsComponents, app.lngData.buttons)
+  buttonsComponents.addEventListener('click', () => OpenList('buttons'))
+
+  const inputsComponents = lab_design_system('div', 'inputs-components', elementsWrap, '', '', ['design', 'template'])
+  const inputsComponentsIcon = lab_design_system('div', 'inputs-components-icon', inputsComponents, '', '', ['design', 'templateIcon'])
+  const inputsComponentsImg = lab_design_system('img', 'inputs-components-img', inputsComponentsIcon)
+  inputsComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  inputsComponentsImg.style.width = '30px'
+  inputsComponentsImg.style.height = '30px'
+
+  const inputsComponentsLabel = lab_design_system('span', 'inputs-components-label', inputsComponents, app.lngData.inputs)
+  inputsComponents.addEventListener('click', () => OpenList('inputs'))
+
+  const formsComponents = lab_design_system('div', 'forms-components', elementsWrap, '', '', ['design', 'template'])
+  const formsComponentsIcon = lab_design_system('div', 'forms-components-icon', formsComponents, '', '', ['design', 'templateIcon'])
+  const formsComponentsImg = lab_design_system('img', 'forms-components-img', formsComponentsIcon)
+  formsComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  formsComponentsImg.style.width = '30px'
+  formsComponentsImg.style.height = '30px'
+
+  const formsComponentsLabel = lab_design_system('span', 'forms-components-label', formsComponents, app.lngData.forms)
+  formsComponents.addEventListener('click', () => OpenList('forms'))
+
+  const spacersComponents = lab_design_system('div', 'spacers-components', elementsWrap, '', '', ['design', 'template'])
+  const spacersComponentsIcon = lab_design_system('div', 'spacers-components-icon', spacersComponents, '', '', ['design', 'templateIcon'])
+  const spacersComponentsImg = lab_design_system('img', 'spacers-components-img', spacersComponentsIcon)
+  spacersComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  spacersComponentsImg.style.width = '30px'
+  spacersComponentsImg.style.height = '30px'
+
+  const spacersComponentsLabel = lab_design_system('span', 'spacers-components-label', spacersComponents, app.lngData.spacers)
+  spacersComponents.addEventListener('click', () => OpenList('spacers'))
+
+  const footersComponents = lab_design_system('div', 'footers-components', elementsWrap, '', '', ['design', 'template'])
+  const footersComponentsIcon = lab_design_system('div', 'footers-components-icon', footersComponents, '', '', ['design', 'templateIcon'])
+  const footersComponentsImg = lab_design_system('img', 'footers-components-img', footersComponentsIcon)
+  footersComponentsImg.setAttribute('src', 'https://laboranth.tech/D/R/IMG/CLA/grid.svg')
+  footersComponentsImg.style.width = '30px'
+  footersComponentsImg.style.height = '30px'
+
+  const footersComponentsLabel = lab_design_system('span', 'footers-components-label', footersComponents, app.lngData.footers)
+  footersComponents.addEventListener('click', () => OpenList('footers'))
+
+  let componentsObject
+
+  const userLSG = lab_local_storage_object('global')
+  socket.emit("getLabComponents", userLSG, components => {
+    componentsObject = components
+    lab_fade_in_recursively(menu, 0.3)
+  })
+
+  function OpenList(componentsGroup) {
     let last = document.getElementById('lab-template-list')
     if (last) {
       let selected = last.getAttribute('data-group')
       last.remove()
-      if (selected != componentGroup.title) {
-        RenrerComponentsList()
+      if (selected != componentsGroup) {
+        RenderComponentsList()
       }
     }
-    else RenrerComponentsList()
+    else RenderComponentsList()
 
-    function RenrerComponentsList() {
+    function RenderComponentsList() {
       const listing = lab_design_system('div', 'template-list', menu, '', 'scrollable', ['design', 'templateList'])
       listing.style.overflowY = 'scroll'
-      listing.setAttribute('data-group', componentGroup.title)
+      listing.setAttribute('data-group', componentsGroup)
 
-      componentGroup.forEach(async (e) => {
-        let parent = listing
-        if (['header', 'footer'].includes(e.LANDSCAPE.tag)) {
-          const componentWrap = lab_design_system('div', 'component-wrap', listing)
-          componentWrap.style.width = '300px'
-          componentWrap.style.overflowX = 'hidden'
-          parent = componentWrap
-        }
+      function openComponents(plan) {
+        componentsObject.data[plan][componentsGroup].forEach(async (e) => {
+          let parent = listing
+          if (['header', 'footer'].includes(e.LANDSCAPE.tag)) {
+            const componentWrap = lab_design_system('div', 'component-wrap', listing)
+            componentWrap.style.width = '300px'
+            componentWrap.style.overflowX = 'hidden'
+            parent = componentWrap
+          }
 
-        const component = await CreateComponent(e, parent, 'LANDSCAPE', true, true)
-        component.style.cursor = 'pointer'
-        component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
+          const component = await CreateComponent(e, parent, 'LANDSCAPE', true, true)
+          component.style.cursor = 'pointer'
+          component.style.boxShadow = '1px 2px 8px 0px rgba(34, 60, 80, 0.2)'
 
-        if (['header', 'footer'].includes(e.LANDSCAPE.tag)) {
-          component.style.width = '600px'
-          component.style.scale = '0.5'
-          component.style.position = 'relative'
-          component.style.left = '-150px'
-        }
+          if (['header', 'footer'].includes(e.LANDSCAPE.tag)) {
+            component.style.width = '600px'
+            component.style.scale = '0.5'
+            component.style.position = 'relative'
+            component.style.left = '-150px'
+          }
 
-        component.addEventListener('mousedown', () => {
-          const coord = component.getBoundingClientRect()
-          const copy = Designer.copy(component)
-          copy.style.position = "absolute"
-          copy.style.opacity = "0.7"
-          copy.style.left = `${coord.left}px`
-          copy.style.top = `${coord.top}px`
+          component.addEventListener('mousedown', () => {
+            const coord = component.getBoundingClientRect()
+            const copy = Designer.copy(component)
+            copy.style.position = "absolute"
+            copy.style.opacity = "0.7"
+            copy.style.left = `${coord.left}px`
+            copy.style.top = `${coord.top}px`
 
-          Designer.move(copy, async () => {
-            const copyPos = copy.getBoundingClientRect()
-            copy.remove()
-            const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
-            const item = await CreateComponent(e, page, 'LANDSCAPE', true)
+            Designer.move(copy, async () => {
+              const copyPos = copy.getBoundingClientRect()
+              copy.remove()
+              const pagePos = document.getElementById('lab-user-page').getBoundingClientRect()
+              const item = await CreateComponent(e, page, 'LANDSCAPE', true)
 
-            if (!['header', 'div', 'section', 'footer'].includes((item.tagName).toLowerCase())) {
-              item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
-              item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
-              item.style.position = 'absolute'
-              item.style.zIndex = '1'
-            }
+              if (!['header', 'div', 'section', 'footer'].includes((item.tagName).toLowerCase())) {
+                item.style.top = (copyPos.y - pagePos.y) / pagePos.height * 100 + '%'
+                item.style.left = (copyPos.x - pagePos.x) / pagePos.width * 100 + '%'
+                item.style.position = 'absolute'
+                item.style.zIndex = '1'
+              }
+            })
           })
         })
-      })
+      }
+
+      if (componentsObject.data.free) {
+        openComponents('free')
+      }
+
+      if (componentsObject.data.laboranth) {
+        openComponents('laboranth')
+      }
+
+      if (componentsObject.data.agency) {
+        openComponents('agency')
+      }
+
+      if (componentsObject.data.premium) {
+        openComponents('premium')
+      }
+
       lab_fade_in_recursively(listing, 0.3)
     }
   }
 
-  //SIDE MENU END
-
-  //USER PAGE
-
-
+  // USER PAGE
   page.addEventListener('mouseover', (p) => {
     Designer.hover(p.target)
   })
@@ -791,10 +857,9 @@ function design_mode(app) {
     }
   })
 
+  // USER PAGE END
 
-  //USER PAGE END
-
-  //TOOLBAR
+  // TOOLBAR
 
   const toolBar = lab_design_system('div', "designers-bar", designBody, '', '', ['design', 'toolbar'])
 
@@ -897,7 +962,7 @@ function design_mode(app) {
   toolBar.style.bottom = lab_orientation == "PORTRAIT" ? "10px" : "30px"
   if (!options.toolBar) DesignConstructor.addClass(toolBar, 'design', 'hideToolbar')
 
-  //TOPSETTINGS
+  // TOPSETTINGS
   pageWrap.style.position = 'relative'
   designBody.appendChild(pageWrap)
 
@@ -933,7 +998,6 @@ function design_mode(app) {
 
     let elements = app.elements[vpm].filter(el => el.id != "lab-user-page" && el.id != "lab-user-wrap")
     let path
-
 
     async function renderParents() {
       for (let i = 0; i < elements.length; i++) {
@@ -1043,7 +1107,6 @@ function design_mode(app) {
   const arrow = lab_design_system('img', 'page-arrow', setPage)
   arrow.setAttribute('src', `https://laboranth.tech/D/R/IMG/CLA/chevron_right.svg`)
 
-
   setPage.addEventListener('click', () => {
     let last = document.getElementById('lab-pages-list')
     if (last) last.remove()
@@ -1067,7 +1130,6 @@ function design_mode(app) {
     add.style.fontWeight = '700'
 
     add.addEventListener('click', () => addPagePopup())
-
 
     function addPagePopup() {
       list.remove()
@@ -1175,11 +1237,10 @@ function design_mode(app) {
     styleMenu.style.marginRight = styleMenu.style.marginRight == '-300px' ? '0' : '-300px'
   })
 
-  //CODE MENU
+  // CODE MENU
 
   const codeMenu = lab_design_system('div', 'code-box', designBody, '', 'none', ['design', 'codeBox'])
   const codeMenuBtn = DesignConstructor.button(codeMenu, ['design', 'codeBoxShow'], '', 'code-btn')
-
 
   const codeWrapper = lab_design_system('div', "code-wrapper", codeMenu, '', '', ['design', 'codeWrapper'])
 
@@ -1198,8 +1259,7 @@ function design_mode(app) {
   }
   codeMenuBtn.addEventListener('click', () => closeCodeMenu())
 
-
-  //CODE MENU END
+  // CODE MENU END
 
   const fileInput = lab_design_system('input', 'img-input', designBody, '', '', ['design', 'noneFile'])
   fileInput.setAttribute('type', 'file')
@@ -1233,8 +1293,6 @@ function design_mode(app) {
 
     return [r, g, b]
   }
-
-
 
   function StylesMenu(item) {
     const lastSelected = document.querySelector('.lab-selectedItem')
@@ -1315,7 +1373,6 @@ function design_mode(app) {
         if (e == 'styles') {
           btnIcon.style.height = '32px'
         }
-
 
         if (e == activeSettings) {
           btn.classList.add('active')
@@ -1461,6 +1518,7 @@ function design_mode(app) {
                 item.style.background = `rgba(${colorBgPoints[0]}, ${colorBgPoints[1]}, ${colorBgPoints[2]}, ${opacityInput.value / 100})`
                 colorBgPoints[3] = opacityInput.value / 100
               })
+
               const opacityLabel = lab_design_system('label', "input-label-opacity", opacityInputBox, '%')
 
               const removeBg = lab_design_system('button', "remove-bg-btn", colorWrap)
@@ -1613,7 +1671,6 @@ function design_mode(app) {
                     })
 
                     lab_fade_in_recursively(backgroundBox, 0.3)
-
                   }
                 }
 
@@ -1646,7 +1703,6 @@ function design_mode(app) {
               newColorBtn.style.border = 'none'
               newColorBtn.style.cursor = 'pointer'
               newColorBtn.addEventListener('click', () => addColor())
-
 
               function writeColor() {
                 let gradientStr = `${gradientType}-gradient(${gradientAngle}${gradientAngle == 'circle' ? "" : "deg"}`
@@ -1794,7 +1850,6 @@ function design_mode(app) {
             whriteShadow()
           })
 
-
           const stretc = lab_design_system('span', 'stretc-shadow', elementMenuBody, 'Stretching')
           const stretcBox = lab_design_system('span', 'stretc-shadow-box', elementMenuBody)
           stretcBox.style.display = 'flex'
@@ -1854,7 +1909,6 @@ function design_mode(app) {
           borderColorInput.addEventListener('input', () => {
             item.style.borderColor = borderColorInput.value
           })
-
         }
 
         if (param == 'text') {
@@ -2232,10 +2286,7 @@ async function loadImg(i, items) {
     }
   }
 
-
-
   return await processFile()
 }
-
 
 return design_mode
